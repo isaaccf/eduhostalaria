@@ -40,7 +40,14 @@ server
 |-- index.js : 'Launch app, calling ts-node and our init server'
 ```
 
+# Why exceptions file
+To provide a common errors for HTTP request.
+
 # Middleware
 There is a [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users.middleware.ts) for users routes. This middleware validate that in request header appear a field 'name' which contain the name from one of the users in the database. This is apply to all users routes.
 
 The other [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users2.middleware.ts) only validate in delete route, and test if the user will delete himself.
+
+# TODO
+* Generate a tslint file
+* Validate and test the transpile.
