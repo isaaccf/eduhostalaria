@@ -1,0 +1,33 @@
+{
+  "name": "server-reserva-escola",
+  "version": "1.0.0",
+  "description": "Servidor Reservas para Escolas de Hostelaría",
+  "main": "index.js",
+  "scripts": {
+    "reload": "nodemon -e ts --watch src ./index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgoraBinaria/reserva-escola.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AgoraBinaria/reserva-escola/issues"
+  },
+  "homepage": "https://github.com/AgoraBinaria/reserva-escola#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "nest.js": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.3",
+    "@types/express": "^4.0.35",
+    "@types/node": "^7.0.18",
+    "nodemon": "^1.11.0",
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.2"
+  }
+}
