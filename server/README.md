@@ -2,6 +2,11 @@
 Reservas para Escolas de Hostelaría
 
 
+# Prerequisites
+* Node 7.6 or better.
+
+> Note: Node with support for async/await.
+
 # Install dependencies
 ```bash
 $npm install
