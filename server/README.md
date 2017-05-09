@@ -3,8 +3,17 @@ Reservas para Escolas de Hostelaría
 
 
 # Install dependencies
-npm install
+```bash
+$npm install
+```
 
 # Start server
-$npm run reload // Refresh automaticatly when change file
+```bash
+$npm run reload 
+```
+> Note: Auto refresh when changes files on src
+```bash
 $npm run start
+```
+
+# Project Structure
