@@ -7,7 +7,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
-    "outDir": "../dist/server"
+    "outDir": "../dist"
   },
   "exclude": [
     "node_modules"

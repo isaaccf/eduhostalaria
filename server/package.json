@@ -1,6 +1,6 @@
 {
-  "name": "server-reserva-escola",
-  "version": "1.0.0",
+  "name": "server-reserva-escola-hostelaria",
+  "version": "0.1.0",
   "description": "Servidor Reservas para Escolas de Hostelaría",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/AgoraBinaria/reserva-escola.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Ágora Binaria S.L."
+  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AgoraBinaria/reserva-escola/issues"
   },

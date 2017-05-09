@@ -1,6 +1,10 @@
 {
   "name": "reserva-escola-hostelaria",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Cliente web Reservas para Escolas de Hostelaría",
+  "author": {
+    "name": "Ágora Binaria S.L."
+  },
   "license": "MIT",
   "scripts": {
     "ng": "ng",

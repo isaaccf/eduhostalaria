@@ -15,7 +15,6 @@ export class UsersController {
 
     @Get('/:id')
     public async getById( @Response() res: express.Response, @Param('id') id: string) {
-        /*+ : Convert string to number*/
         const user = await this.usersService.getById(+id);
         res.status(HttpStatus.OK).json(user);
     }
@@ -25,14 +24,14 @@ export class UsersController {
         if (!user.name) {
             throw new UserParamsException('name');
         }
-        const u = await this.usersService.add(user);
-        res.status(HttpStatus.CREATED).json(u);
+        const newUser = await this.usersService.add(user);
+        res.status(HttpStatus.CREATED).json(newUser);
     }
 
     @Delete('/:id')
-    public async remove(@Response() res:express.Response, @Param('id') id: string) {
-        const msg = await this.usersService.remove(+id)
-        res.status(HttpStatus.OK).json(msg);
+    public async remove( @Response() res: express.Response, @Param('id') id: string) {
+        await this.usersService.remove(+id)
+        res.status(HttpStatus.NO_CONTENT).json(null);
     }
 
 }
