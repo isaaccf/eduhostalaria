@@ -28,6 +28,9 @@ server
 |    |          |-- users.service.ts: 'The service to access to data'
 |    |          |-- users.service.ts: 'The middleware to users routes'
 |    |          |-- users.module.ts: 'The module, import depencencies and export services'
+|    |          |-- users.exceptions.ts: 'This file provide all exceptions for users.'
+|    |-- utils
+|    |    |-- exceptions.ts: 'Exceptions constructor'
 |    |-- index.ts : 'Content server init logic'
 |-- index.js : 'Launch app, calling ts-node and our init server'
 ```

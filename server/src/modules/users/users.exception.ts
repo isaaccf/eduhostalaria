@@ -1,4 +1,4 @@
-import { NotFoundException, GoneException, ConflictException, BadRequestException } from './../exceptions';
+import { NotFoundException, GoneException, ConflictException, BadRequestException } from './../../utils/exceptions';
 
 export class UserNotFoundException extends NotFoundException {
     constructor() {
