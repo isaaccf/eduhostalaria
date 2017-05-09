@@ -1,4 +1,4 @@
-import { Component, HttpException } from 'nest.js';
+import { Component, HttpException, HttpStatus } from 'nest.js';
 
 export interface IUser {
     name: string;
@@ -22,7 +22,7 @@ export class UsersService {
     getById(id: number): Promise<IUser> {
         let user = this.users.find(user => user.id === id);
         if (!user) {
-            throw new HttpException('User not found', 404);
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
         }
         return Promise.resolve(user);
     }
@@ -30,7 +30,7 @@ export class UsersService {
     add(user: IUser) {
         const u = this.users.find(u => u.name === user.name);
         if (u) {
-            throw new HttpException(`User ${user.name} exsists`, 409);
+            throw new HttpException(`User ${user.name} exsists`, HttpStatus.CONFLICT);
         }
 
         user.id = this.lastId++;
@@ -42,7 +42,7 @@ export class UsersService {
     remove(id: number) {
         const index = this.users.findIndex(user => user.id === id);
         if (index === -1) {
-            throw new HttpException('User already delete', 410)
+            throw new HttpException('User already delete', HttpStatus.GONE)
         }
         this.users.splice(index, 1);
         

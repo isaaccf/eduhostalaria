@@ -26,7 +26,13 @@ server
 |    |   |-- users: 'Content users controller and respository'
 |    |          |-- users.controller.ts: 'The controller for routes'
 |    |          |-- users.service.ts: 'The service to access to data'
+|    |          |-- users.service.ts: 'The middleware to users routes'
 |    |          |-- users.module.ts: 'The module, import depencencies and export services'
 |    |-- index.ts : 'Content server init logic'
 |-- index.js : 'Launch app, calling ts-node and our init server'
 ```
+
+# Middleware
+There is a [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users.middleware.ts) for users routes. This middleware validate that in request header appear a field 'name' which contain the name from one of the users in the database. This is apply to all users routes.
+
+The other [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users2.middleware.ts) only validate in delete route, and test if the user will delete himself.

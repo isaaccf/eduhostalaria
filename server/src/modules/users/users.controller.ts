@@ -22,7 +22,7 @@ export class UsersController {
     @Post()
     public async add( @Response() res: express.Response, @Body() user: IUser) {
         if (!user.name) {
-            throw new HttpException('Bad request', 400);
+            throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
         }
         const u = await this.usersService.add(user);
         res.status(HttpStatus.CREATED).json(u);
