@@ -1,2 +1,2 @@
 # reserva-escola
-Reservas para Escolas de Hostelaría
+Reservas para Escolas de Hostelería
