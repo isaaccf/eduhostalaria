@@ -1,5 +1,5 @@
-import { UsersService } from './users.service';
-import { Response, Controller, Get, Delete, Param, Post, HttpStatus } from 'nest.js';
+import { UsersService, IUser } from './users.service';
+import { Response, Controller, Get, Delete, Param, Post, Body, HttpStatus, HttpException } from 'nest.js';
 import * as express from 'express';
 
 @Controller('users')
@@ -20,8 +20,12 @@ export class UsersController {
     }
 
     @Post()
-    add() {
-
+    public async add( @Response() res: express.Response, @Body() user: IUser) {
+        if (!user.name) {
+            throw new HttpException('Bad request', 400);
+        }
+        const u = await this.usersService.add(user);
+        res.status(HttpStatus.CREATED).json(u);
     }
 
     @Delete()

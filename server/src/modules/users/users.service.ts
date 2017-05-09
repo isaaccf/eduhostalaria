@@ -2,17 +2,18 @@ import { Component, HttpException } from 'nest.js';
 
 export interface IUser {
     name: string;
-    id: number;
+    id?: number;
 }
 
 @Component()
 export class UsersService {
-    private users = [
+    private users: IUser[] = [
         { id: 1, name: 'Alberto' },
         { id: 2, name: 'Arturo' },
-        { id: 4, name: 'Elias' },
-        { id: 3, name: 'Mario' }
+        { id: 3, name: 'Elias' },
+        { id: 4, name: 'Mario' }
     ];
+    private lastId = 5;
 
     getAll(): Promise<IUser[]> {
         return Promise.resolve(this.users);
@@ -25,4 +26,18 @@ export class UsersService {
         }
         return Promise.resolve(user);
     }
+
+    add(user: IUser) {
+        const u = this.users.find(u => u.name === user.name);
+        if (u) {
+            throw new HttpException(`User ${user.name} exsists`, 409);
+        }
+
+        user.id = this.lastId++;
+        this.users.push(user);
+
+        return Promise.resolve(user);
+    }
+
+
 }
