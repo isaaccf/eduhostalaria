@@ -39,5 +39,15 @@ export class UsersService {
         return Promise.resolve(user);
     }
 
+    remove(id: number) {
+        const index = this.users.findIndex(user => user.id === id);
+        if (index === -1) {
+            throw new HttpException('User already delete', 410)
+        }
+        this.users.splice(index, 1);
+        
+        return Promise.resolve();
+    }
+
 
 }

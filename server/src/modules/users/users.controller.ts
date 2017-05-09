@@ -28,9 +28,10 @@ export class UsersController {
         res.status(HttpStatus.CREATED).json(u);
     }
 
-    @Delete()
-    remove() {
-
+    @Delete('/:id')
+    public async remove(@Response() res:express.Response, @Param('id') id: string) {
+        const msg = await this.usersService.remove(+id)
+        res.status(HttpStatus.OK).json(msg);
     }
 
 }
