@@ -1,3 +1,4 @@
+import { UserParamsException } from './users.exception';
 import { UsersService, IUser } from './users.service';
 import { Response, Controller, Get, Delete, Param, Post, Body, HttpStatus, HttpException } from 'nest.js';
 import * as express from 'express';
@@ -22,7 +23,7 @@ export class UsersController {
     @Post()
     public async add( @Response() res: express.Response, @Body() user: IUser) {
         if (!user.name) {
-            throw new HttpException('Bad request', HttpStatus.BAD_REQUEST);
+            throw new UserParamsException('name');
         }
         const u = await this.usersService.add(user);
         res.status(HttpStatus.CREATED).json(u);

@@ -1,3 +1,4 @@
+import { UserNotFoundException, UserExistsException, UserGoneException } from './users.exception';
 import { Component, HttpException, HttpStatus } from 'nest.js';
 
 export interface IUser {
@@ -22,7 +23,7 @@ export class UsersService {
     getById(id: number): Promise<IUser> {
         let user = this.users.find(user => user.id === id);
         if (!user) {
-            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+            throw new UserNotFoundException();
         }
         return Promise.resolve(user);
     }
@@ -30,7 +31,7 @@ export class UsersService {
     add(user: IUser) {
         const u = this.users.find(u => u.name === user.name);
         if (u) {
-            throw new HttpException(`User ${user.name} exsists`, HttpStatus.CONFLICT);
+            throw new UserExistsException(user.name);
         }
 
         user.id = this.lastId++;
@@ -42,7 +43,7 @@ export class UsersService {
     remove(id: number) {
         const index = this.users.findIndex(user => user.id === id);
         if (index === -1) {
-            throw new HttpException('User already delete', HttpStatus.GONE)
+            throw new UserGoneException();
         }
         this.users.splice(index, 1);
         
