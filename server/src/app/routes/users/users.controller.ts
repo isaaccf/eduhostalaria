@@ -31,7 +31,7 @@ export class UsersController {
     @Delete('/:id')
     public async remove( @Response() res: express.Response, @Param('id') id: string) {
         await this.usersService.remove(+id)
-        res.status(HttpStatus.NO_CONTENT).json(null);
+        res.status(HttpStatus.NO_CONTENT).send();
     }
 
 }
