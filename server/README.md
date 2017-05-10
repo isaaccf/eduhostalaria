@@ -7,6 +7,15 @@ Reservas para Escolas de Hostelaría
 
 > Note: Node with support for async/await.
 
+# Recomended
+* Visual Studio Code
+
+## Plugins
+* [TS Lint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+* [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
+* [Auto import](https://marketplace.visualstudio.com/items?itemName=steoates.autoimport)
+* [API Elements](https://marketplace.visualstudio.com/items?itemName=vncz.vscode-apielements)
+
 # Install dependencies
 ```bash
 $npm install
@@ -49,5 +58,4 @@ There is a [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/mast
 The other [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users2.middleware.ts) only validate in delete route, and test if the user will delete himself.
 
 # TODO
-* Generate a tslint file
 * Validate and test the transpile.
