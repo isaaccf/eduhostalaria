@@ -1,14 +1,16 @@
 import * as express from 'express';
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Response } from 'nest.js';
+import { LoggerService } from './../../core/shared/logger.service';
 import { UserParamsException } from './users.exception';
 import { IUser, UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) { }
+    constructor(private usersService: UsersService, private loggerService: LoggerService) { }
 
     @Get()
     public async getAll( @Response() res: express.Response) {
+        this.loggerService.logger.info('Get');
         const users = await this.usersService.getAll();
         res.status(HttpStatus.OK).json(users);
     }

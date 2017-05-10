@@ -13,6 +13,9 @@
             false
         ],
         "no-string-literal": false,
-        "arrow-parens": false
+        "arrow-parens": false,
+        "variable-name": [
+            "allow-leading-underscore"
+        ]
     }
 }
