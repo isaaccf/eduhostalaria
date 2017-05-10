@@ -1,7 +1,7 @@
-import { AppModule } from './app/app.module';
-import { NestFactory } from 'nest.js';
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import { NestFactory } from 'nest.js';
+import { AppModule } from './app/app.module';
 
 const instance = express();
 instance.use(bodyParser.json());

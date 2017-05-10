@@ -1,5 +1,5 @@
-import { UserNotFoundException, UserExistsException, UserGoneException } from './users.exception';
 import { Component, HttpException, HttpStatus } from 'nest.js';
+import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exception';
 
 export interface IUser {
     name: string;
@@ -12,25 +12,25 @@ export class UsersService {
         { id: 1, name: 'Alberto' },
         { id: 2, name: 'Arturo' },
         { id: 3, name: 'Elias' },
-        { id: 4, name: 'Mario' }
+        { id: 4, name: 'Mario' },
     ];
     private lastId = 5;
 
-    getAll(): Promise<IUser[]> {
+    public getAll(): Promise<IUser[]> {
         return Promise.resolve(this.users);
     }
 
-    getById(id: number): Promise<IUser> {
-        let user = this.users.find(user => user.id === id);
+    public getById(id: number): Promise<IUser> {
+        const user = this.users.find(u => user.id === id);
         if (!user) {
             throw new UserNotFoundException();
         }
         return Promise.resolve(user);
     }
 
-    add(user: IUser) {
-        const u = this.users.find(u => u.name === user.name);
-        if (u) {
+    public add(user: IUser) {
+        const userExists = this.users.find(u => u.name === user.name);
+        if (userExists) {
             throw new UserExistsException(user.name);
         }
 
@@ -40,13 +40,13 @@ export class UsersService {
         return Promise.resolve(user);
     }
 
-    remove(id: number) {
+    public remove(id: number) {
         const index = this.users.findIndex(user => user.id === id);
         if (index === -1) {
             throw new UserGoneException();
         }
         this.users.splice(index, 1);
-        
+
         return Promise.resolve();
     }
 

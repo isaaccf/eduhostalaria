@@ -1,7 +1,7 @@
-import { UserParamsException } from './users.exception';
-import { UsersService, IUser } from './users.service';
-import { Response, Controller, Get, Delete, Param, Post, Body, HttpStatus, HttpException } from 'nest.js';
 import * as express from 'express';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Response } from 'nest.js';
+import { UserParamsException } from './users.exception';
+import { IUser, UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -30,8 +30,7 @@ export class UsersController {
 
     @Delete('/:id')
     public async remove( @Response() res: express.Response, @Param('id') id: string) {
-        await this.usersService.remove(+id)
+        await this.usersService.remove(+id);
         res.status(HttpStatus.NO_CONTENT).send();
     }
-
 }

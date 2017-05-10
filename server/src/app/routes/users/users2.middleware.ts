@@ -1,13 +1,13 @@
-import { UsersService } from './users.service';
-import { HttpException, Middleware, NestMiddleware, HttpStatus } from 'nest.js';
 import * as express from 'express';
+import { HttpException, HttpStatus, Middleware, NestMiddleware } from 'nest.js';
+import { UsersService } from './users.service';
 
 @Middleware()
 export class RemoveMiddleware implements NestMiddleware {
     constructor(private usersService: UsersService) { }
 
     /*Always implement resolve and return a function, can pass params to resolve with 'with'*/
-    resolve() {
+    public resolve() {
         return async (req: express.Request, res: express.Response, next: express.NextFunction) => {
             const id = +req.params['id'];
             const name = req.headers['name'];
@@ -17,6 +17,6 @@ export class RemoveMiddleware implements NestMiddleware {
             }
 
             next();
-        }
+        };
     }
 }
