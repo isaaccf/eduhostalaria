@@ -1,0 +1,21 @@
+/author
+  author.module
+  author-routing.module
+  /author
+    author.component
+  /events
+    autor-events.component
+    /filter
+      author-events-filter.component
+    /list
+      author-events-list.component
+    /item
+      author-events-item.component
+  /events-create
+    autor-events-create.component
+  /events-edit
+    autor-events-edit.component
+  /_shared
+    /forms
+    /models
+    /state
