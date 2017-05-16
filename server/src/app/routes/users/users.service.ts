@@ -1,5 +1,5 @@
 import { Component, HttpException, HttpStatus } from 'nest.js';
-import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exception';
+import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exceptions';
 
 export interface IUser {
     name: string;

@@ -9,4 +9,4 @@ instance.use(bodyParser.json());
 
 const app = NestFactory.create(AppModule, instance);
 
-app.listen(3500, () => winston.info('Application is listening on port 3000'));
+app.listen(3000, () => winston.info('Application is listening on port 3000'));
