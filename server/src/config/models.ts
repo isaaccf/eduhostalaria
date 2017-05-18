@@ -1,16 +1,11 @@
-export interface IUser {
-    username: string;
+export interface IUserRequest {
+    email: string;
     password: string;
-}
-
-export interface User {
-    name: string;
-    password: string;
-    id?: number;
 }
 
 export interface ISettings {
     port: number;
     secret: string;
-
+    database: string;
+    host: string;
 }

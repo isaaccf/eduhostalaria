@@ -1,63 +1,76 @@
+import { IUserRequest } from './../../../config/models';
 import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
-import { IUser, User } from './../../../config/models';
+import { ObjectID } from 'mongodb';
+import { Repository } from 'typeorm';
+import { DatabaseService } from './../../core/shared/database.service';
+import { ObjectIDException } from './../../core/shared/exceptions';
+import { User, UserRed } from './user.entity';
 import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exceptions';
 
 @Component()
 export class UsersService {
-    private users: User[] = [
-        { id: 1, name: 'Alberto', password: 'alberto' },
-        { id: 2, name: 'Arturo', password: 'arturo' },
-        { id: 3, name: 'Elias', password: 'elias' },
-        { id: 4, name: 'Mario', password: 'mario' },
-    ];
-    private lastId = 5;
-
-    public getAll(): Promise<User[]> {
-        return Promise.resolve(this.users);
+    private get respository(): Promise<Repository<User>> {
+        return this.databaseService.getRepository(User);
     }
 
-    public getById(id: number): Promise<User> {
-        const user = this.users.find(u => user.id === id);
+    constructor(private databaseService: DatabaseService) { }
+
+    public async getAll(): Promise<UserRed[]> {
+        const users = (await this.respository).find();
+        return (await users).map(user => new UserRed(user));
+    }
+
+  /*  public async getById(id: string): Promise<User> {
+        const user = (await this.respository).findOneById(this.getObjectID(id));
         if (!user) {
             throw new UserNotFoundException();
         }
-        return Promise.resolve(user);
+
+        return new UserRed(await user);
     }
 
-    public validateUser(user: IUser): Promise<User> {
-        const findUser = this.users.find(u => {
-            return u.name === user.username && u.password === user.password;
+    public async validateUser(user: IUserRequest): Promise<User> {
+        const userFind = (await this.respository).findOne({
+            password: user.password,
+            email: user.email,
         });
 
-        if (!findUser) {
+        if (!userFind) {
             throw new UserNotFoundException();
         }
 
-        return Promise.resolve(findUser);
+        return new UserRed(await userFind);
 
-    }
+    }*/
 
-    public add(user: User) {
-        const userExists = this.users.find(u => u.name === user.name);
-        if (userExists) {
-            throw new UserExistsException(user.name);
+    /* public add(user: User) {
+         const userExists = this.users.find(u => u.name === user.name);
+         if (userExists) {
+             throw new UserExistsException(user.name);
+         }
+
+         user.id = this.lastId++;
+         this.users.push(user);
+
+         return Promise.resolve(user);
+     }
+
+     public remove(id: number) {
+         const index = this.users.findIndex(user => user.id === id);
+         if (index === -1) {
+             throw new UserGoneException();
+         }
+         this.users.splice(index, 1);
+
+         return Promise.resolve();
+     }*/
+
+    private getObjectID(id: string | ObjectID) {
+        if (!ObjectID.isValid(id)) {
+            throw new ObjectIDException(id);
         }
 
-        user.id = this.lastId++;
-        this.users.push(user);
-
-        return Promise.resolve(user);
+        return new ObjectID(id);
     }
-
-    public remove(id: number) {
-        const index = this.users.findIndex(user => user.id === id);
-        if (index === -1) {
-            throw new UserGoneException();
-        }
-        this.users.splice(index, 1);
-
-        return Promise.resolve();
-    }
-
 }

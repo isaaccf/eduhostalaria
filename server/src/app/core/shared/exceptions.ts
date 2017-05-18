@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongodb';
 import { HttpException, HttpStatus } from 'nest.js';
 
 export class NotFoundException extends HttpException {
@@ -13,13 +14,19 @@ export class ConflictException extends HttpException {
 }
 
 export class GoneException extends HttpException {
-     constructor(msg: string | object) {
+    constructor(msg: string | object) {
         super(msg, HttpStatus.GONE);
     }
 }
 
 export class BadRequestException extends HttpException {
-     constructor(msg: string | object) {
+    constructor(msg: string | object) {
         super(msg, HttpStatus.BAD_REQUEST);
+    }
+}
+
+export class ObjectIDException extends BadRequestException {
+    constructor(id: string | ObjectID) {
+        super(`Id '${id}' is invalid`);
     }
 }

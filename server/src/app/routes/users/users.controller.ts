@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { IUser, User } from './../../../config/models';
 import { UserParamsException } from './users.exceptions';
 import { UsersService } from './users.service';
 
@@ -14,13 +13,13 @@ export class UsersController {
         res.status(HttpStatus.OK).json(users);
     }
 
-    @Get('/:id')
+  /*  @Get('/:id')
     public async getById( @Res() res: Response, @Param('id') id: string) {
-        const user = await this.usersService.getById(+id);
+        const user = await this.usersService.getById(id);
         res.status(HttpStatus.OK).json(user);
     }
-
-    @Post()
+*/
+    /*@Post()
     public async add( @Res() res: Response, @Body() user: User) {
         if (!user.name) {
             throw new UserParamsException('name');
@@ -33,5 +32,5 @@ export class UsersController {
     public async remove( @Res() res: Response, @Param('id') id: string) {
         await this.usersService.remove(+id);
         res.status(HttpStatus.NO_CONTENT).send();
-    }
+    }*/
 }

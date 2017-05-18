@@ -4,8 +4,8 @@
   "description": "Servidor Reservas para Escolas de Hostelaría",
   "main": "index.js",
   "scripts": {
-    "start:prod": "set NODE_ENV=production&&node index.js",
-    "start": "nodemon -e ts --watch src ./index.js"
+    "start:prod": "set NODE_ENV=prod&&node index.js",
+    "start": "set NODE_ENV=dev&&nodemon -e ts --watch src ./index.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "jsonwebtoken": "^7.4.1",
+    "mongodb": "^2.2.26",
     "nest.js": "^1.0.5",
     "reflect-metadata": "^0.1.10",
     "typeorm": "0.1.0-alpha.1"

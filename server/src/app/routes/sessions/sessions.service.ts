@@ -1,6 +1,6 @@
 import { Component } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
-import { IUser } from './../../../config/models';
+import { IUserRequest } from './../../../config/models';
 import { SETTINGS } from './../../../config/settings';
 import { UsersService } from './../users/users.service';
 
@@ -8,7 +8,7 @@ import { UsersService } from './../users/users.service';
 export class SessionsService {
     constructor(private usersService: UsersService) { }
 
-    public async createSession(user: IUser): Promise<string> {
+    public async createSession(user: IUserRequest): Promise<string> {
         const userFind = await this.usersService.validateUser(user);
         delete userFind.password;
         try {
