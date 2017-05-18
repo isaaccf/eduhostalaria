@@ -68,6 +68,7 @@ export class UsersService {
     }
 
     // TODO: Move to utils??
+    /*Check if fields in test array exists in user, if not return false*/
     private validate(user: any, test: string[]): boolean {
         const keys = Object.keys(user);
         const isValid = test.every(key => key in keys);
@@ -75,6 +76,7 @@ export class UsersService {
     }
 
     // TODO: Move to utils??
+    /*Validate that string or ObjectID is correct*/
     private getObjectID(id: string | ObjectID) {
         if (!ObjectID.isValid(id)) {
             throw new ObjectIDException(id);
