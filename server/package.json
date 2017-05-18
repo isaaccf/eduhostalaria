@@ -4,7 +4,7 @@
   "description": "Servidor Reservas para Escolas de Hostelaría",
   "main": "index.js",
   "scripts": {
-    "build": "node index.js",
+    "start:prod": "set NODE_ENV=production&&node index.js",
     "start": "nodemon -e ts --watch src ./index.js"
   },
   "repository": {
