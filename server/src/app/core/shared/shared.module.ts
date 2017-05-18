@@ -1,8 +1,7 @@
-import { Module } from 'nest.js';
-import { LoggerService } from './logger.service';
+import { Module } from '@nestjs/common';
 
 @Module({
-    components: [LoggerService],
-    exports: [LoggerService],
+    components: [],
+    exports: [],
 })
 export class SharedModule { }

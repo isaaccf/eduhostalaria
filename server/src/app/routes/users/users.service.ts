@@ -1,4 +1,5 @@
-import { Component, HttpException, HttpStatus } from 'nest.js';
+import { Component, HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/core';
 import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exceptions';
 
 export interface IUser {
@@ -49,6 +50,5 @@ export class UsersService {
 
         return Promise.resolve();
     }
-
 
 }
