@@ -4,7 +4,7 @@ import { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from 'js
 import { SETTINGS } from './../../../config/settings';
 
 @Middleware()
-export class AUthMiddleware implements NestMiddleware {
+export class AuthMiddleware implements NestMiddleware {
     public resolve(): (req: Request, res: Response, next: NextFunction) => void {
         return (req: Request, res: Response, next: NextFunction) => {
             const auth = req.headers['authorization'];

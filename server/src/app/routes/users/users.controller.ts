@@ -12,6 +12,7 @@ export class UsersController {
     public async getAll( @Req() req: Request, @Res() res: Response) {
         const users = await this.usersService.getAll();
         res.status(HttpStatus.OK).json(users);
+
     }
 
     @Get('/:id')
