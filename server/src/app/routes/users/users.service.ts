@@ -1,71 +1,80 @@
-import { IUserRequest } from './../../../config/models';
 import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
+import { IUserRequest } from './../../../config/models';
 import { DatabaseService } from './../../core/shared/database.service';
 import { ObjectIDException } from './../../core/shared/exceptions';
 import { User, UserRed } from './user.entity';
-import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exceptions';
+import { UserExistsException, UserGoneException, UserNotFoundException, UserParamsException } from './users.exceptions';
 
 @Component()
 export class UsersService {
-    private get respository(): Promise<Repository<User>> {
+    private get repository(): Promise<Repository<User>> {
         return this.databaseService.getRepository(User);
     }
 
     constructor(private databaseService: DatabaseService) { }
 
     public async getAll(): Promise<UserRed[]> {
-        const users = (await this.respository).find();
+        const users = (await this.repository).find();
         return (await users).map(user => new UserRed(user));
     }
 
-  /*  public async getById(id: string): Promise<User> {
-        const user = (await this.respository).findOneById(this.getObjectID(id));
-        if (!user) {
+    public async getById(id: string): Promise<User> {
+        const user = (await this.repository).findOneById(this.getObjectID(id));
+        if (! await user) {
             throw new UserNotFoundException();
         }
 
         return new UserRed(await user);
     }
 
-    public async validateUser(user: IUserRequest): Promise<User> {
-        const userFind = (await this.respository).findOne({
+    public async validateUser(user: IUserRequest): Promise<UserRed> {
+        const userFind = (await this.repository).findOne({
             password: user.password,
             email: user.email,
         });
 
-        if (!userFind) {
+        if (! await userFind) {
             throw new UserNotFoundException();
         }
 
         return new UserRed(await userFind);
 
-    }*/
+    }
 
-    /* public add(user: User) {
-         const userExists = this.users.find(u => u.name === user.name);
-         if (userExists) {
-             throw new UserExistsException(user.name);
-         }
+    public async add(user: User): Promise<UserRed> {
+        const fieldsValidate = ['email, password, name'];
+        if (!this.validate(user, fieldsValidate)) {
+            throw new UserParamsException(fieldsValidate.join(' '));
+        }
+        const userExists = (await this.repository).findOne({ email: user.email });
+        if (await userExists) {
+            throw new UserExistsException(user.email);
+        }
+        const userCreated = (await this.repository).persist(user);
 
-         user.id = this.lastId++;
-         this.users.push(user);
+        return new UserRed(await userCreated);
+    }
 
-         return Promise.resolve(user);
-     }
+    public async remove(id: string) {
+        const userExists = (await this.repository).findOneById(this.getObjectID(id));
+        if (!await userExists) {
+            throw new UserGoneException();
+        }
+        const user = (await this.repository).removeById(this.getObjectID(id));
+        return user;
+    }
 
-     public remove(id: number) {
-         const index = this.users.findIndex(user => user.id === id);
-         if (index === -1) {
-             throw new UserGoneException();
-         }
-         this.users.splice(index, 1);
+    // TODO: Move to utils??
+    private validate(user: any, test: string[]): boolean {
+        const keys = Object.keys(user);
+        const isValid = test.every(key => key in keys);
+        return isValid;
+    }
 
-         return Promise.resolve();
-     }*/
-
+    // TODO: Move to utils??
     private getObjectID(id: string | ObjectID) {
         if (!ObjectID.isValid(id)) {
             throw new ObjectIDException(id);
