@@ -44,6 +44,7 @@ export class UsersService {
 
     }
 
+    // TODO: Autocomplete user with default values.
     public async add(user: User): Promise<UserRed> {
         const fieldsValidate = ['email, password, name'];
         if (!this.validate(user, fieldsValidate)) {
