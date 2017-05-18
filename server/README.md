@@ -30,6 +30,11 @@ $npm run reload
 $npm run start
 ```
 
+# Enviroments
+Can set NODE_ENV to execute production or develpment. If NODE_ENV is production then execute with production settings othercase execute with deveploment settings.
+
+By default using npm run start execute dev mode, if run npm run start:prod execute prod mode.
+
 # Project Structure
 ```bash
 server
