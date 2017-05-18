@@ -1,27 +1,23 @@
 import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
+import { IUser, User } from './../../core/models';
 import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exceptions';
-
-export interface IUser {
-    name: string;
-    id?: number;
-}
 
 @Component()
 export class UsersService {
-    private users: IUser[] = [
-        { id: 1, name: 'Alberto' },
-        { id: 2, name: 'Arturo' },
-        { id: 3, name: 'Elias' },
-        { id: 4, name: 'Mario' },
+    private users: User[] = [
+        { id: 1, name: 'Alberto', password: 'alberto' },
+        { id: 2, name: 'Arturo', password: 'arturo' },
+        { id: 3, name: 'Elias', password: 'elias' },
+        { id: 4, name: 'Mario', password: 'mario' },
     ];
     private lastId = 5;
 
-    public getAll(): Promise<IUser[]> {
+    public getAll(): Promise<User[]> {
         return Promise.resolve(this.users);
     }
 
-    public getById(id: number): Promise<IUser> {
+    public getById(id: number): Promise<User> {
         const user = this.users.find(u => user.id === id);
         if (!user) {
             throw new UserNotFoundException();
@@ -29,7 +25,20 @@ export class UsersService {
         return Promise.resolve(user);
     }
 
-    public add(user: IUser) {
+    public validateUser(user: IUser): Promise<User> {
+        const findUser = this.users.find(u => {
+            return u.name === user.username && u.password === user.password;
+        });
+
+        if (!findUser) {
+            throw new UserNotFoundException();
+        }
+
+        return Promise.resolve(findUser);
+
+    }
+
+    public add(user: User) {
         const userExists = this.users.find(u => u.name === user.name);
         if (userExists) {
             throw new UserExistsException(user.name);

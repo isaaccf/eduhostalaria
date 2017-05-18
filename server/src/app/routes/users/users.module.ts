@@ -6,6 +6,7 @@ import { UsersService } from './users.service';
 @Module({
     components: [UsersService],
     controllers: [UsersController],
+    exports: [UsersService],
     modules: [SharedModule],
 })
 export class UsersModule { }

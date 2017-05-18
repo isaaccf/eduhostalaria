@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { User } from './../../core/models';
 
 import { UserParamsException } from './users.exceptions';
-import { IUser, UsersService } from './users.service';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -21,7 +22,7 @@ export class UsersController {
     }
 
     @Post()
-    public async add( @Res() res: Response, @Body() user: IUser) {
+    public async add( @Res() res: Response, @Body() user: User) {
         if (!user.name) {
             throw new UserParamsException('name');
         }

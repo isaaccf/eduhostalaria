@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, Shared } from '@nestjs/common';
 
+@Shared()
 @Module({
     components: [],
     exports: [],
