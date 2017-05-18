@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { User } from './user.entity';
+import { log, middleware } from './../../core/shared/prueba';
+import { ROLES, User } from './user.entity';
 import { UserParamsException } from './users.exceptions';
 import { UsersService } from './users.service';
 
@@ -9,10 +10,11 @@ export class UsersController {
     constructor(private usersService: UsersService) { }
 
     @Get()
+    @log
+    @middleware([ROLES.GOD])
     public async getAll( @Req() req: Request, @Res() res: Response) {
         const users = await this.usersService.getAll();
         res.status(HttpStatus.OK).json(users);
-
     }
 
     @Get('/:id')
