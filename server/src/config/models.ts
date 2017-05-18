@@ -8,3 +8,9 @@ export interface User {
     password: string;
     id?: number;
 }
+
+export interface ISettings {
+    port: number;
+    secret: string;
+
+}

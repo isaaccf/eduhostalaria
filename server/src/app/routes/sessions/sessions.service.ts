@@ -1,6 +1,7 @@
 import { Component } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
-import { IUser } from './../../core/models';
+import { IUser } from './../../../config/models';
+import { SETTINGS } from './../../../config/settings';
 import { UsersService } from './../users/users.service';
 
 @Component()
@@ -11,7 +12,7 @@ export class SessionsService {
         const userFind = await this.usersService.validateUser(user);
         delete userFind.password;
         try {
-            const token = sign(userFind, 'secret');
+            const token = sign(userFind, SETTINGS.secret);
             return token;
         } catch (e) {
             throw new Error('');

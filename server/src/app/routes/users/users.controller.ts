@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { User } from './../../core/models';
-
+import { IUser, User } from './../../../config/models';
 import { UserParamsException } from './users.exceptions';
 import { UsersService } from './users.service';
 

@@ -1,6 +1,6 @@
 import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
-import { IUser, User } from './../../core/models';
+import { IUser, User } from './../../../config/models';
 import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exceptions';
 
 @Component()

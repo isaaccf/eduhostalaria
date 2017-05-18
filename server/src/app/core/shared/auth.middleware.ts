@@ -1,6 +1,7 @@
 import { Middleware, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from 'jsonwebtoken';
+import { SETTINGS } from './../../../config/settings';
 
 @Middleware()
 export class AUthMiddleware implements NestMiddleware {
@@ -10,10 +11,10 @@ export class AUthMiddleware implements NestMiddleware {
             if (!auth) {
                 throw new Error(''); // 401
             }
-            // Token: Bearer token_string
+
             const token = auth.split(' ')[1];
 
-            verify(token, 'secret', (err, decoded) => {
+            verify(token, SETTINGS.secret, (err, decoded) => {
                 if (err) {
                     this.parseError(err);
                     return;
