@@ -10,8 +10,8 @@ ng g c routes/home/home
 
 ng g m routes/organization --routing
 ng g c routes/organization/organization
-ng g c routes/organization/events
-ng g c routes/organization/events-book
+ng g c routes/organization/organization-events
+ng g c routes/organization/organization-events-book
 
 ng g m routes/bookings --routing
 ng g c routes/bookings/bookins-edit 
