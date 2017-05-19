@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'rh-shell',
   template: `
-    <p>
-      shell Works!
-    </p>
+    <rh-top-bar></rh-top-bar>
+    <rh-main-content></rh-main-content>
   `,
   styles: []
 })

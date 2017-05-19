@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'rh-root',
   template: `
-    <h1>
-      {{title}}
-    </h1>
+    <rh-shell></rh-shell>
   `,
   styles: []
 })
