@@ -24,5 +24,5 @@
 ## [Admin_Payments](http://organization.rfph.com/admin/payments "Administración de pagos")
 
 # [Usher](http://organization.rfph.com/usher/ "Maitre")
-## [Usher_Bookings](http://organization.rfph.com/usher/events/ "Ofertas activas")
-## [Usher_Bookings](http://organization.rfph.com/usher/events/:idEvent/bookings "Reservas para una oferta")
+## [Usher_Events](http://organization.rfph.com/usher/events/ "Ofertas activas")
+## [Usher_Events_Bookings](http://organization.rfph.com/usher/events/:idEvent/bookings "Reservas para una oferta")

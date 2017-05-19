@@ -52,6 +52,12 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {
+      "inlineStyle": true,
+      "spec": false
+    },
+    "service": {
+      "spec": false
+    }
   }
 }
