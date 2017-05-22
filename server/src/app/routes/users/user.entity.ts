@@ -1,24 +1,6 @@
 import { ObjectID } from 'mongodb';
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
-/*Class for convert user to userRed, that contents user without password*/
-export class UserRed {
-    public id: ObjectID;
-    public name: string;
-    public password: string;
-    public email: string;
-    public roles: ROLES[];
-    public organizationId: ObjectID;
-    public status: Status;
-
-    constructor(user: User) {
-        Object.keys(user).forEach(key => {
-            if (key !== 'password') {
-                this[key] = user[key];
-            }
-        });
-    }
-}
 
 @Entity('users')
 export class User {
@@ -27,9 +9,6 @@ export class User {
 
     @Column()
     public name: string;
-
-    @Column()
-    public password: string;
 
     @Column()
     public email: string;

@@ -5,18 +5,20 @@ import { SharedModule } from './../../core/shared/shared.module';
 import { ROLES } from './user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { CredentialsService } from "./credentials.service";
 
 const roles = [ROLES.ADMIN];
 
 @Module({
-    components: [UsersService],
+    components: [UsersService, CredentialsService],
     controllers: [UsersController],
-    exports: [UsersService],
+    exports: [UsersService, CredentialsService],
     modules: [SharedModule],
 })
 export class UsersModule {
     public configure(consumer: MiddlewaresConsumer) {
-        consumer.apply(AuthMiddleware).forRoutes(UsersController)
+        consumer
+            .apply(AuthMiddleware).forRoutes(UsersController)
             .apply(RolesMiddleware).with(roles).forRoutes(UsersController);
     }
 }

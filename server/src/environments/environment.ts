@@ -1,4 +1,4 @@
-import { ISettings } from './models';
+import { ISettings } from './../app/core/shared/models';
 
 const isProd = (process.env.NODE_ENV === 'prod');
 

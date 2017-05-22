@@ -2,11 +2,13 @@ import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
-import { IUserRequest } from './../../../config/models';
+import { IUserRequest } from './../../core/shared/models';
 import { DatabaseService } from './../../core/shared/database.service';
-import { ObjectIDException } from './../../core/shared/exceptions';
-import { User, UserRed } from './user.entity';
-import { UserExistsException, UserGoneException, UserNotFoundException, UserParamsException } from './users.exceptions';
+import { ObjectIDException, NotFoundException, GoneException, ConflictException, BadRequestException } from './../../core/shared/exceptions';
+import { User } from './user.entity';
+import { CredentialsService } from "./credentials.service";
+import { Credential } from "./credential.entity";
+
 
 @Component()
 export class UsersService {
@@ -14,58 +16,68 @@ export class UsersService {
         return this.databaseService.getRepository(User);
     }
 
-    constructor(private databaseService: DatabaseService) { }
+    constructor(private databaseService: DatabaseService, private credentialService: CredentialsService) { }
 
-    public async getAll(): Promise<UserRed[]> {
-        const users = (await this.repository).find();
-        return (await users).map(user => new UserRed(user));
+    public async getAll(): Promise<User[]> {
+        const repository = await this.repository;
+        const users = await repository.find();
+        return users;
     }
 
     public async getById(id: string): Promise<User> {
         const user = (await this.repository).findOneById(this.getObjectID(id));
         if (! await user) {
-            throw new UserNotFoundException();
+            throw new NotFoundException('User Not Found');
         }
-
-        return new UserRed(await user);
+        return user;
     }
 
-    public async validateUser(user: IUserRequest): Promise<UserRed> {
-        const userFind = (await this.repository).findOne({
-            password: user.password,
+    public async validateUser(user: IUserRequest): Promise<User> {
+        const repository = await this.repository;
+        const userFind = await repository.findOne({
             email: user.email,
         });
-
-        if (! await userFind) {
-            throw new UserNotFoundException();
+        const credentialOk = await this.credentialService.getByUserIdPassword(userFind.id, user.password);
+        if (!credentialOk) {
+            throw new NotFoundException('Invalid Credential');
         }
-
-        return new UserRed(await userFind);
-
+        return userFind;
     }
 
     // TODO: Autocomplete user with default values.
-    public async add(user: User): Promise<UserRed> {
+    public async add(user: IUserRequest): Promise<User> {
         const fieldsValidate = ['email, password, name'];
         if (!this.validate(user, fieldsValidate)) {
-            throw new UserParamsException(fieldsValidate.join(' '));
+            throw new BadRequestException(fieldsValidate.join(' '));
         }
-        const userExists = (await this.repository).findOne({ email: user.email });
+        const repository = await this.repository;
+        const userExists = repository.findOne({ email: user.email });
         if (await userExists) {
-            throw new UserExistsException(user.email);
+            throw new ConflictException(user.email);
         }
-        const userCreated = (await this.repository).persist(user);
-
-        return new UserRed(await userCreated);
+        const userCreated = await this.saveUserCredential(user);
+        return userCreated;
+    }
+    private async saveUserCredential(userRequest: IUserRequest): Promise<User> {
+        const user = Object.assign(new User(), userRequest);
+        const repository = await this.repository;
+        const userCreated = await repository.persist(user);
+        const credential = new Credential();
+        credential.userId = userCreated.id;
+        credential.password = userRequest.password;
+        await this.credentialService.post(credential);
+        // To Do: catch credential error, and remove user
+        return userCreated;
     }
 
     public async remove(id: string) {
-        const userExists = (await this.repository).findOneById(this.getObjectID(id));
-        if (!await userExists) {
-            throw new UserGoneException();
+        const repository = await this.repository;
+        const userExists = await repository.findOneById(this.getObjectID(id));
+        if (!userExists) {
+            throw new GoneException('User');
         }
-        const user = (await this.repository).removeById(this.getObjectID(id));
-        return user;
+        const user = await repository.removeById(this.getObjectID(id));
+        return null;
     }
 
     // TODO: Move to utils??
