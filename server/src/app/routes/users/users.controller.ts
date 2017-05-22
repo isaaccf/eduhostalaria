@@ -1,38 +1,37 @@
-import * as express from 'express';
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Response } from 'nest.js';
-import { LoggerService } from './../../core/shared/logger.service';
-import { UserParamsException } from './users.exception';
-import { IUser, UsersService } from './users.service';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
+import { Request, Response } from 'express';
+import { log, middleware } from './../../core/shared/prueba';
+import { ROLES, User } from './user.entity';
+import { UserParamsException } from './users.exceptions';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService, private loggerService: LoggerService) { }
+    constructor(private usersService: UsersService) { }
 
     @Get()
-    public async getAll( @Response() res: express.Response) {
-        this.loggerService.logger.info('Get');
+    @log
+    @middleware([ROLES.GOD])
+    public async getAll( @Req() req: Request, @Res() res: Response) {
         const users = await this.usersService.getAll();
         res.status(HttpStatus.OK).json(users);
     }
 
     @Get('/:id')
-    public async getById( @Response() res: express.Response, @Param('id') id: string) {
-        const user = await this.usersService.getById(+id);
+    public async getById( @Res() res: Response, @Param('id') id: string) {
+        const user = await this.usersService.getById(id);
         res.status(HttpStatus.OK).json(user);
     }
 
     @Post()
-    public async add( @Response() res: express.Response, @Body() user: IUser) {
-        if (!user.name) {
-            throw new UserParamsException('name');
-        }
+    public async add( @Res() res: Response, @Body() user: User) {
         const newUser = await this.usersService.add(user);
         res.status(HttpStatus.CREATED).json(newUser);
     }
 
     @Delete('/:id')
-    public async remove( @Response() res: express.Response, @Param('id') id: string) {
-        await this.usersService.remove(+id);
+    public async remove( @Res() res: Response, @Param('id') id: string) {
+        await this.usersService.remove(id);
         res.status(HttpStatus.NO_CONTENT).send();
     }
 }

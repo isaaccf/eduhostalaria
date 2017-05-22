@@ -1,54 +1,88 @@
-import { Component, HttpException, HttpStatus } from 'nest.js';
-import { UserExistsException, UserGoneException, UserNotFoundException } from './users.exception';
-
-export interface IUser {
-    name: string;
-    id?: number;
-}
+import { Component, HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/core';
+import { ObjectID } from 'mongodb';
+import { Repository } from 'typeorm';
+import { IUserRequest } from './../../../config/models';
+import { DatabaseService } from './../../core/shared/database.service';
+import { ObjectIDException } from './../../core/shared/exceptions';
+import { User, UserRed } from './user.entity';
+import { UserExistsException, UserGoneException, UserNotFoundException, UserParamsException } from './users.exceptions';
 
 @Component()
 export class UsersService {
-    private users: IUser[] = [
-        { id: 1, name: 'Alberto' },
-        { id: 2, name: 'Arturo' },
-        { id: 3, name: 'Elias' },
-        { id: 4, name: 'Mario' },
-    ];
-    private lastId = 5;
-
-    public getAll(): Promise<IUser[]> {
-        return Promise.resolve(this.users);
+    private get repository(): Promise<Repository<User>> {
+        return this.databaseService.getRepository(User);
     }
 
-    public getById(id: number): Promise<IUser> {
-        const user = this.users.find(u => user.id === id);
-        if (!user) {
+    constructor(private databaseService: DatabaseService) { }
+
+    public async getAll(): Promise<UserRed[]> {
+        const users = (await this.repository).find();
+        return (await users).map(user => new UserRed(user));
+    }
+
+    public async getById(id: string): Promise<User> {
+        const user = (await this.repository).findOneById(this.getObjectID(id));
+        if (! await user) {
             throw new UserNotFoundException();
         }
-        return Promise.resolve(user);
+
+        return new UserRed(await user);
     }
 
-    public add(user: IUser) {
-        const userExists = this.users.find(u => u.name === user.name);
-        if (userExists) {
-            throw new UserExistsException(user.name);
+    public async validateUser(user: IUserRequest): Promise<UserRed> {
+        const userFind = (await this.repository).findOne({
+            password: user.password,
+            email: user.email,
+        });
+
+        if (! await userFind) {
+            throw new UserNotFoundException();
         }
 
-        user.id = this.lastId++;
-        this.users.push(user);
+        return new UserRed(await userFind);
 
-        return Promise.resolve(user);
     }
 
-    public remove(id: number) {
-        const index = this.users.findIndex(user => user.id === id);
-        if (index === -1) {
+    // TODO: Autocomplete user with default values.
+    public async add(user: User): Promise<UserRed> {
+        const fieldsValidate = ['email, password, name'];
+        if (!this.validate(user, fieldsValidate)) {
+            throw new UserParamsException(fieldsValidate.join(' '));
+        }
+        const userExists = (await this.repository).findOne({ email: user.email });
+        if (await userExists) {
+            throw new UserExistsException(user.email);
+        }
+        const userCreated = (await this.repository).persist(user);
+
+        return new UserRed(await userCreated);
+    }
+
+    public async remove(id: string) {
+        const userExists = (await this.repository).findOneById(this.getObjectID(id));
+        if (!await userExists) {
             throw new UserGoneException();
         }
-        this.users.splice(index, 1);
-
-        return Promise.resolve();
+        const user = (await this.repository).removeById(this.getObjectID(id));
+        return user;
     }
 
+    // TODO: Move to utils??
+    /*Check if fields in test array exists in user, if not return false*/
+    private validate(user: any, test: string[]): boolean {
+        const keys = Object.keys(user);
+        const isValid = test.every(key => key in keys);
+        return isValid;
+    }
 
+    // TODO: Move to utils??
+    /*Validate that string or ObjectID is correct*/
+    private getObjectID(id: string | ObjectID) {
+        if (!ObjectID.isValid(id)) {
+            throw new ObjectIDException(id);
+        }
+
+        return new ObjectID(id);
+    }
 }

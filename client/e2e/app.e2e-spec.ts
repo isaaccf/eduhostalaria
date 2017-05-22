@@ -1,14 +1,14 @@
-import { CashFlowPage } from './app.po';
+import { RedeFpHostalariaPage } from './app.po';
 
-describe('cash-flow App', () => {
-  let page: CashFlowPage;
+describe('rede-fp-hostalaria App', () => {
+  let page: RedeFpHostalariaPage;
 
   beforeEach(() => {
-    page = new CashFlowPage();
+    page = new RedeFpHostalariaPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('rh works!');
+    expect(page.getParagraphText()).toEqual('Welcome to rh!!');
   });
 });
