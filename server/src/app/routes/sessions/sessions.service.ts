@@ -1,9 +1,9 @@
 import { Component } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
-import { IUserRequest } from './../../../config/models';
-import { SETTINGS } from './../../../config/settings';
-import { UserRed } from './../users/user.entity';
 import { UsersService } from './../users/users.service';
+import { IUserRequest } from "../../core/shared/models";
+import { SETTINGS } from "../../../environments/environment";
+import { UnauthorizedException } from "../../core/shared/exceptions";
 
 @Component()
 export class SessionsService {
@@ -11,12 +11,7 @@ export class SessionsService {
 
     public async createSession(user: IUserRequest): Promise<string> {
         const userFind = await this.usersService.validateUser(user);
-        const userRed = new UserRed(userFind);
-        try {
-            const token = sign(userRed, SETTINGS.secret);
-            return token;
-        } catch (e) {
-            throw new Error('');
-        }
+        const token = sign(userFind, SETTINGS.secret);
+        return token;
     }
 }

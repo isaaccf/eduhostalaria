@@ -1,8 +1,7 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { IUserRequest } from './../../../config/models';
 import { SessionsService } from './sessions.service';
-
+import { IUserRequest } from './../../core/shared/models'
 @Controller('sessions')
 export class SessionsController {
 

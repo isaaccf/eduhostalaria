@@ -42,6 +42,20 @@ export class GoneException extends HttpException {
     }
 }
 
+/*419*/
+export class AuthenticationTimeoutException extends HttpException {
+    constructor(msg: string | object) {
+        super(msg, 419);
+    }
+}
+
+/*500*/
+export class InternalServerErrorException extends HttpException {
+    constructor(msg: string | object) {
+        super(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 export class ObjectIDException extends BadRequestException {
     constructor(id: string | ObjectID) {
         super(`Id '${id}' is invalid`);
