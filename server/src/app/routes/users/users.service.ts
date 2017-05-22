@@ -2,12 +2,10 @@ import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
-import { IUserRequest } from './../../core/shared/models';
+import { INewUserCredential } from './../../core/shared/models';
 import { DatabaseService } from './../../core/shared/database.service';
 import { ObjectIDException, NotFoundException, GoneException, ConflictException, BadRequestException } from './../../core/shared/exceptions';
 import { User } from './user.entity';
-import { CredentialsService } from "./credentials.service";
-import { Credential } from "./credential.entity";
 
 
 @Component()
@@ -16,7 +14,7 @@ export class UsersService {
         return this.databaseService.getRepository(User);
     }
 
-    constructor(private databaseService: DatabaseService, private credentialService: CredentialsService) { }
+    constructor(private databaseService: DatabaseService) { }
 
     public async getAll(): Promise<User[]> {
         const repository = await this.repository;
@@ -32,42 +30,29 @@ export class UsersService {
         return user;
     }
 
-    public async validateUser(user: IUserRequest): Promise<User> {
-        const repository = await this.repository;
-        const userFind = await repository.findOne({
-            email: user.email,
+    public async getByEmail(email: string): Promise<User> {
+        const user = (await this.repository).findOneById({
+            email: email,
         });
-        const credentialOk = await this.credentialService.getByUserIdPassword(userFind.id, user.password);
-        if (!credentialOk) {
-            throw new NotFoundException('Invalid Credential');
+        if (! await user) {
+            throw new NotFoundException('User Not Found');
         }
-        return userFind;
+        return user;
     }
 
-    // TODO: Autocomplete user with default values.
-    public async add(user: IUserRequest): Promise<User> {
-        const fieldsValidate = ['email, password, name'];
-        if (!this.validate(user, fieldsValidate)) {
+    public async post(newUserCredential: INewUserCredential): Promise<User> {
+        const fieldsValidate = ['email, organizationId, name'];
+        if (!this.validate(newUserCredential, fieldsValidate)) {
             throw new BadRequestException(fieldsValidate.join(' '));
         }
         const repository = await this.repository;
-        const userExists = repository.findOne({ email: user.email });
+        const userExists = repository.findOne({ email: newUserCredential.email });
         if (await userExists) {
-            throw new ConflictException(user.email);
+            throw new ConflictException(newUserCredential.email);
         }
-        const userCreated = await this.saveUserCredential(user);
-        return userCreated;
-    }
-    private async saveUserCredential(userRequest: IUserRequest): Promise<User> {
-        const user = Object.assign(new User(), userRequest);
-        const repository = await this.repository;
-        const userCreated = await repository.persist(user);
-        const credential = new Credential();
-        credential.userId = userCreated.id;
-        credential.password = userRequest.password;
-        await this.credentialService.post(credential);
-        // To Do: catch credential error, and remove user
-        return userCreated;
+        const newUser = Object.assign(new User(), newUserCredential);
+        const savedUser = await repository.persist(newUser);
+        return savedUser;
     }
 
     public async remove(id: string) {

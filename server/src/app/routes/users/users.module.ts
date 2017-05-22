@@ -5,14 +5,14 @@ import { SharedModule } from './../../core/shared/shared.module';
 import { ROLES } from './user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { CredentialsService } from "./credentials.service";
+
 
 const roles = [ROLES.ADMIN];
 
 @Module({
-    components: [UsersService, CredentialsService],
+    components: [UsersService],
     controllers: [UsersController],
-    exports: [UsersService, CredentialsService],
+    exports: [UsersService],
     modules: [SharedModule],
 })
 export class UsersModule {

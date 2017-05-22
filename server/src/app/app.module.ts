@@ -1,9 +1,9 @@
 import { Module } from 'nest.js';
 import { SharedModule } from './core/shared/shared.module';
-import { SessionsModule } from './routes/sessions/sessions.module';
 import { UsersModule } from './routes/users/users.module';
+import { CredentialsModule } from "./routes/credentials/credentials.module";
 
 @Module({
-    modules: [UsersModule, SessionsModule],
+    modules: [CredentialsModule, UsersModule],
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ import { log, middleware } from './../../core/shared/prueba';
 import { ROLES, User } from './user.entity';
 import { UsersService } from './users.service';
 import { InternalServerErrorException } from "../../core/shared/exceptions";
-import { IUserRequest } from "../../core/shared/models";
+import { INewUserCredential } from "../../core/shared/models";
 
 @Controller('users')
 export class UsersController {
@@ -32,12 +32,6 @@ export class UsersController {
             console.error(err);
             throw new InternalServerErrorException('');
         }
-    }
-
-    @Post()
-    public async add( @Res() res: Response, @Body() user: IUserRequest) {
-        const newUser = await this.usersService.add(user);
-        res.status(HttpStatus.CREATED).json(newUser);
     }
 
     @Delete('/:id')
