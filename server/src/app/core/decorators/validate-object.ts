@@ -4,7 +4,7 @@
  */
 import { BadRequestException } from '../shared/exceptions';
 
-export function validateObject(params: string[]) {
+export function ValidateObject(params: string[]) {
     return (
         target: any,
         propertyKey: string,

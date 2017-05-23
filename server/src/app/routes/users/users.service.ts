@@ -2,7 +2,8 @@ import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
-import { validateObject } from './../../core/decorators/utils';
+import { ObjectId, ValidateParams} from "../../core/decorators/validate-param";
+import { ValidateObject } from './../../core/decorators/validate-object';
 import { DatabaseService } from './../../core/shared/database.service';
 import {
     BadRequestException, ConflictException,
@@ -27,8 +28,9 @@ export class UsersService {
         return users;
     }
 
-    public async getById(id: string): Promise<User> {
-        const user = (await this.repository).findOneById(this.getObjectID(id));
+    @ValidateParams
+    public async getById(@ObjectId id: string): Promise<User> {
+        const user = (await this.repository).findOneById(id);
         if (! await user) {
             throw new NotFoundException('User Not Found');
         }
@@ -45,7 +47,7 @@ export class UsersService {
         return user;
     }
 
-    @validateObject(['email', 'organizationId', 'name'])
+    @ValidateObject(['email', 'organizationId', 'name'])
     public async post(newUserCredential: INewUserCredential): Promise<User> {
         const repository = await this.repository;
         const userExists = await repository.findOne({ email: newUserCredential.email });
@@ -58,22 +60,13 @@ export class UsersService {
         return savedUser;
     }
 
-    public async remove(id: string): Promise<void> {
+    @ValidateParams
+    public async remove(@ObjectId id: string): Promise<void> {
         const repository = await this.repository;
-        const userExists = await repository.findOneById(this.getObjectID(id));
+        const userExists = await repository.findOneById(id);
         if (!userExists) {
             throw new GoneException('User');
         }
-        await repository.removeById(this.getObjectID(id));
-    }
-
-    // TODO: Move to utils??
-    /*Validate that string or ObjectID is correct*/
-    private getObjectID(id: string | ObjectID) {
-        if (!ObjectID.isValid(id)) {
-            throw new ObjectIDException(id);
-        }
-
-        return new ObjectID(id);
+        await repository.removeById(id);
     }
 }
