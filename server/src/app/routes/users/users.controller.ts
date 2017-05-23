@@ -1,37 +1,25 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { InternalServerErrorException } from '../../core/shared/exceptions';
+import { INewUserCredential } from "../../core/shared/models";
 import { log, middleware } from './../../core/shared/prueba';
 import { ROLES, User } from './user.entity';
 import { UsersService } from './users.service';
-import { InternalServerErrorException } from "../../core/shared/exceptions";
-import { INewUserCredential } from "../../core/shared/models";
 
 @Controller('users')
 export class UsersController {
     constructor(private usersService: UsersService) { }
 
     @Get()
-    @log
-    @middleware([ROLES.GOD])
     public async getAll( @Req() req: Request, @Res() res: Response) {
-        try {
-            const users = await this.usersService.getAll();
-            res.status(HttpStatus.OK).json(users);
-        } catch (err) {
-            console.error(err);
-            throw new InternalServerErrorException('');
-        }
+        const users = await this.usersService.getAll();
+        res.status(HttpStatus.OK).json(users);
     }
 
     @Get('/:id')
     public async getById( @Res() res: Response, @Param('id') id: string) {
-        try {
-            const user = await this.usersService.getById(id);
-            res.status(HttpStatus.OK).json(user);
-        } catch (err) {
-            console.error(err);
-            throw new InternalServerErrorException('');
-        }
+        const user = await this.usersService.getById(id);
+        res.status(HttpStatus.OK).json(user);
     }
 
     @Delete('/:id')

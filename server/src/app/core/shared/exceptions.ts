@@ -1,5 +1,6 @@
+import { HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
-import { HttpException, HttpStatus } from 'nest.js';
 /*400*/
 export class BadRequestException extends HttpException {
     constructor(msg: string | object) {

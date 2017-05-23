@@ -2,11 +2,14 @@ import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
-import { INewUserCredential } from './../../core/shared/models';
 import { DatabaseService } from './../../core/shared/database.service';
-import { ObjectIDException, NotFoundException, GoneException, ConflictException, BadRequestException } from './../../core/shared/exceptions';
+import {
+    BadRequestException, ConflictException,
+    GoneException, NotFoundException,
+    ObjectIDException
+} from './../../core/shared/exceptions';
+import { INewUserCredential } from './../../core/shared/models';
 import { User } from './user.entity';
-
 
 @Component()
 export class UsersService {
@@ -32,7 +35,7 @@ export class UsersService {
 
     public async getByEmail(email: string): Promise<User> {
         const user = (await this.repository).findOneById({
-            email: email,
+            email,
         });
         if (! await user) {
             throw new NotFoundException('User Not Found');
@@ -68,11 +71,9 @@ export class UsersService {
     // TODO: Move to utils??
     /*Check if fields in test array exists in user, if not return false*/
     private validate(user: any, test: string[]): boolean {
-        console.info(JSON.stringify(test));
         const keys = Object.keys(user);
-        console.info(JSON.stringify(keys));
         const isValid = test.every(key => key in keys);
-        return true;
+        return isValid;
     }
 
     // TODO: Move to utils??

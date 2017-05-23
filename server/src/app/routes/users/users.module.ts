@@ -16,9 +16,9 @@ const roles = [ROLES.ADMIN];
     modules: [SharedModule],
 })
 export class UsersModule {
-    public configure(consumer: MiddlewaresConsumer) {
-        consumer
-            .apply(AuthMiddleware).forRoutes(UsersController)
-            .apply(RolesMiddleware).with(roles).forRoutes(UsersController);
-    }
+    /* public configure(consumer: MiddlewaresConsumer) {
+         consumer
+             .apply(AuthMiddleware).forRoutes(UsersController)
+             .apply(RolesMiddleware).with(roles).forRoutes(UsersController);
+     }*/
 }
