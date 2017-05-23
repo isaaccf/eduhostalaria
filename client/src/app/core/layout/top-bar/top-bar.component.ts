@@ -8,15 +8,15 @@ import { IMenuLink } from 'app/core/layout/_data/models/menu-link.model';
 })
 export class TopBarComponent implements OnInit {
 
-  private title = 'APP';
-  private menuLinks: IMenuLink[] = [
+  title = 'Reservas Hostelaría';
+  menuLinks: IMenuLink[] = [
     {
-      title: 'Link 1',
-      href: '#'
+      title: 'Home',
+      href: ''
     },
     {
-      title: 'Link 2',
-      href: '#'
+      title: 'Log in',
+      href: 'login'
     }
   ];
 

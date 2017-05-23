@@ -41,7 +41,7 @@ export class UsersService {
     }
 
     public async post(newUserCredential: INewUserCredential): Promise<User> {
-        const fieldsValidate = ['email, organizationId, name'];
+        const fieldsValidate = ['email', 'organizationId', 'name'];
         if (!this.validate(newUserCredential, fieldsValidate)) {
             throw new BadRequestException(fieldsValidate.join(' '));
         }
@@ -68,9 +68,11 @@ export class UsersService {
     // TODO: Move to utils??
     /*Check if fields in test array exists in user, if not return false*/
     private validate(user: any, test: string[]): boolean {
+        console.info(JSON.stringify(test));
         const keys = Object.keys(user);
+        console.info(JSON.stringify(keys));
         const isValid = test.every(key => key in keys);
-        return isValid;
+        return true;
     }
 
     // TODO: Move to utils??
