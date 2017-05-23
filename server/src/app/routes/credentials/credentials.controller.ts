@@ -1,41 +1,24 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { sign } from 'jsonwebtoken';
-import { SETTINGS } from '../../../environments/environment';
-import { NotFoundException } from '../../core/shared/exceptions';
 import { INewUserCredential, IUserCredential } from '../../core/shared/models';
 import { CredentialsService } from '../credentials/credentials.service';
-import { UsersService } from '../users/users.service';
-import { Credential } from './credential.entity';
 
 @Controller('credentials')
 export class CredentialsController {
 
-  constructor(
-    private credentialsService: CredentialsService,
-    private usersService: UsersService,
-  ) { }
+  constructor(private credentialsService: CredentialsService) { }
 
   // Register
   @Post()
   public async createNewUserCredential( @Res() res: Response, @Body() user: INewUserCredential) {
-    const newUser = await this.usersService.post(user);
-    const credential = new Credential();
-    credential.userId = newUser.id;
-    credential.password = user.password;
-    await this.credentialsService.post(credential);
+    const newUser = await this.credentialsService.post(user);
     res.status(HttpStatus.CREATED).json(newUser);
   }
 
   // Login
   @Get()
-  public async getUserCredential( @Res() res: Response, @Body() userCredential: IUserCredential) {
-    const user = await this.usersService.getByEmail(userCredential.email);
-    const credential = await this.credentialsService.getByUserIdPassword(user.id, userCredential.password);
-    if (!credential) {
-      throw new NotFoundException('Invalid Credential');
-    }
-    const token = sign(user, SETTINGS.secret);
+  public async getToken( @Res() res: Response, @Body() userCredential: IUserCredential) {
+    const token = await this.credentialsService.getToken(userCredential);
     res.status(HttpStatus.OK).json({ access_token: token });
   }
 }

@@ -2,6 +2,7 @@ import { Component, HttpStatus } from '@nestjs/common';
 import { HttpException } from '@nestjs/core';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
+import { validateObject } from './../../core/decorators/utils';
 import { DatabaseService } from './../../core/shared/database.service';
 import {
     BadRequestException, ConflictException,
@@ -22,6 +23,7 @@ export class UsersService {
     public async getAll(): Promise<User[]> {
         const repository = await this.repository;
         const users = await repository.find();
+
         return users;
     }
 
@@ -30,50 +32,39 @@ export class UsersService {
         if (! await user) {
             throw new NotFoundException('User Not Found');
         }
+
         return user;
     }
 
     public async getByEmail(email: string): Promise<User> {
-        const user = (await this.repository).findOneById({
-            email,
-        });
-        if (! await user) {
+        const user = await (await this.repository).findOneById({ email });
+        if (!user) {
             throw new NotFoundException('User Not Found');
         }
+
         return user;
     }
 
+    @validateObject(['email', 'organizationId', 'name'])
     public async post(newUserCredential: INewUserCredential): Promise<User> {
-        const fieldsValidate = ['email', 'organizationId', 'name'];
-        if (!this.validate(newUserCredential, fieldsValidate)) {
-            throw new BadRequestException(fieldsValidate.join(' '));
-        }
         const repository = await this.repository;
-        const userExists = repository.findOne({ email: newUserCredential.email });
-        if (await userExists) {
-            throw new ConflictException(newUserCredential.email);
+        const userExists = await repository.findOne({ email: newUserCredential.email });
+        if (userExists) {
+            throw new ConflictException(`Email ''${newUserCredential.email}'' exists.`);
         }
         const newUser = Object.assign(new User(), newUserCredential);
         const savedUser = await repository.persist(newUser);
+
         return savedUser;
     }
 
-    public async remove(id: string) {
+    public async remove(id: string): Promise<void> {
         const repository = await this.repository;
         const userExists = await repository.findOneById(this.getObjectID(id));
         if (!userExists) {
             throw new GoneException('User');
         }
-        const user = await repository.removeById(this.getObjectID(id));
-        return null;
-    }
-
-    // TODO: Move to utils??
-    /*Check if fields in test array exists in user, if not return false*/
-    private validate(user: any, test: string[]): boolean {
-        const keys = Object.keys(user);
-        const isValid = test.every(key => keys.includes(key));
-        return isValid;
+        await repository.removeById(this.getObjectID(id));
     }
 
     // TODO: Move to utils??
