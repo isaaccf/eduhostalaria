@@ -1,4 +1,4 @@
-import { ObjectID } from "mongodb";
+import { ObjectID } from 'mongodb';
 
 export interface IUserCredential {
     email: string;
@@ -6,7 +6,7 @@ export interface IUserCredential {
 }
 export interface INewUserCredential extends IUserCredential {
     organizationId?: ObjectID;
-    name?: string
+    name?: string;
 }
 
 export interface ISettings {

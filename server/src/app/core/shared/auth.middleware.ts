@@ -2,7 +2,7 @@ import { Middleware, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from 'jsonwebtoken';
 import { SETTINGS } from './../../../environments/environment';
-import { AuthenticationTimeoutException, UnauthorizedException } from "./exceptions";
+import { AuthenticationTimeoutException, UnauthorizedException } from './exceptions';
 
 @Middleware()
 export class AuthMiddleware implements NestMiddleware {

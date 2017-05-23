@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import { AppModule } from './app/app.module';
+import { NotFoundException } from './app/core/shared/exceptions';
 import { SETTINGS } from './environments/environment';
 
 const logger = new Logger('Main');

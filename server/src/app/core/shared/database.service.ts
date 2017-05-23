@@ -2,7 +2,7 @@ import { Component, Logger } from '@nestjs/common';
 import { join } from 'path';
 import { Connection, createConnection, Entity, EntityManager, Repository } from 'typeorm';
 import { ObjectType } from 'typeorm/common/ObjectType';
-import { SETTINGS } from "../../../environments/environment";
+import { SETTINGS } from '../../../environments/environment';
 
 @Component()
 export class DatabaseService {

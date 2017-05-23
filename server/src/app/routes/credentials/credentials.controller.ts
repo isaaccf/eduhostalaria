@@ -1,12 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from "@nestjs/common";
+import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { INewUserCredential, IUserCredential } from "../../core/shared/models";
-import { UsersService } from "../users/users.service";
-import { CredentialsService } from "../credentials/credentials.service";
-import { Credential } from "./credential.entity";
-import { NotFoundException } from "../../core/shared/exceptions";
 import { sign } from 'jsonwebtoken';
-import { SETTINGS } from "../../../environments/environment";
+import { SETTINGS } from '../../../environments/environment';
+import { NotFoundException } from '../../core/shared/exceptions';
+import { INewUserCredential, IUserCredential } from '../../core/shared/models';
+import { CredentialsService } from '../credentials/credentials.service';
+import { UsersService } from '../users/users.service';
+import { Credential } from './credential.entity';
 
 @Controller('credentials')
 export class CredentialsController {
@@ -16,8 +16,7 @@ export class CredentialsController {
     private usersService: UsersService,
   ) { }
 
-
-  // Register  
+  // Register
   @Post()
   public async createNewUserCredential( @Res() res: Response, @Body() user: INewUserCredential) {
     const newUser = await this.usersService.post(user);
@@ -28,7 +27,7 @@ export class CredentialsController {
     res.status(HttpStatus.CREATED).json(newUser);
   }
 
-  // Login  
+  // Login
   @Get()
   public async getUserCredential( @Res() res: Response, @Body() userCredential: IUserCredential) {
     const user = await this.usersService.getByEmail(userCredential.email);

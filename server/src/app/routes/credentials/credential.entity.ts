@@ -1,5 +1,5 @@
-import { Column, ObjectIdColumn, Entity } from "typeorm";
-import { ObjectID } from "mongodb";
+import { ObjectID } from 'mongodb';
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
 @Entity('credentials')
 export class Credential {

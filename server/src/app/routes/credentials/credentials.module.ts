@@ -1,8 +1,8 @@
-import { Module } from "@nestjs/common";
-import { CredentialsService } from "./credentials.service";
-import { CredentialsController } from "./credentials.controller";
-import { UsersModule } from "../users/users.module";
-import { SharedModule } from "../../core/shared/shared.module";
+import { Module } from '@nestjs/common';
+import { SharedModule } from '../../core/shared/shared.module';
+import { UsersModule } from '../users/users.module';
+import { CredentialsController } from './credentials.controller';
+import { CredentialsService } from './credentials.service';
 
 @Module({
   components: [CredentialsService],

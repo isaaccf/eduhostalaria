@@ -1,8 +1,8 @@
-import { Component } from "@nestjs/common";
-import { Credential } from "./credential.entity";
-import { DatabaseService } from "../../core/shared/database.service";
-import { Repository } from "typeorm";
-import { ObjectID } from "mongodb";
+import { Component } from '@nestjs/common';
+import { ObjectID } from 'mongodb';
+import { Repository } from 'typeorm';
+import { DatabaseService } from '../../core/shared/database.service';
+import { Credential } from './credential.entity';
 
 @Component()
 export class CredentialsService {
@@ -27,6 +27,5 @@ export class CredentialsService {
     const credentials = repository.persist(credential);
     return credentials;
   }
-
 
 }

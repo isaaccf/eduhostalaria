@@ -72,7 +72,7 @@ export class UsersService {
     /*Check if fields in test array exists in user, if not return false*/
     private validate(user: any, test: string[]): boolean {
         const keys = Object.keys(user);
-        const isValid = test.every(key => key in keys);
+        const isValid = test.every(key => keys.includes(key));
         return isValid;
     }
 

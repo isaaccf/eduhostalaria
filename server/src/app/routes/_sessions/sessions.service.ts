@@ -1,10 +1,10 @@
 import { Component } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
+import { SETTINGS } from '../../../environments/environment';
+import { NotFoundException, UnauthorizedException } from '../../core/shared/exceptions';
+import { IUserCredential } from '../../core/shared/models';
+import { CredentialsService } from '../credentials/credentials.service';
 import { UsersService } from './../users/users.service';
-import { IUserCredential } from "../../core/shared/models";
-import { SETTINGS } from "../../../environments/environment";
-import { UnauthorizedException, NotFoundException } from "../../core/shared/exceptions";
-import { CredentialsService } from "../credentials/credentials.service";
 
 @Component()
 export class SessionsService {
