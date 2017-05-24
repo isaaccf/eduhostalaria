@@ -23,6 +23,7 @@
         ],
         "only-arrow-functions": [
             false
-        ]
+        ],
+        "no-unused-variable": true
     }
 }

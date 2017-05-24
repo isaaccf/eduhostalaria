@@ -1,13 +1,14 @@
 import { Component } from "@nestjs/common";
 import { sign } from 'jsonwebtoken';
 import { SETTINGS } from '../../../environments/environment';
-import { NotFoundException } from '../../core/shared/exceptions';
+import { NotFoundException, BadRequestException } from '../../core/shared/exceptions';
 import { LoggerService } from "../../core/shared/logger.service";
-import { INewUserCredential, IUserCredential } from "../../core/shared/models";
 import { User } from "../users/user.entity";
 import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import { CredentialsService } from "./credentials.service";
+import { ROLE, STATUS } from "../../core/shared/enums";
+import { IUserInvitation, IUserCredential, IUserRegistration } from "./models";
 
 @Component()
 export class CredentialsLogic {
@@ -17,22 +18,21 @@ export class CredentialsLogic {
     private credentialsService: CredentialsService,
     private usersService: UsersService) { }
 
-  public async registerNewUserCredential(newUserCredential: INewUserCredential): Promise<User> {
-    let newUser = new User();
-    newUser.email = newUserCredential.email;
-    newUser.organizationId = newUserCredential.organizationId;
-    newUser.name = newUserCredential.name;
+  public async postUserRegistration(userRegistration: IUserRegistration): Promise<User> {
+    if (!userRegistration.password && !userRegistration.phone) throw new BadRequestException('Phone or password required');
+    let newUser = this.createUserFromUserRegistration(userRegistration);
     newUser = await this.usersService.post(newUser);
-    const credential = new Credential();
-    credential.userId = newUser.id;
-    credential.password = newUserCredential.password;
-    try {
-      await this.credentialsService.post(credential);
-    } catch (err) {
-      this.logger.error(err);
-      await this.usersService.remove(newUser.id);
-      newUser = null;
+    if (userRegistration.password) {
+      newUser = await this.postCredential(newUser, userRegistration);
     }
+    this.sendConfirmationEmail(newUser);
+    return newUser;
+  }
+
+  public async postUserInvitation(userInvitation: IUserInvitation): Promise<User> {
+    let newUser = this.createUserFromUserInvitation(userInvitation);
+    newUser = await this.usersService.post(newUser);
+    this.sendConfirmationEmail(newUser);
     return newUser;
   }
 
@@ -44,5 +44,49 @@ export class CredentialsLogic {
     }
     const token = sign(user, SETTINGS.secret);
     return token;
+  }
+
+  private createUserFromUserRegistration(userRegistration: IUserRegistration): User {
+    let newUser = new User();
+    newUser.email = userRegistration.email;
+    newUser.organizationId = userRegistration.organizationId;
+    newUser.name = userRegistration.name;
+    if (userRegistration.password) {
+      newUser.roles = [ROLE.CLIENT];
+    }
+    if (userRegistration.phone) {
+      newUser.phone = userRegistration.phone;
+      newUser.roles = [ROLE.PUBLIC];
+    }
+    newUser.status = STATUS.PENDING;
+    return newUser;
+  }
+
+  private createUserFromUserInvitation(userInvitation: IUserInvitation): User {
+    const newUser = new User();
+    newUser.email = userInvitation.email;
+    newUser.organizationId = userInvitation.organizationId;
+    newUser.name = userInvitation.name;
+    newUser.roles = [userInvitation.role]
+    newUser.status = STATUS.PENDING;
+    return newUser;
+  }
+
+  private async postCredential(newUser: User, userRegistration: IUserRegistration) {
+    const credential = new Credential();
+    credential.userId = newUser.id;
+    credential.password = userRegistration.password;
+    try {
+      await this.credentialsService.post(credential);
+    } catch (err) {
+      this.logger.error(err);
+      await this.usersService.remove(newUser.id);
+      newUser = null;
+    }
+    return newUser;
+  }
+
+  private async sendConfirmationEmail(newUser: User): Promise<boolean> {
+    return true;
   }
 }
