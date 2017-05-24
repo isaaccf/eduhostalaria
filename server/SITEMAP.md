@@ -19,6 +19,7 @@
   name:'CEIP Paseo das Pontes',
   email:'info@paseo.xunta.edu',
   phone : '987654321',
+  url : 'http://edu.xunta.gal',
   address:{},
   description: '',
   image:'',
