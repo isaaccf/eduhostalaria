@@ -1,24 +1,24 @@
 import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
-import { Logger } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { LoggerService } from "../../core/shared/logger.service";
 import { INewUserCredential, IUserCredential } from '../../core/shared/models';
-import { CredentialsService } from '../credentials/credentials.service';
 import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import { CredentialsLogic } from "./credentials.logic";
 
 @Controller('credentials')
 export class CredentialsController {
-  private logger: Logger;
-  constructor(private credentialsService: CredentialsService, private credentialsLogic: CredentialsLogic) {
-    this.logger = new Logger('CredentialsController');
+  constructor(
+    private logger: LoggerService,
+    private credentialsLogic: CredentialsLogic) {
+
   }
 
   @Post()
   public async registerNewUserCredential( @Res() res: Response, @Body() user: INewUserCredential) {
     const newUser = await this.credentialsLogic.registerNewUserCredential(user);
     if (newUser) {
-      this.logger.log(JSON.stringify(newUser));
+      this.logger.value(newUser);
       res.status(HttpStatus.CREATED).json(newUser);
     } else {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });

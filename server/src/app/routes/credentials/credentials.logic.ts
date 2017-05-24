@@ -1,7 +1,8 @@
-import { Component, Logger } from "@nestjs/common";
+import { Component } from "@nestjs/common";
 import { sign } from 'jsonwebtoken';
 import { SETTINGS } from '../../../environments/environment';
 import { NotFoundException } from '../../core/shared/exceptions';
+import { LoggerService } from "../../core/shared/logger.service";
 import { INewUserCredential, IUserCredential } from "../../core/shared/models";
 import { User } from "../users/user.entity";
 import { UsersService } from "../users/users.service";
@@ -10,12 +11,11 @@ import { CredentialsService } from "./credentials.service";
 
 @Component()
 export class CredentialsLogic {
-  private logger: Logger;
+
   constructor(
+    private logger: LoggerService,
     private credentialsService: CredentialsService,
-    private usersService: UsersService) {
-    this.logger = new Logger('CredentialsController');
-  }
+    private usersService: UsersService) { }
 
   public async registerNewUserCredential(newUserCredential: INewUserCredential): Promise<User> {
     let newUser = new User();
@@ -29,6 +29,7 @@ export class CredentialsLogic {
     try {
       await this.credentialsService.post(credential);
     } catch (err) {
+      this.logger.error(err);
       await this.usersService.remove(newUser.id);
       newUser = null;
     }

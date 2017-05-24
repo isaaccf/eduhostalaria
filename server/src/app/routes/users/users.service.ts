@@ -1,4 +1,4 @@
-import { Component, Logger } from '@nestjs/common';
+import { Component } from '@nestjs/common';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
 import { ObjectId, ValidateParams } from "../../core/decorators/validate-param";
@@ -13,14 +13,11 @@ import { User } from './user.entity';
 
 @Component()
 export class UsersService {
-    private logger: Logger;
     private get repository(): Promise<Repository<User>> {
         return this.databaseService.getRepository(User);
     }
 
-    constructor(private databaseService: DatabaseService) {
-        this.logger = new Logger('UsersService');
-    }
+    constructor(private databaseService: DatabaseService) { }
 
     public async getAll(): Promise<User[]> {
         const repository = await this.repository;
