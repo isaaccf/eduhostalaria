@@ -19,7 +19,11 @@ export class UsersController {
     @Get('/:id')
     public async getById( @Res() res: Response, @Param('id') id: string) {
         const user = await this.usersService.getById(id);
-        res.status(HttpStatus.OK).json(user);
+        if (user) {
+            res.status(HttpStatus.OK).json(user);
+        } else {
+            res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
+        }
     }
 
     @Delete('/:id')

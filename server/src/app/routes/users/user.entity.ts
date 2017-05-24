@@ -1,7 +1,6 @@
 import { ObjectID } from 'mongodb';
 import { Column, Entity, ObjectIdColumn } from 'typeorm';
 
-
 @Entity('users')
 export class User {
     @ObjectIdColumn()
@@ -21,6 +20,7 @@ export class User {
 
     @Column()
     public status: Status;
+
 }
 
 export enum ROLES {

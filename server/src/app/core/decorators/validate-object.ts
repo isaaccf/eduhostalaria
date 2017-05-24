@@ -9,15 +9,13 @@ export function ValidateObject(params: string[]) {
         target: any,
         propertyKey: string,
         descriptor: TypedPropertyDescriptor<any>
-    ) => {
+    ): TypedPropertyDescriptor<any> => {
         const originalMethod = descriptor.value;
-        descriptor.value = function(...args: any[]){
+        descriptor.value = function (...args: any[]) {
             if (!validate(args[0], params)) {
                 throw new BadRequestException(`Params ''${params.join(' ')}'' must be send.`);
             }
-
             const result = originalMethod.apply(this, args);
-
             return result;
         };
         return descriptor;

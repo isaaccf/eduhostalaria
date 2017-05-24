@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 import { SharedModule } from '../../core/shared/shared.module';
 import { UsersModule } from '../users/users.module';
 import { CredentialsController } from './credentials.controller';
+import { CredentialsLogic } from "./credentials.logic";
 import { CredentialsService } from './credentials.service';
 
 @Module({
-  components: [CredentialsService],
+  components: [CredentialsLogic, CredentialsService],
   controllers: [CredentialsController],
-  exports: [CredentialsService],
+  exports: [CredentialsLogic],
   modules: [UsersModule, SharedModule],
 })
 export class CredentialsModule {
