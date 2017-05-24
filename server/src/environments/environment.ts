@@ -7,6 +7,16 @@ const settingsProd: ISettings = {
     secret: 'secret',
     database: 'reserva',
     host: 'localhost',
+    mailerSettings: {
+        port: 0,
+        host: "",
+        secure: false,
+        ignoreTLS: true,
+        auth: {
+            user: "",
+            pass: ""
+        },
+    }
 };
 
 const settingsDev: ISettings = {
@@ -14,6 +24,16 @@ const settingsDev: ISettings = {
     secret: 'secret',
     database: 'reserva',
     host: 'localhost',
+    mailerSettings: {
+        host: "",
+        port: 0,
+        secure: false,
+        ignoreTLS: true,
+        auth: {
+            user: "",
+            pass: ""
+        },
+    }
 };
 
 export const SETTINGS = (isProd) ? settingsProd : settingsDev;
