@@ -4,7 +4,7 @@ import { LoggerService } from "../../core/shared/logger.service";
 import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import { CredentialsLogic } from "./credentials.logic";
-import { IUserInvitation, IUserCredential, IUserRegistration, IUserActivation, IUserConfirmation } from "./models";
+import { IUserInvitation, IUserCredential, IUserRegistration, IUserActivation, IUserConfirmation } from "./credentials.models";
 import { User } from "../users/user.entity";
 
 @Controller('credentials')
@@ -16,13 +16,23 @@ export class CredentialsController {
   @Post()
   public async postUserRegistration( @Res() res: Response, @Body() userRegistration: IUserRegistration) {
     const newUser = await this.credentialsLogic.postUserRegistration(userRegistration);
-    await this.sendCreatedResponse(res, newUser);
+    if (newUser) {
+      this.logger.value(newUser);
+      res.status(HttpStatus.CREATED).json(newUser);
+    } else {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
+    }
   }
 
   @Post('invitation')
   public async postUserInvitation( @Res() res: Response, @Body() userInvitation: IUserInvitation) {
     const newUser = await this.credentialsLogic.postUserInvitation(userInvitation);
-    await this.sendCreatedResponse(res, newUser);
+    if (newUser) {
+      this.logger.value(newUser);
+      res.status(HttpStatus.CREATED).json(newUser);
+    } else {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
+    }
   }
 
   @Post('confirmation')
@@ -41,12 +51,4 @@ export class CredentialsController {
     res.status(HttpStatus.OK).json({ access_token: token });
   }
 
-  private sendCreatedResponse( @Res() res: Response, newUser: User) {
-    if (newUser) {
-      this.logger.value(newUser);
-      res.status(HttpStatus.CREATED).json(newUser);
-    } else {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
-    }
-  }
 }

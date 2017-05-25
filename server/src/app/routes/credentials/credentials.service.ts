@@ -2,7 +2,6 @@ import { Component } from '@nestjs/common';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
 import { DatabaseService } from '../../core/shared/database.service';
-import { INewUserCredential, IUserCredential } from '../../core/shared/models';
 import { User } from "../users/user.entity";
 import { UsersService } from '../users/users.service';
 import { Credential } from './credential.entity';

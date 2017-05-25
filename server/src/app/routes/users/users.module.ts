@@ -2,12 +2,11 @@ import { MiddlewaresConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AuthMiddleware } from './../../core/shared/auth.middleware';
 import { RolesMiddleware } from './../../core/shared/roles.middleware';
 import { SharedModule } from './../../core/shared/shared.module';
-import { ROLES } from './user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { ROLE } from "../../core/shared/enums";
 
-
-const roles = [ROLES.ADMIN];
+const roles = [ROLE.ADMIN];
 
 @Module({
     components: [UsersService],

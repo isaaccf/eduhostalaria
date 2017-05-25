@@ -8,7 +8,7 @@ import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import { CredentialsService } from "./credentials.service";
 import { ROLE, STATUS } from "../../core/shared/enums";
-import { IUserInvitation, IUserCredential, IUserRegistration } from "./models";
+import { IUserInvitation, IUserCredential, IUserRegistration } from "./credentials.models";
 
 @Component()
 export class CredentialsLogic {
