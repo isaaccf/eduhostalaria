@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: './../../routes/client/client.module#ClientModule'
   },
   {
+    path: 'god',
+    loadChildren: './../../routes/god/god.module#GodModule'
+  },
+  {
     path: 'login',
     loadChildren: './../../routes/login/login.module#LoginModule'
   },
