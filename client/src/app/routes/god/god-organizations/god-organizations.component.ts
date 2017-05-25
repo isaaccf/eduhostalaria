@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GodOrganizationsComponent implements OnInit {
 
+  public organizations: any[];
+
   constructor() { }
 
   ngOnInit() {
+    this.organizations = [
+      {
+        name: 'IES Paseo das Pontes',
+        admin: 'Fulanito',
+        email: 'fulano@gmail.com'
+      },
+      {
+        name: 'IES Viveiro',
+        admin: 'Mario',
+        email: 'marito@gmail.com'
+      },
+      {
+        name: 'IES Pontevedra',
+        admin: 'Elías',
+        email: 'elias@gmail.com'
+      }
+    ]
   }
 
 }
