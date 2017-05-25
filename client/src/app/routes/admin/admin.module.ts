@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { AdminComponent } from './admin/admin.component';
 import { AdminOrganizationComponent } from './admin-organization/admin-organization.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminBookingsComponent } from './admin-bookings/admin-bookings.component';
@@ -14,6 +13,6 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     CommonModule,
     AdminRoutingModule
   ],
-  declarations: [AdminComponent, AdminOrganizationComponent, AdminUsersComponent, AdminBookingsComponent, AdminPaymentsComponent, AdminHomeComponent]
+  declarations: [AdminOrganizationComponent, AdminUsersComponent, AdminBookingsComponent, AdminPaymentsComponent, AdminHomeComponent]
 })
 export class AdminModule { }
