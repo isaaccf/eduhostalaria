@@ -1,6 +1,6 @@
 {
   "name": "server-reserva-escola-hostelaria",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Servidor Reservas para Escolas de Hostelaría",
   "main": "index.js",
   "scripts": {

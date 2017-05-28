@@ -1,5 +1,10 @@
 # [Home](http://api.rfph.com/ "API de Resevas Rede FP Hostalaria")
 
+# [Users](http://api.rfph.com/credentials "Credentials")
+````javascript
+
+````
+
 # [Users](http://api.rfph.com/users "Usuarios")
 ```javascript
 {
