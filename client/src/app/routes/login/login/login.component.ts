@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const credentials = this.loginForm.value;
     this.http
-      .post('http://localhost:3000/credentials', credentials)
+      .post('http://localhost:3000/credentials/client', credentials)
       .subscribe(r => {
         const token = r.json();
         localStorage.setItem('token', token);

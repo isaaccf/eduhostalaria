@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from "app/core/shared/shared.module";
 
 
 @NgModule({
@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     LoginRoutingModule,
     HttpModule,
-    ReactiveFormsModule
+    SharedModule
   ],
   declarations: [LoginComponent]
 })
