@@ -1,41 +1,25 @@
-<form [formGroup]="loginForm"
-      (ngSubmit)="onSubmit()"
-      class="container">
+<rh-form [form]="loginForm"
+         submitLabel="Log In"
+         (submit)="onSubmit()">
   <section name="organizationId-control">
     <label for="organizationId">Organization ID:</label>
     <input formControlName="organizationId"
            type="number" />
   </section>
-  <section name="name-control">
-    <label for="name">Name:</label>
-    <input formControlName="name"
-           type="text" />
-  </section>
-  <section name="email-control">
-    <label for="email">Email:</label>
-    <input formControlName="email"
-           type="email" />
-    <small *ngIf="loginForm.get('email').invalid"
-           class="float-right">
-             email is required
-      </small>
-  </section>
-  <section name="password-control">
-    <label for="password">Password:</label>
-    <input formControlName="password"
-           type="password" />
-    <small *ngIf="loginForm.get('password').invalid"
-           class="float-right">
-             password is required
-      </small>
-  </section>
-  <rh-input-control label="Password"
-                    [form]="loginForm"
-                    formControlName="password"
-                    type="password">
-  </rh-input-control>
-
-
-  <button type="submit"
-          [disabled]="loginForm.invalid">Log In</button>
-</form>
+  <rh-input label="Name"
+            [form]="loginForm"
+            formControlName="name"
+            type="text">
+  </rh-input>
+  <rh-input label="Email"
+            [form]="loginForm"
+            formControlName="email"
+            type="email">
+  </rh-input>
+  <rh-input label="Password"
+            [form]="loginForm"
+            formControlName="password"
+            type="password">
+  </rh-input>
+</rh-form>
+{{ loginForm.value | json }}

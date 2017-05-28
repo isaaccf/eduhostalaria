@@ -1,0 +1,9 @@
+<section [formGroup]="form">
+  <label for="{{formControlName}}">{{ label }}:</label>
+  <input formControlName="{{formControlName}}"
+         type="{{type}}" />
+  <small *ngIf="form.get(formControlName).invalid"
+         class="float-right">
+             Error in field {{form.get(formControlName).errors | json}}
+      </small>
+</section>
