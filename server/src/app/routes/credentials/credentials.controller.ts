@@ -4,7 +4,7 @@ import { LoggerService } from "../../core/shared/logger.service";
 import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import { CredentialsLogic } from "./credentials.logic";
-import { IUserInvitation, IUserCredential, IUserRegistration, IUserActivation, IUserConfirmation } from "./credentials.models";
+import { IUserInvitation, IUserCredential, IUserActivation, IUserConfirmation, IUserClientRegistration, IUserPublicRegistration } from "./credentials.models";
 import { User } from "../users/user.entity";
 
 @Controller('credentials')
@@ -13,9 +13,20 @@ export class CredentialsController {
     private logger: LoggerService,
     private credentialsLogic: CredentialsLogic) { }
 
-  @Post()
-  public async postUserRegistration( @Res() res: Response, @Body() userRegistration: IUserRegistration) {
-    const newUser = await this.credentialsLogic.postUserRegistration(userRegistration);
+  @Post('client')
+  public async postUserClientRegistration( @Res() res: Response, @Body() userRegistration: IUserClientRegistration) {
+    const newUser = await this.credentialsLogic.postUserClientRegistration(userRegistration);
+    if (newUser) {
+      this.logger.value(newUser);
+      res.status(HttpStatus.CREATED).json(newUser);
+    } else {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
+    }
+  }
+
+  @Post('public')
+  public async postUserPublicRegistration( @Res() res: Response, @Body() userRegistration: IUserPublicRegistration) {
+    const newUser = await this.credentialsLogic.postUserPublicRegistration(userRegistration);
     if (newUser) {
       this.logger.value(newUser);
       res.status(HttpStatus.CREATED).json(newUser);

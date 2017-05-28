@@ -8,7 +8,7 @@ import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import { CredentialsService } from "./credentials.service";
 import { ROLE, STATUS } from "../../core/shared/enums";
-import { IUserInvitation, IUserCredential, IUserRegistration } from "./credentials.models";
+import { IUserInvitation, IUserCredential, IUserClientRegistration, IUserPublicRegistration } from "./credentials.models";
 
 @Component()
 export class CredentialsLogic {
@@ -18,13 +18,17 @@ export class CredentialsLogic {
     private credentialsService: CredentialsService,
     private usersService: UsersService) { }
 
-  public async postUserRegistration(userRegistration: IUserRegistration): Promise<User> {
-    if (!userRegistration.password && !userRegistration.phone) throw new BadRequestException('Phone or password required');
-    let newUser = this.createUserFromUserRegistration(userRegistration);
+  public async postUserClientRegistration(userRegistration: IUserClientRegistration): Promise<User> {
+    let newUser = this.createUserFromUserClientRegistration(userRegistration);
     newUser = await this.usersService.post(newUser);
-    if (userRegistration.password) {
-      newUser = await this.postCredential(newUser, userRegistration);
-    }
+    newUser = await this.postCredential(newUser, userRegistration);
+    this.sendConfirmationEmail(newUser);
+    return newUser;
+  }
+
+  public async postUserPublicRegistration(userRegistration: IUserPublicRegistration): Promise<User> {
+    let newUser = this.createUserFromUserPublicRegistration(userRegistration);
+    newUser = await this.usersService.post(newUser);
     this.sendConfirmationEmail(newUser);
     return newUser;
   }
@@ -46,18 +50,23 @@ export class CredentialsLogic {
     return token;
   }
 
-  private createUserFromUserRegistration(userRegistration: IUserRegistration): User {
+  private createUserFromUserClientRegistration(userRegistration: IUserClientRegistration): User {
     let newUser = new User();
     newUser.email = userRegistration.email;
     newUser.organizationId = userRegistration.organizationId;
     newUser.name = userRegistration.name;
-    if (userRegistration.password) {
-      newUser.roles = [ROLE.CLIENT];
-    }
-    if (userRegistration.phone) {
-      newUser.phone = userRegistration.phone;
-      newUser.roles = [ROLE.PUBLIC];
-    }
+    newUser.roles = [ROLE.CLIENT];
+    newUser.status = STATUS.PENDING;
+    return newUser;
+  }
+
+  private createUserFromUserPublicRegistration(userRegistration: IUserPublicRegistration): User {
+    let newUser = new User();
+    newUser.email = userRegistration.email;
+    newUser.organizationId = userRegistration.organizationId;
+    newUser.name = userRegistration.name;
+    newUser.phone = userRegistration.phone;
+    newUser.roles = [ROLE.PUBLIC];
     newUser.status = STATUS.PENDING;
     return newUser;
   }

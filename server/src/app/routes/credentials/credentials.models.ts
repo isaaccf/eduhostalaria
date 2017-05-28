@@ -13,13 +13,18 @@ export interface IUserInvitation {
   role: ROLE;
 }
 
-export interface IUserRegistration {
+export interface IUserClientRegistration {
   email: string;
   name: string;
   organizationId: ObjectID;
-  password?: string;
-  phone?: string;
-  role?: ROLE;
+  password: string;
+}
+
+export interface IUserPublicRegistration {
+  email: string;
+  name: string;
+  organizationId: ObjectID;
+  phone: string;
 }
 
 export interface IUserConfirmation {
