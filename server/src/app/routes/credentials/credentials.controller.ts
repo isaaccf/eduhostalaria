@@ -85,8 +85,8 @@ export class CredentialsController {
   @Post()
   public async postCredentials( @Res() res: Response, @Body() userCredential: IUserCredential) {
     this.logger.value('userCredential', userCredential);
-    const token = await this.credentialsLogic.getToken(userCredential);
-    res.status(HttpStatus.OK).json({ access_token: token });
+    const userToken = await this.credentialsLogic.getUserToken(userCredential);
+    res.status(HttpStatus.OK).json({ access_token: userToken });
   }
 
 }

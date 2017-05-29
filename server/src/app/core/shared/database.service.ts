@@ -16,10 +16,9 @@ export class DatabaseService {
 
   private get connection(): Promise<Connection> {
     if (this._connection) {
-      this.logger.log('_connection OK');
       return Promise.resolve(this._connection);
     }
-    this.logger.warn('Creating NEW');
+    this.logger.warn('Creating NEW connection');
     return createConnection({
       driver: {
         database: SETTINGS.database,

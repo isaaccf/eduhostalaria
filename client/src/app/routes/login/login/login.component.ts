@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['admin@agorabinaria.com', Validators.required],
+      password: ['secret', Validators.required]
     });
     this.schemma = ['email', 'password'];
   }
@@ -28,10 +28,47 @@ export class LoginComponent implements OnInit {
     this.http
       .post('http://localhost:3000/credentials', credentials)
       .subscribe(r => {
-        const token = r.json();
-        localStorage.setItem('token', token);
-        this.router.navigate(['/god']);
+        const userToken: IUserToken = r.json().access_token;
+        localStorage.setItem('token', JSON.stringify(userToken));
+        console.log(JSON.stringify(userToken));
+        if (userToken.roles.findIndex(r => r == ROLE.GOD) >= 0) {
+          this.router.navigate(['/god']);
+        }
+        else {
+          this.router.navigate(['/']);
+        }
       });
   }
 
+}
+
+
+export interface IUserCredential {
+  email: string;
+  password: string;
+}
+
+export interface IUserToken {
+  email: string;
+  name: string;
+  organizationId: string;
+  roles: ROLE[];
+  token: string;
+}
+
+export enum ROLE {
+  ADMIN,
+  CLIENT,
+  GOD,
+  ORGANIZER,
+  PUBLIC,
+  USHER,
+}
+
+export enum STATUS {
+  PENDING,
+  CONFIRMED,
+  ACTIVE,
+  DISABLED,
+  CANCELED
 }

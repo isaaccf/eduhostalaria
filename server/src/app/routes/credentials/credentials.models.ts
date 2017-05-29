@@ -6,6 +6,14 @@ export interface IUserCredential {
   password: string;
 }
 
+export interface IUserToken {
+  email: string;
+  name: string;
+  organizationId: ObjectID;
+  roles: ROLE[];
+  token: string;
+}
+
 export interface IUserInvitation {
   email: string;
   name: string;

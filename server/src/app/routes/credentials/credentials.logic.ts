@@ -8,7 +8,7 @@ import { User } from "../users/user.entity";
 import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
 import {
-  IUserClientRegistration, IUserCredential, IUserGodRegistration, IUserInvitation, IUserPublicRegistration
+  IUserClientRegistration, IUserCredential, IUserGodRegistration, IUserInvitation, IUserPublicRegistration, IUserToken
 } from "./credentials.models";
 import { CredentialsService } from "./credentials.service";
 
@@ -48,7 +48,7 @@ export class CredentialsLogic {
     return newUser;
   }
 
-  public async getToken(userCredential: IUserCredential): Promise<string> {
+  public async getUserToken(userCredential: IUserCredential): Promise<IUserToken> {
     const user = await this.usersService.getByEmail(userCredential.email);
     if (!user) {
       throw new NotFoundException('Invalid User');
@@ -57,8 +57,15 @@ export class CredentialsLogic {
     if (!credential) {
       throw new NotFoundException('Invalid Credential');
     }
-    const token = sign(user, SETTINGS.secret);
-    return token;
+    const token = sign(credential, SETTINGS.secret);
+    const userToken: IUserToken = {
+      name: user.name,
+      email: user.email,
+      organizationId: user.organizationId,
+      roles: user.roles,
+      token: token
+    }
+    return userToken;
   }
 
   private createUserFromUserGodRegistration(userRegistration: IUserGodRegistration): User {

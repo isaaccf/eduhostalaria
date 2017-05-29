@@ -21,7 +21,7 @@ export class OrganizationsController {
   public async post( @Res() res: Response, @Body() organization: Organization) {
     const newOrganization = await this.organizationsService.post(organization);
     if (newOrganization) {
-      this.logger.value(newOrganization);
+      this.logger.value('newOrganization', newOrganization);
       res.status(HttpStatus.CREATED).json(newOrganization);
     } else {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
