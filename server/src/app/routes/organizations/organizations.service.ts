@@ -1,10 +1,12 @@
 import { Component } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { DatabaseService } from "../../core/shared/database.service";
+import { LoggerService } from "../../core/shared/logger.service";
 import { Organization } from "./organization.entity";
 
 @Component()
 export class OrganizationsService {
+  private logger: LoggerService = new LoggerService('OrganizationsService');
   private get repository(): Promise<Repository<Organization>> {
     return this.databaseService.getRepository(Organization);
   }

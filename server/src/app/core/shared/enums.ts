@@ -1,16 +1,16 @@
 export enum ROLE {
-    ADMIN,
-    CLIENT,
-    GOD,
-    ORGANIZER,
-    PUBLIC,
-    USHER,
+  ADMIN,
+  CLIENT,
+  GOD,
+  ORGANIZER,
+  PUBLIC,
+  USHER,
 }
 
 export enum STATUS {
-    PENDING,
-    CONFIRMED,
-    ACTIVE,
-    DISABLED,
-    CANCELED
+  PENDING,
+  CONFIRMED,
+  ACTIVE,
+  DISABLED,
+  CANCELED
 }

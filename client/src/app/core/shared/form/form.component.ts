@@ -3,18 +3,29 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'rh-form',
-  templateUrl: './form.component.html',
+  template: `
+  <form [formGroup]="formGroup"
+        class="container">
+    <ng-content>
+    </ng-content>
+    <button type="submit"
+          (click)="onClick()"
+          [disabled]="formGroup.invalid">{{ submitLabel}}</button>
+  </form>
+  <em>{{formGroup.value | json}}</em>
+  `,
   styles: []
 })
 export class FormComponent implements OnInit {
-  @Input() form: FormGroup;
+  @Input() formGroup: FormGroup;
   @Input() submitLabel: string;
-  @Output() submit: EventEmitter<void> = new EventEmitter<void>();
+  @Output() send: EventEmitter<void> = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit() {
+
   }
-  onSubmit() {
-    this.submit.emit();
+  onClick() {
+    this.send.emit();
   }
 }

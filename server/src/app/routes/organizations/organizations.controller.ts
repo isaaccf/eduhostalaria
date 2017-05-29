@@ -6,8 +6,8 @@ import { OrganizationsService } from "./organizations.service";
 
 @Controller('organizations')
 export class OrganizationsController {
+  private logger: LoggerService = new LoggerService('OrganizationsController');
   constructor(
-    private logger: LoggerService,
     private organizationsService: OrganizationsService
   ) { }
 

@@ -20,19 +20,19 @@
   },
   "homepage": "https://github.com/AgoraBinaria/reserva-escola#readme",
   "dependencies": {
-    "@nestjs/common": "^2.0.3",
-    "@nestjs/core": "^2.0.5",
-    "@nestjs/microservices": "^2.0.5",
-    "@nestjs/websockets": "^2.0.5",
+    "@nestjs/common": "^2.1.2",
+    "@nestjs/core": "^2.1.2",
+    "@nestjs/microservices": "^2.1.0",
+    "@nestjs/websockets": "^2.1.1",
     "body-parser": "^1.17.1",
     "cors": "^2.8.3",
     "express": "^4.15.2",
     "jsonwebtoken": "^7.4.1",
     "mongodb": "^2.2.26",
-    "nest.js": "^1.0.5",
     "nodemailer": "^4.0.1",
     "reflect-metadata": "^0.1.10",
-    "typeorm": "0.1.0-alpha.1"
+    "rxjs": "^5.4.0",
+    "typeorm": "0.1.0-alpha.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.3",

@@ -1,25 +1,14 @@
-<rh-form [form]="loginForm"
+<rh-form [formGroup]="loginForm"
          submitLabel="Log In"
-         (submit)="onSubmit()">
-  <section name="organizationId-control">
-    <label for="organizationId">Organization ID:</label>
-    <input formControlName="organizationId"
-           type="number" />
-  </section>
-  <rh-input label="Name"
-            [form]="loginForm"
-            formControlName="name"
-            type="text">
-  </rh-input>
+         (send)="onSend()">
   <rh-input label="Email"
-            [form]="loginForm"
-            formControlName="email"
+            [formGroup]="loginForm"
+            [formControlName]="schemma[0]"
             type="email">
   </rh-input>
   <rh-input label="Password"
-            [form]="loginForm"
-            formControlName="password"
+            [formGroup]="loginForm"
+            [formControlName]="schemma[1]"
             type="password">
   </rh-input>
 </rh-form>
-{{ loginForm.value | json }}

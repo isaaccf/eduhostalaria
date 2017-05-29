@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -6,14 +6,18 @@ import { ShellComponent } from './shell.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { HomeModule } from 'app/routes/home/home.module';
+import { BigbangComponent } from './bigbang/bigbang.component';
+import { SharedModule } from 'app/core/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    HomeModule
+    HomeModule,
+    SharedModule
   ],
-  declarations: [ShellComponent, TopBarComponent, MainContentComponent],
-  exports: [ShellComponent]
+  declarations: [ShellComponent, TopBarComponent, MainContentComponent, BigbangComponent],
+  exports: [ShellComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class LayoutModule { }

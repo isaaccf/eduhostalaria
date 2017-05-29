@@ -1,11 +1,10 @@
 import { Component, Logger } from "@nestjs/common";
 
-@Component()
 export class LoggerService {
   private _logger: Logger;
 
-  constructor() {
-    const caller = '';
+  constructor(caller: string) {
+    // const caller = '';
     this._logger = new Logger(caller);
   }
 
@@ -13,8 +12,8 @@ export class LoggerService {
     this._logger.log(message);
   }
 
-  public value(target: any) {
-    this._logger.log(`${JSON.stringify(Object.getPrototypeOf(target))} : ${JSON.stringify(target)} `);
+  public value(name: string, target: any) {
+    this._logger.log(`${name} : ${JSON.stringify(target)} `);
   }
 
   public warn(message: string) {

@@ -1,27 +1,35 @@
 import { Component } from "@nestjs/common";
 import { sign } from 'jsonwebtoken';
 import { SETTINGS } from '../../../environments/environment';
-import { NotFoundException, BadRequestException } from '../../core/shared/exceptions';
+import { ROLE, STATUS } from "../../core/shared/enums";
+import { BadRequestException, NotFoundException } from '../../core/shared/exceptions';
 import { LoggerService } from "../../core/shared/logger.service";
 import { User } from "../users/user.entity";
 import { UsersService } from "../users/users.service";
 import { Credential } from "./credential.entity";
+import {
+  IUserClientRegistration, IUserCredential, IUserGodRegistration, IUserInvitation, IUserPublicRegistration
+} from "./credentials.models";
 import { CredentialsService } from "./credentials.service";
-import { ROLE, STATUS } from "../../core/shared/enums";
-import { IUserInvitation, IUserCredential, IUserClientRegistration, IUserPublicRegistration } from "./credentials.models";
 
 @Component()
 export class CredentialsLogic {
-
+  private logger: LoggerService = new LoggerService('CredentialsLogic');
   constructor(
-    private logger: LoggerService,
     private credentialsService: CredentialsService,
     private usersService: UsersService) { }
 
   public async postUserClientRegistration(userRegistration: IUserClientRegistration): Promise<User> {
     let newUser = this.createUserFromUserClientRegistration(userRegistration);
     newUser = await this.usersService.post(newUser);
-    newUser = await this.postCredential(newUser, userRegistration);
+    newUser = await this.postCredential(newUser, userRegistration.password);
+    this.sendConfirmationEmail(newUser);
+    return newUser;
+  }
+  public async postUserGodRegistration(userGodRegistration: IUserGodRegistration): Promise<User> {
+    let newUser = this.createUserFromUserGodRegistration(userGodRegistration);
+    newUser = await this.usersService.post(newUser);
+    newUser = await this.postCredential(newUser, userGodRegistration.password);
     this.sendConfirmationEmail(newUser);
     return newUser;
   }
@@ -42,6 +50,9 @@ export class CredentialsLogic {
 
   public async getToken(userCredential: IUserCredential): Promise<string> {
     const user = await this.usersService.getByEmail(userCredential.email);
+    if (!user) {
+      throw new NotFoundException('Invalid User');
+    }
     const credential = await this.credentialsService.getByUserIdPassword(user.id, userCredential.password);
     if (!credential) {
       throw new NotFoundException('Invalid Credential');
@@ -50,8 +61,17 @@ export class CredentialsLogic {
     return token;
   }
 
+  private createUserFromUserGodRegistration(userRegistration: IUserGodRegistration): User {
+    const newUser = new User();
+    newUser.email = userRegistration.email;
+    newUser.name = userRegistration.name;
+    newUser.roles = [ROLE.GOD];
+    newUser.status = STATUS.ACTIVE;
+    return newUser;
+  }
+
   private createUserFromUserClientRegistration(userRegistration: IUserClientRegistration): User {
-    let newUser = new User();
+    const newUser = new User();
     newUser.email = userRegistration.email;
     newUser.organizationId = userRegistration.organizationId;
     newUser.name = userRegistration.name;
@@ -61,7 +81,7 @@ export class CredentialsLogic {
   }
 
   private createUserFromUserPublicRegistration(userRegistration: IUserPublicRegistration): User {
-    let newUser = new User();
+    const newUser = new User();
     newUser.email = userRegistration.email;
     newUser.organizationId = userRegistration.organizationId;
     newUser.name = userRegistration.name;
@@ -76,15 +96,15 @@ export class CredentialsLogic {
     newUser.email = userInvitation.email;
     newUser.organizationId = userInvitation.organizationId;
     newUser.name = userInvitation.name;
-    newUser.roles = [userInvitation.role]
+    newUser.roles = [userInvitation.role];
     newUser.status = STATUS.PENDING;
     return newUser;
   }
 
-  private async postCredential(newUser: User, userRegistration: IUserRegistration) {
+  private async postCredential(newUser: User, password: string) {
     const credential = new Credential();
     credential.userId = newUser.id;
-    credential.password = userRegistration.password;
+    credential.password = password;
     try {
       await this.credentialsService.post(credential);
     } catch (err) {

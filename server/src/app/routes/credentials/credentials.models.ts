@@ -13,6 +13,12 @@ export interface IUserInvitation {
   role: ROLE;
 }
 
+export interface IUserGodRegistration {
+  email: string;
+  name: string;
+  password: string;
+}
+
 export interface IUserClientRegistration {
   email: string;
   name: string;
