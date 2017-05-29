@@ -2,7 +2,7 @@
 
 The change log is a living document...
 
-## [0.3.0] (01-06-2017)
+## [0.4.0] (01-06-2017)
 - Styling
 - Email service
 
