@@ -14,14 +14,15 @@ import {
 
 @Controller('credentials')
 export class CredentialsController {
+  private logger: LoggerService = new LoggerService('CredentialsController');
   constructor(
-    private logger: LoggerService,
     private credentialsLogic: CredentialsLogic) { }
 
   @Post('bigbang')
-  public async postUserGodRegistration( @Res() res: Response, @Body() secret: string) {
-    if (secret !== 'secret') {
-      res.status(HttpStatus.UNAUTHORIZED).json(null);
+  public async postUserGodRegistration( @Res() res: Response, @Body() secret: any) {
+    if (secret.secret !== 'secret') {
+      this.logger.warn('invalid god secret: ' + JSON.stringify(secret));
+      res.status(HttpStatus.UNAUTHORIZED).json(secret);
       return;
     }
     const userRegistration: IUserGodRegistration = {

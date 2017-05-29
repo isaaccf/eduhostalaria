@@ -6,14 +6,14 @@ import { FormToolsService } from 'app/core/shared/form-tools.service';
 @Component({
   selector: 'rh-control-error',
   template: `
-    <small *ngIf="formTools.hasErrorsToShow(form,field)" class="float-right">
-      <em>{{ formTools.getErrors(form,field) | json }}</em>
+    <small *ngIf="formTools.hasErrorsToShow(formGroup,field)" class="float-right">
+      <em>{{ formTools.getErrors(formGroup,field) | json }}</em>
     </small>
   `,
   styles: []
 })
 export class ControlErrorComponent implements OnInit {
-  @Input() form: FormGroup;
+  @Input() formGroup: FormGroup;
   @Input() field: string;
   constructor(public formTools: FormToolsService) { }
 

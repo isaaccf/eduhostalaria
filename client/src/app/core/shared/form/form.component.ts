@@ -5,12 +5,12 @@ import { FormGroup } from '@angular/forms';
   selector: 'rh-form',
   template: `
   <form [formGroup]="formGroup"
-        (ngSubmit)="onSubmit()"
         class="container">
     <ng-content>
     </ng-content>
     <button type="submit"
-            [disabled]="formGroup.invalid">{{ submitLabel}}</button>
+          (click)="onClick()"
+          [disabled]="formGroup.invalid">{{ submitLabel}}</button>
   </form>
   <em>{{formGroup.value | json}}</em>
   `,
@@ -19,13 +19,13 @@ import { FormGroup } from '@angular/forms';
 export class FormComponent implements OnInit {
   @Input() formGroup: FormGroup;
   @Input() submitLabel: string;
-  @Output() submit: EventEmitter<void> = new EventEmitter<void>();
+  @Output() send: EventEmitter<void> = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit() {
 
   }
-  onSubmit() {
-    this.submit.emit();
+  onClick() {
+    this.send.emit();
   }
 }

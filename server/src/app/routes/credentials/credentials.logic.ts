@@ -14,9 +14,8 @@ import { CredentialsService } from "./credentials.service";
 
 @Component()
 export class CredentialsLogic {
-
+  private logger: LoggerService = new LoggerService('CredentialsLogic');
   constructor(
-    private logger: LoggerService,
     private credentialsService: CredentialsService,
     private usersService: UsersService) { }
 

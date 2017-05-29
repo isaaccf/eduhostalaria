@@ -1,11 +1,10 @@
 import { Component, Logger } from "@nestjs/common";
 
-@Component()
 export class LoggerService {
   private _logger: Logger;
 
-  constructor() {
-    const caller = '';
+  constructor(caller: string) {
+    // const caller = '';
     this._logger = new Logger(caller);
   }
 

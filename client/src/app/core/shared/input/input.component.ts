@@ -4,10 +4,12 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'rh-input',
   template: `
-  <section>
+  <section [formGroup]="formGroup">
     <label [for]="formControlName">{{ label }}:</label>
-    <ng-content>
-    </ng-content>
+    <input [formControlName]="formControlName"
+          [type]="type" />
+    <rh-control-error [formGroup]="formGroup" [field]="formControlName">
+    </rh-control-error>
   </section>
   `,
   styles: []

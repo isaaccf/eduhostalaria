@@ -3,7 +3,7 @@ import { DatabaseService } from './database.service';
 import { LoggerService } from "./logger.service";
 
 @Module({
-    components: [DatabaseService, LoggerService],
-    exports: [DatabaseService, LoggerService],
+  components: [DatabaseService],
+  exports: [DatabaseService],
 })
 export class SharedModule { }
