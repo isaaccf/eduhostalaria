@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
@@ -13,6 +13,7 @@ import { SharedModule } from 'app/core/shared/shared.module';
     LoginRoutingModule,
     SharedModule
   ],
-  declarations: [LoginComponent]
+  declarations: [LoginComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class LoginModule { }

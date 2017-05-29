@@ -50,6 +50,9 @@ export class CredentialsLogic {
 
   public async getToken(userCredential: IUserCredential): Promise<string> {
     const user = await this.usersService.getByEmail(userCredential.email);
+    if (!user) {
+      throw new NotFoundException('Invalid User');
+    }
     const credential = await this.credentialsService.getByUserIdPassword(user.id, userCredential.password);
     if (!credential) {
       throw new NotFoundException('Invalid Credential');

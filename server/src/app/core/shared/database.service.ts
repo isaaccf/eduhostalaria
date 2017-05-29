@@ -11,13 +11,15 @@ export class DatabaseService {
 
   constructor() {
     this.logger = new Logger('DatabaseService');
+    this.logger.log('constructor');
   }
 
   private get connection(): Promise<Connection> {
     if (this._connection) {
+      this.logger.log('_connection OK');
       return Promise.resolve(this._connection);
     }
-
+    this.logger.warn('Creating NEW');
     return createConnection({
       driver: {
         database: SETTINGS.database,
@@ -32,6 +34,7 @@ export class DatabaseService {
         logQueries: true,
         logSchemaCreation: true,
       },
+      name: new Date().getTime().toString()
     }).then(connection => {
       this.logger.log(`Connected to mongo database ${SETTINGS.database}.`);
       this._connection = connection;

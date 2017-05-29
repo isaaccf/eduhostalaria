@@ -32,7 +32,7 @@ export class CredentialsController {
     };
     const newUser = await this.credentialsLogic.postUserGodRegistration(userRegistration);
     if (newUser) {
-      this.logger.value(newUser);
+      this.logger.value('newUser', newUser);
       res.status(HttpStatus.CREATED).json(newUser);
     } else {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
@@ -43,7 +43,7 @@ export class CredentialsController {
   public async postUserClientRegistration( @Res() res: Response, @Body() userRegistration: IUserClientRegistration) {
     const newUser = await this.credentialsLogic.postUserClientRegistration(userRegistration);
     if (newUser) {
-      this.logger.value(newUser);
+      this.logger.value('newUser', newUser);
       res.status(HttpStatus.CREATED).json(newUser);
     } else {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
@@ -54,7 +54,7 @@ export class CredentialsController {
   public async postUserPublicRegistration( @Res() res: Response, @Body() userRegistration: IUserPublicRegistration) {
     const newUser = await this.credentialsLogic.postUserPublicRegistration(userRegistration);
     if (newUser) {
-      this.logger.value(newUser);
+      this.logger.value('newUser', newUser);
       res.status(HttpStatus.CREATED).json(newUser);
     } else {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
@@ -65,7 +65,7 @@ export class CredentialsController {
   public async postUserInvitation( @Res() res: Response, @Body() userInvitation: IUserInvitation) {
     const newUser = await this.credentialsLogic.postUserInvitation(userInvitation);
     if (newUser) {
-      this.logger.value(newUser);
+      this.logger.value('newUser', newUser);
       res.status(HttpStatus.CREATED).json(newUser);
     } else {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Not created' });
@@ -74,16 +74,17 @@ export class CredentialsController {
 
   @Post('confirmation')
   public async postUserConfirmation( @Res() res: Response, @Body() userConfirmation: IUserConfirmation) {
-
+    res.status(HttpStatus.NO_CONTENT).json(null);
   }
 
   @Post('activation')
   public async postUserActivation( @Res() res: Response, @Body() userActivation: IUserActivation) {
-
+    res.status(HttpStatus.NO_CONTENT).json(null);
   }
 
-  @Get()
-  public async getLoginToken( @Res() res: Response, @Body() userCredential: IUserCredential) {
+  @Post()
+  public async postCredentials( @Res() res: Response, @Body() userCredential: IUserCredential) {
+    this.logger.value('userCredential', userCredential);
     const token = await this.credentialsLogic.getToken(userCredential);
     res.status(HttpStatus.OK).json({ access_token: token });
   }

@@ -36,7 +36,7 @@ export class UsersService {
 
   public async getByEmail(email: string): Promise<User> {
     const repository = await this.repository;
-    const user = await repository.findOneById({ email });
+    const user = await repository.findOne({ email });
     return user;
   }
 
