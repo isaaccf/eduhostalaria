@@ -8,18 +8,19 @@ import { ROLE } from 'app/routes/login/login/login.component';
 
 @Injectable()
 export class GodDataService {
-  private url = 'http://localhost:3000/organizations';
+  private organizationsUrl = 'http://localhost:3000/organizations';
+  private credentialsUrl = 'http://localhost:3000/credentials';
   constructor(private http: Http) { }
 
   getOrganizationsCount(): Observable<number> {
     return this.http
-      .get(`${this.url}/count`)
+      .get(`${this.organizationsUrl}/count`)
       .map(res => res.json().data);
   }
 
   getOrganizationsFull(): Observable<any[]> {
     return this.http
-      .get(this.url)
+      .get(this.organizationsUrl)
       .map(res => res.json())
       .map(data => data.map(d => {
         const org = { id: d.id, name: d.name, admin: { name: '', email: '', userId: '' } };
@@ -37,7 +38,7 @@ export class GodDataService {
 
   getOrganizations(): Observable<any[]> {
     return this.http
-      .get(this.url)
+      .get(this.organizationsUrl)
       .map(res => res.json())
       .map(data => data.map(d => {
         const org = { id: d.id, name: d.name, admin: { name: '', email: '', userId: '' } };
@@ -49,7 +50,14 @@ export class GodDataService {
     const search = new URLSearchParams();
     search.set('role', ROLE.ADMIN.toString());
     return this.http
-      .get(`${this.url}/${organizationId}/users`, { search })
+      .get(`${this.organizationsUrl}/${organizationId}/users`, { search })
+      .map(res => res.json());
+  }
+
+  setOrganizationAdmin(newAdmin) {
+    newAdmin.role = ROLE.ADMIN;
+    return this.http
+      .post(`${this.credentialsUrl}/invitation`, newAdmin)
       .map(res => res.json());
   }
 }
