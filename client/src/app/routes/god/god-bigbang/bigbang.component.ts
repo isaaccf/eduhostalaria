@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 
 @Component({
-  selector: 'rh-bigbang',
+  selector: 'rh-god-bigbang',
   template: `
     <rh-form [formGroup]="form"
           submitLabel="Create!!!"
@@ -17,7 +17,7 @@ import { Http } from '@angular/http';
   `,
   styles: []
 })
-export class BigbangComponent implements OnInit {
+export class GodBigbangComponent implements OnInit {
 
   public form: FormGroup;
   public schemma: any[];

@@ -11,7 +11,8 @@ export class GodOrganizationsComponent implements OnInit {
 
   public organizations: any[];
   public organizationsFull: any[];
-  public activeModal = false;
+  public activeSetAdminModal = false;
+  public activeCreateOrganizationModal = false;
   public activeOrganization;
   constructor(private godData: GodDataService) { }
 
@@ -37,20 +38,31 @@ export class GodOrganizationsComponent implements OnInit {
       });
   }
 
-  onAddAdmin(organization) {
+  onSetAdminClick(organization) {
     this.activeOrganization = organization;
-    this.activeModal = true;
+    this.activeSetAdminModal = true;
   }
 
-  onClose(newAdmin) {
+  onCloseSetAdminModal(newAdmin) {
     if (newAdmin) {
-      newAdmin.organizationId = this.activeOrganization.id;
-      this.godData
-        .setOrganizationAdmin(newAdmin)
-        .subscribe(res => this.getOrganizations());
+      this.setOrganizationAdmin(newAdmin);
     }
     this.activeOrganization = null;
-    this.activeModal = false;
+    this.activeSetAdminModal = false;
+  }
+  setOrganizationAdmin(newAdmin) {
+    newAdmin.organizationId = this.activeOrganization.id;
+    this.godData
+      .setOrganizationAdmin(newAdmin)
+      .subscribe(res => this.getOrganizations());
+  }
+
+  onCreateOrganizationClick() {
+    this.activeCreateOrganizationModal = true;
+  }
+
+  onCloseCreateOrganizationModal(newOrganization) {
+    this.activeCreateOrganizationModal = false;
   }
 }
 

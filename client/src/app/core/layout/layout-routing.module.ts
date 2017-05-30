@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BigbangComponent } from 'app/core/layout/bigbang/bigbang.component';
 
 const routes: Routes = [
   {
@@ -14,10 +13,6 @@ const routes: Routes = [
   {
     path: 'bookings',
     loadChildren: './../../routes/bookings/bookings.module#BookingsModule'
-  },
-  {
-    path: 'bigbang',
-    component: BigbangComponent
   },
   {
     path: 'client',

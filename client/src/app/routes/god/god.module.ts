@@ -7,6 +7,8 @@ import { GodOrganizationsComponent } from './god-organizations/god-organizations
 import { SharedModule } from 'app/core/shared/shared.module';
 import { GodDataService } from 'app/routes/god/_data/god-data.service';
 import { GodOrganizationAdminComponent } from './god-organizations/god-organization-admin/god-organization-admin.component';
+import { GodBigbangComponent } from 'app/routes/god/god-bigbang/bigbang.component';
+import { GodOrganizationCreateComponent } from './god-organizations/god-organization-create/god-organization-create.component';
 
 @NgModule({
   imports: [
@@ -14,7 +16,7 @@ import { GodOrganizationAdminComponent } from './god-organizations/god-organizat
     GodRoutingModule,
     SharedModule
   ],
-  declarations: [GodHomeComponent, GodOrganizationsComponent, GodOrganizationAdminComponent],
+  declarations: [GodBigbangComponent, GodHomeComponent, GodOrganizationsComponent, GodOrganizationAdminComponent, GodOrganizationCreateComponent],
   providers: [GodDataService],
   schemas: [NO_ERRORS_SCHEMA]
 })

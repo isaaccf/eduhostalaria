@@ -1,18 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'rh-god-organization-admin',
-  templateUrl: './god-organization-admin.component.html',
+  selector: 'rh-god-organization-create',
+  templateUrl: './god-organization-create.component.html',
   styles: []
 })
-export class GodOrganizationAdminComponent implements OnInit {
+export class GodOrganizationCreateComponent implements OnInit {
   @Input() organization;
   @Input() active: false;
   @Output() close = new EventEmitter<any>();
   public form: FormGroup;
   public schemma: any[];
-
   constructor(public formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
@@ -29,7 +28,7 @@ export class GodOrganizationAdminComponent implements OnInit {
     this.close.emit(null);
   }
 
-  onSetAdmin() {
+  onPostOrganization() {
     this.active = false;
     this.close.emit(this.form.value);
   }

@@ -6,7 +6,6 @@ import { ShellComponent } from './shell.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { HomeModule } from 'app/routes/home/home.module';
-import { BigbangComponent } from './bigbang/bigbang.component';
 import { SharedModule } from 'app/core/shared/shared.module';
 
 @NgModule({
@@ -16,7 +15,7 @@ import { SharedModule } from 'app/core/shared/shared.module';
     HomeModule,
     SharedModule
   ],
-  declarations: [ShellComponent, TopBarComponent, MainContentComponent, BigbangComponent],
+  declarations: [ShellComponent, TopBarComponent, MainContentComponent],
   exports: [ShellComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -1,0 +1,27 @@
+<div class="modal"
+     [ngClass]="{active:active}">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <div class="modal-header">
+      <button class="btn btn-clear float-right"
+              (click)="onClose()"></button>
+      <div class="modal-title">Nueva Organización</div>
+    </div>
+    <div class="modal-body">
+      <div class="content">
+        <rh-form [formGroup]="form"
+                 submitLabel="Guardar Nueva Organización"
+                 (send)="onPostOrganization()">
+          <rh-input label="Nombre"
+                    [formGroup]="form"
+                    [formControlName]="schemma[0]"
+                    type="text"></rh-input>
+          <rh-input label="Email"
+                    [formGroup]="form"
+                    [formControlName]="schemma[1]"
+                    type="email"></rh-input>
+        </rh-form>
+      </div>
+    </div>
+  </div>
+</div>
