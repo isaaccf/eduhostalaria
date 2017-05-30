@@ -7,15 +7,18 @@ import { InputComponent } from './input/input.component';
 import { HttpModule } from '@angular/http';
 import { ControlErrorComponent } from './control-error/control-error.component';
 import { FormToolsService } from 'app/core/shared/form-tools.service';
+import { CounterComponent } from './counter/counter.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpModule,
+    RouterModule,
     ReactiveFormsModule,
   ],
-  declarations: [ControlErrorComponent, FormComponent, InputComponent, TableComponent],
-  exports: [ControlErrorComponent, FormComponent, HttpModule, InputComponent, ReactiveFormsModule],
+  declarations: [ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent],
+  exports: [ControlErrorComponent, CounterComponent, FormComponent, HttpModule, InputComponent, ReactiveFormsModule],
   providers: [FormToolsService]
 })
 export class SharedModule { }

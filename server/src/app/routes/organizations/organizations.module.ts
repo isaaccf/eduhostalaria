@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { UsersModule } from "../users/users.module";
 import { SharedModule } from './../../core/shared/shared.module';
 import { OrganizationsController } from "./organizations.controller";
 import { OrganizationsService } from "./organizations.service";
@@ -7,7 +8,7 @@ import { OrganizationsService } from "./organizations.service";
   components: [OrganizationsService],
   controllers: [OrganizationsController],
   exports: [],
-  modules: [SharedModule],
+  modules: [SharedModule, UsersModule],
 })
 export class OrganizationsModule {
   /* public configure(consumer: MiddlewaresConsumer) {

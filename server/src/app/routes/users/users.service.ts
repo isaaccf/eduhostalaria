@@ -2,6 +2,7 @@ import { Component } from '@nestjs/common';
 import { ObjectID } from 'mongodb';
 import { Repository } from 'typeorm';
 import { ObjectId, ValidateParams } from "../../core/decorators/validate-param";
+import { ROLE } from "../../core/shared/enums";
 import { LoggerService } from "../../core/shared/logger.service";
 import { ValidateObject } from './../../core/decorators/validate-object';
 import { DatabaseService } from './../../core/shared/database.service';
@@ -58,5 +59,11 @@ export class UsersService {
     if (userExists) {
       await repository.removeById(id);
     }
+  }
+
+  public async getByOrganizationRole(organizationId: string, role: ROLE): Promise<User[]> {
+    const repository = await this.repository;
+    const organizationUsers = await repository.find({ organizationId, roles: role });
+    return organizationUsers;
   }
 }

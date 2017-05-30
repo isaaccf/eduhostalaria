@@ -19,6 +19,12 @@ export class OrganizationsService {
     return organizations;
   }
 
+  public async getCount(): Promise<number> {
+    const repository = await this.repository;
+    const organizationsCount = await repository.count();
+    return organizationsCount;
+  }
+
   public async post(organization: Organization): Promise<Organization> {
     const repository = await this.repository;
     const newOrganization = await repository.persist(organization);

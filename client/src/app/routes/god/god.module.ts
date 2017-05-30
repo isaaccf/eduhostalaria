@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { GodRoutingModule } from './god-routing.module';
 import { GodHomeComponent } from './god-home/god-home.component';
 import { GodOrganizationsComponent } from './god-organizations/god-organizations.component';
-import { SharedModule } from "app/core/shared/shared.module";
+import { SharedModule } from 'app/core/shared/shared.module';
+import { GodDataService } from 'app/routes/god/_data/god-data.service';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { SharedModule } from "app/core/shared/shared.module";
     SharedModule
   ],
   declarations: [GodHomeComponent, GodOrganizationsComponent],
+  providers: [GodDataService],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class GodModule { }
