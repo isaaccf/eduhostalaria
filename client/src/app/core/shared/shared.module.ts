@@ -19,7 +19,7 @@ import { TileComponent } from './tile/tile.component';
     ReactiveFormsModule,
   ],
   declarations: [ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent, TileComponent],
-  exports: [ControlErrorComponent, CounterComponent, FormComponent, HttpModule, InputComponent, ReactiveFormsModule],
+  exports: [ControlErrorComponent, CounterComponent, FormComponent, HttpModule, InputComponent, ReactiveFormsModule, TileComponent],
   providers: [FormToolsService]
 })
 export class SharedModule { }

@@ -1,18 +1,8 @@
-<div class="tile">
-  <div class="tile-icon">
-    <i class="icon icon-flag centered"></i>
-  </div>
-  <div class="tile-content">
-    <p class="tile-title">{{counter}} {{title}}</p>
-    <p class="tile-subtitle">{{subtitle}}</p>
-  </div>
-  <div class="tile-action">
-    <a [routerLink]="link"
-       class="btn btn-link">
-    <span class="badge"
-          [attr.data-badge]=" counter ">
-        {{label}}
-    </span>
-  </a>
-  </div>
-</div>
+<rh-tile [title]="counter + ' ' + title"
+         [subtitle]="subtitle"
+         icon="icon-flag">
+  <a [routerLink]="link"
+     class="btn btn-link">
+              <span class="badge"
+                    [attr.data-badge]=" counter ">{{label}}</span></a>
+</rh-tile>
