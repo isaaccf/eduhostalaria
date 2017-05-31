@@ -1,4 +1,4 @@
-<button (click)="onCreateOrganizationClick()">Crear nueva Organización</button>
+<rh-god-organizations-actions (create)="onCreateOrganization()"></rh-god-organizations-actions>
 <rh-god-organizations-list [organizations]="organizations"
                            (setAdmin)="onSetAdmin($event)"></rh-god-organizations-list>
 <rh-god-organization-admin [active]="activeSetAdminModal"

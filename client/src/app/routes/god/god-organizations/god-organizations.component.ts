@@ -56,16 +56,17 @@ export class GodOrganizationsComponent implements OnInit {
       .subscribe(res => this.getOrganizations());
   }
 
-  onCreateOrganizationClick() {
+  onCreateOrganization() {
     this.activeCreateOrganizationModal = true;
   }
 
   onCloseCreateOrganizationModal(newOrganization) {
     this.activeCreateOrganizationModal = false;
-    console.table(newOrganization);
-    this.godData
-      .postOrganization(newOrganization)
-      .subscribe(res => this.getOrganizations());
+    if (newOrganization) {
+      this.godData
+        .postOrganization(newOrganization)
+        .subscribe(res => this.getOrganizations());
+    }
   }
 }
 

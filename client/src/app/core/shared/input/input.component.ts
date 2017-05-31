@@ -3,15 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'rh-input',
-  template: `
-  <section [formGroup]="formGroup">
-    <label [for]="formControlName">{{ label }}:</label>
-    <input [formControlName]="formControlName"
-          [type]="type" />
-    <rh-control-error [formGroup]="formGroup" [field]="formControlName">
-    </rh-control-error>
-  </section>
-  `,
+  templateUrl: './input.component.html',
   styles: []
 })
 export class InputComponent implements OnInit {

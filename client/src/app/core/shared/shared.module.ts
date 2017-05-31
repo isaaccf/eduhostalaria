@@ -9,6 +9,7 @@ import { ControlErrorComponent } from './control-error/control-error.component';
 import { FormToolsService } from 'app/core/shared/form-tools.service';
 import { CounterComponent } from './counter/counter.component';
 import { RouterModule } from '@angular/router';
+import { TileComponent } from './tile/tile.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     ReactiveFormsModule,
   ],
-  declarations: [ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent],
+  declarations: [ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent, TileComponent],
   exports: [ControlErrorComponent, CounterComponent, FormComponent, HttpModule, InputComponent, ReactiveFormsModule],
   providers: [FormToolsService]
 })
