@@ -8,7 +8,6 @@ import 'rxjs/add/operator/do';
   styles: []
 })
 export class GodOrganizationsComponent implements OnInit {
-
   public organizations: any[];
   public organizationsFull: any[];
   public activeSetAdminModal = false;
@@ -63,6 +62,10 @@ export class GodOrganizationsComponent implements OnInit {
 
   onCloseCreateOrganizationModal(newOrganization) {
     this.activeCreateOrganizationModal = false;
+    console.table(newOrganization);
+    this.godData
+      .postOrganization(newOrganization)
+      .subscribe(res => this.getOrganizations());
   }
 }
 

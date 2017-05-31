@@ -30,6 +30,7 @@ export class GodOrganizationCreateComponent implements OnInit {
 
   onPostOrganization() {
     this.active = false;
+    console.table(this.form.value);
     this.close.emit(this.form.value);
   }
 }

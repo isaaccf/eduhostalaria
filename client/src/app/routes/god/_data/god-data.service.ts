@@ -60,4 +60,9 @@ export class GodDataService {
       .post(`${this.credentialsUrl}/invitation`, newAdmin)
       .map(res => res.json());
   }
+
+  postOrganization(newOrganization) {
+    return this.http
+      .post(this.organizationsUrl, newOrganization);
+  }
 }
