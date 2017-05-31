@@ -30,6 +30,7 @@ import { ModalComponent } from './modal/modal.component';
     InputComponent,
     ModalComponent,
     ReactiveFormsModule,
+    TableComponent,
     TileComponent],
   providers: [FormToolsService]
 })
