@@ -10,6 +10,7 @@ import { FormToolsService } from 'app/core/shared/form-tools.service';
 import { CounterComponent } from './counter/counter.component';
 import { RouterModule } from '@angular/router';
 import { TileComponent } from './tile/tile.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   imports: [
@@ -18,8 +19,18 @@ import { TileComponent } from './tile/tile.component';
     RouterModule,
     ReactiveFormsModule,
   ],
-  declarations: [ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent, TileComponent],
-  exports: [ControlErrorComponent, CounterComponent, FormComponent, HttpModule, InputComponent, ReactiveFormsModule, TileComponent],
+  declarations: [
+    ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent, TileComponent, ModalComponent
+  ],
+  exports: [
+    ControlErrorComponent,
+    CounterComponent,
+    FormComponent,
+    HttpModule,
+    InputComponent,
+    ModalComponent,
+    ReactiveFormsModule,
+    TileComponent],
   providers: [FormToolsService]
 })
 export class SharedModule { }
