@@ -38,7 +38,7 @@ export class GodOrganizationsComponent implements OnInit {
       });
   }
 
-  onSetAdminClick(organization) {
+  onSetAdmin(organization) {
     this.activeOrganization = organization;
     this.activeSetAdminModal = true;
   }
