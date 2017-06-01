@@ -40,4 +40,4 @@ jspm_packages
 dist
 
 #server environment settings
-server/environment/environment.ts
+server/src/environments/environment.ts
