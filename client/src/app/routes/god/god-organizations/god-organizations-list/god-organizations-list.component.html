@@ -1,23 +1,6 @@
-<!--<table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th>Organización</th>
-      <th>Administrador</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let organization of organizations">
-      <td>{{organization.name}}</td>
-      <td>
-        <span *ngIf="organization.admin">{{organization.admin.name}} - {{organization.admin.email}}</span>
-        <button *ngIf="!organization.admin"
-                (click)="onSetAdminClick(organization)"> Asignar Admin </button>
-      </td>
-    </tr>
-  </tbody>
-</table>-->
 <rh-table [data]="organizations"
           [schema]="schema"
-          (rowAction)="onSetAdminClick($event)">
+          [actions]="actions"
+          (rowAction)="onRowAction($event)">
 
 </rh-table>

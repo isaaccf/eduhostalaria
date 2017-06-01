@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { IField, IAction } from 'app/core/shared/table/table.component';
 
 @Component({
   selector: 'rh-god-organizations-list',
@@ -8,7 +9,9 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 export class GodOrganizationsListComponent implements OnInit {
   @Input() public organizations: any[];
   @Output() public setAdmin = new EventEmitter<any>();
-  public schema;
+  @Output() public deleteOrganization = new EventEmitter<any>();
+  public schema: IField[];
+  public actions: IAction[];
   constructor() { }
 
   ngOnInit() {
@@ -28,8 +31,28 @@ export class GodOrganizationsListComponent implements OnInit {
         name: 'admin.email',
         type: 'string'
       }
+    ];
+    this.actions = [
+      {
+        label: 'Adm',
+        name: 'setAdmin',
+        icon: 'icon-people'
+      },
+      {
+        label: 'Del',
+        name: 'delete',
+        icon: 'icon-delete'
+      },
     ]
   }
+  onRowAction(rowAction) {
+    if (rowAction.action.name === 'setAdmin') {
+      this.setAdmin.emit(rowAction.row);
+    } else if (rowAction.action.name === 'delete') {
+      this.deleteOrganization.emit(rowAction.row);
+    }
+  }
+
   onSetAdminClick(organization) {
     this.setAdmin.emit(organization);
   }

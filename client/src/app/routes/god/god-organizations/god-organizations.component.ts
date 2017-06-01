@@ -12,6 +12,7 @@ export class GodOrganizationsComponent implements OnInit {
   public organizationsFull: any[];
   public activeSetAdminModal = false;
   public activeCreateOrganizationModal = false;
+  public activeDeleteOrganizationModal = false;
   public activeOrganization;
   constructor(private godData: GodDataService) { }
 
@@ -67,6 +68,23 @@ export class GodOrganizationsComponent implements OnInit {
         .postOrganization(newOrganization)
         .subscribe(res => this.getOrganizations());
     }
+  }
+
+  onDeleteOrganization(organization) {
+    this.activeOrganization = organization;
+    this.activeDeleteOrganizationModal = true;
+  }
+
+  onCloseDeleteOrganizationModal(organization) {
+    this.activeOrganization = organization;
+    this.activeDeleteOrganizationModal = false;
+  }
+
+  onConfirmDeleteOrganizationModal(oldOrganization) {
+    this.activeDeleteOrganizationModal = false;
+    this.godData
+      .deleteOrganization(oldOrganization)
+      .subscribe(res => this.getOrganizations());
   }
 }
 

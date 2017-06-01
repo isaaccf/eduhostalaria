@@ -65,4 +65,9 @@ export class GodDataService {
     return this.http
       .post(this.organizationsUrl, newOrganization);
   }
+
+  deleteOrganization(oldOrganization) {
+    return this.http
+      .delete(`${this.organizationsUrl}/${oldOrganization.id}`);
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Param, Post, Query, Req, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Query, Req, Res } from "@nestjs/common";
 import { Request, Response } from "express";
 import { ROLE } from "../../core/shared/enums";
 import { LoggerService } from "../../core/shared/logger.service";
@@ -45,4 +45,10 @@ export class OrganizationsController {
     }
   }
 
+  @Delete('/:id')
+  public async delete( @Res() res: Response, @Param('id') id: string, ) {
+    await this.organizationsService.delete(id);
+    this.logger.value('deletedOrganization !!!', id);
+    res.status(HttpStatus.NO_CONTENT).send();
+  }
 }

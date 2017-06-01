@@ -1,5 +1,6 @@
 import { Component } from "@nestjs/common";
 import { Repository } from "typeorm";
+import { ObjectId, ValidateParams } from "../../core/decorators/validate-param";
 import { DatabaseService } from "../../core/shared/database.service";
 import { LoggerService } from "../../core/shared/logger.service";
 import { Organization } from "./organization.entity";
@@ -29,5 +30,16 @@ export class OrganizationsService {
     const repository = await this.repository;
     const newOrganization = await repository.persist(organization);
     return newOrganization;
+  }
+  @ValidateParams
+  public async delete( @ObjectId id: string): Promise<void> {
+    this.logger.log(id);
+    const repository = await this.repository;
+    const orgExists = await repository.findOneById(id);
+    if (orgExists) {
+      await repository.removeById(id);
+    } else {
+      this.logger.value('Not found while deleting', id);
+    }
   }
 }

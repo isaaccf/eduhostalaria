@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th *ngFor="let field of schema">{{ field.label }}</th>
+      <th *ngFor="let action of actions">{{ action.label }}</th>
     </tr>
   </thead>
   <tbody>
@@ -9,7 +10,10 @@
         (click)="onRowClick(row)">
       <td *ngFor="let field of schema">
         {{ valueByPath(row,field.name) }}
-        <!--{{row | json}}-->
+      </td>
+      <td *ngFor="let action of actions">
+        <button class="btn"
+                (click)="onActionClick(action,row)"><i [class]="'icon ' + action.icon"></i></button>
       </td>
     </tr>
   </tbody>

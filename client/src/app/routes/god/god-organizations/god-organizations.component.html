@@ -1,8 +1,13 @@
 <rh-god-organizations-actions (create)="onCreateOrganization()"></rh-god-organizations-actions>
 <rh-god-organizations-list [organizations]="organizations"
-                           (setAdmin)="onSetAdmin($event)"></rh-god-organizations-list>
+                           (setAdmin)="onSetAdmin($event)"
+                           (deleteOrganization)="onDeleteOrganization($event)"></rh-god-organizations-list>
 <rh-god-organization-admin [active]="activeSetAdminModal"
                            [organization]="activeOrganization"
                            (close)="onCloseSetAdminModal($event)"></rh-god-organization-admin>
 <rh-god-organization-create [active]="activeCreateOrganizationModal"
                             (close)="onCloseCreateOrganizationModal($event)"></rh-god-organization-create>
+<rh-god-organization-delete [active]="activeDeleteOrganizationModal"
+                            [organization]="activeOrganization"
+                            (close)="onCloseDeleteOrganizationModal($event)"
+                            (confirm)="onConfirmDeleteOrganizationModal($event)"></rh-god-organization-delete>

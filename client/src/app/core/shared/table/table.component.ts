@@ -7,59 +7,32 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class TableComponent implements OnInit {
   @Input() schema: IField[];
+  @Input() actions: IAction[];
   @Input() data: any[];
+  @Output() rowClick = new EventEmitter<any>();
   @Output() rowAction = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit() {
-    // this.testData();
-  }
-
-  testData() {
-    this.schema = [
-      {
-        label: 'Organization',
-        name: 'organization',
-        type: 'string'
-      },
-      {
-        label: 'Administrator',
-        name: 'administrator',
-        type: 'string'
-      },
-      {
-        label: 'Email',
-        name: 'email',
-        type: 'string'
-      }
-    ];
-    this.data = [
-      {
-        organization: 'uno',
-        administrator: 'pepe',
-        email: 'a@b.c'
-      },
-      {
-        organization: 'dos',
-        administrator: 'luis',
-        email: 'a@ttt.c'
-      }
-    ]
   }
 
   onRowClick(row) {
-    this.rowAction.emit(row);
+    this.rowClick.emit(row);
   }
 
-  valueByPath(o, s) {
-    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    s = s.replace(/^\./, '');           // strip a leading dot
-    const a = s.split('.');
+  onActionClick(action, row) {
+    this.rowAction.emit({ action, row });
+  }
+
+  valueByPath(target, path) {
+    path = path.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    path = path.replace(/^\./, '');           // strip a leading dot
+    const a = path.split('.');
     for (let i = 0, n = a.length; i < n; ++i) {
       const k = a[i];
-      if (o) {
-        if (k in o) {
-          o = o[k];
+      if (target) {
+        if (k in target) {
+          target = target[k];
         } else {
           return;
         }
@@ -67,12 +40,18 @@ export class TableComponent implements OnInit {
         return;
       }
     }
-    return o;
+    return target;
   }
 }
 
-interface IField {
+export interface IField {
   label: string;
   name: string;
   type: string;
+}
+
+export interface IAction {
+  label: string;
+  name: string;
+  icon: string;
 }
