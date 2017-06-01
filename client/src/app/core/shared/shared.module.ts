@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { RouterModule } from '@angular/router';
 import { TileComponent } from './tile/tile.component';
 import { ModalComponent } from './modal/modal.component';
+import { ToastComponent } from './toast/toast.component';
+import { BusService } from 'app/core/shared/bus.service';
 
 @NgModule({
   imports: [
@@ -20,7 +22,7 @@ import { ModalComponent } from './modal/modal.component';
     ReactiveFormsModule,
   ],
   declarations: [
-    ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent, TileComponent, ModalComponent
+    ControlErrorComponent, FormComponent, InputComponent, TableComponent, CounterComponent, TileComponent, ModalComponent, ToastComponent
   ],
   exports: [
     ControlErrorComponent,
@@ -31,6 +33,7 @@ import { ModalComponent } from './modal/modal.component';
     ModalComponent,
     ReactiveFormsModule,
     TableComponent,
+    ToastComponent,
     TileComponent],
   providers: [FormToolsService]
 })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IOrganizationAdmin } from 'app/routes/god/_data/organization.model';
 import { GodDataService } from 'app/routes/god/_data/god-data.service';
 import 'rxjs/add/operator/do';
+import { BusService } from 'app/core/shared/bus.service';
 @Component({
   selector: 'rh-god-organizations',
   templateUrl: './god-organizations.component.html',
@@ -14,7 +15,7 @@ export class GodOrganizationsComponent implements OnInit {
   public activeCreateOrganizationModal = false;
   public activeDeleteOrganizationModal = false;
   public activeOrganization;
-  constructor(private godData: GodDataService) { }
+  constructor(private godData: GodDataService, private bus: BusService) { }
 
   ngOnInit() {
     this.getOrganizations();
@@ -27,7 +28,8 @@ export class GodOrganizationsComponent implements OnInit {
     this.godData
       .getOrganizations()
       .do(data => this.organizations = data)
-      .subscribe(data => {
+      .subscribe(
+      data => {
         this.organizations.forEach(org => {
           this.godData
             .getOrganizationAdmin(org.id)
@@ -35,6 +37,9 @@ export class GodOrganizationsComponent implements OnInit {
               org.admin = user[0];
             });
         });
+      },
+      err => {
+        this.bus.emit({ level: 'toast-error', text: err.message });
       });
   }
 
