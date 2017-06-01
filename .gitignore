@@ -38,3 +38,6 @@ jspm_packages
 
 #dist folder
 dist
+
+#server environment settings
+server/environment/environment.ts
