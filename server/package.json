@@ -4,7 +4,7 @@
   "description": "Servidor Reservas para Escolas de Hostelaría",
   "main": "index.js",
   "scripts": {
-    "start:prod": "set NODE_ENV=prod&&node index.js",
+    "start:prod": "gulp && NODE_ENV=prod && node index.js",
     "start": "set NODE_ENV=dev&&nodemon -e ts --watch src ./index.js"
   },
   "repository": {
