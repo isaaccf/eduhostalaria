@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "App Base Server",
+      "name": "Reservas Server",
       "script": "index.js",
       "watch": true,
       "cwd": "",
@@ -9,7 +9,7 @@
         "env": "dev",
         "port": 3000,
         "secret": "secret",
-        "database_name": "base",
+        "database_name": "reservas",
         "database_username": "",
         "database_password": "",
         "database_host": "localhost",
@@ -26,7 +26,7 @@
         "env": "prod",
         "port": 3000,
         "secret": "secret",
-        "database_name": "bookings",
+        "database_name": "reservas",
         "database_username": "",
         "database_password": "",
         "database_host": "localhost",
