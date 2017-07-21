@@ -1,7 +1,7 @@
-<div class="container">
-  <div class="columns">
-    <div class="column col-8 col-lg-12 centered">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>
+<section *ngIf="loadedMetadata;else loading">
+  <router-outlet></router-outlet>
+</section>
+<ng-template #loading>
+  <ab-load-empty-state [schema]="{loading: true,empty: false}">
+  </ab-load-empty-state>
+</ng-template>

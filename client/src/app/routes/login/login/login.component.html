@@ -1,14 +1,3 @@
-<rh-form [formGroup]="loginForm"
-         submitLabel="Log In"
-         (send)="onSend()">
-  <rh-input label="Email"
-            [formGroup]="loginForm"
-            [formControlName]="schemma[0]"
-            type="email">
-  </rh-input>
-  <rh-input label="Password"
-            [formGroup]="loginForm"
-            [formControlName]="schemma[1]"
-            type="password">
-  </rh-input>
-</rh-form>
+<ab-form [formSchema]="formSchema"
+         (send)="onSend($event)">
+</ab-form>

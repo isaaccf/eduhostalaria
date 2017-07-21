@@ -1,5 +1,5 @@
-# Servidor reserva-escola
-Reservas para Escolas de Hostelaría
+# Servidor 
+
 
 
 # Prerequisites
@@ -21,46 +21,62 @@ Reservas para Escolas de Hostelaría
 $npm install
 ```
 
-# Start server
-```bash
-$npm run reload 
+# Configure
+## Easy way
+Install pm2 and configure [ecosystem.json](https://github.com/AgoraBinaria/app-base/blob/master/server/ecosystem.json) with your configuration
 ```
-> Note: Auto refresh when changes files on src
+$npm install -g pm2
+pm2 start ecosystem.json
+
+pm2 logs --lines 100
+```
+
+## Hard Way
+Edit [enviroment.ts](https://github.com/AgoraBinaria/app-base/blob/master/server/src/environments/environment.ts) with your configuration, or set all enviroments variables before execute.
+```
+$npm run start
+```
+
+
+
+# Start server
 ```bash
 $npm run start
 ```
 
 # Enviroments
-Can set NODE_ENV to execute production or develpment. If NODE_ENV is 'production' then execute with production settings othercase execute with deveploment settings.
+To configure the enviroment just define __env__ as enviroment variable of node and set the value of [STAGES](https://github.com/AgoraBinaria/app-base/blob/master/server/src/app/core/shared/enums.ts) emun.
 
-By default using npm run start execute dev mode, if run npm run start:prod execute prod mode.
-
-# Project Structure
+# Test
 ```bash
-server
-|-- src
-|    |-- modules
-|    |   |-- application: 'Main module'
-|    |          |-- application.module.ts: 'The main module to start all modules'
-|    |   |-- users: 'Content users controller and respository'
-|    |          |-- users.controller.ts: 'The controller for routes'
-|    |          |-- users.service.ts: 'The service to access to data'
-|    |          |-- users.service.ts: 'The middleware to users routes'
-|    |          |-- users.module.ts: 'The module, import depencencies and export services'
-|    |          |-- users.exceptions.ts: 'This file provide all exceptions for users.'
-|    |-- utils
-|    |    |-- exceptions.ts: 'Exceptions constructor'
-|    |-- index.ts : 'Content server init logic'
-|-- index.js : 'Launch app, calling ts-node and our init server'
+$npm run test
+```
+
+# Generate bundle and transpile
+```bash
+$npm run build
+$pm2 start ecosystem.json
 ```
 
 # Why exceptions file
 To provide a common errors for HTTP request.
 
-# Middleware
-There is a [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users.middleware.ts) for users routes. This middleware validate that in request header appear a field 'name' which contain the name from one of the users in the database. This is apply to all users routes.
+# [Ecosystem](http://pm2.keymetrics.io/docs/usage/deployment/)
+Use ecosystem json provide a better manage of app configuration
+```json
+{
+  "apps" : [
+        {
+            "name"        : "app-base",
+            "script"      : "backend.js",
+            "merge_logs"  : true,
+            "cwd"         : "absolute path to dist/server",
+            "env" : {
+               "NODE_ENV": "prod"
+            }
+        }
+  ]
+}
+```
 
-The other [middleware](https://github.com/AgoraBinaria/reserva-escola/blob/master/server/src/modules/users/users2.middleware.ts) only validate in delete route, and test if the user will delete himself.
 
-# TODO
-* Validate and test the transpile.

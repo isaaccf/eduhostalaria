@@ -1,17 +1,20 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { IReportSchema, IKeyValue, IField } from 'app/core/shared/_data/schema.model';
+import { SchemaService } from 'app/core/shared/_data/schema.service';
 
 @Component({
-  selector: 'rh-table',
+  selector: 'ab-table',
   templateUrl: './table.component.html',
-  styles: []
+  styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  @Input() schema: IField[];
-  @Input() actions: IAction[];
-  @Input() data: any[];
+
+  @Input() public schema: IReportSchema;
+  @Input() public data: any[];
   @Output() rowClick = new EventEmitter<any>();
-  @Output() rowAction = new EventEmitter<any>();
-  constructor() { }
+  @Output() rowAction = new EventEmitter<IKeyValue>();
+
+  constructor(private schemaService: SchemaService) { }
 
   ngOnInit() {
   }
@@ -19,39 +22,22 @@ export class TableComponent implements OnInit {
   onRowClick(row) {
     this.rowClick.emit(row);
   }
+  onHeaderClick(field: IField) {
+    this.orderDataByKey(this.data, field.key)
+  }
 
-  onActionClick(action, row) {
-    this.rowAction.emit({ action, row });
+  orderDataByKey(values: any[], orderKey: any) {
+    return this.schemaService.orderDataByKey(values, orderKey);
+  }
+  // { key: action, value: row }
+  onActionClick(event, row) {
+    this.rowAction.emit({ key: event.key, value: row });
   }
 
   valueByPath(target, path) {
-    path = path.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    path = path.replace(/^\./, '');           // strip a leading dot
-    const a = path.split('.');
-    for (let i = 0, n = a.length; i < n; ++i) {
-      const k = a[i];
-      if (target) {
-        if (k in target) {
-          target = target[k];
-        } else {
-          return;
-        }
-      } else {
-        return;
-      }
-    }
-    return target;
+    return this.schemaService.valueByPath(target, path);
   }
+
+
 }
 
-export interface IField {
-  label: string;
-  name: string;
-  type: string;
-}
-
-export interface IAction {
-  label: string;
-  name: string;
-  icon: string;
-}

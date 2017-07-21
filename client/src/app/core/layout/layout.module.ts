@@ -1,21 +1,21 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LayoutRoutingModule } from './layout-routing.module';
+import { LayoutRoutingModule } from './layout.routing';
 import { ShellComponent } from './shell.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MainContentComponent } from './main-content/main-content.component';
-import { HomeModule } from 'app/routes/home/home.module';
 import { SharedModule } from 'app/core/shared/shared.module';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { MainNavResponsiveComponent } from './main-nav-responsive/main-nav-responsive.component';
 
 @NgModule({
   imports: [
     CommonModule,
     LayoutRoutingModule,
-    HomeModule,
     SharedModule
   ],
-  declarations: [ShellComponent, TopBarComponent, MainContentComponent],
+  declarations: [ShellComponent, TopBarComponent, MainContentComponent, MainNavComponent, MainNavResponsiveComponent],
   exports: [ShellComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

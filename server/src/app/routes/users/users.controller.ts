@@ -1,32 +1,52 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Delete, ExceptionFilters, Get, HttpStatus, Param, Post, Res, Session } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { InternalServerErrorException } from '../../core/shared/exceptions';
-import { log, middleware } from './../../core/shared/prueba';
+import { IUser } from "./users.models";
 import { UsersService } from './users.service';
+import { UsersLogic } from './users.logic';
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService, private usersLogic: UsersLogic) { }
 
-    @Get()
-    public async getAll( @Req() req: Request, @Res() res: Response) {
-        const users = await this.usersService.getAll();
-        res.status(HttpStatus.OK).json(users);
-    }
+  @Get()
+  public async getAll( @Res() res: Response) {
+    const users = await this.usersService.getAll();
+    res.status(HttpStatus.OK).json(users);
+  }
 
-    @Get('/:id')
-    public async getById( @Res() res: Response, @Param('id') id: string) {
-        const user = await this.usersService.getById(id);
-        if (user) {
-            res.status(HttpStatus.OK).json(user);
-        } else {
-            res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
-        }
-    }
+  @Get('count')
+  public async getCount( @Res() res: Response) {
+    const usersCount = await this.usersService.getCount();
+    res.status(HttpStatus.OK).json({ data: usersCount });
+  }
 
-    @Delete('/:id')
-    public async remove( @Res() res: Response, @Param('id') id: string) {
-        await this.usersService.remove(id);
-        res.status(HttpStatus.NO_CONTENT).send();
+  @Get('/me')
+  public async getMe( @Res() res: Response, @Session() session: IUser) {
+    const userId = session._id;
+    const users = await this.usersService.getById(userId);
+    res.status(HttpStatus.OK).json(users);
+  }
+
+  @Get('/:id')
+  public async getById( @Res() res: Response, @Param('id') id: string) {
+    const user = await this.usersService.getById(id);
+    if (user) {
+      res.status(HttpStatus.OK).json(user);
+    } else {
+      res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
     }
+  }
+
+ @Get('/administratedUsers')
+  public async getAdministratedUsers( @Res() res: Response, @Session() session: IUser) {
+    const userId = session._id;
+    const users= await this.usersLogic.getAdministratedUsers(userId);
+    res.status(HttpStatus.OK).json(users);
+  }
+
+  @Delete('/:id')
+  public async remove( @Res() res: Response, @Param('id') id: string) {
+    await this.usersService.remove(id);
+    res.status(HttpStatus.NO_CONTENT).send();
+  }
 }

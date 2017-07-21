@@ -1,23 +1,31 @@
 import { Component } from "@nestjs/common";
-import { Repository } from "typeorm";
-import { ObjectId, ValidateParams } from "../../core/decorators/validate-param";
 import { DatabaseService } from "../../core/shared/database.service";
+import { ROLE } from "../../core/shared/enums";
 import { LoggerService } from "../../core/shared/logger.service";
-import { Organization } from "./organization.entity";
+import { IOrganization, Organization } from './organizations.models';
 
 @Component()
 export class OrganizationsService {
   private logger: LoggerService = new LoggerService('OrganizationsService');
-  private get repository(): Promise<Repository<Organization>> {
-    return this.databaseService.getRepository(Organization);
-  }
 
   constructor(private databaseService: DatabaseService) { }
 
-  public async getAll(): Promise<Organization[]> {
+  public async getAll(): Promise<IOrganization[]> {
     const repository = await this.repository;
-    const organizations = await repository.find();
+    const organizations = await repository.find().map(doc => doc.document);
     return organizations;
+  }
+
+  public async getById(id: string): Promise<IOrganization> {
+    const repository = await this.repository;
+    const organization = await repository.findOne({ _id: id });
+    return organization;
+  }
+
+  public async getBySlug(slug: string): Promise<IOrganization> {
+    const repository = await this.repository;
+    const organization = await repository.findOne({ slug: slug });
+    return organization;
   }
 
   public async getCount(): Promise<number> {
@@ -26,20 +34,44 @@ export class OrganizationsService {
     return organizationsCount;
   }
 
-  public async post(organization: Organization): Promise<Organization> {
+  //TODO controlar slug no repe
+  public async post(organization: IOrganization): Promise<IOrganization> {
     const repository = await this.repository;
-    const newOrganization = await repository.persist(organization);
+    organization.slug = organization.name.replace(' ', '_');
+    const newOrganization = await repository.create(organization);
     return newOrganization;
   }
-  @ValidateParams
-  public async delete( @ObjectId id: string): Promise<void> {
-    this.logger.log(id);
+
+  public async patch(organization: IOrganization): Promise<IOrganization> {
     const repository = await this.repository;
-    const orgExists = await repository.findOneById(id);
+    const obj = {};
+    //TODO study automatify this
+    obj['slug'] = organization.name.replace(new RegExp(" ", "g"), '_');
+    obj['name'] = organization.name;
+    obj['email'] = organization.email;
+    obj['phone'] = organization.phone;
+    obj['url'] = organization.url;
+    //TODO set address as a object
+    obj['address'] = organization.address;
+    obj['description'] = organization.description;
+    obj['image'] = organization.image;
+    obj['standardPrice'] = organization.standardPrice;
+    obj['reducedPrice'] = organization.reducedPrice;
+    await repository.update({ _id: organization._id }, { $set: obj });
+    return this.getById(organization._id);
+  }
+
+  public async delete(id: string): Promise<void> {
+    const repository = await this.repository;
+    const orgExists = await repository.findOne(id);
     if (orgExists) {
-      await repository.removeById(id);
+      await repository.remove(id);
     } else {
       this.logger.value('Not found while deleting', id);
     }
+  }
+
+  private get repository() {
+    return this.databaseService.repository<IOrganization, Organization>(Organization);
   }
 }

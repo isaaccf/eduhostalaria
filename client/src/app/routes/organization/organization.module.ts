@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { OrganizationRoutingModule } from './organization-routing.module';
-import { OrganizationEventsComponent } from './organization-events/organization-events.component';
-import { OrganizationEventsBookComponent } from './organization-events-book/organization-events-book.component';
+import { OrganizationRoutingModule } from './organization.routing';
 import { OrganizationHomeComponent } from './organization-home/organization-home.component';
+import { SharedModule } from 'app/core/shared/shared.module';
+import { OrganizationService } from 'app/routes/organization/_data/organization.service';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    OrganizationRoutingModule
+    OrganizationRoutingModule,
+    SharedModule
   ],
-  declarations: [OrganizationEventsComponent, OrganizationEventsBookComponent, OrganizationHomeComponent]
+  declarations: [OrganizationHomeComponent],
+  providers: [OrganizationService]
 })
 export class OrganizationModule { }

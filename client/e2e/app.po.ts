@@ -6,6 +6,6 @@ export class RedeFpHostalariaPage {
   }
 
   getParagraphText() {
-    return element(by.css('rh-root h1')).getText();
+    return element(by.css('ab-root h1')).getText();
   }
 }

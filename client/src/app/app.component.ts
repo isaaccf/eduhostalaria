@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { SecurityService } from 'app/core/security.service';
 
 @Component({
-  selector: 'rh-root',
+  selector: 'ab-root',
   template: `
-    <rh-shell></rh-shell>
+    <ab-shell></ab-shell>
   `,
   styles: []
 })
 export class AppComponent {
-  title = 'rh';
+  constructor(private security: SecurityService) {
+    this.security.checkBigbang();
+  }
 }

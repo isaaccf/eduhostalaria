@@ -4,11 +4,18 @@ import { SETTINGS } from '../../../environments/environment';
 import { ROLE, STATUS } from "../../core/shared/enums";
 import { BadRequestException, NotFoundException } from '../../core/shared/exceptions';
 import { LoggerService } from "../../core/shared/logger.service";
-import { User } from "../users/user.entity";
+import { IMessage } from "../mails/mails.models";
+import { MailsService } from "../mails/mails.service";
 import { UsersService } from "../users/users.service";
-import { Credential } from "./credential.entity";
+import { IUser, User } from './../users/users.models';
+import { ICredential } from './credentials.models';
 import {
-  IUserClientRegistration, IUserCredential, IUserGodRegistration, IUserInvitation, IUserPublicRegistration, IUserToken
+  IUserAcceptInvitation,
+  IUserClientRegistration,
+  IUserCredential,
+  IUserGodRegistration,
+  IUserInvitation,
+  IUserPublicRegistration, IUserToken
 } from "./credentials.models";
 import { CredentialsService } from "./credentials.service";
 
@@ -19,14 +26,19 @@ export class CredentialsLogic {
     private credentialsService: CredentialsService,
     private usersService: UsersService) { }
 
-  public async postUserClientRegistration(userRegistration: IUserClientRegistration): Promise<User> {
+  public async getGodUser(): Promise<IUser[]> {
+    const godUser = await this.usersService.getByRole(ROLE.GOD);
+    return godUser;
+  }
+
+  public async postUserClientRegistration(userRegistration: IUserClientRegistration) {
     let newUser = this.createUserFromUserClientRegistration(userRegistration);
     newUser = await this.usersService.post(newUser);
     newUser = await this.postCredential(newUser, userRegistration.password);
     this.sendConfirmationEmail(newUser);
     return newUser;
   }
-  public async postUserGodRegistration(userGodRegistration: IUserGodRegistration): Promise<User> {
+  public async postUserGodRegistration(userGodRegistration: IUserGodRegistration) {
     let newUser = this.createUserFromUserGodRegistration(userGodRegistration);
     newUser = await this.usersService.post(newUser);
     newUser = await this.postCredential(newUser, userGodRegistration.password);
@@ -34,95 +46,136 @@ export class CredentialsLogic {
     return newUser;
   }
 
-  public async postUserPublicRegistration(userRegistration: IUserPublicRegistration): Promise<User> {
+  public async postUserPublicRegistration(userRegistration: IUserPublicRegistration) {
     let newUser = this.createUserFromUserPublicRegistration(userRegistration);
     newUser = await this.usersService.post(newUser);
     this.sendConfirmationEmail(newUser);
     return newUser;
   }
 
-  public async postUserInvitation(userInvitation: IUserInvitation): Promise<User> {
+  public async postUserInvitation(userInvitation: IUserInvitation) {
     let newUser = this.createUserFromUserInvitation(userInvitation);
     newUser = await this.usersService.post(newUser);
     this.sendConfirmationEmail(newUser);
     return newUser;
   }
 
-  public async getUserToken(userCredential: IUserCredential): Promise<IUserToken> {
+  public async getUserToken(userCredential: IUserCredential): Promise<string> {
     const user = await this.usersService.getByEmail(userCredential.email);
     if (!user) {
       throw new NotFoundException('Invalid User');
     }
-    const credential = await this.credentialsService.getByUserIdPassword(user.id, userCredential.password);
+    const credential = await this.credentialsService.getByUserIdPassword(user._id, userCredential.password);
     if (!credential) {
       throw new NotFoundException('Invalid Credential');
     }
-    const token = sign(credential, SETTINGS.secret);
-    const userToken: IUserToken = {
-      name: user.name,
+    const token = sign(JSON.stringify(user), SETTINGS.secret);
+    return token;
+  }
+
+  public async aceptInvitation(userInvitation: IUserAcceptInvitation): Promise<string> {
+    const user = await this.usersService.getById(userInvitation.hash);
+    user.status = STATUS.CONFIRMED;
+    await this.updateUserStatus(user);
+    await this.postCredential(user, userInvitation.password);
+    const credential: IUserCredential = {
       email: user.email,
-      organizationId: user.organizationId,
-      roles: user.roles,
-      token: token
-    }
-    return userToken;
+      password: userInvitation.password
+    };
+    return this.getUserToken(credential);
   }
 
-  private createUserFromUserGodRegistration(userRegistration: IUserGodRegistration): User {
-    const newUser = new User();
-    newUser.email = userRegistration.email;
-    newUser.name = userRegistration.name;
-    newUser.roles = [ROLE.GOD];
-    newUser.status = STATUS.ACTIVE;
+  private createUserFromUserGodRegistration(userRegistration: IUserGodRegistration) {
+    const newUser: IUser = {
+      email: userRegistration.email,
+      name: userRegistration.name,
+      roles: [ROLE.GOD],
+      status: STATUS.ACTIVE
+    };
     return newUser;
   }
 
-  private createUserFromUserClientRegistration(userRegistration: IUserClientRegistration): User {
-    const newUser = new User();
-    newUser.email = userRegistration.email;
-    newUser.organizationId = userRegistration.organizationId;
-    newUser.name = userRegistration.name;
-    newUser.roles = [ROLE.CLIENT];
-    newUser.status = STATUS.PENDING;
+  private createUserFromUserClientRegistration(userRegistration: IUserClientRegistration) {
+    const newUser: IUser = {
+      email: userRegistration.email,
+      organizationId: userRegistration.organizationId,
+      name: userRegistration.name,
+      roles: [ROLE.CLIENT],
+      status: STATUS.PENDING
+    };
     return newUser;
   }
 
-  private createUserFromUserPublicRegistration(userRegistration: IUserPublicRegistration): User {
-    const newUser = new User();
-    newUser.email = userRegistration.email;
-    newUser.organizationId = userRegistration.organizationId;
-    newUser.name = userRegistration.name;
-    newUser.phone = userRegistration.phone;
-    newUser.roles = [ROLE.PUBLIC];
-    newUser.status = STATUS.PENDING;
+  private createUserFromUserPublicRegistration(userRegistration: IUserPublicRegistration) {
+    const newUser: IUser = {
+      email: userRegistration.email,
+      organizationId: userRegistration.organizationId,
+      name: userRegistration.name,
+      phone: userRegistration.phone,
+      roles: [ROLE.PUBLIC],
+      status: STATUS.PENDING
+    };
     return newUser;
   }
 
-  private createUserFromUserInvitation(userInvitation: IUserInvitation): User {
-    const newUser = new User();
-    newUser.email = userInvitation.email;
-    newUser.organizationId = userInvitation.organizationId;
-    newUser.name = userInvitation.name;
-    newUser.roles = [userInvitation.role];
-    newUser.status = STATUS.PENDING;
+  private createUserFromUserInvitation(userInvitation: IUserInvitation) {
+    const newUser: IUser = {
+      email: userInvitation.email,
+      organizationId: userInvitation.organizationId,
+      name: userInvitation.name,
+      roles: [userInvitation.role],
+      status: STATUS.PENDING
+    };
     return newUser;
   }
 
-  private async postCredential(newUser: User, password: string) {
-    const credential = new Credential();
-    credential.userId = newUser.id;
-    credential.password = password;
+  private async postCredential(newUser: IUser, password: string) {
+    const credential: ICredential = {
+      userId: newUser._id,
+      password
+    };
+
     try {
       await this.credentialsService.post(credential);
     } catch (err) {
       this.logger.error(err);
-      await this.usersService.remove(newUser.id);
+      await this.usersService.remove(newUser._id);
       newUser = null;
     }
     return newUser;
   }
 
-  private async sendConfirmationEmail(newUser: User): Promise<boolean> {
-    return true;
+  private async sendConfirmationEmail(newUser: IUser): Promise<boolean> {
+    const mailsService = new MailsService();
+    const message: IMessage = {
+      from: 'no-reply@test.com',
+      to: newUser.email,
+      subject: 'Welcome to the platform',
+      text: `Hello ${newUser.name}.
+      Welcome to App Base. Visit http://localhost:4200/me/${newUser._id} to activate your account`,
+      html: `<p>Hello ${newUser.name}.
+      Welcome to App Base. Visit http://localhost:4200/me/${newUser._id} to activate your account.</p>`
+    };
+    this.logger.value('message', message);
+    const response = await mailsService.sendMail(message);
+    this.logger.value('response', response);
+    return response;
+  }
+
+  private async updateUserStatus(user: IUser) {
+    try {
+      user = await this.usersService.updateStatus(user._id, user);
+    } catch (err) {
+      this.logger.error(err);
+    }
+    return user;
+  }
+
+  public async updateCredential(credentials: ICredential) {
+    try {
+      await this.credentialsService.update(credentials);
+    } catch (err) {
+      this.logger.error(err);
+    }
   }
 }

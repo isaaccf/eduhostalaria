@@ -4,20 +4,18 @@ import { RolesMiddleware } from './../../core/shared/roles.middleware';
 import { SharedModule } from './../../core/shared/shared.module';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { ROLE } from "../../core/shared/enums";
-
-const roles = [ROLE.ADMIN];
+import { UsersLogic } from './users.logic';
 
 @Module({
-    components: [UsersService],
-    controllers: [UsersController],
-    exports: [UsersService],
-    modules: [SharedModule],
+  components: [UsersService,UsersLogic],
+  controllers: [UsersController],
+  exports: [UsersService, UsersLogic],
+  modules: [SharedModule],
 })
 export class UsersModule {
-    /* public configure(consumer: MiddlewaresConsumer) {
-         consumer
-             .apply(AuthMiddleware).forRoutes(UsersController)
-             .apply(RolesMiddleware).with(roles).forRoutes(UsersController);
-     }*/
+  public configure(consumer: MiddlewaresConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes(UsersController);
+  }
 }

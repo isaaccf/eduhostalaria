@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'rh-main-content',
+  selector: 'ab-main-content',
   templateUrl: './main-content.component.html',
-  styles: []
+  styleUrls: ['./main-content.component.css']
 })
 export class MainContentComponent implements OnInit {
-
+  @Input() public loadedMetadata: boolean;
   constructor() { }
 
   ngOnInit() {

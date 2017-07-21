@@ -11,6 +11,10 @@
       "check-space"
     ],
     "curly": true,
+    "cyclomatic-complexity": [
+      true,
+      5
+    ],
     "eofline": true,
     "forin": true,
     "import-blacklist": [
@@ -110,13 +114,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "rh",
+      "ab",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "rh",
+      "ab",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

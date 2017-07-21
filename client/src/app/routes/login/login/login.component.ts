@@ -1,74 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Http } from '@angular/http';
-import { Router } from '@angular/router';
-
+import { IFormSchema, IWidgetSchema } from 'app/core/shared/_data/schema.model';
+import { SecurityService, IUserCredential } from 'app/core/security.service';
+import { environment } from './../../../../environments/environment';
+import { SchemaService } from 'app/core/shared/_data/schema.service';
+import { Observable } from 'rxjs/Observable';
+import { BusService } from 'app/core/bus.service';
+import { ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/takeWhile';
 @Component({
-  selector: 'rh-login',
+  selector: 'ab-login',
   templateUrl: './login.component.html',
   styles: []
 })
 export class LoginComponent implements OnInit {
+  public formSchema: IFormSchema;
 
-  public loginForm: FormGroup
-  public schemma: any[];
-
-  constructor(public http: Http, public formBuilder: FormBuilder, public router: Router) { }
+  constructor(
+    private security: SecurityService,
+    private bus: BusService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['admin@agorabinaria.com', Validators.required],
-      password: ['secret', Validators.required]
-    });
-    this.schemma = ['email', 'password'];
-  }
-
-  onSend() {
-    const credentials = this.loginForm.value;
-    this.http
-      .post('http://localhost:3000/credentials', credentials)
-      .subscribe(r => {
-        const userToken: IUserToken = r.json().access_token;
-        localStorage.setItem('token', JSON.stringify(userToken));
-        console.log(JSON.stringify(userToken));
-        if (userToken.roles.findIndex(r => r == ROLE.GOD) >= 0) {
-          this.router.navigate(['/god']);
-        }
-        else {
-          this.router.navigate(['/']);
+    this.bus
+      .getPageSchema$()
+      .takeWhile(() => this.formSchema == null)
+      .subscribe(schemas => {
+        if (schemas && schemas.metadata && schemas.metadata.name === 'login') {
+          this.formSchema = schemas.form;
         }
       });
   }
 
+  onSend(credentials: IUserCredential) {
+    this.security
+      .logInUser(credentials);
+  }
+
 }
 
 
-export interface IUserCredential {
-  email: string;
-  password: string;
-}
-
-export interface IUserToken {
-  email: string;
-  name: string;
-  organizationId: string;
-  roles: ROLE[];
-  token: string;
-}
-
-export enum ROLE {
-  ADMIN,
-  CLIENT,
-  GOD,
-  ORGANIZER,
-  PUBLIC,
-  USHER,
-}
-
-export enum STATUS {
-  PENDING,
-  CONFIRMED,
-  ACTIVE,
-  DISABLED,
-  CANCELED
-}

@@ -1,8 +1,16 @@
 .navbar {
-  padding: 5px 10px;
+  padding: 5px 0px;
   margin: auto;
 }
 
-.columns {
-  background-color: lavender;
+a {
+  text-decoration: none;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.column {
+  padding: 0rem 1rem;
 }
