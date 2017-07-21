@@ -1,4 +1,4 @@
 # reserva-escola
-Reservas para Escolas de Hostelería
+Reservas para **comedores** Escolas de Hostelería
 
-Movido a [Angular Base](https://github.com/AgoraBinaria/angular-base)
+Clonado de [App Base](https://github.com/AgoraBinaria/app-base) e [API Base](https://github.com/AgoraBinaria/api-base)
