@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-const routeBase = './../../views/';
+const routeBase = './views/';
 const routes: Routes = [
   {
     path: '',
@@ -32,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class ShellRoutingModule { }
+export class AppRoutingModule { }

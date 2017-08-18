@@ -22,6 +22,11 @@ import { ActionComponent } from './layouts/action/action.component';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { CardComponent } from './widgets/card/card.component';
 import { TimelineComponent } from './widgets/timeline/timeline.component';
+import { ShellComponent } from 'app/tools/components/shell/shell.component';
+import { TopBarComponent } from 'app/tools/components/shell/top-bar/top-bar.component';
+import { MainContentComponent } from 'app/tools/components/shell/main-content/main-content.component';
+import { MainNavComponent } from 'app/tools/components/shell/main-nav/main-nav.component';
+import { MainNavResponsiveComponent } from 'app/tools/components/shell/main-nav-responsive/main-nav-responsive.component';
 
 
 @NgModule({
@@ -31,14 +36,29 @@ import { TimelineComponent } from './widgets/timeline/timeline.component';
     ReactiveFormsModule,
   ],
   declarations: [
-    ControlErrorComponent, FormComponent,
-    InputComponent, TableComponent,
+    ActionComponent,
+    CardComponent,
+    ControlErrorComponent,
+    DashboardComponent,
+    EditorComponent,
+    FormComponent,
+    InputComponent,
+    LoadEmptyStateComponent,
+    MainContentComponent,
+    MainNavComponent,
+    MainNavResponsiveComponent,
+    ModalComponent,
+    PanelComponent,
+    RadioComponent,
+    SelectComponent,
+    ShellComponent,
+    SwitchComponent,
+    TableComponent,
+    TextareaComponent,
     TileComponent,
-    ModalComponent, ToastComponent, PanelComponent,
-    DashboardComponent, SelectComponent,
-    RadioComponent, SwitchComponent,
-    TextareaComponent, LoadEmptyStateComponent,
-    EditorComponent, ActionComponent, CardComponent, TimelineComponent
+    TimelineComponent,
+    ToastComponent,
+    TopBarComponent,
   ],
   exports: [
     ActionComponent,
@@ -52,10 +72,12 @@ import { TimelineComponent } from './widgets/timeline/timeline.component';
     ModalComponent,
     PanelComponent,
     ReactiveFormsModule,
+    ShellComponent,
     TableComponent,
-    ToastComponent,
     TileComponent,
-    TimelineComponent],
+    TimelineComponent,
+    ToastComponent,
+  ],
   providers: [FormToolsService, SchemaService],
   schemas: [NO_ERRORS_SCHEMA]
 })

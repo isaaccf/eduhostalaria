@@ -4,23 +4,23 @@ import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { ShellModule } from 'app/tools/shell/shell.module';
 import { ComponentsModule } from 'app/tools/components/components.module';
 import { BusService } from 'app/tools/bus.service';
 import { SecurityService } from 'app/tools/security.service';
 import { Interceptor, JWTInterceptor, ErrorInterceptor } from 'app/tools/interceptor.service';
 import { MessagesService } from 'app/tools/messages.service';
+import { AppRoutingModule } from 'app/app.routing';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    HttpModule,
+    ComponentsModule,
     HttpClientModule,
-    ShellModule,
-    ComponentsModule
+    HttpModule,
   ],
   providers: [
     BusService,
