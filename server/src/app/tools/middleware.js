@@ -2,7 +2,7 @@ const cors = require('cors');
 const expresslogger = require('morgan');
 const bodyParser = require('body-parser');
 const security = require('./security/security.service');
-const index = require('../lib/index.controller');
+const api = require('../lib/api');
 const logger = require('winston');
 
 module.exports.useMiddleware = (app) => {
@@ -26,7 +26,7 @@ module.exports.useMiddleware = (app) => {
   }));
   app.use(bodyParser.json());
 
-  index.createIndex(app);
+  api.createIndex(app);
 
   security.useSecurity(app, '/_/');
 
