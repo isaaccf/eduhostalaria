@@ -9,7 +9,7 @@
     "host": "localhost",
     "port": 27017
   },
-  "mailerSettings": {
+  "mailer": {
     "port": 25,
     "host": "debugmail.io",
     "secure": false,
