@@ -1,6 +1,6 @@
 const mongo = require('../tools/mongo.service');
 
-const col = 'items';
+const col = 'users';
 module.exports = (app, url) => {
   app.route(url)
     .get(async (req, res) => {

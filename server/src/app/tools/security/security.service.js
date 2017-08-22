@@ -1,19 +1,20 @@
 const jwt = require('./jwt.service');
+
 const users = [];
 
-var userExists = user => users.some(u => u.email == user.email);
+const userExists = user => users.some(u => u.email == user.email);
 
-var createUser = user => users.push(user);
+const createUser = user => users.push(user);
 
-var isValidUser = user => users.filter(u => u.email == user.email && u.password == user.password)[0];
+const isValidUser = user => users.filter(u => u.email == user.email && u.password == user.password)[0];
 
 
 module.exports = {
-  useSecurity: useSecurity,
-  userExists: userExists,
-  createUser: createUser,
-  isValidUser: isValidUser,
-  getNewToken: (user) => jwt.createToken(user)
+  useSecurity,
+  userExists,
+  createUser,
+  isValidUser,
+  getNewToken: user => jwt.createToken(user),
 };
 
 function useSecurity(app, ruta) {
@@ -32,5 +33,5 @@ function useSecurity(app, ruta) {
       res.status(401)
         .send('Invalid credentials');
     }
-  })
-};
+  });
+}

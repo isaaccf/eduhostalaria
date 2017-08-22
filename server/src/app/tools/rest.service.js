@@ -1,40 +1,51 @@
-module.exports.returnMongoErr = (err, res) => {
+module.exports.returnErr = (err, res) => {
   console.error(err);
-  if (err.code === 11000) {
-    res.status(409).json({ err: err.message });
-  } else {
-    res.status(400).json({ err: err.message });
+  if (res) {
+    if (err.code === 11000) {
+      return res.status(409).json({ err: err.message });
+    }
+    return res.status(400).json({ err: err.message });
   }
+  return err;
 };
 
-module.exports.returnMongoResult = (data, doc, res) => {
+module.exports.returnResult = (data, doc, res) => {
   console.warn(data.result);
-  if (data.result.n === 0) {
-    res.status(404).send();
-  } else if (doc) {
-    res.status(200).json(doc);
-  } else {
-    res.status(204).send();
+  if (res) {
+    if (data.result.n === 0) {
+      return res.status(404).send();
+    } else if (doc) {
+      return res.status(200).json(doc);
+    }
+    return res.status(204).send();
   }
+  return data.result;
 };
 
-module.exports.returnMongoInserted = (data, res) => {
-  res.status(201).json(data);
+module.exports.returnInserted = (data, res) => {
+  if (res) {
+    return res.status(201).json(data);
+  }
+  return data;
 };
 
-module.exports.returnMongoOne = (data, res) => {
-  if (!data) {
-    res.status(404).json(null);
-  } else {
-    res.status(200).json(data);
+module.exports.returnOne = (data, res) => {
+  if (res) {
+    if (!data) {
+      return res.status(404).json(null);
+    }
+    return res.status(200).json(data);
   }
+  return data;
 };
 
-module.exports.returnMongoArray = (data, res) => {
-  if (!data || data.length === 0) {
-    res.status(204).json([]);
-  } else {
-    res.status(200).json(data);
+module.exports.returnArray = (data, res) => {
+  if (res) {
+    if (!data || data.length === 0) {
+      return res.status(204).json([]);
+    }
+    return res.status(200).json(data);
   }
+  return data;
 };
 

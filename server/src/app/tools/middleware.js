@@ -19,7 +19,7 @@ module.exports.useMiddleware = (app) => {
 
   index.createIndex(app);
 
-  security.useSecurity(app, '/api/priv/');
+  security.useSecurity(app, '/_/');
 
 
   app.use((req, res, next) => {

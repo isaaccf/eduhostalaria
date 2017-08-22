@@ -18,8 +18,8 @@
       "user": "admin@agorabinaria.com",
       "pass": "82fdc8b0-55ae-11e7-954e-d7f004b08dd1"
     },
-    "debug": true,
-    "logger": true
+    "debug": false,
+    "logger": false
   },
   "path": ""
 }

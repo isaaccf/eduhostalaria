@@ -23,9 +23,9 @@ module.exports.find = async (col, query, res) => {
   const colDb = await this.getCollection(col);
   try {
     const data = await colDb.find(query).toArray();
-    rest.returnMongoArray(data, res);
+    return rest.returnArray(data, res);
   } catch (err) {
-    rest.returnMongoErr(err, res);
+    return rest.returnErr(err, res);
   }
 };
 
@@ -39,9 +39,9 @@ module.exports.findOneById = async (col, id, res) => {
   const query = this.getQueryById(id);
   try {
     const data = await colDb.findOne(query);
-    rest.returnMongoOne(data, res);
+    return rest.returnOne(data, res);
   } catch (err) {
-    rest.returnMongoErr(err, res);
+    return rest.returnErr(err, res);
   }
 };
 
@@ -49,9 +49,9 @@ module.exports.insertOne = async (col, doc, res) => {
   const colDb = await this.getCollection(col);
   try {
     await colDb.insertOne(doc);
-    rest.returnMongoInserted(doc, res);
+    return rest.returnInserted(doc, res);
   } catch (err) {
-    rest.returnMongoErr(err, res);
+    return rest.returnErr(err, res);
   }
 };
 
@@ -62,11 +62,10 @@ module.exports.updateOne = async (col, id, doc, res) => {
   newDoc._id = query._id;
   try {
     const data = await colDb.update(query, newDoc);
-    rest.returnMongoResult(data, newDoc, res);
+    return rest.returnResult(data, newDoc, res);
   } catch (err) {
-    rest.returnMongoErr(err, res);
+    return rest.returnErr(err, res);
   }
-  return res;
 };
 
 module.exports.removeOne = async (col, id, res) => {
@@ -74,11 +73,10 @@ module.exports.removeOne = async (col, id, res) => {
   const query = this.getQueryById(id);
   try {
     const data = await colDb.remove(query);
-    rest.returnMongoResult(data, null, res);
+    return rest.returnResult(data, null, res);
   } catch (err) {
-    rest.returnMongoErr(err, res);
+    return rest.returnErr(err, res);
   }
-  return res;
 };
 
 module.exports.getQueryById = (id) => {
