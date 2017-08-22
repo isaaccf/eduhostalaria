@@ -31,10 +31,10 @@ module.exports.returnInserted = (data, res) => {
 
 module.exports.returnOne = (data, res) => {
   if (res) {
-    if (!data) {
-      return res.status(404).json(null);
+    if (data) {
+      return res.status(200).json(data);
     }
-    return res.status(200).json(data);
+    return res.status(404).json(null);
   }
   return data;
 };
