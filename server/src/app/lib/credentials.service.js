@@ -5,27 +5,6 @@ const config = require('../../config/dev.json');
 const col = 'credentials';
 const colUsers = 'users';
 
-module.exports.getGod = async () => {
-  const godUsers = await mongo.find(colUsers, { roles: 'GOD' }, null);
-  if (godUsers && godUsers.length === 1) {
-    return godUsers[0];
-  }
-  return null;
-};
-
-module.exports.createGod = async () => {
-  const newUser = await insertGod();
-  const newCredential = await insertCredential(newUser);
-  if (newCredential._id) {
-    sendWellcome(newUser);
-    return newUser;
-  } else {
-    await mongo.removeOne(colUsers, newUser._id);
-    return null;
-  }
-};
-
-
 async function insertGod() {
   const user = {
     email: 'admin@agorabinaria.com',
@@ -58,3 +37,22 @@ async function sendWellcome(newUser) {
   };
   mailer.sendMail(message);
 }
+
+module.exports.getGod = async () => {
+  const godUsers = await mongo.find(colUsers, { roles: 'GOD' }, null);
+  if (godUsers && godUsers.length === 1) {
+    return godUsers[0];
+  }
+  return null;
+};
+
+module.exports.createGod = async () => {
+  const newUser = await insertGod();
+  const newCredential = await insertCredential(newUser);
+  if (newCredential._id) {
+    sendWellcome(newUser);
+    return newUser;
+  }
+  await mongo.removeOne(colUsers, newUser._id);
+  return null;
+};

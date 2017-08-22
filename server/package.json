@@ -28,7 +28,8 @@
     "jsonwebtoken": "7.4.1",
     "mongodb": "2.2.28",
     "morgan": "1.8.2",
-    "nodemailer": "4.0.1"
+    "nodemailer": "4.0.1",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "@types/body-parser": "1.16.4",
@@ -39,6 +40,8 @@
     "@types/node": "8.0.4",
     "@types/nodemailer": "",
     "eslint": "4.5.0",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-plugin-import": "^2.7.0",
     "nodemon": "1.11.0"
   }
 }

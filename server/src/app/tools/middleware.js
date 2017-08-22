@@ -1,13 +1,22 @@
 const cors = require('cors');
-const logger = require('morgan');
+const expresslogger = require('morgan');
 const bodyParser = require('body-parser');
 const security = require('./security/security.service');
 const index = require('../lib/index.controller');
+const logger = require('winston');
 
 module.exports.useMiddleware = (app) => {
   app.disable('x-powered-by');
-  app.use(logger('dev', {
+
+  logger.stream = {
+    write(message) {
+      logger.debug(message);
+    },
+  };
+
+  app.use(expresslogger('dev', {
     skip: () => app.get('env') === 'test',
+    stream: logger.stream,
   }));
 
   app.use(cors());
@@ -30,8 +39,8 @@ module.exports.useMiddleware = (app) => {
 
   app.use((err, req, res, next) => {
     if (!err) next();
-    console.warn(`Capturado error: ${err.message}`);
-    console.error(err);
+    logger.warn(`Capturado error: ${err.message}`);
+    logger.error(err);
     res
       .status(err.status || 500)
       .send({

@@ -1,5 +1,7 @@
+const logger = require('winston');
+
 module.exports.returnErr = (err, res) => {
-  console.error(err);
+  logger.error(err);
   if (res) {
     if (err.code === 11000) {
       return res.status(409).json({ err: err.message });
@@ -10,8 +12,8 @@ module.exports.returnErr = (err, res) => {
 };
 
 module.exports.returnResult = (data, doc, res) => {
-  console.warn(data.result);
   if (res) {
+    logger.debug(JSON.stringify(data.result));
     if (data.result.n === 0) {
       return res.status(404).send();
     } else if (doc) {
@@ -24,6 +26,7 @@ module.exports.returnResult = (data, doc, res) => {
 
 module.exports.returnInserted = (data, res) => {
   if (res) {
+    logger.debug(JSON.stringify(data));
     return res.status(201).json(data);
   }
   return data;
@@ -32,6 +35,7 @@ module.exports.returnInserted = (data, res) => {
 module.exports.returnOne = (data, res) => {
   if (res) {
     if (data) {
+      logger.debug(JSON.stringify(data));
       return res.status(200).json(data);
     }
     return res.status(404).json(null);
@@ -44,6 +48,7 @@ module.exports.returnArray = (data, res) => {
     if (!data || data.length === 0) {
       return res.status(204).json([]);
     }
+    logger.debug(JSON.stringify(data));
     return res.status(200).json(data);
   }
   return data;
