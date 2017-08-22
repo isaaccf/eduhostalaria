@@ -1,0 +1,25 @@
+{
+  "env": "dev",
+  "port": 2000,
+  "secret": "secret",
+  "mongo": {
+    "database": "bookings",
+    "username": "",
+    "password": "",
+    "host": "localhost",
+    "port": 27017
+  },
+  "mailerSettings": {
+    "port": 25,
+    "host": "debugmail.io",
+    "secure": false,
+    "ignoreTLS": true,
+    "auth": {
+      "user": "aaaa@agorabinaria.com",
+      "pass": "xxxxssss11111"
+    },
+    "debug": true,
+    "logger": true
+  },
+  "path": ""
+}

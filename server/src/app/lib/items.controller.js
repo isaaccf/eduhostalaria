@@ -1,54 +1,28 @@
-let items = [{ text: 'ok' }];
+const mongo = require('../tools/mongo.service');
 
 module.exports = (app, url) => {
-
   // api/pub/items
   app.route(url)
-    .get((req, res) => {
-      if (items && items.length > 0)
-        res.json(items);
-      else
-        res.status(204).send();
+    .get(async (req, res) => {
+      mongo.find('items', {}, res);
     })
-    .post((req, res) => {
-      const item = req.body
-      item._id = new Date().getTime().toString();
-      items.push(item)
-      res.status(201).json(item);
-    })
-    .delete((req, res) => {
-      items = [];
-      res.status(204).send();
+    .post(async (req, res) => {
+      const item = req.body;
+      mongo.insertOne('items', item, res);
     });
   // // api/pub/items/159
   app.route(`${url}/:id`)
     .get((req, res) => {
-      const index = getIndexById(req.params.id);
-      if (index >= 0)
-        res.json(items[index]);
-      else
-        res.status(404).send();
+      const id = req.params.id;
+      mongo.findOneById('items', id, res);
     })
     .put((req, res) => {
-      const index = getIndexById(req.params.id);
-      if (index >= 0) {
-        items[index] = req.body;
-        res.json(items[index]);
-      } else {
-        res.status(404).send();
-      }
-
+      const id = req.params.id;
+      const item = req.body;
+      mongo.updateOne('items', id, item, res);
     })
     .delete((req, res) => {
-      const index = getIndexById(req.params.id);
-      if (index >= 0) {
-        items.splice(index, 1)
-        res.status(204).send();
-      } else {
-        res.status(404).send();
-      }
+      const id = req.params.id;
+      mongo.removeOne('items', id, res);
     });
-
-  var getIndexById = (id) => items.findIndex(i => i._id == id);
-
-}
+};

@@ -1,8 +1,30 @@
 const express = require('express');
-const app = express();
-
+const config = require('./config/dev.json');
 const middleware = require('./app/tools/middleware');
-middleware.useMiddleware(app);
 
-const { PORT = 2000 } = process.env;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`)); 
+process.on('uncaughtException', (err) => {
+  console.warn('uncaughtException');
+  console.error(err);
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.warn('unhandledRejection');
+  console.error(err);
+});
+
+
+console.warn(config);
+const app = express();
+const mongoService = require('./app/tools/mongo.service');
+
+mongoService.connect()
+  .then(() => {
+    middleware.useMiddleware(app);
+    app.listen(config.port, () => console.warn(`Listening on port ${config.port}`));
+  })
+  .catch((err) => {
+    console.warn('No MongoDB');
+    console.error(err);
+  });
+
