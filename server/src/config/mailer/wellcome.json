@@ -1,5 +1,17 @@
 {
-  "subject": "Benvido á plataforma de reservas",
-  "text": "Ola ${name}.\rVisita ${url} para activar a túa conta.",
-  "html": "<p>Ola ${name}.</p><p>Visita <a href=\"${url}\">${url}</a> para activar a túa conta.</p>"
+  "toBeConfirmed": {
+    "subject": "Invitacion á plataforma de reservas das escolas de Hostelaria",
+    "text": "Ola ${name}.\rInvitáronte a participar como membro da plataforma de reservas das escolas de Hostelaria.\rVisita ${url} para confirmar e activar a túa conta.",
+    "html": "<p>Ola ${name}.</p><p>Invitáronte a participar como membro da plataforma de reservas das escolas de Hostelaria.</p><p>Visita <a href=\"${url}\">${url}</a> para confirmar e activar a túa conta.</p>"
+  },
+  "toBeApproved": {
+    "subject": "Solicitude de acceso á plataforma de reservas das escolas de Hostelaria recibida",
+    "text": "Ola ${name}.\rA túa conta está pendente de ser aprobada. Recibiras notificación por este mismo medio.",
+    "html": "<p>Ola ${name}.</p><p>A túa conta está pendente de ser aprobada. Recibiras notificación por este mismo medio.</p>"
+  },
+  "activated": {
+    "subject": "Benvido á plataforma de reservas das escolas de Hostelaria",
+    "text": "Ola ${name}.\rA túa conta xa está activa.\rVisita ${url} para usar a plataforma.",
+    "html": "<p>Ola ${name}.</p><p>A túa conta xa está activa.</p><p>Visita <a href=\"${url}\">${url}</a> para usar a plataforma.</p>"
+  }
 }

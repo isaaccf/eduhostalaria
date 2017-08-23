@@ -1,6 +1,5 @@
+const logger = require('winston');
 const mongo = require('../tools/mongo.service');
-const mailer = require('../tools/mailer.service');
-const config = require('../../config/dev.json');
 const jwt = require('../tools/jwt.service');
 
 const col = 'credentials';
@@ -26,6 +25,12 @@ module.exports.getByRole = async (role) => {
 
 
 module.exports.createUser = async (claim) => {
+  const query = { email: claim.email };
+  const currentUser = await mongo.findOneByQuery(colUsers, query);
+  if (currentUser) {
+    logger.warn(`email already in use: ${claim.email}`);
+    return null;
+  }
   const user = Object.assign({}, claim);
   delete user.password;
   const newUser = await insertUser(user);
@@ -39,7 +44,6 @@ module.exports.createUser = async (claim) => {
       return null;
     }
   }
-  mailer.sendWellcome(newUser);
   return newUser;
 };
 
@@ -64,7 +68,7 @@ module.exports.activateUser = async (activation) => {
   return user;
 };
 
-module.exports.validateUser = async (claim) => {
+module.exports.loginUser = async (claim) => {
   let query = { email: claim.email };
   const user = await mongo.findOneByQuery(colUsers, query);
   if (!user || user instanceof Error) {

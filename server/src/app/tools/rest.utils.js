@@ -22,8 +22,8 @@ module.exports.returnNotFound = (res) => {
   return res.status(404).send();
 };
 
-module.exports.returnErr = (err, res) => {
-  logger.warn(JSON.stringify(err));
+module.exports.returnError = (err, res) => {
+  logger.warn(err.message);
   let code = 400;
   if (err.code === 11000) {
     code = 409;
