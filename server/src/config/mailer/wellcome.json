@@ -1,0 +1,5 @@
+{
+  "subject": "Benvido á plataforma de reservas",
+  "text": "Ola ${name}.\rVisita ${url} para activar a túa conta.",
+  "html": "<p>Ola ${name}.</p><p>Visita <a href=\"${url}\">${url}</a> para activar a túa conta.</p>"
+}

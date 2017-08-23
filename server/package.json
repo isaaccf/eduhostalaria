@@ -24,6 +24,7 @@
   "dependencies": {
     "body-parser": "1.17.2",
     "cors": "2.8.3",
+    "es6-template-strings": "^2.0.1",
     "express": "4.15.3",
     "jsonwebtoken": "7.4.1",
     "mongodb": "2.2.28",

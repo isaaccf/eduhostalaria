@@ -16,21 +16,6 @@ async function insertCredential(userId, password) {
   return newCredential;
 }
 
-async function sendWellcome(newUser) {
-  // To Do: take this method to mailer
-  // To Do: get message from config
-  const message = {
-    from: config.mailer.auth.user,
-    to: newUser.email,
-    subject: 'Benvido á plataforma de reservas',
-    text: `Olá ${newUser.name}.
-    Benvido á plataforma de reservas. Visita http://localhost:4200/me/${newUser._id} para activar a túa conta.`,
-    html: `<p>Olá ${newUser.name}.
-    Benvido á plataforma de reservas. Visita http://localhost:4200/me/${newUser._id} para activar a túa conta.</p>`,
-  };
-  mailer.sendMail(message);
-}
-
 module.exports.getByRole = async (role) => {
   const users = await mongo.find(colUsers, { roles: role }, null);
   if (users && users.length >= 1) {
@@ -54,7 +39,7 @@ module.exports.createUser = async (claim) => {
       return null;
     }
   }
-  sendWellcome(newUser);
+  mailer.sendWellcome(newUser);
   return newUser;
 };
 
@@ -108,4 +93,4 @@ module.exports.changePassword = async (claim) => {
   credential.password = claim.newPassword;
   const result = await mongo.updateOne(col, credential.id, credential, null);
   return result;
-}
+};
