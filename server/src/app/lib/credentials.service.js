@@ -17,8 +17,8 @@ async function insertCredential(userId, password) {
 }
 
 module.exports.getByRole = async (role) => {
-  const users = await mongo.find(colUsers, { roles: role }, null);
-  if (users && users.length >= 1) {
+  const users = await mongo.find(colUsers, { roles: role });
+  if (Array.isArray(users) && users.length > 0) {
     return users;
   }
   return null;
@@ -44,20 +44,20 @@ module.exports.createUser = async (claim) => {
 };
 
 module.exports.activateUser = async (activation) => {
-  const user = await mongo.findOneById(colUsers, activation._id, null);
-  if (!user) {
+  const user = await mongo.findOneById(colUsers, activation._id);
+  if (user instanceof Error) {
     return null;
   }
   user.status = 'ACTIVE';
-  const result = await mongo.updateOne(colUsers, activation._id, user, null);
-  if (result.n === 0) {
+  const result = await mongo.updateOne(colUsers, activation._id, user);
+  if (result instanceof Error || result.n === 0) {
     return null;
   }
   if (activation.password) {
     const newCredential = await insertCredential(activation._id, activation.password);
     if (!newCredential._id) {
       user.status = 'PENDING';
-      await mongo.updateOne(colUsers, activation._id, user, null);
+      await mongo.updateOne(colUsers, activation._id, user);
       return null;
     }
   }
@@ -66,13 +66,13 @@ module.exports.activateUser = async (activation) => {
 
 module.exports.validateUser = async (claim) => {
   let query = { email: claim.email };
-  const user = await mongo.findOneByQuery(colUsers, query, null);
-  if (!user) {
+  const user = await mongo.findOneByQuery(colUsers, query);
+  if (!user || user instanceof Error) {
     return null;
   }
   query = { userId: user._id, password: claim.password };
-  const credential = await mongo.findOneByQuery(col, query, null);
-  if (!credential) {
+  const credential = await mongo.findOneByQuery(col, query);
+  if (!credential || credential instanceof Error) {
     return null;
   }
   const token = jwt.createToken(user);
@@ -81,16 +81,16 @@ module.exports.validateUser = async (claim) => {
 
 module.exports.changePassword = async (claim) => {
   let query = { email: claim.email };
-  const user = await mongo.findOneByQuery(colUsers, query, null);
-  if (!user) {
+  const user = await mongo.findOneByQuery(colUsers, query);
+  if (!user || user instanceof Error) {
     return null;
   }
   query = { userId: user._id, password: claim.password };
-  const credential = await mongo.findOneByQuery(col, query, null);
-  if (!credential) {
+  const credential = await mongo.findOneByQuery(col, query);
+  if (!credential || credential instanceof Error) {
     return null;
   }
   credential.password = claim.newPassword;
-  const result = await mongo.updateOne(col, credential.id, credential, null);
+  const result = await mongo.updateOne(col, credential.id, credential);
   return result;
 };

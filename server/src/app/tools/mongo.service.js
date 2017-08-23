@@ -1,7 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const logger = require('winston');
 const config = require('../../config/dev.json');
-const rest = require('./rest.service');
+
 
 const mongoCfg = config.mongo;
 const mongoUri = `mongodb://${mongoCfg.host}:${mongoCfg.port}/${mongoCfg.database}`;
@@ -19,67 +20,84 @@ module.exports.getCollection = async (col) => {
   return db.collection(col);
 };
 
-module.exports.find = async (col, query, res) => {
+module.exports.find = async (col, query) => {
   const colDb = await this.getCollection(col);
   try {
     const data = await colDb.find(query).toArray();
-    return rest.returnArray(data, res);
+    return data;
   } catch (err) {
-    return rest.returnErr(err, res);
+    logger.error(err);
+    return err;
   }
 };
 
 module.exports.count = async (col, query) => {
   const colDb = await this.getCollection(col);
-  return colDb.find(query).count();
-};
-
-module.exports.findOneById = async (col, id, res) => {
-  const query = this.getQueryById(id);
-  return this.findOneByQuery(col, query, res);
-};
-
-module.exports.findOneByQuery = async (col, query, res) => {
-  const colDb = await this.getCollection(col);
   try {
-    const data = await colDb.findOne(query);
-    return rest.returnOne(data, res);
+    return await colDb.find(query).count();
   } catch (err) {
-    return rest.returnErr(err, res);
+    logger.error(err);
+    return err;
   }
 };
 
-module.exports.insertOne = async (col, doc, res) => {
+module.exports.findOneById = async (col, id) => {
+  const query = this.getQueryById(id);
+  return this.findOneByQuery(col, query);
+};
+
+module.exports.findOneByQuery = async (col, query) => {
+  const colDb = await this.getCollection(col);
+  try {
+    return await colDb.findOne(query);
+  } catch (err) {
+    logger.error(err);
+    return err;
+  }
+};
+
+module.exports.insertOne = async (col, doc) => {
   const colDb = await this.getCollection(col);
   try {
     await colDb.insertOne(doc);
-    return rest.returnInserted(doc, res);
+    return doc;
   } catch (err) {
-    return rest.returnErr(err, res);
+    logger.error(err);
+    return err;
   }
 };
 
-module.exports.updateOne = async (col, id, doc, res) => {
+module.exports.updateOne = async (col, id, doc) => {
   const colDb = await this.getCollection(col);
   const query = this.getQueryById(id);
   const newDoc = doc;
   newDoc._id = query._id;
   try {
     const data = await colDb.update(query, newDoc);
-    return rest.returnResult(data, newDoc, res);
+    if (data.result.n === 0) {
+      return null;
+    } else {
+      return newDoc;
+    }
   } catch (err) {
-    return rest.returnErr(err, res);
+    logger.error(err);
+    return err;
   }
 };
 
-module.exports.removeOne = async (col, id, res) => {
+module.exports.removeOne = async (col, id) => {
   const colDb = await this.getCollection(col);
   const query = this.getQueryById(id);
   try {
     const data = await colDb.remove(query);
-    return rest.returnResult(data, null, res);
+    if (data.result.n === 0) {
+      return null;
+    } else {
+      return data;
+    }
   } catch (err) {
-    return rest.returnErr(err, res);
+    logger.error(err);
+    return err;
   }
 };
 
