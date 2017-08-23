@@ -11,6 +11,8 @@
         ]
       }
     ],
-    "no-underscore-dangle": "off"
+    "no-trailing-spaces": "warn",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "warn"
   }
 }

@@ -1,7 +1,7 @@
 const cors = require('cors');
 const expresslogger = require('morgan');
 const bodyParser = require('body-parser');
-const security = require('./security/security.service');
+const jwt = require('./jwt.service');
 const api = require('../lib/api');
 const logger = require('winston');
 
@@ -28,13 +28,24 @@ module.exports.useMiddleware = (app) => {
 
   api.createIndex(app);
 
-  security.useSecurity(app, '/_/');
-
+  app.use('/_/', (req, res, next) => {
+    let user = null;
+    const authHeader = req.get('authorization');
+    const token = authHeader.split(' ')[1];
+    if (token) {
+      user = jwt.verifyToken(token);
+      req.user = user;
+      return next();
+    }
+    const err = new Error('Unauthorized');
+    err.status = 401;
+    return next(err);
+  });
 
   app.use((req, res, next) => {
     const err = new Error(`Not Found ${req.originalUrl} `);
     err.status = 404;
-    next(err);
+    return next(err);
   });
 
   app.use((err, req, res, next) => {
