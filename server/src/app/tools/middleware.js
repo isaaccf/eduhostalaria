@@ -26,21 +26,30 @@ module.exports.useMiddleware = (app) => {
   }));
   app.use(bodyParser.json());
 
-  api.createIndex(app);
-
-  app.use('/_/', (req, res, next) => {
+  app.all('*', (req, res, next) => {
+    logger.debug(`Observing end point : ${req.method} ${req.originalUrl} `);
+    if (!req.originalUrl.includes('/_/')) {
+      return next();
+    }
+    logger.debug(`Securitize end point : ${req.method} ${req.originalUrl} `);
     let user = null;
     const authHeader = req.get('authorization');
-    const token = authHeader.split(' ')[1];
-    if (token) {
-      user = jwt.verifyToken(token);
-      req.user = user;
-      return next();
+    if (authHeader) {
+      const token = authHeader.split(' ')[1];
+      if (token) {
+        user = jwt.verifyToken(token);
+        if (user) {
+          req.user = user;
+          return next();
+        }
+      }
     }
     const err = new Error('Unauthorized');
     err.status = 401;
     return next(err);
   });
+
+  api.createIndex(app);
 
   app.use((req, res, next) => {
     const err = new Error(`End point Not Found: ${req.method} ${req.originalUrl} `);

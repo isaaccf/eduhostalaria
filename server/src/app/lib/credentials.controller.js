@@ -24,7 +24,7 @@ module.exports = (app, url) => {
       }
       return rest.returnError(new Error('No god'), res);
     });
-  app.route(`${url}/users`)
+  app.route(`${url}/registrations`)
     .post(async (req, res) => {
       const registration = req.body;
       const newUser = await srv.createUser(registration);
