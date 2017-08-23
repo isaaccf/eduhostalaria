@@ -1,4 +1,3 @@
-const logger = require('winston');
 const mongo = require('../tools/mongo.service');
 const rest = require('../tools/rest.service');
 

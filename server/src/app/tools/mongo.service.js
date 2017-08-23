@@ -1,8 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
-const logger = require('winston');
-const config = require('../../config/dev.json');
 
+const config = require('../../config/dev.json');
+const utils = require('./mongo.utils');
 
 const mongoCfg = config.mongo;
 const mongoUri = `mongodb://${mongoCfg.host}:${mongoCfg.port}/${mongoCfg.database}`;
@@ -26,8 +25,7 @@ module.exports.find = async (col, query) => {
     const data = await colDb.find(query).toArray();
     return data;
   } catch (err) {
-    logger.error(err);
-    return err;
+    return utils.getError(err);
   }
 };
 
@@ -36,13 +34,12 @@ module.exports.count = async (col, query) => {
   try {
     return await colDb.find(query).count();
   } catch (err) {
-    logger.error(err);
-    return err;
+    return utils.getError(err);
   }
 };
 
 module.exports.findOneById = async (col, id) => {
-  const query = this.getQueryById(id);
+  const query = utils.getQueryById(id);
   return this.findOneByQuery(col, query);
 };
 
@@ -51,8 +48,7 @@ module.exports.findOneByQuery = async (col, query) => {
   try {
     return await colDb.findOne(query);
   } catch (err) {
-    logger.error(err);
-    return err;
+    return utils.getError(err);
   }
 };
 
@@ -62,50 +58,29 @@ module.exports.insertOne = async (col, doc) => {
     await colDb.insertOne(doc);
     return doc;
   } catch (err) {
-    logger.error(err);
-    return err;
+    return utils.getError(err);
   }
 };
 
 module.exports.updateOne = async (col, id, doc) => {
   const colDb = await this.getCollection(col);
-  const query = this.getQueryById(id);
-  const newDoc = doc;
-  newDoc._id = query._id;
+  const query = utils.getQueryById(id);
+  const newDoc = utils.setDocId(doc, query._id);
   try {
     const data = await colDb.update(query, newDoc);
-    if (!data || !data.result || data.result.n === 0) {
-      return null;
-    }
-    return newDoc;
+    return utils.getResult(data, newDoc);
   } catch (err) {
-    logger.error(err);
-    return err;
+    return utils.getError(err);
   }
 };
 
 module.exports.removeOne = async (col, id) => {
   const colDb = await this.getCollection(col);
-  const query = this.getQueryById(id);
+  const query = utils.getQueryById(id);
   try {
     const data = await colDb.remove(query);
-    if (!data || !data.result || data.result.n === 0) {
-      return null;
-    }
-    return data;
+    return utils.getResult(data, data);
   } catch (err) {
-    logger.error(err);
-    return err;
+    return utils.getError(err);
   }
 };
-
-module.exports.getQueryById = (id) => {
-  let query = {};
-  if (ObjectID.isValid(id)) {
-    query = { _id: new ObjectID(id) };
-  } else {
-    query = { _id: id };
-  }
-  return query;
-};
-
