@@ -23,7 +23,7 @@ module.exports.returnNotFound = (res) => {
 };
 
 module.exports.returnErr = (err, res) => {
-  logger.debug(JSON.stringify(err));
+  logger.warn(JSON.stringify(err));
   let code = 400;
   if (err.code === 11000) {
     code = 409;

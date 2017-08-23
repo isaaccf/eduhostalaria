@@ -43,14 +43,13 @@ module.exports.useMiddleware = (app) => {
   });
 
   app.use((req, res, next) => {
-    const err = new Error(`Not Found ${req.originalUrl} `);
+    const err = new Error(`End point Not Found: ${req.method} ${req.originalUrl} `);
     err.status = 404;
     return next(err);
   });
 
   app.use((err, req, res, next) => {
     if (!err) next();
-    logger.warn(`Capturado error: ${err.message}`);
     logger.error(err);
     res
       .status(err.status || 500)
