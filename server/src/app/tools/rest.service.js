@@ -1,50 +1,38 @@
-const logger = require('winston');
-
-module.exports.returnErr = (err, res) => {
-  logger.debug(JSON.stringify(err));
-  if (err.code === 11000) {
-    return res.status(409).json({ err: err.message });
-  }
-  return res.status(400).json({ err: err.message });
-};
+const utils = require('./rest.utils');
 
 module.exports.returnArray = (data, res) => {
-  if (data instanceof Error) {
-    return this.returnErr(data);
+  if (utils.isError(data)) {
+    return utils.returnErr(data, res);
   }
   if (!data || data.length === 0) {
-    return res.status(204).json([]);
+    return utils.returnEmpty(res);
   }
-  logger.debug(JSON.stringify(data));
-  return res.status(200).json(data);
+  return utils.returnData(data, res);
 };
 
 module.exports.returnOne = (data, res) => {
-  if (data instanceof Error) {
-    return this.returnErr(data);
+  if (utils.isError(data)) {
+    return utils.returnErr(data, res);
   }
   if (!data) {
-    return res.status(404).json(null);
+    return utils.returnNotFound(res);
   }
-  logger.debug(JSON.stringify(data));
-  return res.status(200).json(data);
+  return utils.returnData(data, res);
 };
 
 module.exports.returnInserted = (data, res) => {
-  if (data instanceof Error) {
-    return this.returnErr(data);
+  if (utils.isError(data)) {
+    return utils.returnErr(data, res);
   }
-  logger.debug(JSON.stringify(data));
-  return res.status(201).json(data);
+  return utils.returnInserted(data, res);
 };
 
 module.exports.returnResult = (data, res) => {
   if (!data) {
-    return res.status(404).send();
+    return utils.returnNotFound(res);
   }
-  if (data instanceof Error) {
-    return this.returnErr(data);
+  if (utils.isError(data)) {
+    return utils.returnErr(data, res);
   }
-  logger.debug(JSON.stringify(data));
-  return res.status(200).json(data);
+  return utils.returnData(data, res);
 };
