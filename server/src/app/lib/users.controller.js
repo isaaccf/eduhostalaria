@@ -1,27 +1,33 @@
 const mongo = require('../tools/mongo.service');
+const rest = require('../tools/rest.service');
 
 const col = 'users';
 module.exports = (app, url) => {
   app.route(url)
     .get(async (req, res) => {
-      mongo.find(col, {}, res);
+      const data = await mongo.find(col, {});
+      return rest.returnArray(data, res);
     })
     .post(async (req, res) => {
       const item = req.body;
-      mongo.insertOne(col, item, res);
+      const data = await mongo.insertOne(col, item);
+      return rest.returnInserted(data, res);
     });
   app.route(`${url}/:id`)
-    .get((req, res) => {
+    .get(async (req, res) => {
       const id = req.params.id;
-      mongo.findOneById(col, id, res);
+      const data = await mongo.findOneById(col, id);
+      return rest.returnOne(data, res);
     })
-    .put((req, res) => {
+    .put(async (req, res) => {
       const id = req.params.id;
       const item = req.body;
-      mongo.updateOne(col, id, item, res);
+      const data = await mongo.updateOne(col, id, item);
+      return rest.returnResult(data, res);
     })
-    .delete((req, res) => {
+    .delete(async (req, res) => {
       const id = req.params.id;
-      mongo.removeOne(col, id, res);
+      const data = await mongo.removeOne(col, id);
+      return rest.returnResult(data, res);
     });
 };
