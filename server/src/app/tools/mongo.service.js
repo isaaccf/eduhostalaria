@@ -22,8 +22,7 @@ module.exports.getCollection = async (col) => {
 module.exports.find = async (col, query) => {
   const colDb = await this.getCollection(col);
   try {
-    const data = await colDb.find(query).toArray();
-    return data;
+    return await colDb.find(query).toArray();
   } catch (err) {
     return utils.getError(err);
   }
