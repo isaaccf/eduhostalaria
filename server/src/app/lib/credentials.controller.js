@@ -53,5 +53,10 @@ module.exports = (app, url) => {
       } else {
         rest.returnErr(new Error('Not validated'), res);
       }
+    })
+    .patch(async (req, res) => {
+      const claim = req.body;
+      const result = await srv.changePassword(claim);
+      rest.returnResult(result, res);
     });
 };

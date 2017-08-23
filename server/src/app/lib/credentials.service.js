@@ -1,7 +1,7 @@
 const mongo = require('../tools/mongo.service');
 const mailer = require('../tools/mailer.service');
 const config = require('../../config/dev.json');
-const jwt = require('../tools/security/jwt.service');
+const jwt = require('../tools/jwt.service');
 
 const col = 'credentials';
 const colUsers = 'users';
@@ -93,3 +93,19 @@ module.exports.validateUser = async (claim) => {
   const token = jwt.createToken(user);
   return token;
 };
+
+module.exports.changePassword = async (claim) => {
+  let query = { email: claim.email };
+  const user = await mongo.findOneByQuery(colUsers, query, null);
+  if (!user) {
+    return null;
+  }
+  query = { userId: user._id, password: claim.password };
+  const credential = await mongo.findOneByQuery(col, query, null);
+  if (!credential) {
+    return null;
+  }
+  credential.password = claim.newPassword;
+  const result = await mongo.updateOne(col, credential.id, credential, null);
+  return result;
+}
