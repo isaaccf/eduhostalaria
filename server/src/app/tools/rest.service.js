@@ -19,15 +19,15 @@ module.exports.returnArray = (data, res) => {
   return res.status(200).json(data);
 };
 
-module.exports.returnResult = (data, doc, res) => {
-  if (!data) {
-    return res.status(404).send();
-  }
+module.exports.returnOne = (data, res) => {
   if (data instanceof Error) {
     return this.returnErr(data);
   }
+  if (!data) {
+    return res.status(404).json(null);
+  }
   logger.debug(JSON.stringify(data));
-  return res.status(200).json(doc);
+  return res.status(200).json(data);
 };
 
 module.exports.returnInserted = (data, res) => {
@@ -38,16 +38,13 @@ module.exports.returnInserted = (data, res) => {
   return res.status(201).json(data);
 };
 
-module.exports.returnOne = (data, res) => {
+module.exports.returnResult = (data, res) => {
+  if (!data) {
+    return res.status(404).send();
+  }
   if (data instanceof Error) {
     return this.returnErr(data);
   }
-  if (data) {
-    logger.debug(JSON.stringify(data));
-    return res.status(200).json(data);
-  }
-  return res.status(404).json(null);
+  logger.debug(JSON.stringify(data));
+  return res.status(200).json(data);
 };
-
-
-

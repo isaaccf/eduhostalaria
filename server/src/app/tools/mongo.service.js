@@ -74,11 +74,10 @@ module.exports.updateOne = async (col, id, doc) => {
   newDoc._id = query._id;
   try {
     const data = await colDb.update(query, newDoc);
-    if (data.result.n === 0) {
+    if (!data || !data.result || data.result.n === 0) {
       return null;
-    } else {
-      return newDoc;
     }
+    return newDoc;
   } catch (err) {
     logger.error(err);
     return err;
@@ -90,11 +89,10 @@ module.exports.removeOne = async (col, id) => {
   const query = this.getQueryById(id);
   try {
     const data = await colDb.remove(query);
-    if (data.result.n === 0) {
+    if (!data || !data.result || data.result.n === 0) {
       return null;
-    } else {
-      return data;
     }
+    return data;
   } catch (err) {
     logger.error(err);
     return err;
