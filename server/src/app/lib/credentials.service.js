@@ -83,21 +83,27 @@ module.exports.loginUser = async (claim) => {
     return null;
   }
   const token = jwt.createToken(user);
-  return token;
+  const userToken = {
+    user_token: token,
+  };
+  return userToken;
 };
 
 module.exports.changePassword = async (claim) => {
   const user = await this.getUserByEmail(claim.email);
   if (!user) {
+    logger.warn(`not found user for: ${JSON.stringify(claim)}`);
     return null;
   }
   const credential = await this.getCredentialByUserId(user._id);
   if (!credential || !bcrypt.compareSync(claim.password, credential.password)) {
+    logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
     return null;
   }
   const hash = bcrypt.hashSync(claim.newPassword, salt);
   credential.password = hash;
-  const result = await mongo.updateOne(col, credential.id, credential);
+  const result = await mongo.updateOne(col, credential._id, credential);
+  logger.warn(`changing...: ${JSON.stringify(result)}`);
   return result;
 };
 

@@ -94,8 +94,8 @@ export class MeComponent implements OnInit {
     this.logOutActive = false;
     this.security.logOutUser();
   }
-  onChangePasswordClick(newPassword) {
-    this.me.changePassword(newPassword).subscribe();
+  onChangePasswordClick(changePasswordClaim) {
+    this.me.changePassword(changePasswordClaim).subscribe();
     this.changePasswordActive = false;
   }
 }

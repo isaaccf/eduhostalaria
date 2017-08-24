@@ -30,7 +30,6 @@ module.exports.useMiddleware = (app) => {
     if (!req.originalUrl.includes('/_/')) {
       return next();
     }
-    logger.debug(`Securitize end point : ${req.method} ${req.originalUrl} `);
     let user = null;
     const authHeader = req.get('authorization');
     if (authHeader) {

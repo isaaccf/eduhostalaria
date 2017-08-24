@@ -15,6 +15,7 @@ export class SecurityService {
   private userTokenKey = 'userToken';
   private userKey = 'user';
   private url = 'credentials';
+  private userUrl = '_/users';
 
   constructor(private bus: BusService, private http: HttpClient, private router: Router) {
     this.onSecurityErrNavigateToLogin();
@@ -57,7 +58,7 @@ export class SecurityService {
 
   public getMe(): Observable<IUser> {
     return this.http
-      .get<IUser>('users/me')
+      .get<IUser>(`${this.userUrl}/me`)
       .do(this.saveUser.bind(this));
   }
 
@@ -83,7 +84,7 @@ export class SecurityService {
   }
 
   private saveUserToken(response) {
-    const userToken: string = response.access_token;
+    const userToken: string = response.user_token;
     localStorage.setItem(this.userTokenKey, userToken);
     this.bus.emitUserToken(userToken);
   }

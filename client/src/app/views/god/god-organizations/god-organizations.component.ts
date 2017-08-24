@@ -60,7 +60,7 @@ export class GodOrganizationsComponent implements OnInit {
   getOrganizationAdmin(organization) {
     this.god
       .getOrganizationAdmin(organization._id)
-      .subscribe(user => organization.admin = user[0]);
+      .subscribe(user => organization.admin = user);
   }
 
   onSetAdmin(organization) {

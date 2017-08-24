@@ -7,8 +7,8 @@ import { SchemaService } from 'app/tools/components/schema.service';
 
 @Injectable()
 export class MeService {
-  private organizationsUrl = 'organizations';
-  private usersUrl = 'users';
+  private organizationsUrl = '_/organizations';
+  private usersUrl = '_/users';
   private credentialsUrl = 'credentials';
 
   constructor(private http: HttpClient, private schemaService: SchemaService) { }
@@ -49,7 +49,7 @@ export class MeService {
   }
 
   changePassword(password: any): Observable<any> {
-    return this.http.patch(`${this.credentialsUrl}/newPassword`, password);
+    return this.http.patch(`${this.credentialsUrl}/`, password);
   }
 
   getAdministratedUsers(): Observable<any> {

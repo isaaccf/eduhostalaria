@@ -9,7 +9,7 @@ import 'rxjs/add/observable/forkJoin';
 
 @Injectable()
 export class OrganizationsService {
-  private url = 'organizations';
+  private url = '_/organizations';
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<IOrganization[]> {

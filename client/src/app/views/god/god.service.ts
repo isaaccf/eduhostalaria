@@ -10,9 +10,9 @@ import { ROLE } from 'app/tools/user.model';
 
 @Injectable()
 export class GodService {
-  private organizationsUrl = 'organizations';
+  private organizationsUrl = '_/organizations';
   private credentialsUrl = 'credentials';
-  private usersUrl = 'users';
+  private usersUrl = '_/users';
 
   constructor(private http: HttpClient, private bus: BusService, private security: SecurityService) { }
 
@@ -39,9 +39,9 @@ export class GodService {
 
 
   setOrganizationAdmin(newAdmin) {
-    newAdmin.role = ROLE.ADMIN;
+    newAdmin.roles = ROLE.ADMIN;
     return this.http
-      .post(`${this.credentialsUrl}/invitation`, newAdmin);
+      .post(`${this.credentialsUrl}/_/invitations`, newAdmin);
   }
 
   postOrganization(newOrganization) {

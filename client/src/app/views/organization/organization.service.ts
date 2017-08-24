@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class OrganizationService {
-  private organizationsUrl = 'organizations';
+  private organizationsUrl = '_/organizations';
   constructor(private http: HttpClient, private schemaService: SchemaService) {
   }
   getOrganization(id) {
