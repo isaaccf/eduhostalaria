@@ -27,7 +27,6 @@ module.exports.useMiddleware = (app) => {
   app.use(bodyParser.json());
 
   app.all('*', (req, res, next) => {
-    logger.debug(`Observing end point : ${req.method} ${req.originalUrl} `);
     if (!req.originalUrl.includes('/_/')) {
       return next();
     }

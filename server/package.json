@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/AgoraBinaria/angular-base#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "1.17.2",
     "cors": "2.8.3",
     "es6-template-strings": "^2.0.1",

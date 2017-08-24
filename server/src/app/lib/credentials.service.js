@@ -1,7 +1,9 @@
 const logger = require('winston');
+const bcrypt = require('bcryptjs');
 const mongo = require('../tools/mongo.service');
 const jwt = require('../tools/jwt.service');
 
+const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';
 const colUsers = 'users';
 
@@ -10,7 +12,8 @@ async function insertUser(user) {
   return newUser;
 }
 async function insertCredential(userId, password) {
-  const credential = { userId, password };
+  const hash = bcrypt.hashSync(password, salt);
+  const credential = { userId, password: hash };
   const newCredential = await mongo.insertOne(col, credential);
   return newCredential;
 }
@@ -25,8 +28,7 @@ module.exports.getByRole = async (role) => {
 
 
 module.exports.createUser = async (claim) => {
-  const query = { email: claim.email };
-  const currentUser = await mongo.findOneByQuery(colUsers, query);
+  const currentUser = await this.getUserByEmail(claim.email);
   if (currentUser) {
     logger.warn(`email already in use: ${claim.email}`);
     return null;
@@ -69,14 +71,15 @@ module.exports.activateUser = async (activation) => {
 };
 
 module.exports.loginUser = async (claim) => {
-  let query = { email: claim.email };
-  const user = await mongo.findOneByQuery(colUsers, query);
-  if (!user || user instanceof Error) {
+  const user = await this.getUserByEmail(claim.email);
+  if (!user) {
     return null;
   }
-  query = { userId: user._id, password: claim.password };
-  const credential = await mongo.findOneByQuery(col, query);
-  if (!credential || credential instanceof Error) {
+  const credential = await this.getCredentialByUserId(user._id);
+  if (!credential || !bcrypt.compareSync(claim.password, credential.password)) {
+    return null;
+  }
+  if (!bcrypt.compareSync(claim.password, credential.password)) {
     return null;
   }
   const token = jwt.createToken(user);
@@ -84,17 +87,33 @@ module.exports.loginUser = async (claim) => {
 };
 
 module.exports.changePassword = async (claim) => {
-  let query = { email: claim.email };
-  const user = await mongo.findOneByQuery(colUsers, query);
-  if (!user || user instanceof Error) {
+  const user = await this.getUserByEmail(claim.email);
+  if (!user) {
     return null;
   }
-  query = { userId: user._id, password: claim.password };
-  const credential = await mongo.findOneByQuery(col, query);
-  if (!credential || credential instanceof Error) {
+  const credential = await this.getCredentialByUserId(user._id);
+  if (!credential || !bcrypt.compareSync(claim.password, credential.password)) {
     return null;
   }
-  credential.password = claim.newPassword;
+  const hash = bcrypt.hashSync(claim.newPassword, salt);
+  credential.password = hash;
   const result = await mongo.updateOne(col, credential.id, credential);
   return result;
 };
+
+module.exports.getUserByEmail = async (email) => {
+  const user = await mongo.findOneByQuery(colUsers, { email });
+  if (user instanceof Error) {
+    return null;
+  }
+  return user;
+};
+
+module.exports.getCredentialByUserId = async (userId) => {
+  const credential = await mongo.findOneByQuery(col, { userId });
+  if (credential instanceof Error) {
+    return null;
+  }
+  return credential;
+};
+
