@@ -44,6 +44,7 @@ module.exports = (app, url) => {
       }
       return rest.returnError(new Error(`Not created: ${JSON.stringify(invitation)}`), res);
     });
+
   app.route(`${url}/activations`)
     .post(async (req, res) => {
       const activation = req.body;
@@ -53,6 +54,16 @@ module.exports = (app, url) => {
         return rest.returnInserted(activatedUser, res);
       }
       return rest.returnError(new Error(`Not activated: ${JSON.stringify(activation)}`), res);
+    });
+  app.route(`${url}/_/approvals`)
+    .post(async (req, res) => {
+      const activation = req.body;
+      const activatedUser = await srv.activateUser(activation);
+      if (activatedUser) {
+        mailer.sendWellcome(activatedUser, 'approved');
+        return rest.returnInserted(activatedUser, res);
+      }
+      return rest.returnError(new Error(`Not approved: ${JSON.stringify(activation)}`), res);
     });
   app.route(`${url}/`)
     .post(async (req, res) => {
