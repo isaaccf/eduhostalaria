@@ -14,6 +14,10 @@ export class OrganizationService {
     return this.http
       .get<IOrganization>(`${this.organizationsUrl}/${id}`)
   }
+  getOrganizationBySlug(slug) {
+    return this.http
+      .get<IOrganization>(`${this.organizationsUrl}/slug/${slug}`)
+  }
   updateOrganization(organization: IOrganization): Observable<IOrganization> {
     return this.http.patch<IOrganization>(`${this.organizationsUrl}`, organization);
   }

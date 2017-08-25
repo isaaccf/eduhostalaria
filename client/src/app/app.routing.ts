@@ -23,7 +23,7 @@ const routes: Routes = [
     loadChildren: routeBase + 'messages/messages.module#MessagesModule'
   },
   {
-    path: 'organization/:id',
+    path: 'organization/:slug',
     loadChildren: routeBase + 'organization/organization.module#OrganizationModule'
   }
 ];

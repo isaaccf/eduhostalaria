@@ -50,9 +50,9 @@ export class OrganizationHomeComponent implements OnInit {
      */
     this.route.params
       .subscribe(params => {
-        const id = params['id'];
+        const slug = params['slug'];
         this.organizationService
-          .getOrganization(id)
+          .getOrganizationBySlug(slug)
           .subscribe(organization => {
             this.organization = organization;
             if (this.organization) {
