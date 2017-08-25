@@ -2,6 +2,7 @@ const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
 const config = require('../../config/dev.json');
 const mailer = require('../tools/mailer.service');
+const logger = require('winston');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
@@ -58,6 +59,7 @@ module.exports = (app, url) => {
   app.route(`${url}/_/approvals`)
     .post(async (req, res) => {
       const activation = req.body;
+      rest.checkRole(req, res, 'ADMIN');
       const activatedUser = await srv.activateUser(activation);
       if (activatedUser) {
         mailer.sendWellcome(activatedUser, 'approved');

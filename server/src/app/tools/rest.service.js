@@ -38,3 +38,14 @@ module.exports.returnResult = (data, res) => {
 };
 
 module.exports.returnError = (error, res) => utils.returnError(error, res);
+
+
+module.exports.checkRole = (req, res, role) => {
+  const user = req.user;
+  if (user.roles.includes('ADMIN')) {
+    return true;
+  }
+  const err = new Error(`Not ${role} role for user: ${JSON.stringify(user)}`);
+  err.code = 403;
+  return utils.returnError(err, res);
+};

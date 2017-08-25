@@ -28,5 +28,8 @@ module.exports.returnError = (err, res) => {
   if (err.code === 11000) {
     code = 409;
   }
+  if (err.code === 403) {
+    code = 403;
+  }
   return res.status(code).json({ err: err.message });
 };
