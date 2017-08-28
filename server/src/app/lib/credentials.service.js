@@ -19,6 +19,12 @@ async function insertCredential(userId, password) {
   return newCredential;
 }
 
+function invalidCredentials(claim) {
+  const error = new Error(`Not validated: ${JSON.stringify(claim)}`);
+  error.code = 403;
+  return error;
+}
+
 module.exports.getByRole = async (role) => {
   const users = await mongo.find(colUsers, { roles: role });
   if (Array.isArray(users) && users.length > 0) {
@@ -32,7 +38,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
   const currentUser = await this.getUserByEmail(claim.email);
   if (currentUser) {
     logger.warn(`email already in use: ${claim.email}`);
-    return null;
+    return new Error(`Not created: ${JSON.stringify(claim)}`);
   }
   const user = Object.assign({}, claim);
   delete user.password;
@@ -54,7 +60,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
 module.exports.activateUser = async (activation, mailTemplate) => {
   const user = await mongo.findOneById(colUsers, activation._id);
   if (user instanceof Error) {
-    return new Error(`Not activated: ${JSON.stringify(activation)}`);
+    return invalidCredentials(activation);
   }
   user.status = 'ACTIVE';
   const result = await mongo.updateOne(colUsers, activation._id, user);
@@ -77,16 +83,16 @@ module.exports.loginUser = async (claim) => {
   const user = await this.getUserByEmail(claim.email);
   if (!user) {
     logger.warn(`not found user for: ${JSON.stringify(claim)}`);
-    return new Error(`Not validated: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
   }
   const credential = await this.getCredentialByUserId(user._id);
   if (!credential) {
     logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
-    return new Error(`Not validated: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
   }
   if (!bcrypt.compareSync(claim.password, credential.password)) {
     logger.warn(`not valid credential for: ${JSON.stringify(claim)}`);
-    return new Error(`Not validated: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
   }
   const token = jwt.createToken(user);
   const userToken = {
@@ -99,16 +105,16 @@ module.exports.changePassword = async (claim) => {
   const user = await this.getUserByEmail(claim.email);
   if (!user) {
     logger.warn(`not found user for: ${JSON.stringify(claim)}`);
-    return new Error(`Not changed: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
   }
   const credential = await this.getCredentialByUserId(user._id);
   if (!credential) {
     logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
-    return new Error(`Not validated: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
   }
   if (!bcrypt.compareSync(claim.password, credential.password)) {
     logger.warn(`not valid credential for: ${JSON.stringify(claim)}`);
-    return new Error(`Not validated: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
   }
   const hash = bcrypt.hashSync(claim.newPassword, salt);
   credential.password = hash;

@@ -7,7 +7,7 @@ module.exports = (app, url) => {
     .get(async (req, res) => {
       const users = await srv.getByRole('GOD');
       if (users) {
-        return rest.returnOne(users[0], res);
+        return rest.returnArray(null, res);
       }
       const user = {
         email: 'admin@agorabinaria.com',
