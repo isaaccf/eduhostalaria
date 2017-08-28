@@ -59,7 +59,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
 
 module.exports.activateUser = async (activation, mailTemplate) => {
   const user = await mongo.findOneById(colUsers, activation._id);
-  if (user instanceof Error) {
+  if (!user || user instanceof Error) {
     return invalidCredentials(activation);
   }
   user.status = 'ACTIVE';
@@ -76,7 +76,12 @@ module.exports.activateUser = async (activation, mailTemplate) => {
     }
   }
   mailer.sendWellcome(user, mailTemplate);
-  return user;
+  const token = jwt.createToken(user);
+  const userToken = {
+    user_token: token,
+  };
+  return userToken;
+  // return user;
 };
 
 module.exports.loginUser = async (claim) => {

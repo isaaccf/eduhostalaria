@@ -103,12 +103,13 @@ export class SecurityService {
     this.router.navigate(target);
   }
 
-  acceptInvitation(credentials: IInvitationCredential) {
-    this.http.post(`${this.url}/aceptInvitation`, credentials).subscribe(d => {
-      this.saveUserToken(d);
-      this.getMe()
-        .subscribe(this.emitLogin.bind(this));
-    });
+  confirmInvitation(credentials: IInvitationCredential) {
+    this.http.post(`${this.url}/confirmations`, credentials)
+      .subscribe(r => {
+        this.saveUserToken(r);
+        this.getMe()
+          .subscribe(this.emitLogin.bind(this));
+      });
   }
 }
 
@@ -118,7 +119,7 @@ export interface IUserCredential {
 }
 
 export interface IInvitationCredential {
-  hash: string;
+  _id: string;
   password: string;
   passwordBis: string;
 }

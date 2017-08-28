@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { MeComponent } from './me/me.component';
 import { ComponentsModule } from 'app/tools/components/components.module';
 
-import { MeRegisterComponent } from './me-register/me-register.component';
 import { MeRoutingModule } from 'app/views/me/me.routing';
 import { MeService } from 'app/views/me/me.service';
 import { UsersComponent } from 'app/views/me/users/users.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { UsersComponent } from 'app/views/me/users/users.component';
     MeRoutingModule,
     ComponentsModule
   ],
-  declarations: [MeComponent, MeRegisterComponent, UsersComponent],
+  declarations: [MeComponent, UsersComponent, ConfirmationComponent],
   providers: [MeService],
   schemas: [NO_ERRORS_SCHEMA]
 })

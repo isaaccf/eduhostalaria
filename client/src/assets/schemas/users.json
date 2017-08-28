@@ -1,93 +1,102 @@
 {
-    "actions": {
-        "header": {
-            "title": "Users",
-            "subtitle": "Users, statuses and roles",
-            "icon": "icon-people"
-        },
-        "actions": [{
-            "label": "Create New",
-            "key": "create_new"
-        }]
+  "actions": {
+    "header": {
+      "title": "Usuarios",
+      "subtitle": "Usuarios, estados e roles",
+      "icon": "icon-people"
     },
-    "create": {
-        "title": "New User",
-        "submitLabel": "Save User",
-        "controls": [{
-                "key": "name",
-                "type": "text",
-                "label": "User Name",
-                "validators": [{
-                    "key": "required",
-                    "errorMessage": "Name of the user is required"
-                }]
-            },
-            {
-                "key": "email",
-                "type": "email",
-                "label": "User e-mail",
-                "validators": [{
-                    "key": "required",
-                    "errorMessage": "E-mail address of the user is required"
-                }]
-            },
-            {
-                "key": "phone",
-                "type": "text",
-                "label": "Phone Number",
-                "validators": []
-            }
+    "actions": [
+      {
+        "label": "Cear novo",
+        "key": "create_new"
+      }
+    ]
+  },
+  "create": {
+    "title": "Novo Usuario",
+    "submitLabel": "Guardar Usario",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nome do Usuario",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O nome é requerido"
+          }
         ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "E-mail do usuario",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O e-mail é requerido"
+          }
+        ]
+      },
+      {
+        "key": "phone",
+        "type": "text",
+        "label": "Número de teléfono",
+        "validators": []
+      }
+    ]
+  },
+  "report": {
+    "header": {
+      "title": "Lista de Usuarios"
     },
-    "report": {
-        "header": {
-            "title": "List of Users"
-        },
-        "emptyMessage": "There aren't any users to display :(",
-        "fields": [{
-                "label": "User",
-                "key": "name",
-                "type": "string"
-            },
-            {
-                "label": "Email",
-                "key": "email",
-                "type": "string"
-            },
-            {
-                "label": "Phone",
-                "key": "phone",
-                "type": "string"
-            },
-            {
-                "label": "Status",
-                "key": "status",
-                "type": "string"
-            },
-            {
-                "label": "Roles",
-                "key": "roles",
-                "type": "string"
-            }
-        ],
-        "actions": [{
-                "label": "",
-                "key": "aprobe",
-                "icon": "icon-check",
-                "title": "In"
-            },
-            {
-                "label": "",
-                "key": "reject",
-                "icon": "icon-cross",
-                "title": "Out"
-            },
-            {
-                "label": "",
-                "key": "delete",
-                "icon": "icon-delete",
-                "title": "Del"
-            }
-        ]
-    }
+    "emptyMessage": "Non hai usuarios para ver :(",
+    "fields": [
+      {
+        "label": "Usuario",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Email",
+        "key": "email",
+        "type": "string"
+      },
+      {
+        "label": "Teléfono",
+        "key": "phone",
+        "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
+      },
+      {
+        "label": "Roles",
+        "key": "roles",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "aprobe",
+        "icon": "icon-check",
+        "title": "In"
+      },
+      {
+        "label": "",
+        "key": "reject",
+        "icon": "icon-cross",
+        "title": "Out"
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Del"
+      }
+    ]
+  }
 }

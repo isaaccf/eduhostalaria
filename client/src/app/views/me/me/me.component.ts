@@ -68,7 +68,7 @@ export class MeComponent implements OnInit {
         .subscribe(count => roleSchema[0].header.counter = count);
       this.me.getUsersCount()
         .subscribe(count => roleSchema[1].header.counter = count);
-    } else {
+    } else if (userRole === ROLE.ADMIN.toString().toLowerCase()) {
       this.me.getAdministratedOrganization(this.user.organizationId)
         .subscribe(organization => {
           this.organization = organization;
@@ -80,6 +80,8 @@ export class MeComponent implements OnInit {
         });
       this.me.getUsersCount()
         .subscribe(count => roleSchema[1].header.counter = count);
+    } else {
+      this.security.logOutUser();
     }
   }
 

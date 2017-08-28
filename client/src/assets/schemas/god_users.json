@@ -5,19 +5,19 @@
   "actions": {
     "header": {
       "title": "Users",
-      "subtitle": "Users, statuses and roles",
+      "subtitle": "Usuarios, estados e roles",
       "icon": "icon-people"
     },
     "actions": [
       {
-        "label": "Create New",
+        "label": "Crear Novo Usuario",
         "key": "create_new"
       }
     ]
   },
   "create": {
-    "title": "New User",
-    "submitLabel": "Save User",
+    "title": "Novo Usuario",
+    "submitLabel": "Guardar Usuario",
     "controls": [
       {
         "key": "name",
