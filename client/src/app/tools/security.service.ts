@@ -104,11 +104,16 @@ export class SecurityService {
   }
 
   confirmInvitation(credentials: IInvitationCredential) {
-    this.http.post(`${this.url}/confirmations`, credentials)
-      .subscribe(r => {
+    this.http
+      .post(`${this.url}/confirmations`, credentials)
+      .subscribe(
+      r => {
         this.saveUserToken(r);
         this.getMe()
           .subscribe(this.emitLogin.bind(this));
+      },
+      error => {
+        this.navigateTo(['/login']);
       });
   }
 }

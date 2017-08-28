@@ -49,5 +49,5 @@ module.exports.checkRole = (req, res, role) => {
   err.code = 403;
   utils.returnError(err, res);
   res.end();
-  return false;
+  throw err;
 };

@@ -32,7 +32,7 @@ process.on('uncaughtException', (err) => {
 });
 
 process.on('unhandledRejection', (err) => {
-  logger.warn('unhandledRejection');
+  logger.warn(`unhandledRejection: ${err.message}`);
   logger.error(err);
 });
 

@@ -22,7 +22,8 @@ module.exports = (app, url) => {
   app.route(`${url}/registrations`)
     .post(async (req, res) => {
       const registration = req.body;
-      const newUser = await srv.createUser(registration, 'activated');
+      registration.status = 'PENDING';
+      const newUser = await srv.createUser(registration, 'toBeApproved');
       return rest.returnInserted(newUser, res);
     });
   app.route(`${url}/_/invitations`)
@@ -33,6 +34,7 @@ module.exports = (app, url) => {
       } else {
         rest.checkRole(req, res, 'ADMIN');
       }
+      invitation.status = 'PENDING';
       const newUser = await srv.createUser(invitation, 'toBeConfirmed');
       return rest.returnInserted(newUser, res);
     });

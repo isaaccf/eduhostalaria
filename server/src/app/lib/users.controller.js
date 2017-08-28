@@ -12,6 +12,7 @@ module.exports = (app, url) => {
   app.route(`${url}/count`)
     .get(async (req, res) => {
       rest.checkRole(req, res, 'GOD');
+      console.log('no debería estar aquí');
       const data = await mongo.count(col, {});
       return rest.returnOne({ data }, res);
     });

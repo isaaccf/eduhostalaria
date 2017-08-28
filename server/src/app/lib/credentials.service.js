@@ -59,7 +59,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
 
 module.exports.activateUser = async (activation, mailTemplate) => {
   const user = await mongo.findOneById(colUsers, activation._id);
-  if (!user || user instanceof Error) {
+  if (!user || user instanceof Error || user.status !== 'PENDING') {
     return invalidCredentials(activation);
   }
   user.status = 'ACTIVE';
@@ -81,7 +81,6 @@ module.exports.activateUser = async (activation, mailTemplate) => {
     user_token: token,
   };
   return userToken;
-  // return user;
 };
 
 module.exports.loginUser = async (claim) => {
@@ -92,7 +91,7 @@ module.exports.loginUser = async (claim) => {
   }
   const credential = await this.getCredentialByUserId(user._id);
   if (!credential) {
-    logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
+    logger.warn(`not found credential for: ${JSON.stringify(user)}`);
     return invalidCredentials(claim);
   }
   if (!bcrypt.compareSync(claim.password, credential.password)) {
@@ -114,7 +113,7 @@ module.exports.changePassword = async (claim) => {
   }
   const credential = await this.getCredentialByUserId(user._id);
   if (!credential) {
-    logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
+    logger.warn(`not found credential for: ${JSON.stringify(user)}`);
     return invalidCredentials(claim);
   }
   if (!bcrypt.compareSync(claim.password, credential.password)) {
@@ -131,14 +130,16 @@ module.exports.changePassword = async (claim) => {
 module.exports.getUserByEmail = async (email) => {
   const user = await mongo.findOneByQuery(colUsers, { email });
   if (user instanceof Error) {
+    logger.error(user.message);
     return null;
   }
   return user;
 };
 
 module.exports.getCredentialByUserId = async (userId) => {
-  const credential = await mongo.findOneByQuery(col, { userId });
+  const credential = await mongo.findOneByQuery(col, { userId: userId.toString() });
   if (credential instanceof Error) {
+    logger.error(credential.message);
     return null;
   }
   return credential;
