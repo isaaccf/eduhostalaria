@@ -42,10 +42,12 @@ module.exports.returnError = (error, res) => utils.returnError(error, res);
 
 module.exports.checkRole = (req, res, role) => {
   const user = req.user;
-  if (user.roles.includes('ADMIN')) {
+  if (user.roles.includes(role)) {
     return true;
   }
   const err = new Error(`Not ${role} role for user: ${JSON.stringify(user)}`);
   err.code = 403;
-  return utils.returnError(err, res);
+  utils.returnError(err, res);
+  res.end();
+  return false;
 };

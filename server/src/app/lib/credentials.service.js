@@ -2,6 +2,7 @@ const logger = require('winston');
 const bcrypt = require('bcryptjs');
 const mongo = require('../tools/mongo.service');
 const jwt = require('../tools/jwt.service');
+const mailer = require('../tools/mailer.service');
 
 const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';
@@ -27,7 +28,7 @@ module.exports.getByRole = async (role) => {
 };
 
 
-module.exports.createUser = async (claim) => {
+module.exports.createUser = async (claim, mailTemplate) => {
   const currentUser = await this.getUserByEmail(claim.email);
   if (currentUser) {
     logger.warn(`email already in use: ${claim.email}`);
@@ -37,50 +38,55 @@ module.exports.createUser = async (claim) => {
   delete user.password;
   const newUser = await insertUser(user);
   if (!newUser._id) {
-    return null;
+    return new Error(`Not created: ${JSON.stringify(claim)}`);
   }
   if (claim.password) {
     const newCredential = await insertCredential(newUser._id, claim.password);
     if (!newCredential._id) {
       await mongo.removeOne(colUsers, newUser._id);
-      return null;
+      return new Error(`Not created: ${JSON.stringify(claim)}`);
     }
   }
+  mailer.sendWellcome(newUser, mailTemplate);
   return newUser;
 };
 
-module.exports.activateUser = async (activation) => {
+module.exports.activateUser = async (activation, mailTemplate) => {
   const user = await mongo.findOneById(colUsers, activation._id);
   if (user instanceof Error) {
-    return null;
+    return new Error(`Not activated: ${JSON.stringify(activation)}`);
   }
   user.status = 'ACTIVE';
   const result = await mongo.updateOne(colUsers, activation._id, user);
   if (result instanceof Error || result.n === 0) {
-    return null;
+    return new Error(`Not activated: ${JSON.stringify(activation)}`);
   }
   if (activation.password) {
     const newCredential = await insertCredential(activation._id, activation.password);
     if (!newCredential._id) {
       user.status = 'PENDING';
       await mongo.updateOne(colUsers, activation._id, user);
-      return null;
+      return new Error(`Not activated: ${JSON.stringify(activation)}`);
     }
   }
+  mailer.sendWellcome(user, mailTemplate);
   return user;
 };
 
 module.exports.loginUser = async (claim) => {
   const user = await this.getUserByEmail(claim.email);
   if (!user) {
-    return null;
+    logger.warn(`not found user for: ${JSON.stringify(claim)}`);
+    return new Error(`Not validated: ${JSON.stringify(claim)}`);
   }
   const credential = await this.getCredentialByUserId(user._id);
-  if (!credential || !bcrypt.compareSync(claim.password, credential.password)) {
-    return null;
+  if (!credential) {
+    logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
+    return new Error(`Not validated: ${JSON.stringify(claim)}`);
   }
   if (!bcrypt.compareSync(claim.password, credential.password)) {
-    return null;
+    logger.warn(`not valid credential for: ${JSON.stringify(claim)}`);
+    return new Error(`Not validated: ${JSON.stringify(claim)}`);
   }
   const token = jwt.createToken(user);
   const userToken = {
@@ -93,12 +99,16 @@ module.exports.changePassword = async (claim) => {
   const user = await this.getUserByEmail(claim.email);
   if (!user) {
     logger.warn(`not found user for: ${JSON.stringify(claim)}`);
-    return null;
+    return new Error(`Not changed: ${JSON.stringify(claim)}`);
   }
   const credential = await this.getCredentialByUserId(user._id);
-  if (!credential || !bcrypt.compareSync(claim.password, credential.password)) {
+  if (!credential) {
     logger.warn(`not found credential for: ${JSON.stringify(claim)}`);
-    return null;
+    return new Error(`Not validated: ${JSON.stringify(claim)}`);
+  }
+  if (!bcrypt.compareSync(claim.password, credential.password)) {
+    logger.warn(`not valid credential for: ${JSON.stringify(claim)}`);
+    return new Error(`Not validated: ${JSON.stringify(claim)}`);
   }
   const hash = bcrypt.hashSync(claim.newPassword, salt);
   credential.password = hash;

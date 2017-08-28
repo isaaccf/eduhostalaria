@@ -39,7 +39,8 @@ export class GodService {
 
 
   setOrganizationAdmin(newAdmin) {
-    newAdmin.roles = ROLE.ADMIN;
+    newAdmin.roles = [];
+    newAdmin.roles.push(ROLE.ADMIN);
     return this.http
       .post(`${this.credentialsUrl}/_/invitations`, newAdmin);
   }

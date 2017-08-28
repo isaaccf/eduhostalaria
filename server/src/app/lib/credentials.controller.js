@@ -1,8 +1,6 @@
 const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
 const config = require('../../config/dev.json');
-const mailer = require('../tools/mailer.service');
-const logger = require('winston');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
@@ -18,64 +16,49 @@ module.exports = (app, url) => {
         status: 'ACTIVE',
         password: config.secret,
       };
-      const newUser = await srv.createUser(user);
-      if (newUser) {
-        mailer.sendWellcome(newUser, 'activated');
-        return rest.returnInserted(newUser, res);
-      }
-      return rest.returnError(new Error('No god'), res);
+      const newUser = await srv.createUser(user, 'activated');
+      return rest.returnInserted(newUser, res);
     });
   app.route(`${url}/registrations`)
     .post(async (req, res) => {
       const registration = req.body;
-      const newUser = await srv.createUser(registration);
-      if (newUser) {
-        mailer.sendWellcome(newUser, 'toBeApproved');
-        return rest.returnInserted(newUser, res);
-      }
-      return rest.returnError(new Error(`Not created: ${JSON.stringify(registration)}`), res);
+      const newUser = await srv.createUser(registration, 'activated');
+      return rest.returnInserted(newUser, res);
     });
   app.route(`${url}/_/invitations`)
     .post(async (req, res) => {
       const invitation = req.body;
-      const newUser = await srv.createUser(invitation);
-      if (newUser) {
-        mailer.sendWellcome(newUser, 'toBeConfirmed');
-        return rest.returnInserted(newUser, res);
+      if (invitation.roles.includes('ADMIN')) {
+        rest.checkRole(req, res, 'GOD');
+      } else {
+        rest.checkRole(req, res, 'ADMIN');
       }
-      return rest.returnError(new Error(`Not created: ${JSON.stringify(invitation)}`), res);
+      const newUser = await srv.createUser(invitation, 'toBeConfirmed');
+      return rest.returnInserted(newUser, res);
     });
 
-  app.route(`${url}/activations`)
+  app.route(`${url}/confirmations`)
     .post(async (req, res) => {
-      const activation = req.body;
-      const activatedUser = await srv.activateUser(activation);
-      if (activatedUser) {
-        mailer.sendWellcome(activatedUser, 'activated');
-        return rest.returnInserted(activatedUser, res);
-      }
-      return rest.returnError(new Error(`Not activated: ${JSON.stringify(activation)}`), res);
+      const confirmation = req.body;
+      const activatedUser = await srv.activateUser(confirmation, 'confirmed');
+      return rest.returnInserted(activatedUser, res);
     });
   app.route(`${url}/_/approvals`)
     .post(async (req, res) => {
-      const activation = req.body;
+      const approval = req.body;
       rest.checkRole(req, res, 'ADMIN');
-      const activatedUser = await srv.activateUser(activation);
-      if (activatedUser) {
-        mailer.sendWellcome(activatedUser, 'approved');
-        return rest.returnInserted(activatedUser, res);
-      }
-      return rest.returnError(new Error(`Not approved: ${JSON.stringify(activation)}`), res);
+      const activatedUser = await srv.activateUser(approval, 'approved');
+      return rest.returnInserted(activatedUser, res);
     });
   app.route(`${url}/`)
     .post(async (req, res) => {
       const claim = req.body;
       const token = await srv.loginUser(claim);
-      return rest.returnInserted(token || new Error(`Not validated: ${JSON.stringify(claim)}`), res);
+      return rest.returnInserted(token, res);
     })
     .patch(async (req, res) => {
       const claim = req.body;
       const result = await srv.changePassword(claim);
-      return rest.returnResult(result || new Error(`Not changed: ${JSON.stringify(claim)}`), res);
+      return rest.returnResult(result, res);
     });
 };

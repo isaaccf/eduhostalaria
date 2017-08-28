@@ -1,4 +1,3 @@
-const logger = require('winston');
 const srv = require('./organizations.service');
 const rest = require('../tools/rest.service');
 
@@ -9,6 +8,7 @@ module.exports = (app, url) => {
       return rest.returnArray(data, res);
     })
     .post(async (req, res) => {
+      rest.checkRole(req, res, 'GOD');
       const organization = req.body;
       organization.userId = req.user._id;
       organization.slug = organization.name.replace(' ', '_');
@@ -17,8 +17,8 @@ module.exports = (app, url) => {
     });
   app.route(`${url}/count`)
     .get(async (req, res) => {
+      rest.checkRole(req, res, 'GOD');
       const data = await srv.getCount();
-      logger.debug(`count: ${JSON.stringify(data)}`);
       return rest.returnOne({ data }, res);
     });
   app.route(`${url}/slug/:slug`)
@@ -34,12 +34,14 @@ module.exports = (app, url) => {
       return rest.returnOne(data, res);
     })
     .delete(async (req, res) => {
+      rest.checkRole(req, res, 'GOD');
       const organizationId = req.params.id;
       const data = await srv.deleteById(organizationId);
       return rest.returnResult(data, res);
     });
   app.route(`${url}/:id/users`)
     .get(async (req, res) => {
+      rest.checkRole(req, res, 'GOD');
       const organizationId = req.params.id;
       const role = req.query.role;
       const data = await srv.getUsersByIdRole(organizationId, role);
