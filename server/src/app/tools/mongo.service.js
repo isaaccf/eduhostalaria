@@ -42,7 +42,7 @@ module.exports.findOneById = async (col, id) => {
   return this.findOneByQuery(col, query);
 };
 
-module.exports.findOneByQuery = async (col, query) => {
+module.exports.findOne = async (col, query) => {
   const colDb = await this.getCollection(col);
   try {
     return await colDb.findOne(query);

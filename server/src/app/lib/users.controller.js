@@ -5,15 +5,22 @@ const col = 'users';
 module.exports = (app, url) => {
   app.route(`${url}`)
     .get(async (req, res) => {
-      rest.checkRole(req, res, 'GOD');
-      const data = await mongo.find(col, {});
+      let data = [req.user];
+      if (rest.hasRole(req, 'GOD')) {
+        data = await mongo.find(col, {});
+      } if (rest.hasRole(req, 'ADMIN')) {
+        data = await mongo.find(col, { organizationId: req.user.organizationId.toString() });
+      }
       return rest.returnArray(data, res);
     });
   app.route(`${url}/count`)
     .get(async (req, res) => {
-      rest.checkRole(req, res, 'GOD');
-      console.log('no debería estar aquí');
-      const data = await mongo.count(col, {});
+      let data = 0;
+      if (rest.hasRole(req, 'GOD')) {
+        data = await mongo.count(col, {});
+      } if (rest.hasRole(req, 'ADMIN')) {
+        data = await mongo.count(col, { organizationId: req.user.organizationId.toString() });
+      }
       return rest.returnOne({ data }, res);
     });
   app.route(`${url}/me`)

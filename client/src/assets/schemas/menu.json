@@ -9,14 +9,25 @@
   "god": [
     {
       "icon": "icon-flag",
-      "label": "Organizations",
+      "label": "Centros",
       "link": "/god/organizations/"
     },
     {
       "icon": "icon-people",
-      "label": "Users",
-      "link": "/god/users/"
+      "label": "Usuarios",
+      "link": "/me/users/"
     }
   ],
-  "admin": []
+  "admin": [
+    {
+      "icon": "icon-flag",
+      "label": "O meu Centro",
+      "link": "/me/organization/"
+    },
+    {
+      "icon": "icon-people",
+      "label": "Usuarios",
+      "link": "/me/users/"
+    }
+  ]
 }

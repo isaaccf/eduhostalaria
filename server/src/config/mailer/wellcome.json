@@ -2,7 +2,7 @@
   "activated": {
     "subject": "Benvido á plataforma de reservas das escolas de Hostelaria",
     "text": "Ola ${user.name}.\rA túa conta xa está activa.\rVisita ${url} para usar a plataforma.",
-    "html": "<p>Ola ${name}.</p><p>A túa conta xa está activa.</p><p>Visita <a href=\"${url}\">${url}</a> para usar a plataforma.</p>"
+    "html": "<p>Ola ${user.name}.</p><p>A túa conta xa está activa.</p><p>Visita <a href=\"${url}\">${url}</a> para usar a plataforma.</p>"
   },
   "toBeConfirmed": {
     "subject": "Invitacion á plataforma de reservas das escolas de Hostelaria",

@@ -1,3 +1,4 @@
+const ObjectID = require('mongodb').ObjectID;
 const logger = require('winston');
 const bcrypt = require('bcryptjs');
 const mongo = require('../tools/mongo.service');
@@ -47,7 +48,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
     return new Error(`Not created: ${JSON.stringify(claim)}`);
   }
   if (claim.password) {
-    const newCredential = await insertCredential(newUser._id, claim.password);
+    const newCredential = await insertCredential(newUser._id.toString(), claim.password);
     if (!newCredential._id) {
       await mongo.removeOne(colUsers, newUser._id);
       return new Error(`Not created: ${JSON.stringify(claim)}`);
@@ -60,6 +61,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
 module.exports.activateUser = async (activation, mailTemplate) => {
   const user = await mongo.findOneById(colUsers, activation._id);
   if (!user || user instanceof Error || user.status !== 'PENDING') {
+    logger.warn(`not found user for: ${JSON.stringify(activation)}`);
     return invalidCredentials(activation);
   }
   user.status = 'ACTIVE';
@@ -128,7 +130,7 @@ module.exports.changePassword = async (claim) => {
 };
 
 module.exports.getUserByEmail = async (email) => {
-  const user = await mongo.findOneByQuery(colUsers, { email });
+  const user = await mongo.findOne(colUsers, { email });
   if (user instanceof Error) {
     logger.error(user.message);
     return null;
@@ -137,7 +139,7 @@ module.exports.getUserByEmail = async (email) => {
 };
 
 module.exports.getCredentialByUserId = async (userId) => {
-  const credential = await mongo.findOneByQuery(col, { userId: userId.toString() });
+  const credential = await mongo.findOne(col, { userId: userId.toString() });
   if (credential instanceof Error) {
     logger.error(credential.message);
     return null;

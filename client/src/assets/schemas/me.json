@@ -140,7 +140,7 @@
       "actions": [
         {
           "label": "Manage users",
-          "link": "/god/users"
+          "link": "/me/users"
         }
       ]
     }

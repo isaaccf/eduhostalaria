@@ -42,19 +42,18 @@ export class MeService {
   }
 
 
-  // TODO controlar si ninguna org
   getAdministratedOrganization(id): Observable<IOrganization> {
     return this.http
-      .get<IOrganization>(`${this.organizationsUrl}/byId/${id}`);
+      .get<IOrganization>(`${this.organizationsUrl}/${id}`);
   }
 
   changePassword(password: any): Observable<any> {
     return this.http.patch(`${this.credentialsUrl}/`, password);
   }
 
-  getAdministratedUsers(): Observable<any> {
+  getUsers(): Observable<any[]> {
     return this.http
-      .get<any>(`${this.usersUrl}/administratedUsers`);
+      .get<any>(this.usersUrl);
   }
 }
 

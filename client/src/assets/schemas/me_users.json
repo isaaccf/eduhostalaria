@@ -1,59 +1,62 @@
 {
+  "metadata": {
+    "name": "me_users"
+  },
   "actions": {
     "header": {
-      "title": "Usuarios",
+      "title": "Users",
       "subtitle": "Usuarios, estados e roles",
       "icon": "icon-people"
     },
     "actions": [
       {
-        "label": "Cear novo",
+        "label": "Crear Novo Usuario",
         "key": "create_new"
       }
     ]
   },
   "create": {
     "title": "Novo Usuario",
-    "submitLabel": "Guardar Usario",
+    "submitLabel": "Guardar Usuario",
     "controls": [
       {
         "key": "name",
         "type": "text",
-        "label": "Nome do Usuario",
+        "label": "User Name",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "O nome é requerido"
+            "errorMessage": "Name of the user is required"
           }
         ]
       },
       {
         "key": "email",
         "type": "email",
-        "label": "E-mail do usuario",
+        "label": "User e-mail",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "O e-mail é requerido"
+            "errorMessage": "E-mail address of the user is required"
           }
         ]
       },
       {
         "key": "phone",
         "type": "text",
-        "label": "Número de teléfono",
+        "label": "Phone Number",
         "validators": []
       }
     ]
   },
   "report": {
     "header": {
-      "title": "Lista de Usuarios"
+      "title": "List of Users"
     },
-    "emptyMessage": "Non hai usuarios para ver :(",
+    "emptyMessage": "There aren't any users to display :(",
     "fields": [
       {
-        "label": "Usuario",
+        "label": "User",
         "key": "name",
         "type": "string"
       },
@@ -63,12 +66,12 @@
         "type": "string"
       },
       {
-        "label": "Teléfono",
+        "label": "Phone",
         "key": "phone",
         "type": "string"
       },
       {
-        "label": "Estado",
+        "label": "Status",
         "key": "status",
         "type": "string"
       },

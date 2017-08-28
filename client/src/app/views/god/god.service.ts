@@ -55,8 +55,5 @@ export class GodService {
       .delete(`${this.organizationsUrl}/${oldOrganization._id}`);
   }
 
-  getUsers(): Observable<any[]> {
-    return this.http
-      .get<any>(this.usersUrl);
-  }
+
 }
