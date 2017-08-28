@@ -39,7 +39,7 @@ module.exports.count = async (col, query) => {
 
 module.exports.findOneById = async (col, id) => {
   const query = utils.getQueryById(id);
-  return this.findOneByQuery(col, query);
+  return this.findOne(col, query);
 };
 
 module.exports.findOne = async (col, query) => {

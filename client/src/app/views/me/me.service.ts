@@ -55,6 +55,21 @@ export class MeService {
     return this.http
       .get<any>(this.usersUrl);
   }
+
+  disableUser(user: any): Observable<any> {
+    return this.http
+      .post(`${this.credentialsUrl}/_/dissableds`, user);
+  }
+
+  approbeUser(user: any): Observable<any> {
+    return this.http
+      .post(`${this.credentialsUrl}/_/approvals`, user);
+  }
+
+  deleteUser(user: any): Observable<any> {
+    return this.http
+      .delete(`${this.credentialsUrl}/_/${user._id}`);
+  }
 }
 
 

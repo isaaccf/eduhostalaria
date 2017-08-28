@@ -60,7 +60,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
 
 module.exports.activateUser = async (activation, mailTemplate) => {
   const user = await mongo.findOneById(colUsers, activation._id);
-  if (!user || user instanceof Error || user.status !== 'PENDING') {
+  if (!user || user instanceof Error || user.status === 'ACTIVE') {
     logger.warn(`not found user for: ${JSON.stringify(activation)}`);
     return invalidCredentials(activation);
   }
@@ -83,6 +83,32 @@ module.exports.activateUser = async (activation, mailTemplate) => {
     user_token: token,
   };
   return userToken;
+};
+
+module.exports.disableUser = async (disabilitation) => {
+  const user = await mongo.findOneById(colUsers, disabilitation._id);
+  if (!user || user instanceof Error || user.status !== 'ACTIVE') {
+    logger.warn(`not found user for: ${JSON.stringify(disabilitation)}`);
+    return invalidCredentials(disabilitation);
+  }
+  user.status = 'DISABLED';
+  const result = await mongo.updateOne(colUsers, disabilitation._id, user);
+  if (result instanceof Error || result.n === 0) {
+    return new Error(`Not disabled: ${JSON.stringify(disabilitation)}`);
+  }
+  return user;
+};
+
+module.exports.deleteUser = async (userId) => {
+  let result = await mongo.removeOne(colUsers, userId);
+  if (!result || result instanceof Error || result.n === 0) {
+    return new Error(`Not deleted: ${JSON.stringify(userId)}`);
+  }
+  const credential = await this.getCredentialByUserId(userId);
+  if (credential) {
+    result = await mongo.removeOne(col, credential._id);
+  }
+  return result;
 };
 
 module.exports.loginUser = async (claim) => {

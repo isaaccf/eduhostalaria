@@ -52,6 +52,13 @@ module.exports = (app, url) => {
       const activatedUser = await srv.activateUser(approval, 'approved');
       return rest.returnInserted(activatedUser, res);
     });
+  app.route(`${url}/_/dissableds`)
+    .post(async (req, res) => {
+      const dissable = req.body;
+      rest.checkRole(req, res, 'ADMIN');
+      const activatedUser = await srv.disableUser(dissable);
+      return rest.returnInserted(activatedUser, res);
+    });
   app.route(`${url}/`)
     .post(async (req, res) => {
       const claim = req.body;
@@ -62,5 +69,12 @@ module.exports = (app, url) => {
       const claim = req.body;
       const result = await srv.changePassword(claim);
       return rest.returnResult(result, res);
+    });
+  app.route(`${url}/_/:id`)
+    .delete(async (req, res) => {
+      rest.checkRole(req, res, 'GOD');
+      const userId = req.params.id;
+      const activatedUser = await srv.deleteUser(userId);
+      return rest.returnInserted(activatedUser, res);
     });
 };

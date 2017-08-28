@@ -40,8 +40,14 @@ export class UsersComponent implements OnInit {
   }
   onDelete(data) {
     console.log('deleting user: ', data);
+    this.me.deleteUser(data).subscribe(r => this.getUsers());
   }
   onRowAction(data) {
-    console.log('action over user: ', data);
+    console.log(`action : ${data.key} over user: ${data.value}`);
+    if (data.key == 'aprobe') {
+      this.me.approbeUser(data.value).subscribe(r => this.getUsers());
+    } else if (data.key === 'disable') {
+      this.me.disableUser(data.value).subscribe(r => this.getUsers());
+    }
   }
 }

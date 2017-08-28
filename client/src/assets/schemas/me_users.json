@@ -90,7 +90,7 @@
       },
       {
         "label": "",
-        "key": "reject",
+        "key": "disable",
         "icon": "icon-cross",
         "title": "Out"
       },
