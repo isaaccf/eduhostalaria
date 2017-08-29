@@ -1,9 +1,10 @@
 import { observable } from 'rxjs/symbol/observable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { ROLE } from "app/tools/user.model";
 
 @Injectable()
 export class MeService {
@@ -69,6 +70,39 @@ export class MeService {
   deleteUser(user: any): Observable<any> {
     return this.http
       .delete(`${this.credentialsUrl}/_/${user._id}`);
+  }
+
+  getOrganizations(): Observable<any[]> {
+    return this.http
+      .get<any>(this.organizationsUrl)
+      .map(data => data.map(d => {
+        const org = { _id: d._id, name: d.name, admin: { name: '', email: '', userId: '' } };
+        return org;
+      }))
+  }
+
+  getOrganizationAdmin(organizationId: number): Observable<any> {
+    const params = new HttpParams().set('role', 'ADMIN');
+    const url = `${this.organizationsUrl}/${organizationId}/users`;
+    return this.http.get<any>(url, { params });
+  }
+
+
+  setOrganizationAdmin(newAdmin) {
+    newAdmin.roles = [];
+    newAdmin.roles.push(ROLE.ADMIN);
+    return this.http
+      .post(`${this.credentialsUrl}/_/invitations`, newAdmin);
+  }
+
+  postOrganization(newOrganization) {
+    return this.http
+      .post(this.organizationsUrl, newOrganization);
+  }
+
+  deleteOrganization(oldOrganization) {
+    return this.http
+      .delete(`${this.organizationsUrl}/${oldOrganization._id}`);
   }
 }
 

@@ -173,3 +173,13 @@ module.exports.getCredentialByUserId = async (userId) => {
   return credential;
 };
 
+module.exports.ensureNoAdmin = async (organizationId) => {
+  const users = await mongo.find('users', { organizationId, roles: 'ADMIN', status: { $ne: 'DISABLED' } });
+  if (Array.isArray(users) && users.length > 0) {
+    users[0].roles = ['CLIENT'];
+    const result = await mongo.updateOne('users', users[0]._id, users[0]);
+    logger.warn(JSON.stringify(result));
+  } else {
+    logger.debug(`No admin for: ${organizationId}`);
+  }
+};

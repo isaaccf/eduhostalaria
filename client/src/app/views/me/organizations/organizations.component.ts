@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrganizationAdmin } from 'app/views/god/organization-admin.model';
-import { GodService } from 'app/views/god/god.service';
+import { IOrganizationAdmin } from 'app/views/me/organization-admin.model';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 import { BusService } from 'app/tools/bus.service';
 import { Level } from 'app/tools/message.model';
 import { IFormSchema, IWidgetSchema, IReportSchema, ILoadEmptyStateSchema, IKeyValue } from 'app/tools/schema.model';
 import 'rxjs/add/operator/takeWhile';
+import { MeService } from "app/views/me/me.service";
 
 @Component({
-  selector: 'ab-god-organizations',
-  templateUrl: './god-organizations.component.html',
+  selector: 'ab-organizations',
+  templateUrl: './organizations.component.html',
   styles: []
 })
-export class GodOrganizationsComponent implements OnInit {
+export class OrganizationsComponent implements OnInit {
   public organizations: any[];
   public activeSetAdminModal = false;
   public activeCreateOrganizationModal = false;
@@ -27,7 +27,7 @@ export class GodOrganizationsComponent implements OnInit {
 
   public name = 'organizations';
   constructor(
-    private god: GodService,
+    private me: MeService,
     private bus: BusService) { }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class GodOrganizationsComponent implements OnInit {
       .getPageSchema$()
       .takeWhile(() => this.actionSchema == null)
       .subscribe(schemas => {
-        if (schemas && schemas.metadata && schemas.metadata.name === 'god_organizations') {
+        if (schemas && schemas.metadata && schemas.metadata.name === 'me_organizations') {
           this.actionSchema = schemas.actions;
           this.createFormSchema = schemas.create;
           this.reportSchema = schemas.report;
@@ -47,7 +47,7 @@ export class GodOrganizationsComponent implements OnInit {
   }
 
   getOrganizations() {
-    this.god
+    this.me
       .getOrganizations()
       .do(data => this.organizations = data)
       .subscribe(this.getOrganizationsAdmins.bind(this));
@@ -58,7 +58,7 @@ export class GodOrganizationsComponent implements OnInit {
   }
 
   getOrganizationAdmin(organization) {
-    this.god
+    this.me
       .getOrganizationAdmin(organization._id)
       .subscribe(users => organization.admin = users ? users[0] : null);
   }
@@ -82,7 +82,7 @@ export class GodOrganizationsComponent implements OnInit {
   }
   setOrganizationAdmin(newAdmin) {
     newAdmin.organizationId = this.activeOrganization._id;
-    this.god
+    this.me
       .setOrganizationAdmin(newAdmin)
       .subscribe(res => {
         this.bus.emit({ level: Level.SUCCESS, text: newAdmin.name + ' asiggned!!' });
@@ -93,7 +93,7 @@ export class GodOrganizationsComponent implements OnInit {
   onCreate(newOrganization) {
     this.activeCreateOrganizationModal = false;
     if (newOrganization) {
-      this.god
+      this.me
         .postOrganization(newOrganization)
         .subscribe(res => {
           this.bus.emit({ level: Level.SUCCESS, text: newOrganization.name + ' created!!' });
@@ -105,7 +105,7 @@ export class GodOrganizationsComponent implements OnInit {
 
   onDelete(oldOrganization) {
     this.activeDeleteOrganizationModal = false;
-    this.god
+    this.me
       .deleteOrganization(oldOrganization)
       .subscribe(res => {
         this.bus.emit({ level: Level.SUCCESS, text: oldOrganization.name + ' deleted!!' });

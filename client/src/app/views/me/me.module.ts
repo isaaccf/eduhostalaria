@@ -9,6 +9,7 @@ import { MeRoutingModule } from 'app/views/me/me.routing';
 import { MeService } from 'app/views/me/me.service';
 import { UsersComponent } from 'app/views/me/users/users.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { OrganizationsComponent } from "app/views/me/organizations/organizations.component";
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
     MeRoutingModule,
     ComponentsModule
   ],
-  declarations: [MeComponent, UsersComponent, ConfirmationComponent],
+  declarations: [MeComponent, UsersComponent, ConfirmationComponent, OrganizationsComponent],
   providers: [MeService],
   schemas: [NO_ERRORS_SCHEMA]
 })

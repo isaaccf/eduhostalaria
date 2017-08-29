@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "name": "god_organizations"
+    "name": "me_organizations"
   },
   "actions": {
     "header": {
-      "title": "Organizations",
+      "title": "Centros",
       "subtitle": "Manage your organizations and its administrators",
       "icon": "icon-flag"
     },

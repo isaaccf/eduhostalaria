@@ -31,6 +31,7 @@ module.exports = (app, url) => {
       const invitation = req.body;
       if (invitation.roles.includes('ADMIN')) {
         rest.checkRole(req, res, 'GOD');
+        await srv.ensureNoAdmin(invitation.organizationId);
       } else {
         rest.checkRole(req, res, 'ADMIN');
       }
@@ -48,14 +49,14 @@ module.exports = (app, url) => {
   app.route(`${url}/_/approvals`)
     .post(async (req, res) => {
       const approval = req.body;
-      rest.checkRole(req, res, 'ADMIN');
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const activatedUser = await srv.activateUser(approval, 'approved');
       return rest.returnInserted(activatedUser, res);
     });
   app.route(`${url}/_/dissableds`)
     .post(async (req, res) => {
       const dissable = req.body;
-      rest.checkRole(req, res, 'ADMIN');
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const activatedUser = await srv.disableUser(dissable);
       return rest.returnInserted(activatedUser, res);
     });

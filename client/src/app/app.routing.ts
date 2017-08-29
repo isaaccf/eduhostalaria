@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: routeBase + 'home/home.module#HomeModule'
   },
   {
-    path: 'god',
-    loadChildren: routeBase + 'god/god.module#GodModule'
-  },
-  {
     path: 'login',
     loadChildren: routeBase + 'login/login.module#LoginModule'
   },

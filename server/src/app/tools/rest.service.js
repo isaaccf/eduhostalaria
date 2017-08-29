@@ -41,7 +41,11 @@ module.exports.returnError = (error, res) => utils.returnError(error, res);
 
 
 module.exports.checkRole = (req, res, role) => {
-  if (this.hasRole(req, role)) {
+  if (Array.isArray(role)) {
+    if (role.some(r => this.hasRole(req, r))) {
+      return true;
+    }
+  } else if (this.hasRole(req, role)) {
     return true;
   }
   const err = new Error(`Not ${role} role for user: ${JSON.stringify(req.user)}`);
