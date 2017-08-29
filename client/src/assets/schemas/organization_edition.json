@@ -1,61 +1,92 @@
 {
-    "title": "My organization data",
-    "submitLabel": "Save Organization",
-    "controls": [{
-            "key": "name",
-            "type": "text",
-            "label": "Name",
-            "defaultValue": "this.organization.name",
-            "validators": [{ "key": "required", "errorMessage": "Name is required" }]
-        },
+  "title": "O meu centro",
+  "submitLabel": "Guardar os datos",
+  "controls": [
+    {
+      "key": "name",
+      "type": "text",
+      "label": "Nome",
+      "defaultValue": "this.organization.name",
+      "validators": [
         {
-            "key": "email",
-            "type": "email",
-            "label": "Email",
-            "defaultValue": "this.organization.email",
-            "validators": [{ "key": "required", "errorMessage": "Email is required" }]
-        },
-        {
-            "key": "phone",
-            "type": "text",
-            "label": "Phone",
-            "defaultValue": "this.organization.phone",
-            "validators": [{ "key": "required", "errorMessage": "Phone is required" }]
-        },
-        {
-            "key": "url",
-            "type": "text",
-            "label": "Web Page",
-            "defaultValue": "this.organization.url",
-            "validators": []
-        },
-        {
-            "key": "image",
-            "type": "text",
-            "label": "Image Url",
-            "defaultValue": "this.organization.image",
-            "validators": []
-        },
-        {
-            "key": "standardPrice",
-            "type": "text",
-            "label": "Standar Price",
-            "defaultValue": "this.organization.standardPrice",
-            "validators": [{ "key": "required", "errorMessage": "Standard price is required" }]
-        },
-        {
-            "key": "reducedPrice",
-            "type": "text",
-            "label": "Reduced Price",
-            "defaultValue": "this.organization.reducedPrice",
-            "validators": [{ "key": "required", "errorMessage": "Reduced price is required" }]
-        },
-        {
-            "key": "description",
-            "type": "textarea",
-            "label": "Description",
-            "defaultValue": "this.organization.description",
-            "validators": [{ "key": "required", "errorMessage": "Description is required" }]
+          "key": "required",
+          "errorMessage": "Nome é requerido"
         }
-    ]
+      ]
+    },
+    {
+      "key": "email",
+      "type": "email",
+      "label": "Email",
+      "defaultValue": "this.organization.email",
+      "validators": [
+        {
+          "key": "required",
+          "errorMessage": "Email é requerido"
+        }
+      ]
+    },
+    {
+      "key": "phone",
+      "type": "text",
+      "label": "Teléfono",
+      "defaultValue": "this.organization.phone",
+      "validators": [
+        {
+          "key": "required",
+          "errorMessage": "Teléfono é requerido"
+        }
+      ]
+    },
+    {
+      "key": "url",
+      "type": "text",
+      "label": "Páxina web",
+      "defaultValue": "this.organization.url",
+      "validators": []
+    },
+    {
+      "key": "image",
+      "type": "text",
+      "label": "Foto",
+      "defaultValue": "this.organization.image",
+      "validators": []
+    },
+    {
+      "key": "standardPrice",
+      "type": "text",
+      "label": "Precio menú",
+      "defaultValue": "this.organization.standardPrice",
+      "validators": [
+        {
+          "key": "required",
+          "errorMessage": "Precio menú é requerido"
+        }
+      ]
+    },
+    {
+      "key": "reducedPrice",
+      "type": "text",
+      "label": "Precio reducido",
+      "defaultValue": "this.organization.reducedPrice",
+      "validators": [
+        {
+          "key": "required",
+          "errorMessage": "Precio reducido é requerido"
+        }
+      ]
+    },
+    {
+      "key": "description",
+      "type": "textarea",
+      "label": "Resume do meu centro",
+      "defaultValue": "this.organization.description",
+      "validators": [
+        {
+          "key": "required",
+          "errorMessage": "Resume do meu centro é requerido"
+        }
+      ]
+    }
+  ]
 }

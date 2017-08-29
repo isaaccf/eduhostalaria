@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { ROLE } from "app/tools/user.model";
+import { IOrganization } from "app/views/home/organization.model";
 
 @Injectable()
 export class MeService {
@@ -104,12 +105,10 @@ export class MeService {
     return this.http
       .delete(`${this.organizationsUrl}/${oldOrganization._id}`);
   }
+
+  updateOrganization(organization: IOrganization): Observable<IOrganization> {
+    return this.http
+      .patch<IOrganization>(`${this.organizationsUrl}`, organization);
+  }
 }
 
-
-
-export interface IOrganization {
-  name: string;
-  slug: string;
-  description: string
-}

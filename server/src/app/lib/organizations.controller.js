@@ -7,6 +7,12 @@ module.exports = (app, url) => {
       const data = await srv.getAll();
       return rest.returnArray(data, res);
     })
+    .patch(async (req, res) => {
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
+      const organization = req.body;
+      const data = await srv.updateOrganization(organization);
+      return rest.returnResult(data, res);
+    })
     .post(async (req, res) => {
       rest.checkRole(req, res, 'GOD');
       const organization = req.body;

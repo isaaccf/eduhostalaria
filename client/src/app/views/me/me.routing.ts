@@ -4,6 +4,7 @@ import { MeComponent } from 'app/views/me/me/me.component';
 import { UsersComponent } from 'app/views/me/users/users.component';
 import { ConfirmationComponent } from "app/views/me/confirmation/confirmation.component";
 import { OrganizationsComponent } from "app/views/me/organizations/organizations.component";
+import { OrganizationComponent } from "app/views/me/organization/organization.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
     path: 'organizations',
     component: OrganizationsComponent,
     data: { name: 'me_organizations', title: 'Centros' }
+  },
+  {
+    path: 'organization',
+    component: OrganizationComponent,
+    data: { name: 'me_organization', title: 'O meu centro' }
   },
   {
     path: 'users',

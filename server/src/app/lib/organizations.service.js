@@ -12,3 +12,7 @@ module.exports.insertOrganization = async (organization) => {
   organization.slug = organization.name.replace(' ', '_');
   return mongo.insertOne(col, organization);
 };
+module.exports.updateOrganization = async (organization) => {
+  organization.slug = organization.name.replace(' ', '_');
+  return mongo.updateOne(col, organization._id, organization);
+};
