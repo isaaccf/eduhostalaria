@@ -1,24 +1,15 @@
 const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
-const usersSrv = require('./users.service');
-const config = require('../../config/dev.json');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
     .get(async (req, res) => {
-      const users = await usersSrv.getByRole('GOD');
-      if (users) {
-        return rest.returnArray(null, res);
+      const god = await srv.getGod();
+      if (god) {
+        const newUser = await srv.createUser(god, 'activated');
+        return rest.returnInserted(newUser, res);
       }
-      const user = {
-        email: 'admin@agorabinaria.com',
-        name: 'System Administrator',
-        roles: ['GOD'],
-        status: 'ACTIVE',
-        password: config.secret,
-      };
-      const newUser = await srv.createUser(user, 'activated');
-      return rest.returnInserted(newUser, res);
+      return rest.returnArray(god, res);
     });
   app.route(`${url}/registrations`)
     .post(async (req, res) => {
@@ -32,15 +23,13 @@ module.exports = (app, url) => {
       const invitation = req.body;
       if (invitation.roles.includes('ADMIN')) {
         rest.checkRole(req, res, 'GOD');
-        await usersSrv.ensureNoAdmin(invitation.organizationId);
       } else {
-        rest.checkRole(req, res, 'ADMIN');
+        rest.checkRole(req, res, ['ADMIN', 'GOD']);
       }
       invitation.status = 'PENDING';
       const newUser = await srv.createUser(invitation, 'toBeConfirmed');
       return rest.returnInserted(newUser, res);
     });
-
   app.route(`${url}/confirmations`)
     .post(async (req, res) => {
       const confirmation = req.body;

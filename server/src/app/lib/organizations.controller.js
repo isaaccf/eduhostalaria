@@ -11,7 +11,6 @@ module.exports = (app, url) => {
       rest.checkRole(req, res, 'GOD');
       const organization = req.body;
       organization.userId = req.user._id;
-      organization.slug = organization.name.replace(' ', '_');
       const data = await srv.insertOrganization(organization);
       return rest.returnInserted(data, res);
     });

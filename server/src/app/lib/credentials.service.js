@@ -4,6 +4,7 @@ const mongo = require('../tools/mongo.service');
 const jwt = require('../tools/jwt.service');
 const mailer = require('../tools/mailer.service');
 const users = require('./users.service');
+const config = require('../../config/dev.json');
 
 const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';
@@ -21,11 +22,28 @@ function invalidCredentials(claim) {
   return error;
 }
 
+module.exports.getGod = async () => {
+  const gods = await users.getByRole('GOD');
+  if (gods) {
+    return null;
+  }
+  return {
+    email: 'admin@agorabinaria.com',
+    name: 'System Administrator',
+    roles: ['GOD'],
+    status: 'ACTIVE',
+    password: config.secret,
+  };
+};
+
 module.exports.createUser = async (claim, mailTemplate) => {
   const currentUser = await users.getByEmail(claim.email);
   if (currentUser) {
     logger.warn(`email already in use: ${claim.email}`);
     return new Error(`Not created: ${JSON.stringify(claim)}`);
+  }
+  if (claim.roles.includes('ADMIN')) {
+    await users.ensureNoAdmin(claim.organizationId);
   }
   const user = Object.assign({}, claim);
   delete user.password;
