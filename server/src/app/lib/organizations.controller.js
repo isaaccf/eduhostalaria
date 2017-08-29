@@ -41,7 +41,7 @@ module.exports = (app, url) => {
     });
   app.route(`${url}/:id/users`)
     .get(async (req, res) => {
-      rest.checkRole(req, res, 'GOD');
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const organizationId = req.params.id;
       const role = req.query.role;
       const data = await srv.getUsersByIdRole(organizationId, role);

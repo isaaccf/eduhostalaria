@@ -1,18 +1,13 @@
-const ObjectID = require('mongodb').ObjectID;
 const logger = require('winston');
 const bcrypt = require('bcryptjs');
 const mongo = require('../tools/mongo.service');
 const jwt = require('../tools/jwt.service');
 const mailer = require('../tools/mailer.service');
+const users = require('./users.service');
 
 const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';
-const colUsers = 'users';
 
-async function insertUser(user) {
-  const newUser = await mongo.insertOne(colUsers, user);
-  return newUser;
-}
 async function insertCredential(userId, password) {
   const hash = bcrypt.hashSync(password, salt);
   const credential = { userId, password: hash };
@@ -26,31 +21,22 @@ function invalidCredentials(claim) {
   return error;
 }
 
-module.exports.getByRole = async (role) => {
-  const users = await mongo.find(colUsers, { roles: role });
-  if (Array.isArray(users) && users.length > 0) {
-    return users;
-  }
-  return null;
-};
-
-
 module.exports.createUser = async (claim, mailTemplate) => {
-  const currentUser = await this.getUserByEmail(claim.email);
+  const currentUser = await users.getByEmail(claim.email);
   if (currentUser) {
     logger.warn(`email already in use: ${claim.email}`);
     return new Error(`Not created: ${JSON.stringify(claim)}`);
   }
   const user = Object.assign({}, claim);
   delete user.password;
-  const newUser = await insertUser(user);
+  const newUser = await users.insertUser(user);
   if (!newUser._id) {
     return new Error(`Not created: ${JSON.stringify(claim)}`);
   }
   if (claim.password) {
     const newCredential = await insertCredential(newUser._id.toString(), claim.password);
     if (!newCredential._id) {
-      await mongo.removeOne(colUsers, newUser._id);
+      await users.removeUser(newUser._id);
       return new Error(`Not created: ${JSON.stringify(claim)}`);
     }
   }
@@ -58,22 +44,23 @@ module.exports.createUser = async (claim, mailTemplate) => {
   return newUser;
 };
 
-module.exports.activateUser = async (activation, mailTemplate) => {
-  const user = await mongo.findOneById(colUsers, activation._id);
-  if (!user || user instanceof Error || user.status === 'ACTIVE') {
+
+module.exports.activateUser = async (activation, currentStatus, mailTemplate) => {
+  const user = await users.getByIdStatus(activation._id, currentStatus);
+  if (!user || user instanceof Error) {
     logger.warn(`not found user for: ${JSON.stringify(activation)}`);
     return invalidCredentials(activation);
   }
   user.status = 'ACTIVE';
-  const result = await mongo.updateOne(colUsers, activation._id, user);
+  const result = await users.updateUser(user);
   if (result instanceof Error || result.n === 0) {
     return new Error(`Not activated: ${JSON.stringify(activation)}`);
   }
   if (activation.password) {
     const newCredential = await insertCredential(activation._id, activation.password);
     if (!newCredential._id) {
-      user.status = 'PENDING';
-      await mongo.updateOne(colUsers, activation._id, user);
+      user.status = currentStatus;
+      await users.updateUser(user);
       return new Error(`Not activated: ${JSON.stringify(activation)}`);
     }
   }
@@ -85,14 +72,15 @@ module.exports.activateUser = async (activation, mailTemplate) => {
   return userToken;
 };
 
+
 module.exports.disableUser = async (disabilitation) => {
-  const user = await mongo.findOneById(colUsers, disabilitation._id);
-  if (!user || user instanceof Error || user.status !== 'ACTIVE') {
+  const user = await users.getByIdStatus(disabilitation._id, 'ACTIVE');
+  if (!user || user instanceof Error) {
     logger.warn(`not found user for: ${JSON.stringify(disabilitation)}`);
     return invalidCredentials(disabilitation);
   }
   user.status = 'DISABLED';
-  const result = await mongo.updateOne(colUsers, disabilitation._id, user);
+  const result = await users.updateUser(user);
   if (result instanceof Error || result.n === 0) {
     return new Error(`Not disabled: ${JSON.stringify(disabilitation)}`);
   }
@@ -100,7 +88,7 @@ module.exports.disableUser = async (disabilitation) => {
 };
 
 module.exports.deleteUser = async (userId) => {
-  let result = await mongo.removeOne(colUsers, userId);
+  let result = await users.removeUser(userId);
   if (!result || result instanceof Error || result.n === 0) {
     return new Error(`Not deleted: ${JSON.stringify(userId)}`);
   }
@@ -112,7 +100,7 @@ module.exports.deleteUser = async (userId) => {
 };
 
 module.exports.loginUser = async (claim) => {
-  const user = await this.getUserByEmail(claim.email);
+  const user = await users.getByEmailActive(claim.email);
   if (!user) {
     logger.warn(`not found user for: ${JSON.stringify(claim)}`);
     return invalidCredentials(claim);
@@ -134,7 +122,7 @@ module.exports.loginUser = async (claim) => {
 };
 
 module.exports.changePassword = async (claim) => {
-  const user = await this.getUserByEmail(claim.email);
+  const user = await users.getByEmailActive(claim.email);
   if (!user) {
     logger.warn(`not found user for: ${JSON.stringify(claim)}`);
     return invalidCredentials(claim);
@@ -155,15 +143,6 @@ module.exports.changePassword = async (claim) => {
   return result;
 };
 
-module.exports.getUserByEmail = async (email) => {
-  const user = await mongo.findOne(colUsers, { email });
-  if (user instanceof Error) {
-    logger.error(user.message);
-    return null;
-  }
-  return user;
-};
-
 module.exports.getCredentialByUserId = async (userId) => {
   const credential = await mongo.findOne(col, { userId: userId.toString() });
   if (credential instanceof Error) {
@@ -171,15 +150,4 @@ module.exports.getCredentialByUserId = async (userId) => {
     return null;
   }
   return credential;
-};
-
-module.exports.ensureNoAdmin = async (organizationId) => {
-  const users = await mongo.find('users', { organizationId, roles: 'ADMIN', status: { $ne: 'DISABLED' } });
-  if (Array.isArray(users) && users.length > 0) {
-    users[0].roles = ['CLIENT'];
-    const result = await mongo.updateOne('users', users[0]._id, users[0]);
-    logger.warn(JSON.stringify(result));
-  } else {
-    logger.debug(`No admin for: ${organizationId}`);
-  }
 };

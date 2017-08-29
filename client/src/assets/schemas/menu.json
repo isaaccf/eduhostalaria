@@ -22,7 +22,7 @@
     {
       "icon": "icon-flag",
       "label": "O meu Centro",
-      "link": "/me/organization/"
+      "link": "/me/organizations/"
     },
     {
       "icon": "icon-people",

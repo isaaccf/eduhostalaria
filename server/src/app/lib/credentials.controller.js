@@ -1,11 +1,12 @@
 const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
+const usersSrv = require('./users.service');
 const config = require('../../config/dev.json');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
     .get(async (req, res) => {
-      const users = await srv.getByRole('GOD');
+      const users = await usersSrv.getByRole('GOD');
       if (users) {
         return rest.returnArray(null, res);
       }
@@ -22,7 +23,7 @@ module.exports = (app, url) => {
   app.route(`${url}/registrations`)
     .post(async (req, res) => {
       const registration = req.body;
-      registration.status = 'PENDING';
+      registration.status = 'DISABLED';
       const newUser = await srv.createUser(registration, 'toBeApproved');
       return rest.returnInserted(newUser, res);
     });
@@ -31,7 +32,7 @@ module.exports = (app, url) => {
       const invitation = req.body;
       if (invitation.roles.includes('ADMIN')) {
         rest.checkRole(req, res, 'GOD');
-        await srv.ensureNoAdmin(invitation.organizationId);
+        await usersSrv.ensureNoAdmin(invitation.organizationId);
       } else {
         rest.checkRole(req, res, 'ADMIN');
       }
@@ -43,14 +44,14 @@ module.exports = (app, url) => {
   app.route(`${url}/confirmations`)
     .post(async (req, res) => {
       const confirmation = req.body;
-      const activatedUser = await srv.activateUser(confirmation, 'confirmed');
+      const activatedUser = await srv.activateUser(confirmation, 'PENDING', 'confirmed');
       return rest.returnInserted(activatedUser, res);
     });
   app.route(`${url}/_/approvals`)
     .post(async (req, res) => {
       const approval = req.body;
       rest.checkRole(req, res, ['ADMIN', 'GOD']);
-      const activatedUser = await srv.activateUser(approval, 'approved');
+      const activatedUser = await srv.activateUser(approval, 'DISABLED', 'approved');
       return rest.returnInserted(activatedUser, res);
     });
   app.route(`${url}/_/dissableds`)
