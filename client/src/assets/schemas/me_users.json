@@ -4,7 +4,7 @@
   },
   "actions": {
     "header": {
-      "title": "Users",
+      "title": "Usuarios",
       "subtitle": "Usuarios, estados e roles",
       "icon": "icon-people"
     },
@@ -22,38 +22,38 @@
       {
         "key": "name",
         "type": "text",
-        "label": "User Name",
+        "label": "Nome do usuario",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Name of the user is required"
+            "errorMessage": "O nome do usuario é requerido"
           }
         ]
       },
       {
         "key": "email",
         "type": "email",
-        "label": "User e-mail",
+        "label": "E-mail do usuario",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "E-mail address of the user is required"
+            "errorMessage": "O email do usuario é requerido"
           }
         ]
       },
       {
         "key": "phone",
         "type": "text",
-        "label": "Phone Number",
+        "label": "Teléfono",
         "validators": []
       }
     ]
   },
   "report": {
     "header": {
-      "title": "List of Users"
+      "title": "Lista de usuarios"
     },
-    "emptyMessage": "There aren't any users to display :(",
+    "emptyMessage": "Non temos usurios para mostrar :(",
     "fields": [
       {
         "label": "User",
