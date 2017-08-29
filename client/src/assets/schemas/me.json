@@ -9,12 +9,12 @@
     },
     "actions": [
       {
-        "label": "Log Out",
+        "label": "Saír",
         "key": "logout",
         "icon": "icon-shutdown"
       },
       {
-        "label": "Change Password",
+        "label": "Cambiar Contrasinal",
         "key": "change_password",
         "icon": "icon-people"
       }
@@ -29,7 +29,7 @@
     },
     "fields": [
       {
-        "label": "Name",
+        "label": "Nome",
         "key": "name"
       },
       {
@@ -39,51 +39,51 @@
     ]
   },
   "changePassword": {
-    "title": "Change your password",
-    "submitLabel": "Send",
+    "title": "Cambiar o meu contrasinal",
+    "submitLabel": "Cambiar",
     "buttonBlock": true,
     "controls": [
       {
         "key": "email",
         "type": "email",
-        "label": "Current Email",
+        "label": "O teu email",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Current Email is required"
+            "errorMessage": "O teu email é requerido"
           }
         ]
       },
       {
         "key": "password",
         "type": "password",
-        "label": "Current Password",
+        "label": "A teu contrasinal actual",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Current Password is required"
+            "errorMessage": "A teu contrasinal é requerido"
           }
         ]
       },
       {
         "key": "newPassword",
         "type": "password",
-        "label": "New Password",
+        "label": "O novo contrasinal",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "New Password is required"
+            "errorMessage": "O novo contrasinal é requerido"
           }
         ]
       },
       {
         "key": "passwordBis",
         "type": "password",
-        "label": "Repeat Password",
+        "label": "Repite o novo contrasinal",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Password repetition is required"
+            "errorMessage": "O novo contrasinal repetido é requerido"
           }
         ]
       }
@@ -92,26 +92,26 @@
   "admin": [
     {
       "header": {
-        "title": "Your Organization",
+        "title": "O meu centro",
         "subtitle": "",
         "icon": "icon-flag"
       },
       "actions": [
         {
-          "label": "Manage",
-          "link": "/organization/"
+          "label": "Administrar",
+          "link": "/me/organization/"
         }
       ]
     },
     {
       "header": {
-        "title": "Users",
-        "subtitle": "Users, statuses and roles",
+        "title": "Usuarios",
+        "subtitle": "Usuarios, estados e roles",
         "icon": "icon-people"
       },
       "actions": [
         {
-          "label": "Manage users",
+          "label": "Usuarios do meu centro",
           "link": "/me/users"
         }
       ]

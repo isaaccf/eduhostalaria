@@ -11,10 +11,10 @@
       </ab-card>
     </modal-content>
     <modal-footer>
-      <ab-action [schema]="{label:'Remain logged in'}"
+      <ab-action [schema]="{label:'Quedar'}"
                  btnClass="btn-link"
                  (action)="logOutActive=false"></ab-action>
-      <ab-action [schema]="{label:'Log Out.'}"
+      <ab-action [schema]="{label:'Saír'}"
                  (action)="onLogOutClick()"></ab-action>
     </modal-footer>
   </ab-modal>
@@ -29,7 +29,7 @@
       </ab-form>
     </modal-content>
     <modal-footer>
-      <ab-action [schema]="{label:'Remain same password'}"
+      <ab-action [schema]="{label:'Non cambiar'}"
                  btnClass="btn-link"
                  (action)="changePasswordActive=false"></ab-action>
     </modal-footer>
