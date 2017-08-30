@@ -4,7 +4,8 @@
   <input [formControlName]="control.key"
          class="form-input"
          [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}"
-         [type]="control.type" />
+         [type]="control.type"
+         step="any" />
   <ab-control-error [form]="form"
                     [control]="control">
   </ab-control-error>

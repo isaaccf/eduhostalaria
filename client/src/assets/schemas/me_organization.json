@@ -49,6 +49,30 @@
         ]
       },
       {
+        "key": "address",
+        "type": "text",
+        "label": "Enderezo",
+        "defaultValue": "this.organization.address",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Enderezo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "city",
+        "type": "text",
+        "label": "Cidade",
+        "defaultValue": "this.organization.city",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Cidade é requerido"
+          }
+        ]
+      },
+      {
         "key": "url",
         "type": "text",
         "label": "Páxina web",
@@ -63,8 +87,20 @@
         "validators": []
       },
       {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Aforo é requerido"
+          }
+        ]
+      },
+      {
         "key": "standardPrice",
-        "type": "text",
+        "type": "number",
         "label": "Precio menú",
         "defaultValue": "this.organization.standardPrice",
         "validators": [
@@ -76,7 +112,7 @@
       },
       {
         "key": "reducedPrice",
-        "type": "text",
+        "type": "number",
         "label": "Precio reducido",
         "defaultValue": "this.organization.reducedPrice",
         "validators": [
