@@ -22,12 +22,8 @@ export class OrganizationService {
     return this.http.patch<IOrganization>(`${this.organizationsUrl}`, organization);
   }
 
-  getEditionSchema(): Observable<IFormSchema> {
-    return this.schemaService.getSchema('organization_edition');
-  }
-
   getViewSchema(): Observable<IWidgetSchema> {
-    return this.schemaService.getSchema('organization_view');
+    return this.schemaService.getSchema('organization');
   }
 
   getSchemaValues(form: IFormSchema, target: any) {
