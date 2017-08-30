@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizationsService } from 'app/views/home/organizations.service';
 import { IWidgetSchema, IAction, ILoadEmptyStateSchema, ITimelineSchema } from 'app/tools/schema.model';
 import { BusService } from 'app/tools/bus.service';
 import 'rxjs/add/operator/takeWhile';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { IOrganization } from "app/tools/organization.model";
+import { HomeService } from "app/views/home/home.service";
 
 @Component({
   selector: 'ab-home',
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private bus: BusService,
-    private organizationsService: OrganizationsService,
+    private home: HomeService,
     private schemaService: SchemaService
   ) { }
 
@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit {
       .subscribe(schema => {
         if (schema && schema.metadata && schema.metadata.name === 'home') {
           this.schema = schema;
-          this.organizationsService
-            .getAll()
+          this.home
+            .getAllOrganizations()
             .subscribe(data => this.createWidgets(data));
         }
       });

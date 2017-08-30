@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home.routing';
 import { HomeComponent } from './home/home.component';
-import { OrganizationsService } from 'app/views/home/organizations.service';
 import { ComponentsModule } from 'app/tools/components/components.module';
+import { HomeService } from "app/views/home/home.service";
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { ComponentsModule } from 'app/tools/components/components.module';
     ComponentsModule
   ],
   declarations: [HomeComponent],
-  providers: [OrganizationsService],
+  providers: [HomeService],
   exports: [],
   schemas: [NO_ERRORS_SCHEMA]
 })

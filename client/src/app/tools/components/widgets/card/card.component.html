@@ -1,10 +1,10 @@
 <div *ngIf="schema"
-     class="column col-6 col-xs-12">
+     class="">
   <div class="card">
     <header *ngIf="schema.header"
             class="card-header">
-      <div class="card-title">{{schema.header.title}}</div>
-      <div class="card-subtitle">{{schema.header.subtitle}}</div>
+      <div class="text-large text-bold">{{schema.header.title}}</div>
+      <div class="text-gray">{{schema.header.subtitle}}</div>
     </header>
     <main>
       <div *ngIf="data && schema.fields"

@@ -1,6 +1,6 @@
 <section [formGroup]="form.group">
   <label [for]="control.key"
-         class="form-label">{{ control.label }}:</label>
+         class="form-label text-bold">{{ control.label }}:</label>
   <input [formControlName]="control.key"
          class="form-input"
          [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}"

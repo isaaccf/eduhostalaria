@@ -1,5 +1,6 @@
-<section *ngIf="organization">
-  <ab-panel *ngIf="viewSchema"
-            [schema]="viewSchema">
+<section *ngIf="viewSchema && organization">
+  <ab-panel [schema]="viewSchema">
   </ab-panel>
+  <ab-card [data]="organization"
+           [schema]="viewSchema"></ab-card>
 </section>

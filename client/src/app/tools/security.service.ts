@@ -38,7 +38,7 @@ export class SecurityService {
     localStorage.removeItem(this.userKey);
     this.bus.emitUser(null);
     this.bus.emit({ level: Level.SUCCESS, text: 'logged out!!' });
-    this.navigateTo(['/login']);
+    this.navigateTo(['/']);
   }
 
   checkBigbang() {

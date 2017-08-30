@@ -10,7 +10,7 @@
   },
   "form": {
     "title": "Log In",
-    "submitLabel": "Send",
+    "submitLabel": "Entrar",
     "buttonBlock": true,
     "controls": [
       {

@@ -36,13 +36,15 @@ export class OrganizationComponent implements OnInit {
           this.bus
             .getUser$()
             .subscribe(user => {
-              this.me
-                .getAdministratedOrganization(user.organizationId)
-                .subscribe(organization => {
-                  this.organization = organization;
-                  this.schemaService.populateDefaultValues(this.formSchema, this.organization);
-                  this.loadedMetadata = true;
-                });
+              if (user) {
+                this.me
+                  .getAdministratedOrganization(user.organizationId)
+                  .subscribe(organization => {
+                    this.organization = organization;
+                    this.schemaService.populateDefaultValues(this.formSchema, this.organization);
+                    this.loadedMetadata = true;
+                  });
+              }
             });
         }
       });
