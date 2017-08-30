@@ -15,6 +15,7 @@ export interface IFormControl extends IField {
   placeholder?: string;
   defaultValue?: any;
   validators?: IValidator[];
+  isDisabled?: boolean;
 }
 
 export interface IAction extends IKeyValue {

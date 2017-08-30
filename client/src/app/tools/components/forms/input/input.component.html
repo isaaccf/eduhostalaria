@@ -5,7 +5,8 @@
          class="form-input"
          [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}"
          [type]="control.type"
-         step="any" />
+         step="any"
+         [attr.disabled]="control.isDisabled" />
   <ab-control-error [form]="form"
                     [control]="control">
   </ab-control-error>

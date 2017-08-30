@@ -117,6 +117,22 @@
         "label": "Teléfono",
         "defaultValue": "this.user.phone",
         "validators": []
+      },
+      {
+        "key": "email",
+        "type": "text",
+        "label": "O meu E-mail",
+        "defaultValue": "this.user.email",
+        "validators": [],
+        "isDisabled": true
+      },
+      {
+        "key": "roles",
+        "type": "text",
+        "label": "Os meus roles",
+        "defaultValue": "this.user.roles",
+        "validators": [],
+        "isDisabled": true
       }
     ]
   },
