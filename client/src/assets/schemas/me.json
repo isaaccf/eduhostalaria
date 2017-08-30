@@ -144,5 +144,35 @@
         }
       ]
     }
+  ],
+  "mestre": [
+    {
+      "header": {
+        "title": "Eventos",
+        "subtitle": "Menús e comidas",
+        "icon": "icon-bookmark"
+      },
+      "actions": [
+        {
+          "label": "Gestionar comidas",
+          "link": "/me/organizations"
+        }
+      ]
+    }
+  ],
+  "conserje": [
+    {
+      "header": {
+        "title": "Eventos",
+        "subtitle": "Menús e comidas",
+        "icon": "icon-bookmark"
+      },
+      "actions": [
+        {
+          "label": "Gestionar comidas",
+          "link": "/me/organizations"
+        }
+      ]
+    }
   ]
 }

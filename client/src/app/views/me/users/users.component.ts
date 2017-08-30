@@ -2,7 +2,6 @@ import { MeService } from '../me.service';
 import { BusService } from '../../../tools/bus.service';
 import { Component, OnInit } from '@angular/core';
 import { IWidgetSchema, IReportSchema, IFormSchema } from 'app/tools/schema.model';
-import { ROLE, STATUS } from 'app/tools/user.model';
 
 @Component({
   selector: 'ab-users',
@@ -37,6 +36,7 @@ export class UsersComponent implements OnInit {
   }
   onCreate(data) {
     console.log('creating user: ', data);
+    this.me.inviteUser(data).subscribe(r => this.getUsers());;
   }
   onDelete(data) {
     console.log('deleting user: ', data);

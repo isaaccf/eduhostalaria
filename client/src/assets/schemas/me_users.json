@@ -42,10 +42,20 @@
         ]
       },
       {
-        "key": "phone",
-        "type": "text",
-        "label": "Teléfono",
-        "validators": []
+        "key": "role",
+        "type": "select",
+        "label": "Rol",
+        "validators": [],
+        "actions": [
+          {
+            "label": "Mestre",
+            "key": "MESTRE"
+          },
+          {
+            "label": "Conserje",
+            "key": "CONSERJE"
+          }
+        ]
       }
     ]
   },
@@ -56,7 +66,7 @@
     "emptyMessage": "Non temos usurios para mostrar :(",
     "fields": [
       {
-        "label": "User",
+        "label": "Usuario",
         "key": "name",
         "type": "string"
       },
@@ -71,7 +81,7 @@
         "type": "string"
       },
       {
-        "label": "Status",
+        "label": "Estado",
         "key": "status",
         "type": "string"
       },

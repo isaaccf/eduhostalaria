@@ -29,5 +29,17 @@
       "label": "Usuarios",
       "link": "/me/users/"
     }
+  ],
+  "mestre": [
+    {
+      "icon": "icon-flag",
+      "label": "O meu Centro",
+      "link": "/me/organization/"
+    },
+    {
+      "icon": "icon-bookmark",
+      "label": "Eventos",
+      "link": "/me/users/"
+    }
   ]
 }

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser, ROLE } from 'app/tools/user.model';
+import { IUser } from 'app/tools/user.model';
 import { SecurityService } from 'app/tools/security.service';
 import { IWidgetSchema } from 'app/tools/schema.model';
 import { BusService } from 'app/tools/bus.service';
 import 'rxjs/add/operator/takeWhile';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { IOrganization } from "app/views/home/organization.model";
+import { IOrganization } from "app/tools/organization.model";
+
 
 @Component({
   selector: 'ab-me',
@@ -64,12 +65,12 @@ export class MeComponent implements OnInit {
   }
 
   configureRoleSchemas(userRole, roleSchema) {
-    if (userRole === ROLE.GOD.toString().toLowerCase()) {
+    if (userRole === 'god') {
       this.me.getOrganizationsCount()
         .subscribe(count => roleSchema[0].header.counter = count);
       this.me.getUsersCount()
         .subscribe(count => roleSchema[1].header.counter = count);
-    } else if (userRole === ROLE.ADMIN.toString().toLowerCase()) {
+    } else if (userRole === 'admin') {
       this.me.getAdministratedOrganization(this.user.organizationId)
         .subscribe(organization => {
           this.organization = organization;
@@ -81,7 +82,12 @@ export class MeComponent implements OnInit {
         });
       this.me.getUsersCount()
         .subscribe(count => roleSchema[1].header.counter = count);
-    } else {
+    } else if (userRole === 'mestre') {
+
+    } else if (userRole === 'conserje') {
+
+    }
+    else {
       this.security.logOutUser();
     }
   }

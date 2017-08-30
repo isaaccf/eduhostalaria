@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { ROLE } from "app/tools/user.model";
-import { IOrganization } from "app/views/home/organization.model";
+import { IOrganization } from "app/tools/organization.model";
+import { SecurityService } from "app/tools/security.service";
 
 @Injectable()
 export class MeService {
@@ -13,7 +13,7 @@ export class MeService {
   private usersUrl = '_/users';
   private credentialsUrl = 'credentials';
 
-  constructor(private http: HttpClient, private schemaService: SchemaService) { }
+  constructor(private http: HttpClient, private schemaService: SchemaService, private security: SecurityService) { }
 
   getMeSchema(): Observable<any> {
     return this.schemaService.getSchema('me');
@@ -73,6 +73,14 @@ export class MeService {
       .delete(`${this.credentialsUrl}/_/${user._id}`);
   }
 
+  inviteUser(user: any): Observable<any> {
+    user.roles = [user.role];
+    user.organizationId = this.security.getLocalUser().organizationId;
+    delete user.role;
+    return this.http
+      .post(`${this.credentialsUrl}/_/invitations`, user);
+  }
+
   getOrganizations(): Observable<any[]> {
     return this.http
       .get<any>(this.organizationsUrl)
@@ -91,7 +99,7 @@ export class MeService {
 
   setOrganizationAdmin(newAdmin) {
     newAdmin.roles = [];
-    newAdmin.roles.push(ROLE.ADMIN);
+    newAdmin.roles.push('ADMIN');
     return this.http
       .post(`${this.credentialsUrl}/_/invitations`, newAdmin);
   }

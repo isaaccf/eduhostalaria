@@ -56,6 +56,9 @@ export class SecurityService {
     }
   }
 
+  public getLocalUser() {
+    return JSON.parse(localStorage.getItem(this.userKey));
+  }
   public getMe(): Observable<IUser> {
     return this.http
       .get<IUser>(`${this.userUrl}/me`)

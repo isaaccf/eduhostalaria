@@ -4,8 +4,8 @@
   <select [formControlName]="control.key"
           class="form-select"
           [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}">
-    <option value="" disabled [selected]="true">-- Choose an option --</option>
-    <option *ngFor="let action of control.actions" [value]="action.value">{{ action.label }}</option>
+    <option value="" disabled [selected]="true">-- Escolla opción --</option>
+    <option *ngFor="let action of control.actions" [value]="action.key">{{ action.label }}</option>
   </select>
   <ab-control-error [form]="form"
                     [control]="control">
