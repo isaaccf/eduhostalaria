@@ -3,7 +3,6 @@ import { MeService } from "app/views/me/me.service";
 import { SchemaService } from "app/tools/components/schema.service";
 import { BusService } from "app/tools/bus.service";
 import { IFormSchema, IWidgetSchema } from "app/tools/schema.model";
-import { IOrganization } from "app/views/home/organization.model";
 
 
 @Component({

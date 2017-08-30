@@ -92,8 +92,11 @@ export class SecurityService {
     this.bus.emitUserToken(userToken);
   }
 
-  private saveUser(user: IUser) {
+  private saveUser(user: any) {
+    // delete user.iat;
+    // delete user.exp;
     localStorage.setItem(this.userKey, JSON.stringify(user));
+    this.bus.emitUser(user);
   }
 
   private emitLogin(user) {
@@ -102,7 +105,7 @@ export class SecurityService {
     this.navigateTo(['/me']);
   }
 
-  private navigateTo(target: any, args?: any) {
+  navigateTo(target: any, args?: any) {
     this.router.navigate(target);
   }
 

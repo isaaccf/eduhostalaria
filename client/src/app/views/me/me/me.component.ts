@@ -16,11 +16,13 @@ import { IOrganization } from "app/tools/organization.model";
 })
 export class MeComponent implements OnInit {
   public schema;
+  public editProfile;
   public widgetsSchema: IWidgetSchema[];
 
   public user: IUser = null;
   public logOutActive: Boolean;
   public changePasswordActive: Boolean;
+  public editProfileActive: Boolean;
 
   public organization: IOrganization = null;
 
@@ -49,15 +51,18 @@ export class MeComponent implements OnInit {
       .subscribe(user => {
         if (user) {
           this.user = user;
+          this.editProfile = this.schema.editProfile;
+          this.schemaService.populateDefaultValues(this.editProfile, this.user);
           this.widgetsSchema = [];
           const userSchema = this.schema.userSchema;
-          userSchema.header.title = this.user.name;
+          const userRole = this.user.roles[0].toString().toLowerCase();
+          userSchema.header.title = this.user.name + ' - ' + userRole.toUpperCase();
           userSchema.header.subtitle = this.user.email;
           this.widgetsSchema.push(userSchema);
-          const userRole = this.user.roles[0].toString().toLowerCase();
           const roleSchema = this.schema[userRole];
           this.configureRoleSchemas(userRole, roleSchema);
           this.widgetsSchema = this.widgetsSchema.concat(roleSchema);
+
         } else {
           this.security.logOutUser();
         }
@@ -97,6 +102,8 @@ export class MeComponent implements OnInit {
       this.logOutActive = true;
     } else if (event.key === 'change_password') {
       this.changePasswordActive = true;
+    } else if (event.key === 'edit_profile') {
+      this.editProfileActive = true;
     }
   }
   onLogOutClick() {
@@ -106,5 +113,10 @@ export class MeComponent implements OnInit {
   onChangePasswordClick(changePasswordClaim) {
     this.me.changePassword(changePasswordClaim).subscribe();
     this.changePasswordActive = false;
+  }
+  onEditProfileClick(editProfileClaim) {
+    console.log(editProfileClaim);
+    this.me.editProfile(editProfileClaim).subscribe(r => this.security.getMe().subscribe(r => this.security.navigateTo(['/'])));
+    this.editProfileActive = false;
   }
 }

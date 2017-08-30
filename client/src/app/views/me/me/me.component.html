@@ -20,7 +20,7 @@
   </ab-modal>
 </aside>
 <aside>
-  <ab-modal [title]="user?.name"
+  <ab-modal [title]="schema?.changePassword.title"
             [active]="changePasswordActive"
             (close)="changePasswordActive=false">
     <modal-content>
@@ -32,6 +32,22 @@
       <ab-action [schema]="{label:'Non cambiar'}"
                  btnClass="btn-link"
                  (action)="changePasswordActive=false"></ab-action>
+    </modal-footer>
+  </ab-modal>
+</aside>
+<aside>
+  <ab-modal [title]="schema?.editProfile.title"
+            [active]="editProfileActive"
+            (close)="editProfileActive=false">
+    <modal-content>
+      <ab-form [formSchema]="editProfile"
+               (send)="onEditProfileClick($event)">
+      </ab-form>
+    </modal-content>
+    <modal-footer>
+      <ab-action [schema]="{label:'Non cambiar'}"
+                 btnClass="btn-link"
+                 (action)="editProfileActive=false"></ab-action>
     </modal-footer>
   </ab-modal>
 </aside>

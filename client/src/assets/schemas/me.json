@@ -14,9 +14,14 @@
         "icon": "icon-shutdown"
       },
       {
-        "label": "Cambiar Contrasinal",
+        "label": "Contrasinal",
         "key": "change_password",
         "icon": "icon-people"
+      },
+      {
+        "label": "Perfíl",
+        "key": "edit_profile",
+        "icon": "icon-edit"
       }
     ]
   },
@@ -57,7 +62,7 @@
       {
         "key": "password",
         "type": "password",
-        "label": "A teu contrasinal actual",
+        "label": "O teu contrasinal actual",
         "validators": [
           {
             "key": "required",
@@ -86,6 +91,32 @@
             "errorMessage": "O novo contrasinal repetido é requerido"
           }
         ]
+      }
+    ]
+  },
+  "editProfile": {
+    "title": "Cambiar os meus datos",
+    "submitLabel": "Cambiar",
+    "buttonBlock": true,
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "O meu nome",
+        "defaultValue": "this.user.name",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O teu nome é requerido"
+          }
+        ]
+      },
+      {
+        "key": "phone",
+        "type": "text",
+        "label": "Teléfono",
+        "defaultValue": "this.user.phone",
+        "validators": []
       }
     ]
   },

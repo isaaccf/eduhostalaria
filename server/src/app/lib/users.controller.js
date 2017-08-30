@@ -24,7 +24,19 @@ module.exports = (app, url) => {
     });
   app.route(`${url}/me`)
     .get(async (req, res) => {
-      const user = req.user;
+      const claim = req.user;
+      const user = await srv.getById(claim._id);
       return rest.returnOne(user, res);
+    })
+    .patch(async (req, res) => {
+      const claim = req.body;
+      const user = req.user;
+      if (user._id !== claim._id) {
+        const err = new Error(`Not valid ${claim} for user: ${JSON.stringify(req.user)}`);
+        err.code = 403;
+        return rest.returnError(err);
+      }
+      const result = await srv.updateUser(claim);
+      return rest.returnResult(result, res);
     });
 };

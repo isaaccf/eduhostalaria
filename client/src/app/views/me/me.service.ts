@@ -53,6 +53,13 @@ export class MeService {
     return this.http.patch(`${this.credentialsUrl}/`, password);
   }
 
+  editProfile(userProfile: any): Observable<any> {
+    const user = this.security.getLocalUser();
+    const aux = Object.assign(user, userProfile);
+    return this.http
+      .patch(`${this.usersUrl}/me`, aux);
+  }
+
   getUsers(): Observable<any[]> {
     return this.http
       .get<any>(this.usersUrl);
