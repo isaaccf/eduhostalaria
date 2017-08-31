@@ -11,7 +11,7 @@ import { IFormSchema, IWidgetSchema } from "app/tools/schema.model";
   styles: []
 })
 export class OrganizationComponent implements OnInit {
-  public panelSchema: IWidgetSchema;
+  public schemas;
   public formSchema: IFormSchema;
   loadedMetadata = false;
   loadingPanelSchema = {
@@ -29,7 +29,7 @@ export class OrganizationComponent implements OnInit {
     this.schema
       .getSchema$('me_organization')
       .subscribe(schemas => {
-        this.panelSchema = schemas.panel;
+        this.schemas = schemas;
         this.formSchema = schemas.form;
         this.bus
           .getUser$()

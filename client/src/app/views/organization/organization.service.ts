@@ -29,6 +29,7 @@ export interface IOrganization {
   phone: string;
   url: string;
   address: any;
+  city: string;
   description: string;
   image: string;
   standardPrice: string;

@@ -1,9 +1,8 @@
 {
-  "panel": {
-    "header": {
-      "title": "O meu centro",
-      "subtitle": "Configurar e aportar información sobre o meu centro."
-    }
+  "header": {
+    "title": "O meu centro",
+    "subtitle": "Configurar e aportar información sobre o meu centro.",
+    "icon": "icon-edit"
   },
   "form": {
     "title": "Datos do meu centro",

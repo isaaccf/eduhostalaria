@@ -3,6 +3,10 @@
   <div *ngFor="let widget of schemas"
        class="column col-6 col-md-12">
     <ng-container [ngSwitch]="widget.type">
+      <ab-card *ngSwitchCase="'card'"
+               [schema]="widget"
+               (send)=" onClick($event)">
+      </ab-card>
       <ab-panel *ngSwitchCase="'panel'"
                 [schema]="widget"
                 (send)=" onClick($event)">
@@ -11,10 +15,6 @@
                [schema]="widget"
                (send)=" onClick($event)">
       </ab-tile>
-      <ab-card *ngSwitchCase="'card'"
-               [schema]="widget"
-               (send)=" onClick($event)">
-      </ab-card>
       <ab-panel *ngSwitchDefault
                 [schema]="widget"
                 (send)=" onClick($event)">
