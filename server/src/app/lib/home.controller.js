@@ -7,4 +7,10 @@ module.exports = (app, url) => {
       const data = await mongo.find('organizations', {});
       return rest.returnArray(data, res);
     });
+  app.route(`${url}/organizations/:slug`)
+    .get(async (req, res) => {
+      const slug = req.params.slug;
+      const data = await mongo.findOne('organizations', { slug });
+      return rest.returnOne(data, res);
+    });
 };

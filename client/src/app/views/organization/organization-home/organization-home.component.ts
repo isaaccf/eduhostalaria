@@ -33,7 +33,7 @@ export class OrganizationHomeComponent implements OnInit {
     this.organizationService.getViewSchema().subscribe(s => {
       this.viewSchema = s;
       this.viewSchema.header.title = this.organization.name;
-      this.viewSchema.header.subtitle = this.organization.description;
+      this.viewSchema.header.subtitle = this.organization.slogan;
     });
   }
 

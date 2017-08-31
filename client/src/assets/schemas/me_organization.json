@@ -25,6 +25,18 @@
         ]
       },
       {
+        "key": "slogan",
+        "type": "text",
+        "label": "O meu centro en cuatro plabras",
+        "defaultValue": "this.organization.slogan",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Un slogan do meu centro é requerido"
+          }
+        ]
+      },
+      {
         "key": "email",
         "type": "email",
         "label": "Email",
@@ -125,14 +137,9 @@
       {
         "key": "description",
         "type": "textarea",
-        "label": "Resume do meu centro",
+        "label": "Resume amplo do meu centro",
         "defaultValue": "this.organization.description",
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "Resume do meu centro é requerido"
-          }
-        ]
+        "validators": []
       }
     ]
   }

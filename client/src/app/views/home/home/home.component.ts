@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   pupulateWidget(widget, target) {
     // To Do: autopopulate using reflection...)
     widget.header.title = this.schemaService.valueByPath(target, 'name');
-    widget.header.subtitle = this.schemaService.valueByPath(target, 'address');
+    widget.header.subtitle = this.schemaService.valueByPath(target, 'slogan');
     widget.actions[0].label = `Ver oferta centro`;
     widget.actions[0].link = `/organization/${this.schemaService.valueByPath(target, 'slug')}`;
   }

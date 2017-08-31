@@ -201,8 +201,8 @@
       },
       "actions": [
         {
-          "label": "Gestionar comidas",
-          "link": "/me/organizations"
+          "label": "Xestionar comidas",
+          "link": "/me/users"
         }
       ]
     }

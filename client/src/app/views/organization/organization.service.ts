@@ -7,19 +7,12 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class OrganizationService {
-  private organizationsUrl = '_/organizations';
+  private organizationsUrl = 'home/organizations';
   constructor(private http: HttpClient, private schemaService: SchemaService) {
-  }
-  getOrganization(id) {
-    return this.http
-      .get<IOrganization>(`${this.organizationsUrl}/${id}`)
   }
   getOrganizationBySlug(slug) {
     return this.http
-      .get<IOrganization>(`${this.organizationsUrl}/slug/${slug}`)
-  }
-  updateOrganization(organization: IOrganization): Observable<IOrganization> {
-    return this.http.patch<IOrganization>(`${this.organizationsUrl}`, organization);
+      .get<IOrganization>(`${this.organizationsUrl}/${slug}`)
   }
 
   getViewSchema(): Observable<IWidgetSchema> {
@@ -35,6 +28,7 @@ export interface IOrganization {
   _id?: string;
   slug: string;
   name: string;
+  slogan: string;
   email: string;
   phone: string;
   url: string;
