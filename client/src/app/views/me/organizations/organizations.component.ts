@@ -7,6 +7,7 @@ import { Level } from 'app/tools/message.model';
 import { IFormSchema, IWidgetSchema, IReportSchema, ILoadEmptyStateSchema, IKeyValue } from 'app/tools/schema.model';
 import 'rxjs/add/operator/takeWhile';
 import { MeService } from "app/views/me/me.service";
+import { SchemaService } from "app/tools/components/schema.service";
 
 @Component({
   selector: 'ab-organizations',
@@ -28,22 +29,21 @@ export class OrganizationsComponent implements OnInit {
   public name = 'organizations';
   constructor(
     private me: MeService,
-    private bus: BusService) { }
+    private bus: BusService,
+    private schema: SchemaService) { }
 
   ngOnInit() {
-    this.bus
-      .getPageSchema$()
-      .takeWhile(() => this.actionSchema == null)
+    this.schema
+      .getSchema$('me_organizations')
       .subscribe(schemas => {
-        if (schemas && schemas.metadata && schemas.metadata.name === 'me_organizations') {
-          this.actionSchema = schemas.actions;
-          this.createFormSchema = schemas.create;
-          this.reportSchema = schemas.report;
-          this.setAdminFormSchema = schemas.setAdmin;
-          this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
-          this.getOrganizations();
-        }
-      });
+        this.actionSchema = schemas.actions;
+        this.createFormSchema = schemas.create;
+        this.reportSchema = schemas.report;
+        this.setAdminFormSchema = schemas.setAdmin;
+        this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
+        this.getOrganizations();
+      }
+      );
   }
 
   getOrganizations() {

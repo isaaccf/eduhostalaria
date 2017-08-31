@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Location } from '@angular/common';
 import { IOrganization, OrganizationService } from 'app/views/organization/organization.service';
+import { SchemaService } from "app/tools/components/schema.service";
 
 
 
@@ -21,19 +22,20 @@ export class OrganizationHomeComponent implements OnInit {
     loading: true,
     empty: false
   };
-  public organization: IOrganization;
+  public organizationData: IOrganization;
   public viewSchema: IWidgetSchema;
-  public formSchema: IFormSchema;
+
 
   constructor(
     private route: ActivatedRoute,
-    private organizationService: OrganizationService,
+    private organization: OrganizationService,
+    private schema: SchemaService,
     private location: Location) { }
   setSchemas() {
-    this.organizationService.getViewSchema().subscribe(s => {
+    this.schema.getSchema$('organization').subscribe(s => {
       this.viewSchema = s;
-      this.viewSchema.header.title = this.organization.name;
-      this.viewSchema.header.subtitle = this.organization.slogan;
+      this.viewSchema.header.title = this.organizationData.name;
+      this.viewSchema.header.subtitle = this.organizationData.slogan;
     });
   }
 
@@ -41,11 +43,11 @@ export class OrganizationHomeComponent implements OnInit {
     this.route.params
       .subscribe(params => {
         const slug = params['slug'];
-        this.organizationService
+        this.organization
           .getOrganizationBySlug(slug)
           .subscribe(organization => {
-            this.organization = organization;
-            if (this.organization) {
+            this.organizationData = organization;
+            if (this.organizationData) {
               this.setSchemas();
             } else {
               this.loadingPanelSchema.loading = false;

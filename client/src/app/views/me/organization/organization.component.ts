@@ -22,31 +22,28 @@ export class OrganizationComponent implements OnInit {
   constructor(
     private bus: BusService,
     private me: MeService,
-    private schemaService: SchemaService) {
+    private schema: SchemaService) {
   }
 
   ngOnInit() {
-    this.bus
-      .getPageSchema$()
-      .takeWhile(() => this.panelSchema == null)
+    this.schema
+      .getSchema$('me_organization')
       .subscribe(schemas => {
-        if (schemas && schemas.metadata && schemas.metadata.name === 'me_organization') {
-          this.panelSchema = schemas.panel;
-          this.formSchema = schemas.form;
-          this.bus
-            .getUser$()
-            .subscribe(user => {
-              if (user) {
-                this.me
-                  .getAdministratedOrganization(user.organizationId)
-                  .subscribe(organization => {
-                    this.organization = organization;
-                    this.schemaService.populateDefaultValues(this.formSchema, this.organization);
-                    this.loadedMetadata = true;
-                  });
-              }
-            });
-        }
+        this.panelSchema = schemas.panel;
+        this.formSchema = schemas.form;
+        this.bus
+          .getUser$()
+          .subscribe(user => {
+            if (user) {
+              this.me
+                .getAdministratedOrganization(user.organizationId)
+                .subscribe(organization => {
+                  this.organization = organization;
+                  this.schema.populateDefaultValues(this.formSchema, this.organization);
+                  this.loadedMetadata = true;
+                });
+            }
+          });
       });
   }
 
@@ -57,7 +54,7 @@ export class OrganizationComponent implements OnInit {
       .updateOrganization(editedOrganization)
       .subscribe(savedOrganization => {
         this.organization = savedOrganization;
-        this.schemaService.populateDefaultValues(this.formSchema, this.organization);
+        this.schema.populateDefaultValues(this.formSchema, this.organization);
         this.loadedMetadata = true;
       });
   }

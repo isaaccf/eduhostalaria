@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IWidgetSchema, IAction, ILoadEmptyStateSchema, ITimelineSchema } from 'app/tools/schema.model';
-import { BusService } from 'app/tools/bus.service';
 import 'rxjs/add/operator/takeWhile';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { IOrganization } from "app/tools/organization.model";
@@ -12,33 +11,27 @@ import { HomeService } from "app/views/home/home.service";
   styles: []
 })
 export class HomeComponent implements OnInit {
-  public schema: IWidgetSchema
+  public schemas: IWidgetSchema
   public widgets: IWidgetSchema[] = [];
 
   constructor(
-    private bus: BusService,
     private home: HomeService,
-    private schemaService: SchemaService
+    private schema: SchemaService
   ) { }
 
   ngOnInit() {
-    this.bus
-      .getPageSchema$()
-      .takeWhile(() => this.schema == null)
-      .subscribe(schema => {
-        if (schema && schema.metadata && schema.metadata.name === 'home') {
-          this.schema = schema;
-          this.home
-            .getAllOrganizations()
-            .subscribe(data => this.createWidgets(data));
-        }
-      });
+    this.schema.getSchema$('home').subscribe(schema => {
+      this.schemas = schema;
+      this.home
+        .getAllOrganizations()
+        .subscribe(organizations => this.createWidgets(organizations));
+    });
   }
 
   createWidgets(organizations: IOrganization[]) {
     this.widgets = [];
     organizations.forEach(organization => {
-      const organizationWidget: IWidgetSchema = JSON.parse(JSON.stringify(this.schema));
+      const organizationWidget: IWidgetSchema = JSON.parse(JSON.stringify(this.schemas));
       this.pupulateWidget(organizationWidget, organization);
       this.widgets.push(organizationWidget);
     });
@@ -46,10 +39,10 @@ export class HomeComponent implements OnInit {
 
   pupulateWidget(widget, target) {
     // To Do: autopopulate using reflection...)
-    widget.header.title = this.schemaService.valueByPath(target, 'name');
-    widget.header.subtitle = this.schemaService.valueByPath(target, 'slogan');
+    widget.header.title = this.schema.valueByPath(target, 'name');
+    widget.header.subtitle = this.schema.valueByPath(target, 'slogan');
     widget.actions[0].label = `Ver oferta centro`;
-    widget.actions[0].link = `/organization/${this.schemaService.valueByPath(target, 'slug')}`;
+    widget.actions[0].link = `/organization/${this.schema.valueByPath(target, 'slug')}`;
   }
 
 }

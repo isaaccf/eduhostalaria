@@ -22,7 +22,7 @@ export class ShellComponent implements OnInit {
   public title: string;
   public level: Level;
   public menuLinks: IAction[];
-  public loadedMetadata: boolean;
+  // public loadedMetadata: boolean;
   public showResponsive = false;
   public numMessages: number;
   private menuSchema;
@@ -41,6 +41,11 @@ export class ShellComponent implements OnInit {
   }
 
   onPageRouteChange() {
+    this.getTitle();
+  }
+
+  getTitle() {
+    this.title = environment.appTitle;
     this.router.events
       .filter(event => event instanceof NavigationEnd)
       .map(() => this.activatedRoute)
@@ -55,31 +60,13 @@ export class ShellComponent implements OnInit {
       .subscribe(data => {
         if (data.title) {
           this.title = data.title;
-        } else {
-          this.title = environment.appTitle
         }
-        if (data.name) {
-          this.loadMetadata(data.name);
-        } else {
-          this.loadedMetadata = true;
-        }
-      }
-      );
-  }
-
-  loadMetadata(pageName) {
-    this.schemaService
-      .getSchema(pageName)
-      .subscribe(schemas => {
-        console.log('pageName', pageName);
-        this.bus.emitPageSchema(schemas);
-        this.loadedMetadata = true;
       });
   }
 
   loadMenu() {
     this.schemaService
-      .getSchema('menu')
+      .getSchema$('menu')
       .subscribe(schema => {
         this.menuSchema = schema;
         this.menuByUserRole();

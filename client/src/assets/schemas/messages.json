@@ -5,7 +5,8 @@
   "timeline": {
     "title": {
       "header": {
-        "title": "Sample for an events timeline"
+        "title": "Mensaxes para o usuario",
+        "subtitle": "Histórico do acontecido nesta máquina"
       }
     },
     "events": []

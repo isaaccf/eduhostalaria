@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class SchemaService {
   constructor(private http: HttpClient) { }
 
-  getSchema(schemaName: string) {
+  getSchema$(schemaName: string) {
     return this.http
       .get<any>(`assets/schemas/${schemaName}.json`);
   }

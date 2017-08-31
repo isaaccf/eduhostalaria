@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login.routing';
 import { LoginComponent } from './login/login.component';
 import { ComponentsModule } from 'app/tools/components/components.module';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -11,7 +12,7 @@ import { ComponentsModule } from 'app/tools/components/components.module';
     LoginRoutingModule,
     ComponentsModule
   ],
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA]
 })

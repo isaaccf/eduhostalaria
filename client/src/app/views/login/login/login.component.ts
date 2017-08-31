@@ -4,7 +4,6 @@ import { SecurityService, IUserCredential } from 'app/tools/security.service';
 import { environment } from './../../../../environments/environment';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { Observable } from 'rxjs/Observable';
-import { BusService } from 'app/tools/bus.service';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/takeWhile';
 @Component({
@@ -17,18 +16,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private security: SecurityService,
-    private bus: BusService,
+    private schema: SchemaService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.bus
-      .getPageSchema$()
-      .takeWhile(() => this.formSchema == null)
-      .subscribe(schemas => {
-        if (schemas && schemas.metadata && schemas.metadata.name === 'login') {
-          this.formSchema = schemas.form;
-        }
-      });
+    this.schema.getSchema$('login').subscribe(schema => this.formSchema = schema.form);
   }
 
   onSend(credentials: IUserCredential) {

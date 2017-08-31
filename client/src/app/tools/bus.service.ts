@@ -13,7 +13,6 @@ export class BusService {
   private securityErr$ = new Subject<string>();
   private userToken$ = new BehaviorSubject<string>(null);
   private user$ = new BehaviorSubject<IUser>(null);
-  private pageSchema$ = new BehaviorSubject<any>(null);
 
   constructor() {
   }
@@ -29,9 +28,6 @@ export class BusService {
   }
   getUserToken$(): Observable<string> {
     return this.userToken$.asObservable();
-  }
-  getPageSchema$(): Observable<any> {
-    return this.pageSchema$.asObservable();
   }
 
   emit(message: IMessage) {
@@ -54,10 +50,6 @@ export class BusService {
   emitUserToken(userToken: string) {
     console.log('emitUserToken:', userToken);
     this.userToken$.next(userToken);
-  }
-  emitPageSchema(schema: any) {
-    console.log('emitPageSchema:', schema);
-    this.pageSchema$.next(schema);
   }
 
   private getMessageFromError(error) {

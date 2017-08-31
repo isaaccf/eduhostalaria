@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { SchemaService } from 'app/tools/components/schema.service';
 import { IOrganization } from "app/tools/organization.model";
 import { SecurityService } from "app/tools/security.service";
 
@@ -13,23 +12,7 @@ export class MeService {
   private usersUrl = '_/users';
   private credentialsUrl = 'credentials';
 
-  constructor(private http: HttpClient, private schemaService: SchemaService, private security: SecurityService) { }
-
-  getMeSchema(): Observable<any> {
-    return this.schemaService.getSchema('me');
-  }
-
-  getChangePasswordSchema(): Observable<any> {
-    return this.schemaService.getSchema('change_password');
-  }
-
-  getMeGodSchema(): Observable<any> {
-    return this.schemaService.getSchema('me_god');
-  }
-
-  getMeOrganizationsSchema(): Observable<any> {
-    return this.schemaService.getSchema('me_organizations');
-  }
+  constructor(private http: HttpClient, private security: SecurityService) { }
 
   getOrganizationsCount(): Observable<number> {
     return this.http

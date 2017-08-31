@@ -15,10 +15,6 @@ export class OrganizationService {
       .get<IOrganization>(`${this.organizationsUrl}/${slug}`)
   }
 
-  getViewSchema(): Observable<IWidgetSchema> {
-    return this.schemaService.getSchema('organization');
-  }
-
   getSchemaValues(form: IFormSchema, target: any) {
     return this.schemaService.populateDefaultValues(form, target)
   }

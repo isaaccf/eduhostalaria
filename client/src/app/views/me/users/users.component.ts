@@ -2,6 +2,7 @@ import { MeService } from '../me.service';
 import { BusService } from '../../../tools/bus.service';
 import { Component, OnInit } from '@angular/core';
 import { IWidgetSchema, IReportSchema, IFormSchema } from 'app/tools/schema.model';
+import { SchemaService } from "app/tools/components/schema.service";
 
 @Component({
   selector: 'ab-users',
@@ -13,19 +14,16 @@ export class UsersComponent implements OnInit {
   reportSchema: IReportSchema;
   createFormSchema: IFormSchema;
   users: any[];
-  constructor(private bus: BusService, private me: MeService) { }
+  constructor(private bus: BusService, private me: MeService, private schema: SchemaService) { }
 
   ngOnInit() {
-    this.bus
-      .getPageSchema$()
-      .takeWhile(() => this.actionSchema == null)
+    this.schema
+      .getSchema$('me_users')
       .subscribe(schemas => {
-        if (schemas && schemas.metadata && schemas.metadata.name === 'me_users') {
-          this.actionSchema = schemas.actions;
-          this.createFormSchema = schemas.create;
-          this.reportSchema = schemas.report;
-          this.getUsers();
-        }
+        this.actionSchema = schemas.actions;
+        this.createFormSchema = schemas.create;
+        this.reportSchema = schemas.report;
+        this.getUsers();
       });
   }
 

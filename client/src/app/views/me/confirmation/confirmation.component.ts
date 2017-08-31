@@ -24,7 +24,7 @@ export class ConfirmationComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private bus: BusService,
-    private schemaService: SchemaService,
+    private schema: SchemaService,
     private securityService: SecurityService) { }
 
   ngOnInit() {
@@ -32,11 +32,11 @@ export class ConfirmationComponent implements OnInit {
       .subscribe(params => {
         this.userId = params['user_id'];
       });
-    this.bus
-      .getPageSchema$()
-      .subscribe(schemas => {
-        this.panelSchema = schemas.panel;
-        this.formSchema = schemas.form;
+    this.schema
+      .getSchema$('me_confirmation')
+      .subscribe(schema => {
+        this.panelSchema = schema.panel;
+        this.formSchema = schema.form;
         this.loadedMetadata = true;
       });
   }
