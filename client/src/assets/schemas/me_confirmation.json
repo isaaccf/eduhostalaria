@@ -1,9 +1,7 @@
 {
-  "panel": {
-    "header": {
-      "title": "Benvido",
-      "subtitle": "Por favor, asigna un contrasinal para confirmar a túa conta."
-    }
+  "header": {
+    "title": "Benvido",
+    "subtitle": "Por favor, asigna un contrasinal para confirmar a túa conta."
   },
   "form": {
     "title": "Confirmación de conta",

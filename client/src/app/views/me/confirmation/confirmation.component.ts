@@ -13,13 +13,7 @@ import { Level } from "app/tools/message.model";
 })
 export class ConfirmationComponent implements OnInit {
 
-  loadedMetadata = false;
-  loadingPanelSchema = {
-    loading: true,
-    empty: false
-  };
-  public panelSchema: IWidgetSchema;
-  public formSchema: IFormSchema;
+  public schemas;
   public userId: string;
   constructor(
     private route: ActivatedRoute,
@@ -34,11 +28,7 @@ export class ConfirmationComponent implements OnInit {
       });
     this.schema
       .getSchema$('me_confirmation')
-      .subscribe(schema => {
-        this.panelSchema = schema.panel;
-        this.formSchema = schema.form;
-        this.loadedMetadata = true;
-      });
+      .subscribe(schemas => this.schemas = schemas);
   }
 
 

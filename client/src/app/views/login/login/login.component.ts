@@ -12,7 +12,7 @@ import 'rxjs/add/operator/takeWhile';
   styles: []
 })
 export class LoginComponent implements OnInit {
-  public formSchema: IFormSchema;
+  public schemas;
 
   constructor(
     private security: SecurityService,
@@ -20,7 +20,9 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.schema.getSchema$('login').subscribe(schema => this.formSchema = schema.form);
+    this.schema
+      .getSchema$('login')
+      .subscribe(schemas => this.schemas = schemas);
   }
 
   onSend(credentials: IUserCredential) {

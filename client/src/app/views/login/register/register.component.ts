@@ -11,7 +11,8 @@ import { SchemaService } from "app/tools/components/schema.service";
   styles: []
 })
 export class RegisterComponent implements OnInit {
-  public formSchema: IFormSchema;
+
+  public schemas;
 
   constructor(
     private security: SecurityService,
@@ -20,7 +21,9 @@ export class RegisterComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.schema.getSchema$('register').subscribe(schema => this.formSchema = schema.form);
+    this.schema
+      .getSchema$('register')
+      .subscribe(schemas => this.schemas = schemas);
   }
 
   onSend(credentials) {

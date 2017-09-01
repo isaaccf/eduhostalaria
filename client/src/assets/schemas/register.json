@@ -1,9 +1,7 @@
 {
-  "panel": {
-    "header": {
-      "title": "Rexistro para crear unha conta",
-      "subtitle": "Por favor, escribe o teu email e as túa contrasinal para rexistrarte na aplicación."
-    }
+  "header": {
+    "title": "Rexistro para crear unha conta",
+    "subtitle": "Por favor, escribe o teu email e as túa contrasinal para rexistrarte na aplicación."
   },
   "form": {
     "title": "Log In",

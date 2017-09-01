@@ -1,9 +1,11 @@
 <section *ngIf="loadedMetadata;else loading">
-  <ab-tile [schema]="schemas">
-  </ab-tile>
-  <ab-form [formSchema]="formSchema"
-           (send)="onSend($event)">
-  </ab-form>
+  <ab-panel [schema]="schemas">
+    <panel-body>
+      <ab-form [formSchema]="schemas.form"
+               (send)="onSend($event)">
+      </ab-form>
+    </panel-body>
+  </ab-panel>
 </section>
 <ng-template #loading>
   <ab-load-empty-state [schema]="loadingPanelSchema">

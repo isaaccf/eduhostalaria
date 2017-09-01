@@ -1,9 +1,7 @@
 {
-  "panel": {
-    "header": {
-      "title": "Log In",
-      "subtitle": "Por favor, escribe as túas credenciais para entrar na aplicación."
-    }
+  "header": {
+    "title": "Log In",
+    "subtitle": "Por favor, escribe as túas credenciais para entrar na aplicación."
   },
   "form": {
     "title": "Log In",
