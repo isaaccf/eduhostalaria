@@ -3,7 +3,7 @@
 // Core colors
 $primary-color: #0371b3;
 $primary-color-dark: darken($primary-color, 3%);
-$primary-color-light: lighten($primary-color, 3%);
+$primary-color-light: rgba(3, 113, 179, 0.05);
 $secondary-color: lighten($primary-color, 40%);
 $secondary-color-dark: darken($secondary-color, 3%);
 $secondary-color-light: lighten($secondary-color, 3%);
