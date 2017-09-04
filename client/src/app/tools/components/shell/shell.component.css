@@ -1,8 +1,25 @@
+.container {
+  min-height: calc(100vh - 108px);
+  height: 100%;
+  background: #f7f7f7;
+  padding: 30px 0;
+}
+
 .header-bg {
-  background-color: #f8f9fa;
-  margin-bottom: 10px;
+  background-color: #0371B3;
 }
 
 .show-lg {
   padding: 0px;
+}
+
+footer {
+  text-align: center;
+  background: #0A4F7F;
+  padding: 0.6rem 0;
+}
+
+footer p {
+  color: #fff;
+  margin: 0;
 }

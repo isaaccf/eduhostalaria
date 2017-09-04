@@ -1,6 +1,6 @@
 .sidebar-responsive {
   height: 100%;
-  width: 200px;
+  width: 280px;
   background-color: #f8f9fa;
   margin-top: -30px;
   padding-top: 20px;
@@ -19,4 +19,8 @@
 
 a:hover {
   text-decoration: none;
+}
+
+.icon {
+  margin-right: 8px;
 }

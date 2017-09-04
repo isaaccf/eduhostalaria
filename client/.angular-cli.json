@@ -19,9 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "ab",
       "styles": [
-        "../node_modules/spectre.css/spectre.less",
-        "../node_modules/spectre.css/spectre-icons.less",
-        "../node_modules/spectre.css/spectre-exp.less",
+        "assets/css/spectre/spectre.scss",
+        "assets/css/spectre/spectre-icons.scss",
+        "assets/css/spectre/spectre-exp.scss",
         "styles.css"
       ],
       "scripts": [],

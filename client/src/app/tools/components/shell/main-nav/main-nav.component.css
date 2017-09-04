@@ -1,4 +1,18 @@
 .menu {
   min-width: 0 !important;
+  border: 0.05rem solid #e7e9ed;
+  border-radius: 0.1rem;
+  box-shadow: none;
 }
 
+.menu .menu-item > a:focus, .menu .menu-item > a:hover {
+  background: rgba(3, 113, 179, 0.05);
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.divider {
+  text-align: center;
+}

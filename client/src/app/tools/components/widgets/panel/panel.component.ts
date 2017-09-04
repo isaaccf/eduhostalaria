@@ -4,7 +4,7 @@ import { IWidgetSchema, IKeyValue } from 'app/tools/schema.model';
 @Component({
   selector: 'ab-panel',
   templateUrl: './panel.component.html',
-  styles: []
+  styleUrls: ['./panel.component.css']
 })
 export class PanelComponent implements OnInit {
 

@@ -1,16 +1,31 @@
 .navbar {
+  height: 60px;
   padding: 5px 0px;
   margin: auto;
 }
 
-a {
-  text-decoration: none;
+.avatar {
+  background-color: #fff;
+  color: #0371b3;
+}
+
+.navbar-brand {
+  color: #fff;
+  text-transform: uppercase;
 }
 
 .icon {
   margin-right: 5px;
 }
 
+.icon-menu, .icon-cross {
+  color: #fff;
+}
+
 .column {
   padding: 0rem 1rem;
+}
+
+a {
+  text-decoration: none;
 }
