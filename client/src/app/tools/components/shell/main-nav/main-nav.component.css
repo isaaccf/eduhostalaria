@@ -3,6 +3,7 @@
   border: 0.05rem solid #e7e9ed;
   border-radius: 0.1rem;
   box-shadow: none;
+  margin-top: -4px;
 }
 
 .active-link, .menu .menu-item > a:focus, .menu .menu-item > a:hover {

@@ -6,3 +6,7 @@
 form {
   padding: 0px !important;
 }
+
+.btn:focus, .btn:hover {
+  background: rgba(3, 113, 179, 0.05);
+}

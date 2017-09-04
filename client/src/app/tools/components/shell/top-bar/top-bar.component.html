@@ -1,24 +1,20 @@
-<nav class="columns">
-  <div class="column col-12">
-    <header class="navbar">
-      <section class="navbar-section">
-        <button *ngIf="showResponsive" class="btn btn-lg btn-link btn-action show-lg" (click)="onHideResponsive()">
+<header class="navbar">
+  <section class="navbar-section">
+    <button *ngIf="showResponsive" class="btn btn-lg btn-link btn-action show-lg" (click)="onHideResponsive()">
           <i class="icon icon-cross"></i>
         </button>
-        <button *ngIf="!showResponsive" class="btn btn-lg btn-link btn-action show-lg" (click)="onShowResponsive()">
+    <button *ngIf="!showResponsive" class="btn btn-lg btn-link btn-action show-lg" (click)="onShowResponsive()">
           <i class="icon icon-menu"></i>
         </button>
-        <a routerLink="" class="navbar-brand mr-10">{{ title }}</a>
-      </section>
-      <section *ngIf="user" class="navbar-section">
-        <a routerLink="me">
-          <figure class="avatar" [attr.data-initial]="user.name?.substring(0,2)"></figure>
-        </a>
-      </section>
-      <section *ngIf="!user" class="navbar-section">
-        <a routerLink='login'>
+    <a routerLink="" class="navbar-brand mr-10">{{ title }}</a>
+  </section>
+  <section *ngIf="user" class="navbar-section">
+    <a routerLink="me">
+      <figure class="avatar" [attr.data-initial]="user.name?.substring(0,2)"></figure>
+    </a>
+  </section>
+  <section *ngIf="!user" class="navbar-section">
+    <a routerLink='login'>
           <i class="icon icon-people"></i> Log In</a>
-      </section>
-    </header>
-  </div>
-</nav>
+  </section>
+</header>
