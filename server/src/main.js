@@ -40,8 +40,7 @@ process.on('unhandledRejection', (err) => {
 logger.info(config);
 const app = express();
 const mongoService = require('./app/tools/mongo.service');
-logger.info(process.env.PORT);
-logger.info(process.env.port);
+
 config.port = process.env.PORT || config.port;
 mongoService.connect()
   .then(() => {
@@ -51,7 +50,5 @@ mongoService.connect()
   .catch((err) => {
     logger.warn('No MongoDB');
     logger.error(err);
-    middleware.useMiddleware(app);
-    app.listen(config.port, () => logger.info(`Listening on port ${config.port}`));
   });
 

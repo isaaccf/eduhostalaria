@@ -4,7 +4,7 @@ const config = require('../../config/dev.json');
 const utils = require('./mongo.utils');
 
 const mongoCfg = config.mongo;
-const mongoUri = `mongodb://${mongoCfg.host}:${mongoCfg.port}/${mongoCfg.database}`;
+const mongoUri = process.env.MONGODB_URI || `mongodb://${mongoCfg.host}:${mongoCfg.port}/${mongoCfg.database}`;
 let sharedMongoConnection;
 
 module.exports.getDb = async () => sharedMongoConnection || this.connect();
