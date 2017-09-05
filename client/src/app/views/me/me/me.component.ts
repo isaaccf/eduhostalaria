@@ -6,7 +6,7 @@ import { BusService } from 'app/tools/bus.service';
 import 'rxjs/add/operator/takeWhile';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { IOrganization } from "app/tools/organization.model";
+import { IOrganization } from 'app/tools/organization.model';
 
 
 @Component({

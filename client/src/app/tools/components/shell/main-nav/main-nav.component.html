@@ -1,28 +1,17 @@
 <ul class="menu">
-  <header>
-    <li class="divider"
-        [attr.data-content]="title">
-    </li>
-  </header>
   <main>
     <li class="menu-item">
-      <a *ngIf="user"
-         routerLink="me"
-         routerLinkActive="active-link"
-         [routerLinkActiveOptions]="{exact: true}">
+      <a *ngIf="user" routerLink="me" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
         <i class="icon icon-people mr-5"></i> {{user.name}}
       </a>
-      <a *ngIf="!user"
-         routerLink="login">
+      <a *ngIf="!user" routerLink="login">
         <i class="icon icon-people mr-5"></i> Log In
       </a>
     </li>
-    <li class="divider"></li>
+    <li class="divider" [attr.data-content]="title"></li>
     <ng-container *ngFor="let menuLink of menuLinks">
       <li class="menu-item">
-        <a [routerLink]="menuLink.link"
-           routerLinkActive="active-link"
-           [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="menuLink.link" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
         <i [class]="'icon mr-5 ' + menuLink.icon "></i>
         {{ menuLink.label }}
       </a>
@@ -33,9 +22,7 @@
       <div class="menu-badge">
         <label class="label label-primary">{{numMessages}}</label>
       </div>
-      <a routerLink="messages"
-         routerLinkActive="active-link"
-         [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="messages" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
         <i class="icon icon-mail mr-5"></i> Mensaxes
       </a>
     </li>

@@ -8,7 +8,7 @@ import { IAction, IKeyValue } from 'app/tools/schema.model';
 })
 export class ActionComponent implements OnInit {
   @Input() schema: IAction;
-  @Input() btnClass = 'btn-primary';
+  @Input() btnClass?= 'btn-primary';
   @Output() action = new EventEmitter<IKeyValue>();
 
   constructor() { }
