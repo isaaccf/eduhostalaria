@@ -6,13 +6,13 @@ import { BusService } from 'app/tools/bus.service';
 import { Level } from 'app/tools/message.model';
 import { IFormSchema, IWidgetSchema, IReportSchema, ILoadEmptyStateSchema, IKeyValue } from 'app/tools/schema.model';
 import 'rxjs/add/operator/takeWhile';
-import { MeService } from "app/views/me/me.service";
-import { SchemaService } from "app/tools/components/schema.service";
+import { MeService } from 'app/views/me/me.service';
+import { SchemaService } from 'app/tools/components/schema.service';
 
 @Component({
   selector: 'ab-organizations',
   templateUrl: './organizations.component.html',
-  styles: []
+  styleUrls: ['./organizations.component.css']
 })
 export class OrganizationsComponent implements OnInit {
   public organizations: any[];
@@ -25,6 +25,7 @@ export class OrganizationsComponent implements OnInit {
   public reportSchema: IReportSchema;
   public setAdminFormSchema: IFormSchema;
   public cardSchema: IWidgetSchema;
+  public panelSchema: IWidgetSchema = {};
 
   public name = 'organizations';
   constructor(
