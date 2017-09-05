@@ -19,7 +19,8 @@
       "pass": "xxxxssss11111"
     },
     "debug": true,
-    "logger": true
+    "logger": true,
+    "urlbase": "http://localhost:4200"
   },
   "path": ""
 }
