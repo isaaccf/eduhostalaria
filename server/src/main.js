@@ -40,7 +40,7 @@ process.on('unhandledRejection', (err) => {
 logger.info(config);
 const app = express();
 const mongoService = require('./app/tools/mongo.service');
-
+config.port = process.env.port || config.port;
 mongoService.connect()
   .then(() => {
     middleware.useMiddleware(app);
