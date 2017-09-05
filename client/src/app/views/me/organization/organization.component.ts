@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MeService } from "app/views/me/me.service";
-import { SchemaService } from "app/tools/components/schema.service";
-import { BusService } from "app/tools/bus.service";
-import { IFormSchema, IWidgetSchema } from "app/tools/schema.model";
+import { MeService } from 'app/views/me/me.service';
+import { SchemaService } from 'app/tools/components/schema.service';
+import { BusService } from 'app/tools/bus.service';
+import { IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
 
 
 @Component({
   selector: 'ab-organization',
   templateUrl: './organization.component.html',
-  styles: []
+  styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent implements OnInit {
   public schemas;

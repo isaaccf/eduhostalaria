@@ -4,7 +4,7 @@ import { IWidgetSchema, IKeyValue } from 'app/tools/schema.model';
 @Component({
   selector: 'ab-tile',
   templateUrl: './tile.component.html',
-  styles: []
+  styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
 

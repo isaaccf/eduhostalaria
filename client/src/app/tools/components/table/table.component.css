@@ -1,7 +1,9 @@
 .table-container {
   overflow-x: auto;
+  padding-bottom: 16px;
 }
 
 td p {
   margin: 0;
 }
+
