@@ -1,0 +1,18 @@
+{
+  "header": {
+    "title": "$.organization.name",
+    "subtitle": "$.organization.slogan",
+    "icon": "icon-flag"
+  },
+  "actions": [
+    {
+      "label": "$.organization.name",
+      "link": "/organization/$.organization.slug"
+    }
+  ],
+  "fields": [
+    {
+      "description": ""
+    }
+  ]
+}
