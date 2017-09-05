@@ -43,7 +43,7 @@ module.exports.useMiddleware = (app) => {
 
   app.all('*', (req, res, next) => {
     if (!req.originalUrl.includes('/_/')) {
-      return res.sendFile(path.join(__dirname, '../../public/index.html'));
+      return next();
     }
     let user = null;
     const authHeader = req.get('authorization');
@@ -66,7 +66,7 @@ module.exports.useMiddleware = (app) => {
 
   app.use((req, res, next) => {
     if (!req.originalUrl.includes('/api/')) {
-      res.send();
+      return res.sendFile(path.join(__dirname, '../../public/index.html'));
     }
     const err = new Error(`End point Not Found: ${req.method} ${req.originalUrl} `);
     err.status = 404;
