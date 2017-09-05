@@ -25,3 +25,9 @@ a:hover {
 .icon {
   margin-right: 8px;
 }
+
+@media (max-width: 960px) {
+  .sidebar-responsive {
+    margin-left: -29px;
+  }
+}
