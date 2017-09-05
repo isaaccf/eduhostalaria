@@ -9,5 +9,10 @@
       "label": "$.organization.name",
       "link": "/organization/$.organization.slug"
     }
+  ],
+  "fields": [
+    {
+      "description": ""
+    }
   ]
 }
