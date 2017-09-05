@@ -17,14 +17,14 @@ module.exports.createTransport = () => {
 module.exports.sendMail = message => this.getTransporter().sendMail(message);
 
 module.exports.sendWellcome = (user, templateName) => {
-  const urlbase = config.mailer.urlbase;
+  const url = process.env.URLBASE || config.mailer.urlbase;
   const template = wellcome[templateName];
   const message = {
     from: config.mailer.auth.user,
     to: user.email,
     subject: template.subject,
-    text: parseTemplate(template.text, { user, urlbase }),
-    html: parseTemplate(template.html, { user, urlbase }),
+    text: parseTemplate(template.text, { user, url }),
+    html: parseTemplate(template.html, { user, url }),
   };
   this.getTransporter().sendMail(message);
 };

@@ -10,24 +10,14 @@
       "type": "text",
       "label": "Nome",
       "defaultValue": "this.organization.name",
-      "validators": [
-        {
-          "key": "required",
-          "errorMessage": "Nome é requerido"
-        }
-      ]
+      "validators": []
     },
     {
       "key": "slogan",
       "type": "text",
       "label": "O meu centro en cuatro plabras",
       "defaultValue": "this.organization.slogan",
-      "validators": [
-        {
-          "key": "required",
-          "errorMessage": "Un slogan do meu centro é requerido"
-        }
-      ]
+      "validators": []
     },
     {
       "key": "email",

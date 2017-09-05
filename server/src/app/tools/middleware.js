@@ -25,7 +25,6 @@ module.exports.useMiddleware = (app) => {
     dotfiles: 'ignore',
     etag: false,
     extensions: ['htm', 'html'],
-    index: false,
     maxAge: '1d',
     redirect: false,
     setHeaders(res, p, s) {
@@ -66,6 +65,9 @@ module.exports.useMiddleware = (app) => {
   api.createIndex(app);
 
   app.use((req, res, next) => {
+    if (!req.originalUrl.includes('/api/')) {
+      return res.sendFile(path.join(__dirname, '../../public/index.html'));
+    }
     const err = new Error(`End point Not Found: ${req.method} ${req.originalUrl} `);
     err.status = 404;
     return next(err);
