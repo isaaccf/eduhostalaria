@@ -41,3 +41,4 @@ dist
 
 #server environment settings
 server/src/environments/environment.ts
+.DS_Store
