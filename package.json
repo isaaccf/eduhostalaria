@@ -1,0 +1,8 @@
+{
+  "name": "server-reserva-escola",
+  "version": "0.1.0",
+  "description": "Web API para reservar comida nas escolas de FP",
+  "scripts": {
+    "postinstall": "cd server && npm install"
+  }
+}

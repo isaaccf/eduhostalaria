@@ -47,6 +47,8 @@ mongoService.connect()
     app.listen(config.port, () => logger.info(`Listening on port ${config.port}`));
   })
   .catch((err) => {
+    middleware.useMiddleware(app);
+    app.listen(config.port, () => logger.info(`Listening on port ${config.port}`));
     logger.warn('No MongoDB');
     logger.error(err);
   });
