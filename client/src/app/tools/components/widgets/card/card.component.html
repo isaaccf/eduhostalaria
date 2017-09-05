@@ -1,42 +1,18 @@
-<div *ngIf="schema"
-     class="">
-  <div class="card">
-    <header *ngIf="schema.header"
-            class="card-header">
-      <section class="text-large text-bold">
-        <i *ngIf="schema.header.icon"
-           [class]="'mr-10 icon ' + schema.header.icon"></i>
-        <strong *ngIf="schema.header.counter"
-                class="label label-primary">{{ schema.header.counter }}
-</strong>
-        <span *ngIf="schema.header.title"
-              class="mt-10">{{ schema.header.title }}</span>
-      </section>
-      <section *ngIf="schema.header.subtitle"
-               class="text-gray">{{ schema.header.subtitle }}
-      </section>
-    </header>
-    <main>
-      <div *ngIf="data && schema.fields"
-           class="card-body">
-        <dl *ngFor="let field of schema.fields">
-          <dt class="inline">{{ field.label }} :</dt>
-          <dd class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
-        </dl>
-      </div>
-      <div *ngIf="schema.image"
-           class="card-image">
-        <img class="img-responsive"
-             [src]="schema.image" />
-      </div>
-    </main>
-    <footer *ngIf="schema.actions"
-            class="card-footer">
-      <ng-container *ngFor="let action of schema.actions">
-        <ab-action class="ml-10 float-right "
-                   [schema]="action"
-                   (action)="onClick($event)"></ab-action>
-      </ng-container>
-    </footer>
+<!-- <i *ngIf="schema.header.icon" [class]="'mr-10 icon ' + schema.header.icon"></i>
+<strong *ngIf="schema.header.counter" class="label label-primary">{{ schema.header.counter }} </strong> -->
+
+<div *ngIf="schema" class="card">
+  <div *ngIf="schema.image" class="card-image">
+    <img class="img-responsive" [src]="schema.image">
+  </div>
+  <div *ngIf="schema.header" class="card-header">
+    <ng-container *ngFor="let action of schema.actions">
+      <ab-action class="float-right " [schema]="action" (action)="onClick($event)"></ab-action>
+    </ng-container>
+    <div *ngIf="schema.header.title" class="card-title h5">{{ schema.header.title }}</div>
+    <div *ngIf="schema.header.subtitle" class="card-subtitle text-gray">{{ schema.header.subtitle }}</div>
+  </div>
+  <div *ngIf="data && schema.fields" class="card-body">
+    {{ schema.fields[0].description }}
   </div>
 </div>

@@ -5,7 +5,7 @@ import { SchemaService } from 'app/tools/components/schema.service';
 @Component({
   selector: 'ab-card',
   templateUrl: './card.component.html',
-  styles: []
+  styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
   @Input() public schema: IWidgetSchema;
