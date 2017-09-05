@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const jwt = require('./jwt.service');
 const api = require('../lib/api');
 const logger = require('winston');
+const express = require('express');
+const path = require('path');
 
 module.exports.useMiddleware = (app) => {
   app.disable('x-powered-by');
@@ -18,6 +20,20 @@ module.exports.useMiddleware = (app) => {
     skip: () => app.get('env') === 'test',
     stream: logger.stream,
   }));
+
+  const options = {
+    dotfiles: 'ignore',
+    etag: false,
+    extensions: ['htm', 'html'],
+    index: false,
+    maxAge: '1d',
+    redirect: false,
+    setHeaders(res, p, s) {
+      res.set('x-timestamp', Date.now());
+    },
+  };
+
+  app.use(express.static(path.join(__dirname, '../../public'), options));
 
   app.use(cors());
 
