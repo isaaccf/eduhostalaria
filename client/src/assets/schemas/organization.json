@@ -92,6 +92,18 @@
       "validators": []
     },
     {
+      "key": "rooms",
+      "type": "number",
+      "label": "Número de comedores",
+      "defaultValue": "this.organization.rooms",
+      "validators": [
+        {
+          "key": "required",
+          "errorMessage": "O número de comedores é requerido"
+        }
+      ]
+    },
+    {
       "key": "capacity",
       "type": "number",
       "label": "Aforo",
@@ -104,9 +116,16 @@
       ]
     },
     {
+      "key": "capacity2",
+      "type": "number",
+      "label": "Aforo se hai segundo comedor",
+      "defaultValue": "this.organization.capacity2",
+      "validators": []
+    },
+    {
       "key": "standardPrice",
       "type": "number",
-      "label": "Precio menú",
+      "label": "Precio menú normal",
       "defaultValue": "this.organization.standardPrice",
       "validators": [
         {
@@ -118,7 +137,7 @@
     {
       "key": "reducedPrice",
       "type": "number",
-      "label": "Precio reducido",
+      "label": "Precio menú reducido",
       "defaultValue": "this.organization.reducedPrice",
       "validators": [
         {
