@@ -38,6 +38,18 @@ export class TableComponent implements OnInit {
     return this.schemaService.valueByPath(target, path);
   }
 
+  getClass(value: string) {
+    switch (value) {
+      case 'ACTIVE':
+        return 'label-success';
+      case 'PENDING':
+        return 'label-warning';
+      case 'CANCELED':
+        return 'label-warning';
+      case 'DISABLED':
+        return 'label-error';
+    }
+  }
 
 }
 

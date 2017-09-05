@@ -11,13 +11,7 @@
     <tbody>
       <tr *ngFor="let row of data" (click)="onRowClick(row)">
         <td *ngFor="let field of schema.fields">
-          <ng-container [ngSwitch]="field">
-            <span *ngSwitchCase="valueByPath(row,field?.key) === 'ACTIVE'" class="label label-success">{{ valueByPath(row,field?.key) }}</span>
-            <span *ngSwitchCase="valueByPath(row,field?.key) === 'PENDING'" class="label label-warning">{{ valueByPath(row,field?.key) }}</span>
-            <span *ngSwitchCase="valueByPath(row,field?.key) === 'CANCELED'" class="label label-warning">{{ valueByPath(row,field?.key) }}</span>
-            <span *ngSwitchCase="valueByPath(row,field?.key) === 'DISABLED'" class="label label-error">{{ valueByPath(row,field?.key) }}</span>
-            <span *ngSwitchDefault>{{ valueByPath(row,field?.key) }}</span>
-          </ng-container>
+          <span [ngClass]="'label ' + getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) }}</span>
         </td>
         <td *ngFor="let action of schema.actions">
           <ab-action class="centered" btnClass='btn-action' noLabel="true" [schema]="action" (action)="onActionClick($event, row)"></ab-action>
