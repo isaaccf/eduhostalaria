@@ -17,7 +17,7 @@ module.exports.createTransport = () => {
 module.exports.sendMail = message => this.getTransporter().sendMail(message);
 
 module.exports.sendWellcome = (user, templateName) => {
-  const url = config.mailer.urlbase;
+  const url = process.env.URLBASE || config.mailer.urlbase;
   const template = wellcome[templateName];
   const message = {
     from: config.mailer.auth.user,
