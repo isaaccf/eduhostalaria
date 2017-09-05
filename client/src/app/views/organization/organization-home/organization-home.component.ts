@@ -15,6 +15,7 @@ import { SchemaService } from 'app/tools/components/schema.service';
   styles: []
 })
 export class OrganizationHomeComponent implements OnInit {
+  schemaService: any;
   organizationsUrl = 'organizations';
   public showEdition = false;
   loadedMetadata = false;

@@ -10,6 +10,12 @@
     </section>
   </header>
   <main class="panel-body">
+    <div *ngIf="data && schema.fields" class="card-body">
+      <dl *ngFor="let field of schema.fields">
+        <dt class="inline">{{ field.label }} :</dt>
+        <dd class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
+      </dl>
+    </div>
     <ng-content select="panel-body"></ng-content>
   </main>
   <footer *ngIf="schema.actions" class="panel-footer">

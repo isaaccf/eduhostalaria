@@ -1,6 +1,3 @@
-<!-- <i *ngIf="schema.header.icon" [class]="'mr-10 icon ' + schema.header.icon"></i>
-<strong *ngIf="schema.header.counter" class="label label-primary">{{ schema.header.counter }} </strong> -->
-
 <div *ngIf="schema" class="card">
   <div *ngIf="schema.image" class="card-image">
     <img class="img-responsive" [src]="schema.image">
@@ -11,8 +8,5 @@
     </ng-container>
     <div *ngIf="schema.header.title" class="card-title h5">{{ schema.header.title }}</div>
     <div *ngIf="schema.header.subtitle" class="card-subtitle text-gray">{{ schema.header.subtitle }}</div>
-  </div>
-  <div *ngIf="data && schema.fields" class="card-body">
-    {{ schema.fields[0].description }}
   </div>
 </div>

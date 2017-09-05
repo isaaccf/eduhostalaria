@@ -8,9 +8,10 @@ import { SchemaService } from 'app/tools/components/schema.service';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
+
   @Input() public schema: IWidgetSchema;
-  @Input() public data: any;
   @Output() send = new EventEmitter<IKeyValue>();
+
   constructor(private schemaService: SchemaService) { }
 
   ngOnInit() {

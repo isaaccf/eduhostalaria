@@ -4,7 +4,7 @@ import { ILoadEmptyStateSchema } from 'app/tools/schema.model';
 @Component({
   selector: 'ab-load-empty-state',
   templateUrl: './load-empty-state.component.html',
-  styles: []
+  styleUrls: ['./load-empty-state.component.css']
 })
 export class LoadEmptyStateComponent implements OnInit {
 

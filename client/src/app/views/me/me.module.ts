@@ -9,7 +9,7 @@ import { MeRoutingModule } from 'app/views/me/me.routing';
 import { MeService } from 'app/views/me/me.service';
 import { UsersComponent } from 'app/views/me/users/users.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { OrganizationsComponent } from "app/views/me/organizations/organizations.component";
+import { OrganizationsComponent } from 'app/views/me/organizations/organizations.component';
 import { OrganizationComponent } from './organization/organization.component';
 
 @NgModule({
