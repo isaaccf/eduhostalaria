@@ -25,7 +25,7 @@ module.exports.useMiddleware = (app) => {
     dotfiles: 'ignore',
     etag: false,
     extensions: ['htm', 'html'],
-    index: false,
+    index: true,
     maxAge: '1d',
     redirect: false,
     setHeaders(res, p, s) {
@@ -44,7 +44,7 @@ module.exports.useMiddleware = (app) => {
 
   app.all('*', (req, res, next) => {
     if (!req.originalUrl.includes('/_/')) {
-      return next();
+      return res.sendFile(path.join(__dirname, '../../public/index.html'));
     }
     let user = null;
     const authHeader = req.get('authorization');
@@ -66,6 +66,9 @@ module.exports.useMiddleware = (app) => {
   api.createIndex(app);
 
   app.use((req, res, next) => {
+    if (!req.originalUrl.includes('/api/')) {
+      res.send();
+    }
     const err = new Error(`End point Not Found: ${req.method} ${req.originalUrl} `);
     err.status = 404;
     return next(err);
