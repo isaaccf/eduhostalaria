@@ -6,12 +6,12 @@
        class="icon icon-stop"></i>
   </div>
   <h4 *ngIf="schema.loading"
-      class="empty-title">Loading, please wait....</h4>
+      class="empty-title">Cargando, espere por favor....</h4>
   <h4 *ngIf="!schema.loading && schema.empty"
-      class="empty-title">No data yet!!!</h4>
+      class="empty-title">Sin datos polo momento!!!</h4>
   <div *ngIf="schema.action"
        class="empty-action">
-    <p class="empty-subtitle">Click to start.</p>
+    <p class="empty-subtitle">Click para empezar.</p>
     <ab-action [schema]="schema.action"></ab-action>
   </div>
 </aside>

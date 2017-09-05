@@ -2,28 +2,28 @@
   "actions": {
     "header": {
       "title": "Centros",
-      "subtitle": "Manage your organizations and its administrators",
+      "subtitle": "Administración dos centros de formación",
       "icon": "icon-flag"
     },
     "actions": [
       {
-        "label": "Create New",
+        "label": "Crear un novo",
         "key": "create_new"
       }
     ]
   },
   "create": {
-    "title": "New Organization",
-    "submitLabel": "Save Organization",
+    "title": "Novo centro",
+    "submitLabel": "Guardar centro",
     "controls": [
       {
         "key": "name",
         "type": "text",
-        "label": "Organization Name",
+        "label": "Nome",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Name of organization is required"
+            "errorMessage": "O nome do centro é requerido"
           }
         ]
       }
@@ -31,17 +31,17 @@
   },
   "report": {
     "header": {
-      "title": "List of Organizations"
+      "title": "Lista de centros"
     },
-    "emptyMessage": "There aren't any organizations to display :(",
+    "emptyMessage": "Non hay centros para ver :(",
     "fields": [
       {
-        "label": "Organization",
+        "label": "Centro",
         "key": "name",
         "type": "string"
       },
       {
-        "label": "Administrator",
+        "label": "Director",
         "key": "admin.name",
         "type": "string"
       },
@@ -56,39 +56,39 @@
         "label": "",
         "key": "setAdmin",
         "icon": "icon-people",
-        "title": "Adm"
+        "title": "Dir"
       },
       {
         "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Del"
+        "title": "Bor"
       }
     ]
   },
   "setAdmin": {
-    "title": "Invite Administrator",
-    "submitLabel": "Send invitation",
+    "title": "Invitar Director",
+    "submitLabel": "Enviar invitación",
     "controls": [
       {
         "key": "name",
         "type": "text",
-        "label": "Administrator Name",
+        "label": "Nome do director",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Name of the administrator is required"
+            "errorMessage": "O nome do director é requerido"
           }
         ]
       },
       {
         "key": "email",
         "type": "email",
-        "label": "Administrator Email",
+        "label": "Email do director",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Email for send invitation is required"
+            "errorMessage": "O email para enviar a invitación é requerido"
           }
         ]
       }
