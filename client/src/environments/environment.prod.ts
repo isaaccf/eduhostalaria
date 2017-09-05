@@ -2,8 +2,8 @@ export const environment = {
   production: false,
   appName: 'Reservas',
   appTitle: 'Reservas Escolas',
-  apiUrl: 'http://localhost:2000/api/',
-  assetsUrl: 'http://localhost:2000/',
+  apiUrl: 'https://eduhostalaria.herokuapp.com/api/',
+  assetsUrl: 'https://eduhostalaria.herokuapp.com/',
   secret: 'secret',
   godEmail: 'admin@agorabinaria.com'
 };
