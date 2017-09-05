@@ -1,3 +1,7 @@
 .table-container {
   overflow-x: auto;
 }
+
+td p {
+  margin: 0;
+}
