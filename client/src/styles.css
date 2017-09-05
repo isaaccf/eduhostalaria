@@ -10,3 +10,11 @@ form {
 .btn:focus, .btn:hover {
   background: rgba(3, 113, 179, 0.05);
 }
+
+.form-group button {
+  margin-top: 0 !important;
+}
+
+.panel-footer.form-group {
+  margin: 0 -16px !important;
+}

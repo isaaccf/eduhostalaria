@@ -62,7 +62,7 @@ export interface IHeader {
 }
 
 export interface IWidgetSchema {
-  header: IHeader;
+  header?: IHeader;
   type?: 'panel' | 'card' | 'tile';
   image?: string,
   counter?: number;

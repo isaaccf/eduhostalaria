@@ -2,18 +2,21 @@ import { MeService } from '../me.service';
 import { BusService } from '../../../tools/bus.service';
 import { Component, OnInit } from '@angular/core';
 import { IWidgetSchema, IReportSchema, IFormSchema } from 'app/tools/schema.model';
-import { SchemaService } from "app/tools/components/schema.service";
+import { SchemaService } from 'app/tools/components/schema.service';
 
 @Component({
   selector: 'ab-users',
   templateUrl: './users.component.html',
-  styles: []
+  styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+
+  panelSchema: IWidgetSchema = {};
   actionSchema: IWidgetSchema;
   reportSchema: IReportSchema;
   createFormSchema: IFormSchema;
   users: any[];
+
   constructor(private bus: BusService, private me: MeService, private schema: SchemaService) { }
 
   ngOnInit() {
@@ -34,7 +37,7 @@ export class UsersComponent implements OnInit {
   }
   onCreate(data) {
     console.log('creating user: ', data);
-    this.me.inviteUser(data).subscribe(r => this.getUsers());;
+    this.me.inviteUser(data).subscribe(r => this.getUsers());
   }
   onDelete(data) {
     console.log('deleting user: ', data);
@@ -42,7 +45,7 @@ export class UsersComponent implements OnInit {
   }
   onRowAction(data) {
     console.log(`action : ${data.key} over user: ${data.value}`);
-    if (data.key == 'aprobe') {
+    if (data.key === 'aprobe') {
       this.me.approbeUser(data.value).subscribe(r => this.getUsers());
     } else if (data.key === 'disable') {
       this.me.disableUser(data.value).subscribe(r => this.getUsers());

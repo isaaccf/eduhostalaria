@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Location } from '@angular/common';
 import { IOrganization, OrganizationService } from 'app/views/organization/organization.service';
-import { SchemaService } from "app/tools/components/schema.service";
+import { SchemaService } from 'app/tools/components/schema.service';
 
 
 
