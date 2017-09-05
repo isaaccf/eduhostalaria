@@ -25,7 +25,6 @@ module.exports.useMiddleware = (app) => {
     dotfiles: 'ignore',
     etag: false,
     extensions: ['htm', 'html'],
-    index: true,
     maxAge: '1d',
     redirect: false,
     setHeaders(res, p, s) {
