@@ -41,13 +41,13 @@ export class TableComponent implements OnInit {
   getClass(value: string) {
     switch (value) {
       case 'ACTIVE':
-        return 'label-success';
+        return 'label label-success';
       case 'PENDING':
-        return 'label-warning';
+        return 'label label-warning';
       case 'CANCELED':
-        return 'label-warning';
+        return 'label label-warning';
       case 'DISABLED':
-        return 'label-error';
+        return '';
     }
   }
 
