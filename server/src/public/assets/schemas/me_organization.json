@@ -1,0 +1,142 @@
+{
+  "header": {
+    "title": "O meu centro",
+    "subtitle": "Configurar e aportar información sobre o meu centro.",
+    "icon": "icon-edit"
+  },
+  "form": {
+    "title": "Datos do meu centro",
+    "submitLabel": "Guardar os datos",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nome",
+        "defaultValue": "this.organization.name",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nome é requerido"
+          }
+        ]
+      },
+      {
+        "key": "slogan",
+        "type": "text",
+        "label": "O meu centro en cuatro plabras",
+        "defaultValue": "this.organization.slogan",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Un slogan do meu centro é requerido"
+          }
+        ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "this.organization.email",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email é requerido"
+          }
+        ]
+      },
+      {
+        "key": "phone",
+        "type": "text",
+        "label": "Teléfono",
+        "defaultValue": "this.organization.phone",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Teléfono é requerido"
+          }
+        ]
+      },
+      {
+        "key": "address",
+        "type": "text",
+        "label": "Enderezo",
+        "defaultValue": "this.organization.address",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Enderezo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "city",
+        "type": "text",
+        "label": "Cidade",
+        "defaultValue": "this.organization.city",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Cidade é requerido"
+          }
+        ]
+      },
+      {
+        "key": "url",
+        "type": "text",
+        "label": "Páxina web",
+        "defaultValue": "this.organization.url",
+        "validators": []
+      },
+      {
+        "key": "image",
+        "type": "text",
+        "label": "Foto",
+        "defaultValue": "this.organization.image",
+        "validators": []
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Precio menú",
+        "defaultValue": "this.organization.standardPrice",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Precio menú é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "number",
+        "label": "Precio reducido",
+        "defaultValue": "this.organization.reducedPrice",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Precio reducido é requerido"
+          }
+        ]
+      },
+      {
+        "key": "description",
+        "type": "textarea",
+        "label": "Resume amplo do meu centro",
+        "defaultValue": "this.organization.description",
+        "validators": []
+      }
+    ]
+  }
+}
