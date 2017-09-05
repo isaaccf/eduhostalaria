@@ -1,6 +1,7 @@
 export interface IOrganization {
   _id?: string;
   name: string;
+  slogan: string;
   slug: string;
   email: string;
   phone: string;

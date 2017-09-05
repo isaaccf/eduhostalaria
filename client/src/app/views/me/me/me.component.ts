@@ -78,7 +78,7 @@ export class MeComponent implements OnInit {
           this.organization = organization;
           if (this.organization) {
             roleSchema[0].header.title = this.organization.name;
-            roleSchema[0].header.subtitle = this.organization.description;
+            roleSchema[0].header.subtitle = this.organization.slogan;
             // roleSchema[0].actions[0].link = `me/organization/${this.organization.slug}`;
           }
         });
