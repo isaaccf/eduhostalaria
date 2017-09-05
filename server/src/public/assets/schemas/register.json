@@ -1,0 +1,37 @@
+{
+  "header": {
+    "title": "Rexistro para crear unha conta",
+    "subtitle": "Por favor, escribe o teu email e as túa contrasinal para rexistrarte na aplicación."
+  },
+  "form": {
+    "title": "Log In",
+    "submitLabel": "Rexistrarme",
+    "buttonBlock": true,
+    "controls": [
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          }
+        ]
+      },
+      {
+        "key": "password",
+        "type": "password",
+        "label": "Contrasinal",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Contrasinal requerido"
+          }
+        ]
+      }
+    ]
+  }
+}
