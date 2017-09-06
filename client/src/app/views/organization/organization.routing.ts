@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     component: OrganizationHomeComponent,
-    data: { title: 'Organization' }
+    data: { title: 'O Centro' }
   },
   // {
   //   path: ':id',

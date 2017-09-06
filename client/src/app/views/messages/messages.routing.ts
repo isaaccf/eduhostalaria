@@ -7,7 +7,7 @@ import { MessagesComponent } from './messages/messages.component';
 const routes: Routes = [{
   path: '',
   component: MessagesComponent,
-  data: { name: 'messages', title: 'Messages' }
+  data: { name: 'messages', title: 'Mensaxes' }
 }];
 
 @NgModule({
