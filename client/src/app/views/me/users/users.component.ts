@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
   actionSchema: IWidgetSchema;
   reportSchema: IReportSchema;
   createFormSchema: IFormSchema;
+  public cardSchema: IWidgetSchema;
   users: any[];
 
   constructor(private bus: BusService, private me: MeService, private schema: SchemaService) { }
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
         this.actionSchema = schemas.actions;
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
+        this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
         this.getUsers();
       });
   }
