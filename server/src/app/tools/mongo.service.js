@@ -1,16 +1,14 @@
 const MongoClient = require('mongodb').MongoClient;
 
-const config = require('../../config/dev.json');
+const config = require('../tools/config');
 const utils = require('./mongo.utils');
 
-const mongoCfg = config.mongo;
-const mongoUri = process.env.MONGODB_URI || `mongodb://${mongoCfg.host}:${mongoCfg.port}/${mongoCfg.database}`;
 let sharedMongoConnection;
 
 module.exports.getDb = async () => sharedMongoConnection || this.connect();
 
 module.exports.connect = async () => {
-  sharedMongoConnection = await MongoClient.connect(mongoUri);
+  sharedMongoConnection = await MongoClient.connect(config.MONGODB_URI);
   return sharedMongoConnection;
 };
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('./config/dev.json');
+const config = require('./app/tools/config');
 const middleware = require('./app/tools/middleware');
 const logger = require('winston');
 
@@ -41,7 +41,6 @@ logger.info(config);
 const app = express();
 const mongoService = require('./app/tools/mongo.service');
 
-config.port = process.env.PORT || config.port;
 mongoService.connect()
   .then(() => {
     middleware.useMiddleware(app);

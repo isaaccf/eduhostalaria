@@ -1,6 +1,6 @@
 const mailer = require('nodemailer');
 const parseTemplate = require('es6-template-strings');
-const config = require('../../config/dev.json');
+const config = require('../tools/config');
 const wellcome = require('../../config/mailer/wellcome.json');
 
 const mailerCfg = config.mailer;
@@ -17,7 +17,7 @@ module.exports.createTransport = () => {
 module.exports.sendMail = message => this.getTransporter().sendMail(message);
 
 module.exports.sendWellcome = (user, templateName) => {
-  const url = process.env.URLBASE || config.mailer.urlbase;
+  const url = config.URLBASE;
   const template = wellcome[templateName];
   const message = {
     from: config.mailer.auth.user,

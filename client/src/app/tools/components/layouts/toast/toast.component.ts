@@ -34,7 +34,7 @@ export class ToastComponent implements OnInit, OnChanges {
 
   autoCloseIfNoButton() {
     if (!this.closeButton) {
-      const timeout = this.level === Level.ERROR ? 5000 : 3000;
+      const timeout = this.level === Level.ERROR ? 6000 : 3000;
       setTimeout(() => {
         this.show = false;
         this.close.emit(false);

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const logger = require('winston');
-const config = require('../../config/dev.json');
+const config = require('../tools/config');
 
 const secret = config.secret;
 
