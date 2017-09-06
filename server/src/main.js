@@ -38,6 +38,15 @@ process.on('unhandledRejection', (err) => {
 
 
 logger.info(config);
+logger.info(config.mailer.port);
+logger.info(config.mailer.secure);
+logger.info(config.mailer.ignoreTLS);
+
+logger.info(typeof config.mailer.port);
+logger.info(typeof config.mailer.secure);
+logger.info(typeof config.mailer.ignoreTLS);
+
+
 const app = express();
 const mongoService = require('./app/tools/mongo.service');
 
@@ -50,4 +59,3 @@ mongoService.connect()
     logger.warn('No MongoDB');
     logger.error(err);
   });
-
