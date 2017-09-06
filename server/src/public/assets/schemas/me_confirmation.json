@@ -1,6 +1,6 @@
 {
   "header": {
-    "title": "Benvido",
+    "title": "Benvido á plataforma de reservas EduHostalaría",
     "subtitle": "Por favor, asigna un contrasinal para confirmar a túa conta."
   },
   "form": {
@@ -11,7 +11,7 @@
       {
         "key": "password",
         "type": "password",
-        "label": "Contrasinal",
+        "label": "Un Contrasinal que te identifique",
         "validators": [
           {
             "key": "required",

@@ -1,7 +1,7 @@
 {
   "actions": {
     "header": {
-      "title": "Centros",
+      "title": "Centros da plataforma",
       "subtitle": "Administración dos centros de formación",
       "icon": "icon-flag"
     },

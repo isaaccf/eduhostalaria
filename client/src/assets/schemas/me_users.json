@@ -1,8 +1,8 @@
 {
   "actions": {
     "header": {
-      "title": "Usuarios",
-      "subtitle": "Usuarios, estados e roles",
+      "title": "Usuarios ó meu cargo",
+      "subtitle": "Usuarios, estados e roles que podo administrar",
       "icon": "icon-people"
     },
     "actions": [
