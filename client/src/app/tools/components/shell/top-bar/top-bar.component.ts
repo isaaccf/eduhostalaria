@@ -41,7 +41,6 @@ export class TopBarComponent implements OnInit {
         this.toggleResponsive.emit(this.currentState);
       }
     }
-    console.log('Width: ' + event.target.innerWidth);
   }
 
 }
