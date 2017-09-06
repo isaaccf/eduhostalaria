@@ -14,12 +14,20 @@
   text-transform: uppercase;
 }
 
+span.navbar-brand {
+  margin-left: 5px;
+}
+
 .icon {
   margin-right: 5px;
 }
 
 .icon-menu, .icon-cross {
   color: #fff;
+}
+
+.icon-apps {
+  margin-top: -3px;
 }
 
 .column {
