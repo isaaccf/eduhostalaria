@@ -4,7 +4,7 @@ import { Level, IMessage } from 'app/tools/message.model';
 import { IUser } from 'app/tools/user.model';
 import { IAction } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Event, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { environment } from 'environments/environment';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
@@ -38,6 +38,7 @@ export class ShellComponent implements OnInit {
     this.onMessages();
     this.onPageRouteChange();
     this.onUserChange();
+    this.listenRouterChanges();
   }
 
   onPageRouteChange() {
@@ -115,4 +116,13 @@ export class ShellComponent implements OnInit {
     }
     console.log(JSON.stringify(this.menuLinks));
   }
+
+  listenRouterChanges() {
+    this.router.events.subscribe((event: Event) => {
+      if (this.showResponsive) {
+        this.showResponsive = !this.showResponsive;
+      }
+    });
+  }
+
 }

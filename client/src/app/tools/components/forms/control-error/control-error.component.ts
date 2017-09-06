@@ -10,7 +10,7 @@ import { FormToolsService } from 'app/tools/components/forms/form-tools.service'
       <p class="form-input-hint hint-error">{{ formTools.getErrors(form.group,control.key,form.schema) | json }}</p>
     </ng-container>
   `,
-  styles: [` .hint-error { color: #e85600; } `]
+  styles: [` .hint-error { color: #e85600; margin-bottom: 0px; } `]
 })
 export class ControlErrorComponent implements OnInit {
 

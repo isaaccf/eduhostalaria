@@ -1,6 +1,6 @@
 <nav class="columns header-bg">
   <div class="column col-10 col-lg-11 centered">
-    <ab-top-bar [user]="user" [title]="title" (showResponsiveMenu)="showResponsive = $event"></ab-top-bar>
+    <ab-top-bar [user]="user" [title]="title" [showResponsive]="showResponsive" (toggleResponsive)="showResponsive = $event"></ab-top-bar>
   </div>
 </nav>
 <section class="container">

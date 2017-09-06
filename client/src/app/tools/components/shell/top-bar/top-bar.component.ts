@@ -11,11 +11,12 @@ export class TopBarComponent implements OnInit {
 
   @Input() public user: IUser = null;
   @Input() public title = environment.appTitle;
+  @Input() public showResponsive;
 
-  @Output() public showResponsiveMenu = new EventEmitter<boolean>();
+  @Output() public toggleResponsive = new EventEmitter<boolean>();
 
   public userInitials = '?';
-  public showResponsive = false;
+  public currentState = false;
 
   constructor() { }
 
@@ -23,21 +24,21 @@ export class TopBarComponent implements OnInit {
   }
 
   onShowResponsive() {
-    this.showResponsive = true;
-    this.showResponsiveMenu.emit(this.showResponsive);
+    this.currentState = true;
+    this.toggleResponsive.emit(this.currentState);
   }
 
   onHideResponsive() {
-    this.showResponsive = false;
-    this.showResponsiveMenu.emit(this.showResponsive);
+    this.currentState = false;
+    this.toggleResponsive.emit(this.currentState);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     if (event.target.innerWidth > 960) {
-      if (this.showResponsive) {
-        this.showResponsive = false;
-        this.showResponsiveMenu.emit(this.showResponsive);
+      if (this.currentState) {
+        this.currentState = false;
+        this.toggleResponsive.emit(this.currentState);
       }
     }
     console.log('Width: ' + event.target.innerWidth);
