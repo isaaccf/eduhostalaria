@@ -9,4 +9,10 @@
     <div *ngIf="schema.header.title" class="card-title h5">{{ schema.header.title }}</div>
     <div *ngIf="schema.header.subtitle" class="card-subtitle text-gray">{{ schema.header.subtitle }}</div>
   </div>
+  <div *ngIf="data && schema.fields" class="card-body">
+    <dl *ngFor="let field of schema.fields">
+      <dt class="inline">{{ field.label }} :</dt>
+      <dd class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
+    </dl>
+  </div>
 </div>

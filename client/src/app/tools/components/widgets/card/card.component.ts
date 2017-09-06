@@ -9,13 +9,14 @@ import { SchemaService } from 'app/tools/components/schema.service';
 })
 export class CardComponent implements OnInit {
 
+  @Input() public data: any;
   @Input() public schema: IWidgetSchema;
+
   @Output() send = new EventEmitter<IKeyValue>();
 
   constructor(private schemaService: SchemaService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onClick(keyValue) {
     this.send.emit(keyValue);
@@ -24,6 +25,5 @@ export class CardComponent implements OnInit {
   valueByPath(target, path) {
     return this.schemaService.valueByPath(target, path);
   }
-
 
 }
