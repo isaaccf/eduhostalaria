@@ -164,26 +164,26 @@
   "god": [
     {
       "header": {
-        "title": "Organizations",
-        "subtitle": "Entities with an administrator",
+        "title": "Centros",
+        "subtitle": "Todos os centros",
         "icon": "icon-flag"
       },
       "actions": [
         {
-          "label": "Manage organizations",
+          "label": "Xestionar centros",
           "link": "/me/organizations"
         }
       ]
     },
     {
       "header": {
-        "title": "Users",
-        "subtitle": "Users, statuses and roles",
+        "title": "Usuarios",
+        "subtitle": "Todos os usuarios da plataforma",
         "icon": "icon-people"
       },
       "actions": [
         {
-          "label": "Manage users",
+          "label": "Xestionar usuarios",
           "link": "/me/users"
         }
       ]
