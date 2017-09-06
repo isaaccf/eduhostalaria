@@ -4,7 +4,7 @@ const mongo = require('../tools/mongo.service');
 const jwt = require('../tools/jwt.service');
 const mailer = require('../tools/mailer.service');
 const users = require('./users.service');
-const config = require('../../config/dev.json');
+const config = require('../tools/config');
 
 const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';

@@ -1,14 +1,9 @@
 {
   "env": "dev",
-  "port": 2000,
+  "PORT": 2000,
+  "URLBASE": "http://localhost:4200",
   "secret": "secret",
-  "mongo": {
-    "database": "bookings",
-    "username": "",
-    "password": "",
-    "host": "localhost",
-    "port": 27017
-  },
+  "MONGODB_URI": "mongodb://localhost:27017/bookings",
   "mailer": {
     "port": 25,
     "host": "debugmail.io",
@@ -19,8 +14,7 @@
       "pass": "82fdc8b0-55ae-11e7-954e-d7f004b08dd1"
     },
     "debug": false,
-    "logger": false,
-    "urlbase": "http://localhost:4200"
+    "logger": false
   },
   "path": ""
 }
