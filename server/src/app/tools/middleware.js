@@ -22,14 +22,8 @@ module.exports.useMiddleware = (app) => {
   }));
 
   const options = {
-    dotfiles: 'ignore',
-    etag: false,
     extensions: ['htm', 'html'],
-    maxAge: '1d',
-    redirect: false,
-    setHeaders(res, p, s) {
-      res.set('x-timestamp', Date.now());
-    },
+    maxAge: '1h',
   };
 
   app.use(express.static(path.join(__dirname, '../../public'), options));
