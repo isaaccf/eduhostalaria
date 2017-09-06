@@ -31,6 +31,7 @@
     "mongodb": "2.2.28",
     "morgan": "1.8.2",
     "nodemailer": "4.0.1",
+    "slug": "^0.9.1",
     "winston": "^2.3.1"
   },
   "devDependencies": {

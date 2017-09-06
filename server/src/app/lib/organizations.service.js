@@ -1,4 +1,5 @@
 const mongo = require('../tools/mongo.service');
+const slugger = require('slug');
 
 const col = 'organizations';
 
@@ -9,10 +10,10 @@ module.exports.deleteById = async organizationId => mongo.removeOne(col, organiz
 module.exports.getUsersByIdRole = async (organizationId, role) => mongo.find('users', { organizationId, roles: role, status: { $ne: 'DISABLED' } });
 module.exports.getCount = async () => mongo.count(col, {});
 module.exports.insertOrganization = async (organization) => {
-  organization.slug = organization.name.replace(' ', '-');
+  organization.slug = slugger(organization.name); // .replace(' ', '-');
   return mongo.insertOne(col, organization);
 };
 module.exports.updateOrganization = async (organization) => {
-  organization.slug = organization.name.replace(' ', '-');
+  organization.slug = slugger(organization.name);
   return mongo.updateOne(col, organization._id, organization);
 };
