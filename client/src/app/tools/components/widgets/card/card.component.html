@@ -1,4 +1,4 @@
-<a [routerLink]="schema.actions[0].link">
+<a *ngIf="schema.actions; else non_link" [routerLink]="schema.actions[0].link">
   <div *ngIf="schema" class="card">
     <div *ngIf="schema.image" class="card-image">
       <img class="img-responsive" [src]="schema.image">
@@ -15,3 +15,20 @@
     </div>
   </div>
 </a>
+<ng-template #non_link>
+  <div *ngIf="schema" class="card">
+    <div *ngIf="schema.image" class="card-image">
+      <img class="img-responsive" [src]="schema.image">
+    </div>
+    <div *ngIf="schema.header" class="card-header">
+      <div *ngIf="schema.header.title" class="card-title h5">{{ schema.header.title }}</div>
+      <div *ngIf="schema.header.subtitle" class="card-subtitle text-gray">{{ schema.header.subtitle }}</div>
+    </div>
+    <div *ngIf="data && schema.fields" class="card-body">
+      <dl *ngFor="let field of schema.fields">
+        <dt class="inline">{{ field.label }} :</dt>
+        <dd class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
+      </dl>
+    </div>
+  </div>
+</ng-template>

@@ -59,7 +59,6 @@ export class MeComponent implements OnInit {
           const roleSchema = this.schemas[userRole];
           this.configureRoleSchemas(userRole, roleSchema);
           this.widgetsSchema = this.widgetsSchema.concat(roleSchema);
-
         } else {
           this.security.logOutUser();
         }
