@@ -26,6 +26,7 @@ import { AppRoutingModule } from 'app/app.routing';
   ],
   providers: [
     BusService,
+    LoggingService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
