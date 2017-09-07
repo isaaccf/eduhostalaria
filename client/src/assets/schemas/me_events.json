@@ -1,0 +1,59 @@
+{
+  "actions": {
+    "header": {
+      "title": "Eventos",
+      "subtitle": "Lista de eventos do centro",
+      "icon": "icon-location"
+    },
+    "actions": [
+      {
+        "label": "Crear evento",
+        "key": "create_new"
+      }
+    ]
+  },
+  "create": {
+    "title": "Novo evento",
+    "submitLabel": "Gardar evento",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nome do usuario",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O nome do usuario é requerido"
+          }
+        ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "E-mail do usuario",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O email do usuario é requerido"
+          }
+        ]
+      },
+      {
+        "key": "role",
+        "type": "select",
+        "label": "Rol",
+        "validators": [],
+        "actions": [
+          {
+            "label": "Mestre",
+            "key": "MESTRE"
+          },
+          {
+            "label": "Conserje",
+            "key": "CONSERJE"
+          }
+        ]
+      }
+    ]
+  }
+}

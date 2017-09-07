@@ -11,6 +11,7 @@ import { UsersComponent } from 'app/views/me/users/users.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { OrganizationsComponent } from 'app/views/me/organizations/organizations.component';
 import { OrganizationComponent } from './organization/organization.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { OrganizationComponent } from './organization/organization.component';
     MeRoutingModule,
     ComponentsModule
   ],
-  declarations: [MeComponent, UsersComponent, ConfirmationComponent, OrganizationsComponent, OrganizationComponent],
+  declarations: [MeComponent, UsersComponent, ConfirmationComponent, OrganizationsComponent, OrganizationComponent, EventsComponent],
   providers: [MeService],
   schemas: [NO_ERRORS_SCHEMA]
 })
