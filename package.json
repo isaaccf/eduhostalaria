@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Web API para reservar comida nas escolas de FP",
   "scripts": {
-    "postinstall": "cd server && npm install"
+    "postinstall": "cd client && npm run build && cd ../server && npm install"
   },
   "engines": {
     "node": ">= 7.6.0"
