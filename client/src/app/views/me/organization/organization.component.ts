@@ -38,6 +38,7 @@ export class OrganizationComponent implements OnInit {
               this.me
                 .getAdministratedOrganization(user.organizationId)
                 .subscribe(organization => {
+                  this.schemas.header.title = organization.name;
                   this.organization = organization;
                   this.schema.populateDefaultValues(this.formSchema, this.organization);
                   this.loadedMetadata = true;
