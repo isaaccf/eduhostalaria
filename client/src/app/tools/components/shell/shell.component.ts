@@ -104,7 +104,8 @@ export class ShellComponent implements OnInit {
     this.menuLinks = [];
     if (this.menuSchema) {
       this.menuLinks = this.menuLinks.concat(this.menuSchema.common);
-      if (this.user) {
+      if (this.user && this.user.roles) {
+        /*
         const userRole = this.user.roles[0];
         if (userRole) {
           const menuRole = this.menuSchema[userRole.toLowerCase()];
@@ -112,6 +113,13 @@ export class ShellComponent implements OnInit {
             this.menuLinks = this.menuLinks.concat(menuRole);
           }
         }
+        */
+        this.user.roles.forEach(userRole=>{
+           const menuRole = this.menuSchema[userRole.toLowerCase()];
+          if (menuRole) {
+            this.menuLinks = this.menuLinks.concat(menuRole);
+          }
+        });
       }
     }
     console.log(JSON.stringify(this.menuLinks));
