@@ -63,7 +63,7 @@ module.exports = (app, url) => {
     });
   app.route(`${url}/_/:id`)
     .delete(async (req, res) => {
-      rest.checkRole(req, res, 'GOD');
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const userId = req.params.id;
       const activatedUser = await srv.deleteUser(userId);
       return rest.returnInserted(activatedUser, res);
