@@ -17,9 +17,20 @@
     "submitLabel": "Gardar evento",
     "controls": [
       {
+        "key": "name",
+        "type": "name",
+        "label": "Nome",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data do evento é requerida"
+          }
+        ]
+      },
+      {
         "key": "date",
         "type": "date",
-        "label": "Data do evento",
+        "label": "Data",
         "validators": [
           {
             "key": "required",
@@ -30,7 +41,7 @@
       {
         "key": "time",
         "type": "time",
-        "label": "Hora do evento",
+        "label": "Hora",
         "validators": [
           {
             "key": "required",
@@ -41,7 +52,7 @@
       {
         "key": "description",
         "type": "textarea",
-        "label": "Descrición do evento",
+        "label": "Descrición",
         "validators": [
           {
             "key": "required",
