@@ -1,0 +1,10 @@
+{
+  "timeline": {
+    "header": {
+      "title": "Mensaxes para o usuario",
+      "subtitle": "Histórico do acontecido nesta máquina",
+      "icon": "icon-mail"
+    },
+    "events": []
+  }
+}
