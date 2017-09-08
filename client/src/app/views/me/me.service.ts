@@ -110,6 +110,11 @@ export class MeService {
       .patch<IOrganization>(`${this.organizationsUrl}`, organization);
   }
 
+  getEvents(): Observable<any[]> {
+    return this.http
+      .get<any>(this.eventsUrl);
+  }
+
   postEvent(event) {
     return this.http.post(this.eventsUrl, event);
   }

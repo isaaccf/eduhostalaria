@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { IWidgetSchema, IFormSchema } from 'app/tools/schema.model';
+import { IWidgetSchema, IFormSchema, IReportSchema } from 'app/tools/schema.model';
 import { BusService } from 'app/tools/bus.service';
 import { MeService } from 'app/views/me/me.service';
 
@@ -11,10 +11,12 @@ import { MeService } from 'app/views/me/me.service';
 })
 export class EventsComponent implements OnInit {
 
+  public events: any[];
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
   public createFormSchema: IFormSchema;
-  public createModalActive = false;
+  public reportSchema: IReportSchema;
+  public cardSchema: IWidgetSchema;
 
   constructor(private schema: SchemaService, private me: MeService) { }
 
@@ -24,21 +26,31 @@ export class EventsComponent implements OnInit {
       .subscribe(schemas => {
         this.actionSchema = schemas.actions;
         this.createFormSchema = schemas.create;
+        this.reportSchema = schemas.report;
+        this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
       });
+    this.getEvents();
   }
 
-  onAction() {
-    this.createModalActive = true;
+  getEvents() {
+    this.me.getEvents().subscribe(events => {
+      this.events = events;
+    });
   }
 
   onCreate(data) {
     console.log('creating event: ', data);
-    this.me.postEvent(data).subscribe();
-    this.createModalActive = false;
+    this.me.postEvent(data).subscribe(events => {
+      this.getEvents();
+    });
   }
 
-  onCancelCreate() {
-    this.createModalActive = false;
+  onRowAction() {
+
+  }
+
+  onDelete() {
+
   }
 
 }

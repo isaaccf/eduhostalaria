@@ -61,5 +61,36 @@
         ]
       }
     ]
+  },
+  "report": {
+    "header": {
+      "title": "Lista de eventos"
+    },
+    "emptyMessage": "Non temos eventos para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Fecha",
+        "key": "date",
+        "type": "string"
+      },
+      {
+        "label": "Hora",
+        "key": "time",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Bor"
+      }
+    ]
   }
 }
