@@ -19,7 +19,7 @@ const routes: Routes = [
     loadChildren: routeBase + 'messages/messages.module#MessagesModule'
   },
   {
-    path: 'organization/:slug',
+    path: 'org/:slug',
     loadChildren: routeBase + 'organization/organization.module#OrganizationModule'
   }
 ];
