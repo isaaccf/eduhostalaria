@@ -45,11 +45,11 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  onRowAction() {
+  onRowAction(event) {
 
   }
 
-  onDelete() {
+  onDelete(event) {
 
   }
 
