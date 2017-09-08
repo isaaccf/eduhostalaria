@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "description": "Web API para reservar comida nas escolas de FP",
   "scripts": {
-    "postinstall": "cd server && npm install"
+    "client": "cd client && npm run build",
+    "server": "cd server && npm install",
+    "postinstall": "npm run client && npm run server"
+  },
+  "dependencies": {
+    "@angular/cli": "^1.3.0"
   },
   "engines": {
     "node": "8.4.x"
