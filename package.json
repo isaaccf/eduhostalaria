@@ -6,6 +6,6 @@
     "postinstall": "cd server && npm install"
   },
   "engines": {
-    "node": ">= 7.6.0"
+    "node": "8.4.x"
   }
 }
