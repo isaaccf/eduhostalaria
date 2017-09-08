@@ -16,7 +16,7 @@ export class EventsComponent implements OnInit {
   public createFormSchema: IFormSchema;
   public createModalActive = false;
 
-  constructor(private schema: SchemaService) { }
+  constructor(private schema: SchemaService, private me: MeService) { }
 
   ngOnInit() {
     this.schema
@@ -31,8 +31,10 @@ export class EventsComponent implements OnInit {
     this.createModalActive = true;
   }
 
-  onCreate(event) {
-    console.log(event);
+  onCreate(data) {
+    console.log('creating event: ', data);
+    this.me.postEvent(data).subscribe();
+    this.createModalActive = false;
   }
 
   onCancelCreate() {

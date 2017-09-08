@@ -3,13 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { IOrganization } from "app/tools/organization.model";
-import { SecurityService } from "app/tools/security.service";
+import { IOrganization } from 'app/tools/organization.model';
+import { SecurityService } from 'app/tools/security.service';
 
 @Injectable()
 export class MeService {
   private organizationsUrl = '_/organizations';
   private usersUrl = '_/users';
+  private eventsUrl = '_/events';
   private credentialsUrl = 'credentials';
 
   constructor(private http: HttpClient, private security: SecurityService) { }
@@ -108,5 +109,9 @@ export class MeService {
     return this.http
       .patch<IOrganization>(`${this.organizationsUrl}`, organization);
   }
-}
 
+  postEvent(event) {
+    return this.http.post(this.eventsUrl, event);
+  }
+
+}
