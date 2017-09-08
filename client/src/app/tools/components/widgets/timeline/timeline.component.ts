@@ -4,7 +4,7 @@ import { ITimelineSchema } from 'app/tools/schema.model';
 @Component({
   selector: 'ab-timeline',
   templateUrl: './timeline.component.html',
-  styles: []
+  styleUrls: ['./timeline.component.css']
 })
 export class TimelineComponent implements OnInit {
 

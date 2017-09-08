@@ -1,5 +1,13 @@
 <section *ngIf="viewSchema && organizationData" class="columns">
   <div class="column col-12">
+    <ab-panel [schema]="eventsSchema">
+      <panel-body>
+        <ab-timeline *ngIf="eventsSchema" [schema]="eventsSchema">
+        </ab-timeline>
+      </panel-body>
+    </ab-panel>
+  </div>
+  <div class="column col-12">
     <ab-panel [data]="organizationData" [schema]="viewSchema">
     </ab-panel>
   </div>

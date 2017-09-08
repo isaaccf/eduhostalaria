@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/takeWhile';
 import { BusService } from 'app/tools/bus.service';
 import { MessagesService } from 'app/tools/messages.service';
-import { SchemaService } from "app/tools/components/schema.service";
+import { SchemaService } from 'app/tools/components/schema.service';
 @Component({
   selector: 'ab-messages',
   templateUrl: './messages.component.html',
@@ -24,8 +24,5 @@ export class MessagesComponent implements OnInit {
         this.schemas.timeline.events = this.messages.populateEventsFromMessages();
       });
   }
-
-
-
 
 }

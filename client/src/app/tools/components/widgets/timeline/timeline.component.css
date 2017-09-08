@@ -1,0 +1,7 @@
+.divider {
+  margin-bottom: 24px;
+}
+
+article:last-of-type {
+  margin-bottom: 48px;
+}

@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrganizationRoutingModule } from './organization.routing';
 import { OrganizationHomeComponent } from './organization-home/organization-home.component';
@@ -13,6 +13,7 @@ import { OrganizationService } from 'app/views/organization/organization.service
     ComponentsModule
   ],
   declarations: [OrganizationHomeComponent],
-  providers: [OrganizationService]
+  providers: [OrganizationService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OrganizationModule { }
