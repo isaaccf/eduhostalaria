@@ -14,7 +14,7 @@ export class EventsComponent implements OnInit {
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
   public createFormSchema: IFormSchema;
-  private createModalActive = false;
+  public createModalActive = false;
 
   constructor(private schema: SchemaService) { }
 
@@ -31,8 +31,8 @@ export class EventsComponent implements OnInit {
     this.createModalActive = true;
   }
 
-  onCreate() {
-
+  onCreate(event) {
+    console.log(event);
   }
 
   onCancelCreate() {

@@ -51,7 +51,7 @@
       },
       {
         "key": "description",
-        "type": "textarea",
+        "type": "wysiwyg",
         "label": "Descrición",
         "validators": [
           {
