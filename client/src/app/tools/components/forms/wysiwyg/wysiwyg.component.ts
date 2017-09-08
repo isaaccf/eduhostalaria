@@ -25,7 +25,7 @@ export class WysiwygComponent implements OnInit {
     placeholder: 'Escriba aquí todo o relativo ao evento'
   }
 
-  constructor(private formTools: FormToolsService) { }
+  constructor(public formTools: FormToolsService) { }
 
   ngOnInit() {
   }
