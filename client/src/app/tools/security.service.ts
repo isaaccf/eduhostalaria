@@ -18,7 +18,7 @@ export class SecurityService {
   private userUrl = '_/users';
 
   constructor(private bus: BusService, private http: HttpClient, private router: Router) {
-    this.onSecurityErrNavigateToLogin();
+    this.onSecurityErrLogOut();
     this.emitUserStatus();
   }
 
@@ -65,10 +65,10 @@ export class SecurityService {
       .do(this.saveUser.bind(this));
   }
 
-  private onSecurityErrNavigateToLogin() {
+  private onSecurityErrLogOut() {
     this.bus
       .getSecurityErr$()
-      .subscribe(err => this.navigateTo(['/login']));
+      .subscribe(err => this.logOutUser());
   }
 
   private emitUserStatus() {
