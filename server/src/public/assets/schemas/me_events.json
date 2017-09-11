@@ -1,0 +1,81 @@
+{
+  "actions": {
+    "header": {
+      "title": "Eventos",
+      "subtitle": "Lista de eventos do centro",
+      "icon": "icon-time"
+    },
+    "actions": [
+      {
+        "label": "Crear evento",
+        "key": "create_new"
+      }
+    ]
+  },
+  "create": {
+    "title": "Novo evento",
+    "submitLabel": "Gardar evento",
+    "controls": [
+      {
+        "key": "datetime",
+        "type": "select",
+        "label": "Data e turno",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data do evento é requerida"
+          }
+        ]
+      },
+      {
+        "key": "description",
+        "type": "wysiwyg",
+        "label": "Descrición",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A descrición do evento é requerida"
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "header": {
+      "title": "Lista de eventos"
+    },
+    "emptyMessage": "Non temos eventos para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Fecha",
+        "key": "date",
+        "type": "string"
+      },
+      {
+        "label": "Hora",
+        "key": "time",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "edit",
+        "icon": "icon-edit",
+        "title": "Editar"
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Borrar"
+      }
+    ]
+  }
+}
