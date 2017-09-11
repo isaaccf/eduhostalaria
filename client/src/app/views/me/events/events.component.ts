@@ -28,14 +28,50 @@ export class EventsComponent implements OnInit {
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
         this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
+        this.getEvents();
+        this.populateDateSelect();
       });
-    this.getEvents();
   }
 
   getEvents() {
     this.me.getEvents().subscribe(events => {
       this.events = events;
     });
+  }
+
+  populateDateSelect() {
+    const labels = [];
+    const currDate = new Date();
+
+    for (let i = 0; i < 5; i++) {
+      let label = '';
+
+      currDate.setDate(currDate.getDate() + 1);
+      label += this.getNameOfDay(currDate.getDay()) + ' ' + (currDate.getUTCDate());
+      this.getDayTextByTurn(label).forEach(el => {
+        labels.push(el);
+      });
+    }
+    this.createFormSchema.controls[0].actions = labels;
+  }
+
+  getDayTextByTurn(label: string) {
+    const labels = [];
+    const options = ['Comida', 'Cena'];
+
+    for (let j = 0; j < 2; j++) {
+      labels.push({
+        label: label + ' ' + options[j]
+      });
+    }
+
+    return labels;
+  }
+
+  getNameOfDay(day: number) {
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+    return days[day];
   }
 
   onCreate(data) {
