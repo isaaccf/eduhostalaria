@@ -32,7 +32,7 @@
   ],
   "mestre": [
     {
-      "icon": "icon-bookmark",
+      "icon": "icon-time",
       "label": "Eventos",
       "link": "/me/events/"
     }

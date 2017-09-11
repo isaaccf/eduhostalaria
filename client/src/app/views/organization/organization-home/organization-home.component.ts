@@ -81,7 +81,10 @@ export class OrganizationHomeComponent implements OnInit {
                 title: ev.description
               }
             }
-          ]
+          ],
+          action: {
+            label: 'Reservar'
+          }
         }
         events.push(event);
       });

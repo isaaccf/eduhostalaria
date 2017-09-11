@@ -3,7 +3,7 @@
     "header": {
       "title": "Eventos",
       "subtitle": "Lista de eventos do centro",
-      "icon": "icon-location"
+      "icon": "icon-time"
     },
     "actions": [
       {
@@ -17,35 +17,14 @@
     "submitLabel": "Gardar evento",
     "controls": [
       {
-        "key": "name",
-        "type": "name",
-        "label": "Nome",
+        "key": "datetime",
+        "type": "select",
+        "label": "Data e turno",
+        "actions": [],
         "validators": [
           {
             "key": "required",
             "errorMessage": "A data do evento é requerida"
-          }
-        ]
-      },
-      {
-        "key": "date",
-        "type": "date",
-        "label": "Data",
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "A data do evento é requerida"
-          }
-        ]
-      },
-      {
-        "key": "time",
-        "type": "time",
-        "label": "Hora",
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "A hora do evento é requerida"
           }
         ]
       },
@@ -87,9 +66,15 @@
     "actions": [
       {
         "label": "",
+        "key": "edit",
+        "icon": "icon-edit",
+        "title": "Editar"
+      },
+      {
+        "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Bor"
+        "title": "Borrar"
       }
     ]
   }

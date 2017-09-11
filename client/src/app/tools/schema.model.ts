@@ -20,6 +20,7 @@ export interface IFormControl extends IField {
 
 export interface IAction extends IKeyValue {
   label: string;
+  key?: string;
   link?: string;
   icon?: string;
   title?: string;
