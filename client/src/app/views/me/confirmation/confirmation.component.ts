@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IWidgetSchema, IFormSchema } from "app/tools/schema.model";
-import { ActivatedRoute } from "@angular/router";
-import { SchemaService } from "app/tools/components/schema.service";
-import { SecurityService, IInvitationCredential } from "app/tools/security.service";
-import { BusService } from "app/tools/bus.service";
-import { Level } from "app/tools/message.model";
+import { IWidgetSchema, IFormSchema } from 'app/tools/schema.model';
+import { ActivatedRoute } from '@angular/router';
+import { SchemaService } from 'app/tools/components/schema.service';
+import { SecurityService, IInvitationCredential } from 'app/tools/security.service';
+import { BusService } from 'app/tools/bus.service';
+import { Level } from 'app/tools/message.model';
 
 @Component({
   selector: 'ab-confirmation',
@@ -37,7 +37,7 @@ export class ConfirmationComponent implements OnInit {
       credentials._id = this.userId;
       this.securityService.confirmInvitation(credentials);
     } else {
-      this.bus.emit({ level: Level.WARNING, text: 'A repetición de contrasinal non coincide' })
+      this.bus.emit({ level: Level.WARNING, code: 'passwordbis' })
     }
   }
 

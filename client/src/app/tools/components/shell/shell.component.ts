@@ -26,14 +26,21 @@ export class ShellComponent implements OnInit {
   public showResponsive = false;
   public numMessages: number;
   private menuSchema;
+  private texts: any[];
 
   constructor(
     private bus: BusService,
-    private schemaService: SchemaService,
+    private schema: SchemaService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.schema
+      .getSchema$('messages')
+      .subscribe(schema => {
+        this.texts = schema.texts;
+
+      });
     this.loadMenu();
     this.onMessages();
     this.onPageRouteChange();
@@ -66,7 +73,7 @@ export class ShellComponent implements OnInit {
   }
 
   loadMenu() {
-    this.schemaService
+    this.schema
       .getSchema$('menu')
       .subscribe(schema => {
         this.menuSchema = schema;
@@ -80,11 +87,15 @@ export class ShellComponent implements OnInit {
     if (messages) {
       this.numMessages = messages.length;
     }
-
     this.bus
       .getMessage$()
       .subscribe((message: IMessage) => {
-        this.text = message.text;
+        const text = this.texts.find(t => t.code.toString() === message.code.toString());
+        if (!text) {
+          this.text = message.text;
+        } else {
+          this.text = text.text;
+        }
         this.level = message.level;
         this.numMessages++;
         this.show = true;
@@ -114,8 +125,8 @@ export class ShellComponent implements OnInit {
           }
         }
         */
-        this.user.roles.forEach(userRole=>{
-           const menuRole = this.menuSchema[userRole.toLowerCase()];
+        this.user.roles.forEach(userRole => {
+          const menuRole = this.menuSchema[userRole.toLowerCase()];
           if (menuRole) {
             this.menuLinks = this.menuLinks.concat(menuRole);
           }

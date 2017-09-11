@@ -36,11 +36,12 @@ export class BusService {
   }
   emitHttpError(error) {
     const errMsg = this.getMessageFromError(error);
-    this.emit({ level: Level.ERROR, text: errMsg });
+    console.error(error);
+    this.emit({ level: Level.ERROR, code: error.status });
   }
   emitSecurityError(error) {
     const errMsg = this.getMessageFromError(error);
-    this.emit({ level: Level.WARNING, text: errMsg });
+    this.emit({ level: Level.WARNING, code: error.status });
     this.securityErr$.next(errMsg);
   }
   emitUser(user: IUser) {

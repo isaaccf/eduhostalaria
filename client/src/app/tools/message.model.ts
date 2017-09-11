@@ -1,6 +1,7 @@
 export interface IMessage {
+  code: string,
   level: Level;
-  text: string;
+  text?: string;
   timestamp?: Date;
 }
 

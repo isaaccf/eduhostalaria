@@ -37,7 +37,7 @@ export class SecurityService {
     this.bus.emitUserToken(null);
     localStorage.removeItem(this.userKey);
     this.bus.emitUser(null);
-    this.bus.emit({ level: Level.SUCCESS, text: 'logged out!!' });
+    this.bus.emit({ level: Level.SUCCESS, code: 'logout' });
     this.navigateTo(['/']);
   }
 
@@ -101,7 +101,7 @@ export class SecurityService {
 
   private emitLogin(user) {
     this.bus.emitUser(user);
-    this.bus.emit({ level: Level.SUCCESS, text: user.name + ' logged in!!' });
+    this.bus.emit({ level: Level.SUCCESS, code: 'login' });
     this.navigateTo(['/me']);
   }
 

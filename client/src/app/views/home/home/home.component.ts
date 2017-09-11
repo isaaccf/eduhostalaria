@@ -20,12 +20,13 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.schema.getSchema$('home').subscribe(schema => {
-      this.schemas = schema;
-      this.home
-        .getAllOrganizations()
-        .subscribe(organizations => this.createWidgets(organizations));
-    });
+    this.schema
+      .getSchema$('home').subscribe(schema => {
+        this.schemas = schema;
+        this.home
+          .getAllOrganizations()
+          .subscribe(organizations => this.createWidgets(organizations));
+      });
   }
 
   createWidgets(organizations: IOrganization[]) {

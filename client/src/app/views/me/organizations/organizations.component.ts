@@ -86,7 +86,7 @@ export class OrganizationsComponent implements OnInit {
     this.me
       .setOrganizationAdmin(newAdmin)
       .subscribe(res => {
-        this.bus.emit({ level: Level.SUCCESS, text: newAdmin.name + ' asiggned!!' });
+        this.bus.emit({ level: Level.SUCCESS, text: newAdmin.name + ' asignado!!', code: '' });
         this.getOrganizations();
       });
   }
@@ -97,7 +97,7 @@ export class OrganizationsComponent implements OnInit {
       this.me
         .postOrganization(newOrganization)
         .subscribe(res => {
-          this.bus.emit({ level: Level.SUCCESS, text: newOrganization.name + ' created!!' });
+          this.bus.emit({ level: Level.SUCCESS, text: newOrganization.name + ' creado!!', code: '' });
           this.getOrganizations();
         });
     }
@@ -109,7 +109,7 @@ export class OrganizationsComponent implements OnInit {
     this.me
       .deleteOrganization(oldOrganization)
       .subscribe(res => {
-        this.bus.emit({ level: Level.SUCCESS, text: oldOrganization.name + ' deleted!!' });
+        this.bus.emit({ level: Level.SUCCESS, text: oldOrganization.name + ' borrado!!', code: '' });
         this.getOrganizations();
       });
   }
