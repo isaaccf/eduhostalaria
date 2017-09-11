@@ -21,12 +21,7 @@
         "type": "input",
         "label": "Nome",
         "actions": [],
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "O nome do evento é requerido"
-          }
-        ]
+        "validators": []
       },
       {
         "key": "datetime",
@@ -43,11 +38,11 @@
       {
         "key": "description",
         "type": "wysiwyg",
-        "label": "Descrición",
+        "label": "Oferta",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A descrición do evento é requerida"
+            "errorMessage": "A oferta do evento é requerida"
           }
         ]
       }
