@@ -39,6 +39,7 @@ export class SecurityService {
     this.bus.emitUser(null);
     this.bus.emit({ level: Level.SUCCESS, code: 'logout' });
     this.navigateTo(['/']);
+    window.location.reload();
   }
 
   checkBigbang() {
