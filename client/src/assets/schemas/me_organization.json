@@ -151,10 +151,14 @@
       },
       {
         "key": "description",
-        "type": "textarea",
-        "label": "Resume amplo do meu centro",
-        "defaultValue": "this.organization.description",
-        "validators": []
+        "type": "wysiwyg",
+        "label": "Descrición",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A descrición do centro é requerida"
+          }
+        ]
       }
     ]
   }
