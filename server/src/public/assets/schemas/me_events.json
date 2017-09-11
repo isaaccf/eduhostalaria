@@ -38,11 +38,11 @@
       {
         "key": "description",
         "type": "wysiwyg",
-        "label": "Descrición",
+        "label": "Oferta",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A descrición do evento é requerida"
+            "errorMessage": "A oferta do evento é requerida"
           }
         ]
       }
