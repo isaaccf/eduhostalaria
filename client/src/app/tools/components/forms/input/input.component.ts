@@ -7,7 +7,7 @@ import { FormToolsService } from 'app/tools/components/forms/form-tools.service'
 @Component({
   selector: 'ab-input',
   templateUrl: './input.component.html',
-  styles: []
+  styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
 

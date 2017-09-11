@@ -1,13 +1,9 @@
 <section [formGroup]="form.group">
-  <label [for]="control.key"
-         class="form-label text-bold">{{ control.label }}:</label>
-  <input [formControlName]="control.key"
-         class="form-input"
-         [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}"
-         [type]="control.type"
-         step="any"
-         [attr.disabled]="control.isDisabled" />
-  <ab-control-error [form]="form"
-                    [control]="control">
+  <label [for]="control.key" [ngClass]="{'form-label': true, 'text-bold': true, 'required': control.validators[0] && control.validators[0].key === 'required'}">
+    {{ control.label }}
+  </label>
+  <input [formControlName]="control.key" class="form-input" [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}"
+    [type]="control.type" step="any" [attr.disabled]="control.isDisabled" />
+  <ab-control-error [form]="form" [control]="control">
   </ab-control-error>
 </section>
