@@ -17,6 +17,18 @@
     "submitLabel": "Gardar evento",
     "controls": [
       {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O nome do evento é requerido"
+          }
+        ]
+      },
+      {
         "key": "datetime",
         "type": "select",
         "label": "Data e turno",

@@ -54,7 +54,7 @@ export class EventsComponent implements OnInit {
         labels.push(el);
       });
     }
-    this.createFormSchema.controls[0].actions = labels;
+    this.createFormSchema.controls[1].actions = labels;
   }
 
   getDayTextByTurn(label: string) {
