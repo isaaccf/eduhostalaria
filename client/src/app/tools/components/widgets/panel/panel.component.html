@@ -13,7 +13,8 @@
     <div *ngIf="data && schema.fields" class="card-body">
       <dl *ngFor="let field of schema.fields">
         <dt class="inline">{{ field.label }} :</dt>
-        <dd class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
+        <dd *ngIf="field.key === 'description'" [innerHTML]="valueByPath(data,field?.key)" class="inline ml-5"></dd>
+        <dd *ngIf="field.key !== 'description'" class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
       </dl>
     </div>
     <ng-content select="panel-body"></ng-content>

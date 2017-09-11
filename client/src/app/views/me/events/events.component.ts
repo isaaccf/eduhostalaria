@@ -43,6 +43,8 @@ export class EventsComponent implements OnInit {
     const labels = [];
     const currDate = new Date();
 
+    currDate.setDate(currDate.getDate() + 6);
+
     for (let i = 0; i < 5; i++) {
       let label = '';
 
