@@ -13,4 +13,11 @@ module.exports = (app, url) => {
       const data = await mongo.findOne('organizations', { slug });
       return rest.returnOne(data, res);
     });
+
+  app.route(`${url}/organizations/:id/events`)
+    .get(async (req, res) => {
+      const organizationId = req.params.id;
+      const data = await mongo.find('events', { organizationId });
+      return rest.returnArray(data, res);
+    });
 };

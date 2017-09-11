@@ -7,7 +7,7 @@
   "actions": [
     {
       "label": "$.organization.name",
-      "link": "/organization/$.organization.slug"
+      "link": "/org/$.organization.slug"
     }
   ],
   "fields": [

@@ -27,13 +27,15 @@ import { TopBarComponent } from 'app/tools/components/shell/top-bar/top-bar.comp
 import { MainContentComponent } from 'app/tools/components/shell/main-content/main-content.component';
 import { MainNavComponent } from 'app/tools/components/shell/main-nav/main-nav.component';
 import { MainNavResponsiveComponent } from 'app/tools/components/shell/main-nav-responsive/main-nav-responsive.component';
-
+import { QuillEditorModule } from 'ngx-quill-editor';
+import { WysiwygComponent } from './forms/wysiwyg/wysiwyg.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    QuillEditorModule
   ],
   declarations: [
     ActionComponent,
@@ -59,6 +61,7 @@ import { MainNavResponsiveComponent } from 'app/tools/components/shell/main-nav-
     TimelineComponent,
     ToastComponent,
     TopBarComponent,
+    WysiwygComponent,
   ],
   exports: [
     ActionComponent,

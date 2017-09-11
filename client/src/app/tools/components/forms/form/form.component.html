@@ -9,6 +9,8 @@
       </ab-switch>
       <ab-textarea *ngSwitchCase="'textarea'" [form]="form" [control]="control">
       </ab-textarea>
+      <ab-wysiwyg *ngSwitchCase="'wysiwyg'" [form]="form" [control]="control">
+      </ab-wysiwyg>
       <ab-input *ngSwitchDefault [form]="form" [control]="control">
       </ab-input>
     </ng-container>

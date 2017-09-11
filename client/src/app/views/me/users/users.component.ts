@@ -37,14 +37,17 @@ export class UsersComponent implements OnInit {
       .getUsers()
       .subscribe(users => this.users = users);
   }
+
   onCreate(data) {
     console.log('creating user: ', data);
     this.me.inviteUser(data).subscribe(r => this.getUsers());
   }
+
   onDelete(data) {
     console.log('deleting user: ', data);
     this.me.deleteUser(data).subscribe(r => this.getUsers());
   }
+
   onRowAction(data) {
     console.log(`action : ${data.key} over user: ${data.value}`);
     if (data.key === 'aprobe') {
@@ -53,4 +56,5 @@ export class UsersComponent implements OnInit {
       this.me.disableUser(data.value).subscribe(r => this.getUsers());
     }
   }
+
 }

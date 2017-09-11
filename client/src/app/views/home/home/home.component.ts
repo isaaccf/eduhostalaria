@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
     widget.header.title = this.schema.valueByPath(target, 'name');
     widget.header.subtitle = this.schema.valueByPath(target, 'slogan');
     widget.actions[0].label = `Ver oferta centro`;
-    widget.actions[0].link = `/organization/${this.schema.valueByPath(target, 'slug')}`;
+    widget.actions[0].link = `/org/${this.schema.valueByPath(target, 'slug')}`;
     widget.image = `assets/images/${this.schema.valueByPath(target, 'slug')}.jpg`;
     widget.type = 'card';
   }

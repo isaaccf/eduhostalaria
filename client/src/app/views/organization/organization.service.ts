@@ -15,6 +15,10 @@ export class OrganizationService {
       .get<IOrganization>(`${this.organizationsUrl}/${slug}`)
   }
 
+  getEventsByOrganizationId(id) {
+    return this.http.get(`${this.organizationsUrl}/${id}/events`);
+  }
+
   getSchemaValues(form: IFormSchema, target: any) {
     return this.schemaService.populateDefaultValues(form, target)
   }
@@ -34,4 +38,12 @@ export interface IOrganization {
   image: string;
   standardPrice: string;
   reducedPrice: string;
+}
+
+export interface IEvent {
+  _id?: string;
+  name: string;
+  date: string;
+  time: string;
+  description: string;
 }
