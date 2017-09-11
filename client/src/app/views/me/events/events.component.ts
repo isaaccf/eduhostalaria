@@ -63,7 +63,8 @@ export class EventsComponent implements OnInit {
 
     for (let j = 0; j < 2; j++) {
       labels.push({
-        label: label + ' ' + options[j]
+        label: label + ' ' + options[j],
+        key: label + ' ' + options[j]
       });
     }
 
@@ -77,7 +78,7 @@ export class EventsComponent implements OnInit {
   }
 
   onCreate(data) {
-    console.log('creating event: ', data);
+    data.name = data.datetime + ' - ' + data.name;
     this.me.postEvent(data).subscribe(events => {
       this.getEvents();
     });
