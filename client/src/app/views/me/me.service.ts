@@ -27,7 +27,6 @@ export class MeService {
       .map(res => res.data);
   }
 
-
   getAdministratedOrganization(id): Observable<IOrganization> {
     return this.http
       .get<IOrganization>(`${this.organizationsUrl}/${id}`);
