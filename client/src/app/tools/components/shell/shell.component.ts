@@ -9,6 +9,7 @@ import { environment } from 'environments/environment';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import { MessagesService } from 'app/tools/messages.service';
 
 @Component({
   selector: 'ab-shell',
@@ -26,21 +27,15 @@ export class ShellComponent implements OnInit {
   public showResponsive = false;
   public numMessages: number;
   private menuSchema;
-  private texts: any[];
 
   constructor(
     private bus: BusService,
     private schema: SchemaService,
     private router: Router,
+    private messages: MessagesService,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.schema
-      .getSchema$('messages')
-      .subscribe(schema => {
-        this.texts = schema.texts;
-
-      });
     this.loadMenu();
     this.onMessages();
     this.onPageRouteChange();
@@ -90,12 +85,7 @@ export class ShellComponent implements OnInit {
     this.bus
       .getMessage$()
       .subscribe((message: IMessage) => {
-        const text = this.texts.find(t => t.code.toString() === message.code.toString());
-        if (!text) {
-          this.text = message.text;
-        } else {
-          this.text = text.text;
-        }
+        this.text = this.messages.getUserText(message);
         this.level = message.level;
         this.numMessages++;
         this.show = true;

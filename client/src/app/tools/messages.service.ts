@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { IMessage } from 'app/tools/message.model';
 import { BusService } from 'app/tools/bus.service';
 import { IEvent } from 'app/tools/schema.model';
+import { SchemaService } from 'app/tools/components/schema.service';
 
 @Injectable()
 export class MessagesService {
@@ -17,7 +18,14 @@ export class MessagesService {
     'warning',
     'error'
   ]
-  constructor(private bus: BusService) {
+  private texts: any[];
+  constructor(private bus: BusService, private schema: SchemaService) {
+    this.schema
+      .getSchema$('messages')
+      .subscribe(s => {
+        this.texts = s.texts;
+
+      });
     this.bus
       .getMessage$()
       .subscribe(message => this.saveMessage(message));
@@ -58,5 +66,33 @@ export class MessagesService {
 
   getClassByLevel(level) {
     return this.classes[level];
+  }
+
+  getUserText(message: IMessage) {
+    if (!message.text) {
+      message.text = '';
+    }
+    if (message.code) {
+      const text = this.getTextByCode(message.code.toString());
+      return message.text + ' ' + text;
+    }
+    return message.text;
+  }
+
+  getTextByCode(code: string): string {
+    let userMessage;
+    userMessage = this.texts.find(t => t.code.toString() === code);
+    if (!userMessage) {
+      if (code.startsWith('4')) {
+        userMessage = this.texts.find(t => t.code.toString() === '40X');
+      } else if (code.startsWith('5')) {
+        userMessage = this.texts.find(t => t.code.toString() === '50X');
+      }
+    }
+    if (userMessage) {
+      return userMessage.text;
+    } else {
+      return '';
+    }
   }
 }
