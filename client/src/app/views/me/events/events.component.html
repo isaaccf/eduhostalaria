@@ -1,7 +1,13 @@
 <ab-panel [schema]="panelSchema">
   <panel-body>
-    <ab-editor [actionSchema]="actionSchema" [tableData]="events" [reportSchema]="reportSchema" (rowAction)="onRowAction($event)"
-      [createFormSchema]="createFormSchema" [cardSchema]="cardSchema" (create)="onCreate($event)" (delete)="onDelete($event)">
+    <ab-editor [actionSchema]="actionSchema"
+      [tableData]="events"
+      [reportSchema]="reportSchema"
+      (rowAction)="onRowAction($event)"
+      [createFormSchema]="createFormSchema"
+      [cardSchema]="cardSchema"
+      (create)="onCreate($event)"
+      (delete)="onDelete($event)">
     </ab-editor>
   </panel-body>
 </ab-panel>

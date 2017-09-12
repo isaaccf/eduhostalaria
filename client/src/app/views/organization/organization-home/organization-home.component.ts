@@ -40,7 +40,10 @@ export class OrganizationHomeComponent implements OnInit {
     });
     this.schema.getSchema$('events').subscribe(schema => {
       this.eventsSchema = schema.timeline;
-      this.eventsSchema.events = this.populateEvents();
+      this.organization.getEventsByOrganizationId(this.organizationData._id).subscribe((events: IEvent[]) => {
+        this.events = events;
+        this.eventsSchema.events = this.populateEvents();
+      });
     });
   }
 
@@ -59,10 +62,6 @@ export class OrganizationHomeComponent implements OnInit {
               this.loadedMetadata = true;
               this.loadingPanelSchema.empty = true;
             }
-            this.organization.getEventsByOrganizationId(organization._id).subscribe((events: IEvent[]) => {
-              this.events = events;
-              this.eventsSchema.events = this.populateEvents();
-            });
           });
       });
   }

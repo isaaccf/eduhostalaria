@@ -1,14 +1,25 @@
-<section *ngIf="viewSchema && organizationData" class="columns">
+<section *ngIf="viewSchema && organizationData"
+         class="columns">
+  <div class="column col-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title h2 text-center">{{ organizationData.name }}</div>
+        <div class="card-subtitle text-gray text-center">{{organizationData.slogan}}</div>
+      </div>
+    </div>
+  </div>
   <div class="column col-12">
     <ab-panel [schema]="eventsSchema">
       <panel-body>
-        <ab-timeline *ngIf="eventsSchema" [schema]="eventsSchema">
+        <ab-timeline *ngIf="eventsSchema"
+                     [schema]="eventsSchema">
         </ab-timeline>
       </panel-body>
     </ab-panel>
   </div>
   <div class="column col-12">
-    <ab-panel [data]="organizationData" [schema]="viewSchema">
+    <ab-panel [data]="organizationData"
+              [schema]="viewSchema">
     </ab-panel>
   </div>
 </section>
