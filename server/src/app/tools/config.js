@@ -15,4 +15,7 @@ config.mailer.ignoreTLS = Boolean.valueOf(env.MAILER_TLS)() || config.mailer.ign
 config.mailer.auth.user = env.MAILER_USER || config.mailer.auth.user;
 config.mailer.auth.pass = env.MAILER_PASS || config.mailer.auth.pass;
 
+// cloudinary library auto search in process.env
+process.env.CLOUDINARY_URL = process.env.CLOUDINARY_URL || config.CLOUDINARY_URL;
+
 module.exports = config;

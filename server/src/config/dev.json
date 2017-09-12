@@ -16,5 +16,6 @@
     "debug": true,
     "logger": true
   },
-  "path": ""
+  "path": "",
+  "CLOUDINARY_URL": "cloudinary://123456789012345:abcdeghijklmnopqrstuvwxyz12@n07t21i7"
 }
