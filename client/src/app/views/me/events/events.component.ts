@@ -59,7 +59,7 @@ export class EventsComponent implements OnInit {
 
   getDayTextByTurn(label: string) {
     const labels = [];
-    const options = ['Comida', 'Cena'];
+    const options = ['Diurno', 'Nocturno'];
 
     for (let j = 0; j < 2; j++) {
       labels.push({
