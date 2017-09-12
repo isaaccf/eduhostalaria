@@ -7,6 +7,7 @@ const logger = require('winston');
 module.exports = (app, url) => {
   app.route(`${url}`)
     .post(upload.any(), (req, res) => {
+      console.log(__dirname);
       req.files.forEach(element => console.log(element));
       return rest.returnArray([], res);
     });
