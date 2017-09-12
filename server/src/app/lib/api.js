@@ -4,6 +4,7 @@ const organizations = require('./organizations.controller');
 const users = require('./users.controller');
 const home = require('./home.controller');
 const events = require('./events.controller');
+const upload = require('./file.controler');
 
 module.exports.createIndex = (app) => {
   organizations(app, '/api/_/organizations');
@@ -12,4 +13,5 @@ module.exports.createIndex = (app) => {
   home(app, '/api/home');
   items(app, '/api/items');
   events(app, '/api/_/events');
+  upload(app, '/api/upload');
 };
