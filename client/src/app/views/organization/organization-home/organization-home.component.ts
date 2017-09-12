@@ -35,8 +35,6 @@ export class OrganizationHomeComponent implements OnInit {
   setSchemas() {
     this.schema.getSchema$('organization').subscribe(s => {
       this.viewSchema = s;
-      this.viewSchema.header.title = this.organizationData.name;
-      this.viewSchema.header.subtitle = this.organizationData.slogan || this.organizationData.city;
     });
     this.schema.getSchema$('events').subscribe(schema => {
       this.eventsSchema = schema.timeline;

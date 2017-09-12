@@ -1,27 +1,42 @@
-<article class="panel" *ngIf="schema">
-  <header *ngIf="schema.header" class="panel-header">
+<article class="panel"
+         *ngIf="schema">
+  <header *ngIf="schema.header"
+          class="panel-header">
     <section class="text-center text-large text-bold">
-      <i *ngIf="schema.header.icon" [class]="'mr-10 icon ' + schema.header.icon"></i>
-      <strong *ngIf="schema.header.counter" class="label label-primary">{{ schema.header.counter }}
+      <i *ngIf="schema.header.icon"
+         [class]="'mr-10 icon ' + schema.header.icon"></i>
+      <strong *ngIf="schema.header.counter"
+              class="label label-primary">{{ schema.header.counter }}
       </strong>
-      <span *ngIf="schema.header.title" class="mt-10">{{ schema.header.title }}</span>
+      <span *ngIf="schema.header.title"
+            class="mt-10">{{ schema.header.title }}</span>
     </section>
-    <section *ngIf="schema.header.subtitle" class="text-center text-gray">{{ schema.header.subtitle }}
+    <section *ngIf="schema.header.subtitle"
+             class="text-center text-gray">{{ schema.header.subtitle }}
     </section>
   </header>
   <main class="panel-body">
-    <div *ngIf="data && schema.fields" class="card-body">
+    <div *ngIf="data && schema.fields"
+         class="card-body">
       <dl *ngFor="let field of schema.fields">
-        <dt class="inline">{{ field.label }} :</dt>
-        <dd *ngIf="field.key === 'description'" [innerHTML]="valueByPath(data,field?.key)" class="inline ml-5"></dd>
-        <dd *ngIf="field.key !== 'description'" class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
+        <div class="column col-4"></div>
+        <dt *ngIf="field.key !== 'name' && field.key !== 'slogan'"
+            class="inline">{{ field.label }} :</dt>
+        <dd *ngIf="field.key === 'description'"
+            [innerHTML]="valueByPath(data,field?.key)"
+            class="inline ml-5"></dd>
+        <dd *ngIf="field.key !== 'description' && field.key !== 'name' && field.key !== 'slogan'"
+            class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
       </dl>
     </div>
     <ng-content select="panel-body"></ng-content>
   </main>
-  <footer *ngIf="schema.actions" class="panel-footer">
+  <footer *ngIf="schema.actions"
+          class="panel-footer">
     <ng-container *ngFor="let action of schema.actions">
-      <ab-action class="ml-10 float-right " [schema]="action" (action)="onClick($event)"></ab-action>
+      <ab-action class="ml-10 float-right "
+                 [schema]="action"
+                 (action)="onClick($event)"></ab-action>
     </ng-container>
   </footer>
 </article>

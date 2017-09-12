@@ -3,8 +3,17 @@
   <div class="column col-12">
     <div class="card">
       <div class="card-header">
-        <div class="card-title h2 text-center">{{ organizationData.name }}</div>
-        <div class="card-subtitle text-gray text-center">{{organizationData.slogan}}</div>
+        <div class="column col-2 col-sm-12">
+          <img [src]="'assets/images/' + organizationData.slug + '.jpg'"
+               class="img-responsive">
+        </div>
+        <div class="column col-10 col-sm-12">
+          <div class="card-title h2 text-left">{{ organizationData.name }}</div>
+          <div class="card-subtitle text-gray text-left">{{organizationData.slogan}}</div>
+        </div>
+      </div>
+      <div class="card-body text-justify"
+           [innerHTML]="organizationData.description">
       </div>
     </div>
   </div>
