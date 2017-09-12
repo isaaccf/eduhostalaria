@@ -9,11 +9,8 @@
         </div>
         <div class="column col-10 col-sm-12">
           <div class="card-title h2 text-left">{{ organizationData.name }}</div>
-          <div class="card-subtitle text-gray text-left">{{organizationData.slogan}}</div>
+          <div class="card-subtitle text-gray text-left">{{ organizationData.slogan }}</div>
         </div>
-      </div>
-      <div class="card-body text-justify"
-           [innerHTML]="organizationData.description">
       </div>
     </div>
   </div>
@@ -26,9 +23,35 @@
       </panel-body>
     </ab-panel>
   </div>
+  <div class="sep">
+  </div>
   <div class="column col-12">
-    <ab-panel [data]="organizationData"
-              [schema]="viewSchema">
+    <ab-panel [schema]="viewSchema">
+      <panel-body>
+        <div *ngIf="organizationData"
+             class="columns">
+          <ng-container *ngFor="let field of viewSchema.fields; let i = index">
+            <div *ngIf="field.key !== 'name' && field.key !== 'email' && field.key !== 'url' && field.key !== 'slogan' && field.key !== 'image' && field.key !== 'description'"
+
+                 class="column col-6 col-lg-12">
+              <b class="text-bold"> {{ field.label }}: </b><span>{{ valueByPath(organizationData,field?.key) }}</span>
+            </div>
+            <div *ngIf="field.key === 'email'"
+                 class="column col-6 col-lg-12">
+              <b class="text-bold"> {{ field.label }}: </b><span><a [href]="'mailto:' + valueByPath(organizationData,field?.key)">{{ valueByPath(organizationData,field?.key) }}</a></span>
+            </div>
+            <div *ngIf="field.key === 'url'"
+                 class="column col-6 col-lg-12">
+              <b class="text-bold"> {{ field.label }}: </b><span><a [routerLink]="valueByPath(organizationData,field?.key)">{{ valueByPath(organizationData,field?.key) }}</a></span>
+            </div>
+            <div *ngIf="field.key === 'description'"
+                 class="column col-12">
+              <b class="text-bold"> {{ field.label }}: </b>
+              <p [innerHTML]="valueByPath(organizationData,field?.key)"></p>
+            </div>
+          </ng-container>
+        </div>
+      </panel-body>
     </ab-panel>
   </div>
 </section>

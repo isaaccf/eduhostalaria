@@ -9,7 +9,6 @@ import { SchemaService } from 'app/tools/components/schema.service';
 })
 export class PanelComponent implements OnInit {
 
-  @Input() public data: any;
   @Input() public schema: IWidgetSchema;
   @Output() send = new EventEmitter<IKeyValue>();
 

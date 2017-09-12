@@ -69,6 +69,7 @@ export interface IWidgetSchema {
   counter?: number;
   fields?: IField[];
   actions?: IAction[];
+  columns?: boolean;
 }
 
 export interface ILoadEmptyStateSchema {

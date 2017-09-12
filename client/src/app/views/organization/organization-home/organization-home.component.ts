@@ -89,4 +89,8 @@ export class OrganizationHomeComponent implements OnInit {
     return events;
   }
 
+  valueByPath(target, path) {
+    return this.schema.valueByPath(target, path);
+  }
+
 }

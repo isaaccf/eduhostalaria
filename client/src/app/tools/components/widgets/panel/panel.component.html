@@ -16,19 +16,6 @@
     </section>
   </header>
   <main class="panel-body">
-    <div *ngIf="data && schema.fields"
-         class="card-body">
-      <dl *ngFor="let field of schema.fields">
-        <div class="column col-4"></div>
-        <dt *ngIf="field.key !== 'name' && field.key !== 'slogan'"
-            class="inline">{{ field.label }} :</dt>
-        <dd *ngIf="field.key === 'description'"
-            [innerHTML]="valueByPath(data,field?.key)"
-            class="inline ml-5"></dd>
-        <dd *ngIf="field.key !== 'description' && field.key !== 'name' && field.key !== 'slogan'"
-            class="inline ml-5">{{ valueByPath(data,field?.key) }}</dd>
-      </dl>
-    </div>
     <ng-content select="panel-body"></ng-content>
   </main>
   <footer *ngIf="schema.actions"
