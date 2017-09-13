@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IMessage } from 'app/tools/message.model';
-import { BusService } from 'app/tools/bus.service';
+
 import { IEvent } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
 
@@ -19,16 +19,13 @@ export class MessagesService {
     'error'
   ]
   private texts: any[];
-  constructor(private bus: BusService, private schema: SchemaService) {
+  constructor(private schema: SchemaService) {
     this.schema
       .getSchema$('messages')
       .subscribe(s => {
         this.texts = s.texts;
 
       });
-    this.bus
-      .getMessage$()
-      .subscribe(message => this.saveMessage(message));
   }
 
   saveMessage(message: IMessage) {
@@ -72,7 +69,7 @@ export class MessagesService {
     if (!message.text) {
       message.text = '';
     }
-    if (message.code) {
+    if (message.code !== undefined) {
       const text = this.getTextByCode(message.code.toString());
       return message.text + ' ' + text;
     }

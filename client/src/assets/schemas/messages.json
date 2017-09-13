@@ -9,6 +9,11 @@
   },
   "texts": [
     {
+      "code": "0",
+      "text": "Fallo nas comunicacións",
+      "level": "ERROR"
+    },
+    {
       "code": "401",
       "text": "Non está identificado",
       "level": "WARNING"

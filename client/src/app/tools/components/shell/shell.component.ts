@@ -19,9 +19,9 @@ import { MessagesService } from 'app/tools/messages.service';
 export class ShellComponent implements OnInit {
   public user: IUser = null;
   public show: boolean;
-  public text = '';
   public title: string;
-  public level: Level;
+  // public level: Level;
+  public message;
   public menuLinks: IAction[];
   // public loadedMetadata: boolean;
   public showResponsive = false;
@@ -85,8 +85,8 @@ export class ShellComponent implements OnInit {
     this.bus
       .getMessage$()
       .subscribe((message: IMessage) => {
-        this.text = this.messages.getUserText(message);
-        this.level = message.level;
+        message.text = this.messages.getUserText(message);
+        this.messages.saveMessage(message);
         this.numMessages++;
         this.show = true;
       });
