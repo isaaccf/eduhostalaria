@@ -18,6 +18,19 @@ module.exports = (app, url) => {
       const newUser = await srv.createUser(registration, 'toBeApproved');
       return rest.returnInserted(newUser, res);
     });
+  app.route(`${url}/bookingregistrations`)
+    .post(async (req, res) => {
+      const bookingRegistration = req.body;
+      const registration = {
+        name: bookingRegistration.name,
+        email: bookingRegistration.email,
+        organizationId: bookingRegistration.organizationId,
+        status: 'PENDING'
+      }
+      const newUser = await srv.createUser(registration, 'toBeConfirmed');
+      // create booking (newUser._id, bookingRegistration.eventId, comment)
+      return rest.returnInserted(newUser, res);
+    });
   app.route(`${url}/_/invitations`)
     .post(async (req, res) => {
       const invitation = req.body;
