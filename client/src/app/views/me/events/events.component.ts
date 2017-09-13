@@ -29,7 +29,6 @@ export class EventsComponent implements OnInit {
         this.reportSchema = schemas.report;
         this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
         this.getEvents();
-        this.populateDateSelect();
       });
   }
 
@@ -39,46 +38,18 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  populateDateSelect() {
-    const labels = [];
-    const currDate = new Date();
-
-    currDate.setDate(currDate.getDate() + 6);
-
-    for (let i = 0; i < 5; i++) {
-      let label = '';
-
-      currDate.setDate(currDate.getDate() + 1);
-      label += this.getNameOfDay(currDate.getDay()) + ' ' + (currDate.getUTCDate());
-      this.getDayTextByTurn(label).forEach(el => {
-        labels.push(el);
-      });
-    }
-    this.createFormSchema.controls[1].actions = labels;
-  }
-
-  getDayTextByTurn(label: string) {
-    const labels = [];
-    const options = ['Diurno', 'Nocturno'];
-
-    for (let j = 0; j < 2; j++) {
-      labels.push({
-        label: label + ' ' + options[j],
-        key: label + ' ' + options[j]
-      });
-    }
-
-    return labels;
-  }
-
-  getNameOfDay(day: number) {
-    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
-    return days[day];
-  }
-
   onCreate(data) {
-    data.name = data.datetime + ' - ' + data.name;
+    if (!data.name) {
+      data.name = '';
+    }
+    // Sumar 12 horas al date
+    // Enviar time con fecha + hora
+    // Mostrar turno
+    if (data.shift === 'diurno') {
+      data['time'] = '14:00';
+    } else {
+      data['time'] = '21:00';
+    }
     this.me.postEvent(data).subscribe(events => {
       this.getEvents();
     });

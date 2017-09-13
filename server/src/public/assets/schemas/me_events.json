@@ -17,16 +17,9 @@
     "submitLabel": "Gardar oferta",
     "controls": [
       {
-        "key": "name",
-        "type": "input",
-        "label": "Nome",
-        "actions": [],
-        "validators": []
-      },
-      {
-        "key": "datetime",
-        "type": "select",
-        "label": "Data e turno",
+        "key": "date",
+        "type": "date",
+        "label": "Data",
         "actions": [],
         "validators": [
           {
@@ -34,6 +27,34 @@
             "errorMessage": "A data do evento é requerida"
           }
         ]
+      },
+      {
+        "key": "shift",
+        "type": "radio",
+        "label": "Turno",
+        "actions": [
+          {
+            "label": "Diurno",
+            "value": "diurno"
+          },
+          {
+            "label": "Nocturno",
+            "value": "nocturno"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O turno é requerido"
+          }
+        ]
+      },
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "actions": [],
+        "validators": []
       },
       {
         "key": "description",
