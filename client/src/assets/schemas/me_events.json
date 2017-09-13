@@ -1,20 +1,20 @@
 {
   "actions": {
     "header": {
-      "title": "Eventos",
-      "subtitle": "Lista de eventos do centro",
+      "title": "Ofertas",
+      "subtitle": "Lista de eventos e comidas do centro",
       "icon": "icon-time"
     },
     "actions": [
       {
-        "label": "Crear evento",
+        "label": "Crear oferta",
         "key": "create_new"
       }
     ]
   },
   "create": {
-    "title": "Novo evento",
-    "submitLabel": "Gardar evento",
+    "title": "Nova oferta",
+    "submitLabel": "Gardar oferta",
     "controls": [
       {
         "key": "name",
@@ -50,7 +50,7 @@
   },
   "report": {
     "header": {
-      "title": "Lista de eventos"
+      "title": "Lista de ofertas"
     },
     "emptyMessage": "Non temos eventos para mostrar :(",
     "fields": [

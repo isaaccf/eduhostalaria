@@ -192,14 +192,14 @@
   "mestre": [
     {
       "header": {
-        "title": "Eventos",
-        "subtitle": "Menús e comidas",
+        "title": "Ofertas",
+        "subtitle": "Eventos e Comidas",
         "icon": "icon-bookmark"
       },
       "actions": [
         {
-          "label": "Xestionar comidas",
-          "link": "/me/users"
+          "label": "Xestionar ofertas",
+          "link": "/me/events"
         }
       ]
     }
