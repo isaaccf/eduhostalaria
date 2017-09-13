@@ -4,7 +4,7 @@ const rest = require('../tools/rest.service');
 module.exports = (app, url) => {
   app.route(`${url}/organizations`)
     .get(async (req, res) => {
-      const data = await mongo.find('organizations', {});
+      const data = await mongo.find('organizations', {}, { name: 1 });
       return rest.returnArray(data, res);
     });
   app.route(`${url}/organizations/:slug`)
