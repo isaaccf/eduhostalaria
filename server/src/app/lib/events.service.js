@@ -10,7 +10,7 @@ module.exports.getAll = async (organizationId, ownerId) => {
   const options = {};
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
-  return mongo.find(col, options);
+  return mongo.find(col, options, { date: 1 });
 };
 
 module.exports.insertEvent = async (event) => mongo.insertOne(col, event);

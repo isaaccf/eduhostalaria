@@ -3,7 +3,7 @@ const slugger = require('slug');
 
 const col = 'organizations';
 
-module.exports.getAll = async () => mongo.find(col, {});
+module.exports.getAll = async () => mongo.find(col, {}, { name: 1 });
 module.exports.getById = async organizationId => mongo.findOneById(col, organizationId);
 module.exports.getBySlug = async slug => mongo.findOne(col, { slug });
 module.exports.deleteById = async organizationId => mongo.removeOne(col, organizationId);

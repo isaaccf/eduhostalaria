@@ -17,10 +17,10 @@ module.exports.getCollection = async (col) => {
   return db.collection(col);
 };
 
-module.exports.find = async (col, query) => {
+module.exports.find = async (col, query, sort = { _id: -1 }) => {
   const colDb = await this.getCollection(col);
   try {
-    return await colDb.find(query).toArray();
+    return await colDb.find(query).sort(sort).toArray();
   } catch (err) {
     return utils.getError(err);
   }
