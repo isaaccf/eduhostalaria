@@ -1,5 +1,6 @@
 const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
+const srvBookings = require('./bookings.service');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
@@ -28,7 +29,12 @@ module.exports = (app, url) => {
         status: 'PENDING'
       }
       const newUser = await srv.createUser(registration, 'toBeConfirmed');
-      // create booking (newUser._id, bookingRegistration.eventId, comment)
+      const booking = {
+        ownerId: newUser._id,
+        eventId: bookingRegistration.eventId,
+        comment: bookingRegistration.comment
+      };
+      await srvBookings.insertBooking(booking);
       return rest.returnInserted(newUser, res);
     });
   app.route(`${url}/_/invitations`)
