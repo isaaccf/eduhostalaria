@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ITimelineSchema, ILoadEmptyStateSchema, IAction } from 'app/tools/schema.model';
 import { IUser } from 'app/tools/user.model';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { SecurityService } from 'app/tools/security.service';
 
 @Component({
   selector: 'ab-timeline',
@@ -10,31 +11,51 @@ import { SchemaService } from 'app/tools/components/schema.service';
 })
 export class TimelineComponent implements OnInit {
 
-  public isModalActive = false;
   private eventId;
-  public formSchema;
+  public bookingformSchema;
+  public registerFormSchema;
+  public isBookingModalActive = false;
+  public isRegisterModalActive = false;
 
   @Input() schema: ITimelineSchema;
   @Output() book = new EventEmitter<any>();
+  @Output() register = new EventEmitter<any>();
 
-  constructor(private schemaService: SchemaService) { }
+  constructor(private schemaService: SchemaService,
+    private security: SecurityService) { }
 
   ngOnInit() {
     this.schemaService.getSchema$('book').subscribe(s => {
-      this.formSchema = s.form;
+      this.bookingformSchema = s.user;
+      this.registerFormSchema = s.guest;
     });
   }
 
   onClick(action) {
+    const user: IUser = this.security.getLocalUser();
+
+    if (user) {
+      this.isBookingModalActive = true;
+    } else {
+      this.isRegisterModalActive = true;
+    }
     this.eventId = action.value;
-    this.isModalActive = true;
   }
 
   onCloseModal() {
-    this.isModalActive = false;
+    this.isBookingModalActive = false;
+    this.isRegisterModalActive = false;
   }
 
-  onSubmit(event) {
-    this.book.emit({ eventId: this.eventId, comments: event.comments })
+  onSubmitBooking(event) {
+    this.book.emit({ eventId: this.eventId, comments: event.comments });
+    this.isBookingModalActive = false;
   }
+
+  onSubmitRegister(event) {
+    event['eventId'] = this.eventId;
+    this.register.emit(event);
+    this.isRegisterModalActive = false;
+  }
+
 }

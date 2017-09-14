@@ -102,15 +102,12 @@ export class OrganizationHomeComponent implements OnInit {
   }
 
   onBook(payload) {
-    const user: IUser = this.security.getLocalUser();
+    this.me.bookEvent(payload).subscribe();
+  }
 
-    if (user) {
-      this.me.bookEvent(payload).subscribe(data => {
-        console.log(data);
-      });
-    } else {
-      console.log('you are not logged in');
-    }
+  onRegister(payload) {
+    payload['organizationId'] = this.organizationData._id;
+    this.me.bookEventGuest(payload).subscribe();
   }
 
 }

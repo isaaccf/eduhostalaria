@@ -1,5 +1,5 @@
 {
-  "form": {
+  "user": {
     "title": "Reservar evento",
     "submitLabel": "Reservar",
     "controls": [
@@ -8,12 +8,44 @@
         "type": "textarea",
         "label": "Observaciones",
         "defaultValue": "",
+        "validators": []
+      }
+    ]
+  },
+  "guest": {
+    "title": "Reservar evento",
+    "submitLabel": "Reservar",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nombre",
+        "defaultValue": "",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Comentarios é requerido"
+            "errorMessage": "Nombre requerido"
           }
         ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          }
+        ]
+      },
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observaciones",
+        "defaultValue": "",
+        "validators": []
       }
     ]
   }

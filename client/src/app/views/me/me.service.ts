@@ -122,4 +122,8 @@ export class MeService {
     return this.http.post(this.bookingsUrl, payload);
   }
 
+  bookEventGuest(payload) {
+    return this.http.post(`${this.credentialsUrl}/bookingregistrations`, payload);
+  }
+
 }

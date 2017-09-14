@@ -15,7 +15,7 @@ import { MeService } from 'app/views/me/me.service';
     ComponentsModule
   ],
   declarations: [OrganizationHomeComponent],
-  providers: [OrganizationService, SecurityService, MeService],
+  providers: [OrganizationService, MeService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OrganizationModule { }

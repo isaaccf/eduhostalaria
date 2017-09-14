@@ -33,11 +33,19 @@
     </article>
   </ng-container>
   <ab-modal [title]="'Reservar evento'"
-            [active]="isModalActive"
+            [active]="isBookingModalActive"
             (close)="onCloseModal()">
     <modal-content>
-      <ab-form [formSchema]="formSchema"
-               (send)="onSubmit($event)"></ab-form>
+      <ab-form [formSchema]="bookingformSchema"
+               (send)="onSubmitBooking($event)"></ab-form>
+    </modal-content>
+  </ab-modal>
+  <ab-modal [title]="'Reservar evento'"
+            [active]="isRegisterModalActive"
+            (close)="onCloseModal()">
+    <modal-content>
+      <ab-form [formSchema]="registerFormSchema"
+               (send)="onSubmitRegister($event)"></ab-form>
     </modal-content>
   </ab-modal>
 </div>
