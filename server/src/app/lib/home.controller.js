@@ -17,7 +17,7 @@ module.exports = (app, url) => {
   app.route(`${url}/organizations/:id/events`)
     .get(async (req, res) => {
       const organizationId = req.params.id;
-      const data = await mongo.find('events', { organizationId });
+      const data = await mongo.find('events', { organizationId }, { date: -1 });
       return rest.returnArray(data, res);
     });
 };
