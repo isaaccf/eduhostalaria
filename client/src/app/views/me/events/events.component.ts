@@ -3,6 +3,9 @@ import { SchemaService } from 'app/tools/components/schema.service';
 import { IWidgetSchema, IFormSchema, IReportSchema } from 'app/tools/schema.model';
 import { BusService } from 'app/tools/bus.service';
 import { MeService } from 'app/views/me/me.service';
+import { SecurityService } from 'app/tools/security.service';
+import { IUser } from 'app/tools/user.model';
+import { IOrganization } from 'app/tools/organization.model';
 
 @Component({
   selector: 'ab-events',
@@ -18,7 +21,9 @@ export class EventsComponent implements OnInit {
   public reportSchema: IReportSchema;
   public cardSchema: IWidgetSchema;
 
-  constructor(private schema: SchemaService, private me: MeService) { }
+  constructor(private schema: SchemaService,
+    private me: MeService,
+    private security: SecurityService) { }
 
   ngOnInit() {
     this.schema
@@ -35,24 +40,42 @@ export class EventsComponent implements OnInit {
   getEvents() {
     this.me.getEvents().subscribe(events => {
       this.events = events;
+      console.log(events);
     });
   }
 
   onCreate(data) {
-    if (!data.name) {
-      data.name = '';
-    }
-    // Sumar 12 horas al date
-    // Enviar time con fecha + hora
-    // Mostrar turno
-    if (data.shift === 'diurno') {
-      data['time'] = '14:00';
-    } else {
-      data['time'] = '21:00';
-    }
-    this.me.postEvent(data).subscribe(events => {
-      this.getEvents();
+    this.transformDate(data);
+
+    this.security.getMe().subscribe((user: IUser) => {
+      this.me.getAdministratedOrganization(user.organizationId)
+        .subscribe((org: IOrganization) => {
+          data['standardPrice'] = org.standardPrice;
+          data['reducedePrice'] = org.reducedPrice;
+          data['capacity'] = org.capacity;
+          data['capacity2'] = org.capacity2;
+          this.me.postEvent(data).subscribe(events => {
+            console.log(events);
+            this.getEvents();
+          });
+        });
     });
+  }
+
+  transformDate(data) {
+    const dateArr = data.date.split('-');
+    let hour;
+
+    dateArr[1] -= 1;
+
+    data.date = new Date(dateArr[0], dateArr[1], dateArr[2], 12, 0, 0, 0);
+
+    if (data.shift === 'Diurno') {
+      hour = 14;
+    } else {
+      hour = 21;
+    }
+    data['time'] = new Date(dateArr[0], dateArr[1], dateArr[2], hour, 0, 0, 0);
   }
 
   onRowAction(event) {

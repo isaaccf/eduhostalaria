@@ -1,20 +1,31 @@
-<section *ngIf="schema?.fields && data?.length > 0; else empty " class="table-container">
+<section *ngIf="schema?.fields && data?.length > 0; else empty "
+         class="table-container">
   <table class="table table-striped table-hover">
     <thead>
       <tr>
         <th *ngFor="let field of schema.fields">
-          <ab-action btnClass='btn-link' [schema]="{label:field.label, icon:'icon-arrow-up'}" (action)="onHeaderClick(field)"></ab-action>
+          <ab-action btnClass='btn-link'
+                     [schema]="{label:field.label, icon:'icon-arrow-up'}"
+                     (action)="onHeaderClick(field)"></ab-action>
         </th>
         <th *ngFor="let action of schema.actions">{{ action?.title }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of data" (click)="onRowClick(row)">
+      <tr *ngFor="let row of data"
+          (click)="onRowClick(row)">
         <td *ngFor="let field of schema.fields">
-          <span [ngClass]="getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) }}</span>
+          <span *ngIf="field.key === 'date'"
+                [ngClass]="getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) | date:'shortDate'}}</span>
+          <span *ngIf="field.key !== 'date'"
+                [ngClass]="getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) }}</span>
         </td>
         <td *ngFor="let action of schema.actions">
-          <ab-action class="centered" btnClass='btn-action' noLabel="true" [schema]="action" (action)="onActionClick($event, row)"></ab-action>
+          <ab-action class="centered"
+                     btnClass='btn-action'
+                     noLabel="true"
+                     [schema]="action"
+                     (action)="onActionClick($event, row)"></ab-action>
         </td>
       </tr>
     </tbody>

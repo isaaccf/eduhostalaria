@@ -35,11 +35,11 @@
         "actions": [
           {
             "label": "Diurno",
-            "value": "diurno"
+            "value": "Diurno"
           },
           {
             "label": "Nocturno",
-            "value": "nocturno"
+            "value": "Nocturno"
           }
         ],
         "validators": [
@@ -87,7 +87,7 @@
       },
       {
         "label": "Hora",
-        "key": "time",
+        "key": "shift",
         "type": "string"
       }
     ],
