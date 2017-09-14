@@ -11,6 +11,7 @@ export class MeService {
   private organizationsUrl = '_/organizations';
   private usersUrl = '_/users';
   private eventsUrl = '_/events';
+  private bookingsUrl = '_/bookings';
   private credentialsUrl = 'credentials';
 
   constructor(private http: HttpClient, private security: SecurityService) { }
@@ -86,7 +87,6 @@ export class MeService {
     return this.http.get<any>(url, { params });
   }
 
-
   setOrganizationAdmin(newAdmin) {
     newAdmin.roles = [];
     newAdmin.roles.push('ADMIN');
@@ -116,6 +116,10 @@ export class MeService {
 
   postEvent(event) {
     return this.http.post(this.eventsUrl, event);
+  }
+
+  bookEvent(payload) {
+    return this.http.post(this.bookingsUrl, payload);
   }
 
 }

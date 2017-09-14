@@ -18,7 +18,8 @@
     <ab-panel [schema]="eventsSchema">
       <panel-body>
         <ab-timeline *ngIf="eventsSchema"
-                     [schema]="eventsSchema">
+                     [schema]="eventsSchema"
+                     (book)="onBook($event)">
         </ab-timeline>
       </panel-body>
     </ab-panel>

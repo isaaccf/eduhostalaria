@@ -13,7 +13,10 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <p class="tile-subtitle">{{event.label}} - {{ event.date | date:'medium' }}</p>
+            <p *ngIf="event.label"
+               class="tile-subtitle">{{event.label}} - {{ event.date | date:'shortDate' }} - {{ event.shift }}</p>
+            <p *ngIf="!event.label"
+               class="tile-subtitle">{{ event.date | date:'shortDate' }} - {{ event.shift }}</p>
             <p class="tile-title"
                *ngFor="let item of event.items"
                [innerHTML]="item.header.title">
@@ -29,4 +32,12 @@
       </section>
     </article>
   </ng-container>
+  <ab-modal [title]="'Reservar evento'"
+            [active]="isModalActive"
+            (close)="onCloseModal()">
+    <modal-content>
+      <ab-form [formSchema]="formSchema"
+               (send)="onSubmit($event)"></ab-form>
+    </modal-content>
+  </ab-modal>
 </div>

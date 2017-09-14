@@ -21,6 +21,7 @@ export interface IFormControl extends IField {
 export interface IAction extends IKeyValue {
   label: string;
   key?: string;
+  value?: string;
   link?: string;
   icon?: string;
   title?: string;

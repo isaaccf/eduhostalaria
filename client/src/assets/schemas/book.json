@@ -1,0 +1,20 @@
+{
+  "form": {
+    "title": "Reservar evento",
+    "submitLabel": "Reservar",
+    "controls": [
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observaciones",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Comentarios é requerido"
+          }
+        ]
+      }
+    ]
+  }
+}

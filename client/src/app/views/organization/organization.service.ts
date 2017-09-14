@@ -45,5 +45,6 @@ export interface IEvent {
   name: string;
   date: string;
   time: string;
+  shift: string;
   description: string;
 }

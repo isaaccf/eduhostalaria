@@ -4,6 +4,8 @@ import { OrganizationRoutingModule } from './organization.routing';
 import { OrganizationHomeComponent } from './organization-home/organization-home.component';
 import { ComponentsModule } from 'app/tools/components/components.module';
 import { OrganizationService } from 'app/views/organization/organization.service';
+import { SecurityService } from 'app/tools/security.service';
+import { MeService } from 'app/views/me/me.service';
 
 
 @NgModule({
@@ -13,7 +15,7 @@ import { OrganizationService } from 'app/views/organization/organization.service
     ComponentsModule
   ],
   declarations: [OrganizationHomeComponent],
-  providers: [OrganizationService],
+  providers: [OrganizationService, SecurityService, MeService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OrganizationModule { }

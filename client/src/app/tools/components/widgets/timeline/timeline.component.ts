@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ITimelineSchema, ILoadEmptyStateSchema } from 'app/tools/schema.model';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { ITimelineSchema, ILoadEmptyStateSchema, IAction } from 'app/tools/schema.model';
+import { IUser } from 'app/tools/user.model';
+import { SchemaService } from 'app/tools/components/schema.service';
 
 @Component({
   selector: 'ab-timeline',
@@ -8,15 +10,31 @@ import { ITimelineSchema, ILoadEmptyStateSchema } from 'app/tools/schema.model';
 })
 export class TimelineComponent implements OnInit {
 
-  @Input() schema: ITimelineSchema;
+  public isModalActive = false;
+  private eventId;
+  public formSchema;
 
-  constructor() { }
+  @Input() schema: ITimelineSchema;
+  @Output() book = new EventEmitter<any>();
+
+  constructor(private schemaService: SchemaService) { }
 
   ngOnInit() {
+    this.schemaService.getSchema$('book').subscribe(s => {
+      this.formSchema = s.form;
+    });
   }
 
-  onClick(event) {
-
+  onClick(action) {
+    this.eventId = action.value;
+    this.isModalActive = true;
   }
 
+  onCloseModal() {
+    this.isModalActive = false;
+  }
+
+  onSubmit(event) {
+    this.book.emit({ eventId: this.eventId, comments: event.comments })
+  }
 }

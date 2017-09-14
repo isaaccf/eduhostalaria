@@ -6,6 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { Location } from '@angular/common';
 import { IOrganization, OrganizationService, IEvent } from 'app/views/organization/organization.service';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { SecurityService } from 'app/tools/security.service';
+import { MeService } from 'app/views/me/me.service';
+import { IUser } from 'app/tools/user.model';
 
 @Component({
   selector: 'ab-organization-home',
@@ -28,6 +31,8 @@ export class OrganizationHomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private security: SecurityService,
+    private me: MeService,
     private organization: OrganizationService,
     private schema: SchemaService,
     private location: Location) { }
@@ -71,6 +76,7 @@ export class OrganizationHomeComponent implements OnInit {
         const event = {
           label: ev.name,
           date: ev.date,
+          shift: ev.shift,
           icon: '',
           items: [
             {
@@ -80,7 +86,9 @@ export class OrganizationHomeComponent implements OnInit {
             }
           ],
           action: {
-            label: 'Reservar'
+            label: 'Reservar',
+            key: 'book',
+            value: ev._id
           }
         }
         events.push(event);
@@ -91,6 +99,18 @@ export class OrganizationHomeComponent implements OnInit {
 
   valueByPath(target, path) {
     return this.schema.valueByPath(target, path);
+  }
+
+  onBook(payload) {
+    const user: IUser = this.security.getLocalUser();
+
+    if (user) {
+      this.me.bookEvent(payload).subscribe(data => {
+        console.log(data);
+      });
+    } else {
+      console.log('you are not logged in');
+    }
   }
 
 }
