@@ -46,7 +46,9 @@ export class FormToolsService {
   getValidator(validation: IValidator) {
     switch (validation.key) {
       case 'required':
-        return Validators.required
+        return Validators.required;
+      case 'email':
+        return Validators.email;
       default:
         break;
     }

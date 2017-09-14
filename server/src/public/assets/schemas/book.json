@@ -37,6 +37,10 @@
           {
             "key": "required",
             "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
           }
         ]
       },

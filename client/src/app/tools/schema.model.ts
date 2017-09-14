@@ -33,7 +33,7 @@ export interface IKeyValue {
 }
 
 export interface IValidator {
-  key: 'required';
+  key: 'required' | 'email';
   args?: any[];
   errorMessage?: string;
 }
