@@ -6,6 +6,7 @@ import { MeService } from 'app/views/me/me.service';
 import { SecurityService } from 'app/tools/security.service';
 import { IUser } from 'app/tools/user.model';
 import { IOrganization } from 'app/tools/organization.model';
+import { Level } from 'app/tools/message.model';
 
 @Component({
   selector: 'ab-events',
@@ -23,7 +24,8 @@ export class EventsComponent implements OnInit {
 
   constructor(private schema: SchemaService,
     private me: MeService,
-    private security: SecurityService) { }
+    private security: SecurityService,
+    private bus: BusService) { }
 
   ngOnInit() {
     this.schema
@@ -55,7 +57,7 @@ export class EventsComponent implements OnInit {
           data['capacity'] = org.capacity;
           data['capacity2'] = org.capacity2;
           this.me.postEvent(data).subscribe(events => {
-            console.log(events);
+            this.bus.emit({ level: Level.SUCCESS, text: 'Oferta creada con éxito', code: '' });
             this.getEvents();
           });
         });

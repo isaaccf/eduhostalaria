@@ -9,6 +9,8 @@ import { SchemaService } from 'app/tools/components/schema.service';
 import { SecurityService } from 'app/tools/security.service';
 import { MeService } from 'app/views/me/me.service';
 import { IUser } from 'app/tools/user.model';
+import { BusService } from 'app/tools/bus.service';
+import { Level } from 'app/tools/message.model';
 
 @Component({
   selector: 'ab-organization-home',
@@ -31,6 +33,7 @@ export class OrganizationHomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private bus: BusService,
     private security: SecurityService,
     private me: MeService,
     private organization: OrganizationService,
@@ -102,12 +105,16 @@ export class OrganizationHomeComponent implements OnInit {
   }
 
   onBook(payload) {
-    this.me.bookEvent(payload).subscribe();
+    this.me.bookEvent(payload).subscribe(d => {
+      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada con éxito', code: '' });
+    });
   }
 
   onRegister(payload) {
     payload['organizationId'] = this.organizationData._id;
-    this.me.bookEventGuest(payload).subscribe();
+    this.me.bookEventGuest(payload).subscribe(d => {
+      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada e pendente de aprobación.', code: '' });
+    });
   }
 
 }

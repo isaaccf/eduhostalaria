@@ -20,10 +20,8 @@ export class ShellComponent implements OnInit {
   public user: IUser = null;
   public show: boolean;
   public title: string;
-  // public level: Level;
   public message;
   public menuLinks: IAction[];
-  // public loadedMetadata: boolean;
   public showResponsive = false;
   public numMessages: number;
   private menuSchema;
@@ -85,6 +83,7 @@ export class ShellComponent implements OnInit {
     this.bus
       .getMessage$()
       .subscribe((message: IMessage) => {
+        console.log(message);
         message.text = this.messages.getUserText(message);
         this.messages.saveMessage(message);
         this.numMessages++;
