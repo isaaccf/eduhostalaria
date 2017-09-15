@@ -23,7 +23,6 @@ module.exports = (app, url) => {
       const eventId = req.params.id;
       const data = await srv.getById(eventId);
       return rest.returnOne(data, res);
-
     })
     .patch(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
@@ -31,5 +30,11 @@ module.exports = (app, url) => {
       const eventId = req.params.id;
       const data = await srv.updateEvent(eventId, event);
       return rest.returnInserted(data, res);
+    })
+    .delete(async (req, res) => {
+      rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
+      const eventId = req.params.id;
+      await srv.removeEvent(eventId);
+      return res.status(204).end();
     });
 };

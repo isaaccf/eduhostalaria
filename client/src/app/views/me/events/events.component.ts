@@ -85,7 +85,10 @@ export class EventsComponent implements OnInit {
   }
 
   onDelete(event) {
-
+    this.me.removeEvent(event._id).subscribe(() => {
+      this.bus.emit({ level: Level.SUCCESS, text: 'Oferta eliminada con éxito', code: '' });
+      this.getEvents();
+    });
   }
 
 }

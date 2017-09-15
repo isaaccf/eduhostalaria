@@ -118,6 +118,10 @@ export class MeService {
     return this.http.post(this.eventsUrl, event);
   }
 
+  removeEvent(eventId) {
+    return this.http.delete(`${this.eventsUrl}/${eventId}`);
+  }
+
   bookEvent(payload) {
     return this.http.post(this.bookingsUrl, payload);
   }
