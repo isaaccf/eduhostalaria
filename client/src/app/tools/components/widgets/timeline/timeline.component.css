@@ -5,3 +5,8 @@
 article:last-of-type {
   margin-bottom: 48px;
 }
+
+.panel-footer {
+  display: flex;
+  justify-content: space-around;
+}

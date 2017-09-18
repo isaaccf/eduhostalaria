@@ -14,7 +14,3 @@ form {
 .form-group button {
   margin-top: 0 !important;
 }
-
-.panel-footer.form-group {
-  margin: 0 -16px !important;
-}
