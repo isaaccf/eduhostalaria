@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
-import { IOrganization } from "app/tools/organization.model";
+import { IOrganization } from 'app/tools/organization.model';
 
 @Injectable()
 export class HomeService {

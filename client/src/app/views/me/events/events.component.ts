@@ -21,6 +21,7 @@ export class EventsComponent implements OnInit {
   public createFormSchema: IFormSchema;
   public reportSchema: IReportSchema;
   public cardSchema: IWidgetSchema;
+  public showEditModal = false;
 
   constructor(private schema: SchemaService,
     private me: MeService,
@@ -80,7 +81,17 @@ export class EventsComponent implements OnInit {
     data['time'] = new Date(dateArr[0], dateArr[1], dateArr[2], hour, 0, 0, 0);
   }
 
-  onRowAction(event) {
+  onRowAction(action) {
+    if (action.key === 'edit') {
+      this.showEditModal = true;
+    }
+  }
+
+  onCloseModal() {
+    this.showEditModal = false;
+  }
+
+  onEdit(event) {
 
   }
 

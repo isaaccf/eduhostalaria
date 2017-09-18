@@ -6,7 +6,6 @@
   "form": {
     "title": "Confirmación de conta",
     "submitLabel": "Confirmar",
-    "buttonBlock": true,
     "controls": [
       {
         "key": "password",

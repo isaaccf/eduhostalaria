@@ -1,6 +1,7 @@
 const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
 const srvBookings = require('./bookings.service');
+const srvUsers = require('./users.service');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
@@ -81,6 +82,11 @@ module.exports = (app, url) => {
       return rest.returnResult(result, res);
     });
   app.route(`${url}/_/:id`)
+    .get(async (req, res) => {
+      const userId = req.params.id;
+      const user = await srvUsers.getById(userId);
+      return rest.returnOne(user, res);
+    })
     .delete(async (req, res) => {
       rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const userId = req.params.id;

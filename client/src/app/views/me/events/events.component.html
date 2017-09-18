@@ -1,13 +1,22 @@
 <ab-panel [schema]="panelSchema">
   <panel-body>
     <ab-editor [actionSchema]="actionSchema"
-      [tableData]="events"
-      [reportSchema]="reportSchema"
-      (rowAction)="onRowAction($event)"
-      [createFormSchema]="createFormSchema"
-      [cardSchema]="cardSchema"
-      (create)="onCreate($event)"
-      (delete)="onDelete($event)">
+               [tableData]="events"
+               [reportSchema]="reportSchema"
+               (rowAction)="onRowAction($event)"
+               [createFormSchema]="createFormSchema"
+               [cardSchema]="cardSchema"
+               (create)="onCreate($event)"
+               (delete)="onDelete($event)">
     </ab-editor>
   </panel-body>
 </ab-panel>
+<ab-modal [title]="'Editar evento'"
+          [active]="showEditModal"
+          (close)="onCloseModal()">
+  <modal-content>
+    <ab-form [formSchema]="createFormSchema"
+             (send)="onEdit($event)">
+    </ab-form>
+  </modal-content>
+</ab-modal>

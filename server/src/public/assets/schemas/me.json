@@ -43,7 +43,6 @@
   "changePassword": {
     "title": "Cambiar o meu contrasinal",
     "submitLabel": "Cambiar",
-    "buttonBlock": true,
     "controls": [
       {
         "key": "email",
@@ -94,7 +93,6 @@
   "editProfile": {
     "title": "Cambiar os meus datos",
     "submitLabel": "Cambiar",
-    "buttonBlock": true,
     "controls": [
       {
         "key": "name",

@@ -130,4 +130,8 @@ export class MeService {
     return this.http.post(`${this.credentialsUrl}/bookingregistrations`, payload);
   }
 
+  getUserById(userId) {
+    return this.http.get(`${this.credentialsUrl}/_/${userId}`);
+  }
+
 }

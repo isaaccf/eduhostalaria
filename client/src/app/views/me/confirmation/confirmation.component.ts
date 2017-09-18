@@ -5,6 +5,7 @@ import { SchemaService } from 'app/tools/components/schema.service';
 import { SecurityService, IInvitationCredential } from 'app/tools/security.service';
 import { BusService } from 'app/tools/bus.service';
 import { Level } from 'app/tools/message.model';
+import { MeService } from 'app/views/me/me.service';
 
 @Component({
   selector: 'ab-confirmation',
@@ -15,8 +16,11 @@ export class ConfirmationComponent implements OnInit {
 
   public schemas;
   public userId: string;
+  public user;
+
   constructor(
     private route: ActivatedRoute,
+    private me: MeService,
     private bus: BusService,
     private schema: SchemaService,
     private securityService: SecurityService) { }
@@ -25,6 +29,10 @@ export class ConfirmationComponent implements OnInit {
     this.route.params
       .subscribe(params => {
         this.userId = params['user_id'];
+        this.me.getUserById(this.userId).subscribe(user => {
+          this.user = user;
+          this.schemas.header.title = `Hola ${this.user.name}! ` + this.schemas.header.title;
+        });
       });
     this.schema
       .getSchema$('me_confirmation')

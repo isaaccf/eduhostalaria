@@ -6,7 +6,6 @@
   "form": {
     "title": "Log In",
     "submitLabel": "Rexistrarme",
-    "buttonBlock": true,
     "controls": [
       {
         "key": "email",
@@ -17,6 +16,10 @@
           {
             "key": "required",
             "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
           }
         ]
       },

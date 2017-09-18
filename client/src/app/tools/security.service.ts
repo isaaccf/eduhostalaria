@@ -47,6 +47,7 @@ export class SecurityService {
       .get(`${this.url}/bigbang`)
       .subscribe(r => this.checkMe());
   }
+
   checkMe() {
     if (this.getUserFromLocalStorage()) {
       this.getMe().subscribe(user => {
@@ -60,6 +61,7 @@ export class SecurityService {
   public getLocalUser() {
     return JSON.parse(localStorage.getItem(this.userKey));
   }
+
   public getMe(): Observable<IUser> {
     return this.http
       .get<IUser>(`${this.userUrl}/me`)
@@ -78,6 +80,7 @@ export class SecurityService {
     const user = this.getUserFromLocalStorage();
     this.bus.emitUser(user);
   }
+
   private getUserFromLocalStorage() {
     let user: IUser = null;
     const userStorage = localStorage.getItem(this.userKey);
@@ -94,8 +97,6 @@ export class SecurityService {
   }
 
   private saveUser(user: any) {
-    // delete user.iat;
-    // delete user.exp;
     localStorage.setItem(this.userKey, JSON.stringify(user));
     this.bus.emitUser(user);
   }
