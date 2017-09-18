@@ -36,6 +36,7 @@
             [active]="isBookingModalActive"
             (close)="onCloseModal()">
     <modal-content>
+      <p>asdasd aosdk asd askld asd asd </p>
       <ab-form [formSchema]="bookingformSchema"
                (send)="onSubmitBooking($event)"></ab-form>
     </modal-content>
@@ -44,6 +45,8 @@
             [active]="isRegisterModalActive"
             (close)="onCloseModal()">
     <modal-content>
+      <p>Para reservar unha oferta é necesario estar rexistrado na plataforma. No caso de non o estar, crea unha conta cubrindo
+        o seguinte formulario. Unha vez confirmado o teu email a reserva farase efectiva.</p>
       <ab-form [formSchema]="registerFormSchema"
                (send)="onSubmitRegister($event)"></ab-form>
     </modal-content>
