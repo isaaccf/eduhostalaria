@@ -1,5 +1,6 @@
 const ObjectID = require('mongodb').ObjectID;
 const mongo = require('../tools/mongo.service');
+const bookingsService = require('./bookings.service');
 
 const col = 'events';
 
@@ -7,7 +8,11 @@ module.exports.getAll = async (organizationId, ownerId) => {
   const options = {};
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
-  return mongo.find(col, options, { date: 1 });
+  const events = await mongo.find(col, options, { date: 1 });
+  await Promise.all(events.map(async (event) => {
+    event.bookingsNumber = await mongo.count('bookings', { eventId: String(event._id) });
+  }));
+  return events;
 };
 
 module.exports.insertEvent = async (event) => mongo.insertOne(col, event);

@@ -42,9 +42,7 @@ export class EventsComponent implements OnInit {
           this.me.getAdministratedOrganization(user.organizationId)
             .subscribe((org: IOrganization) => {
               this.organization = org;
-              console.log(this.createFormSchema);
               this.schema.populateDefaultValues(this.createFormSchema, this.organization);
-              console.log(this.createFormSchema);
             })
         });
       });

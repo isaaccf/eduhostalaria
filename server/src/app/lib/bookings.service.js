@@ -10,6 +10,6 @@ module.exports.getAll = async (eventId, ownerId) => {
   return mongo.find(col, options);
 };
 
-module.exports.insertBooking = async (booking) => mongo.insertOne(col, booking);
+module.exports.insertBooking = async booking => mongo.insertOne(col, booking);
 module.exports.updateBooking = async (bookingId, booking) => mongo.updateOne(col, bookingId, booking);
 module.exports.getById = async bookingId => mongo.findOneById(col, bookingId);

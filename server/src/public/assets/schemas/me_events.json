@@ -115,6 +115,11 @@
         "label": "Hora",
         "key": "shift",
         "type": "string"
+      },
+      {
+        "label": "Reservas",
+        "key": "bookingsNumber",
+        "type": "number"
       }
     ],
     "actions": [
