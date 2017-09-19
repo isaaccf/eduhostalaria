@@ -13,6 +13,7 @@ export class BusService {
   private securityErr$ = new Subject<string>();
   private userToken$ = new BehaviorSubject<string>(null);
   private user$ = new BehaviorSubject<IUser>(null);
+  private organization$ = new BehaviorSubject<any>(null);
 
   constructor() {
   }
@@ -28,6 +29,9 @@ export class BusService {
   }
   getUserToken$(): Observable<string> {
     return this.userToken$.asObservable();
+  }
+  getOrganization$(): Observable<any> {
+    return this.organization$.asObservable();
   }
 
   emit(message: IMessage) {
@@ -49,7 +53,10 @@ export class BusService {
     console.log('emitUserToken:', userToken);
     this.userToken$.next(userToken);
   }
-
+  emitOrganization(organization: any) {
+    console.log('emitOrganization:', JSON.stringify(organization));
+    this.organization$.next(organization);
+  }
 
 
 }

@@ -18,6 +18,7 @@ import { MessagesService } from 'app/tools/messages.service';
 })
 export class ShellComponent implements OnInit {
   public user: IUser = null;
+  public organization: any = null;
   public show: boolean;
   public title: string;
   public message;
@@ -38,6 +39,7 @@ export class ShellComponent implements OnInit {
     this.onMessages();
     this.onPageRouteChange();
     this.onUserChange();
+    this.onOrganizationChange();
     this.listenRouterChanges();
   }
 
@@ -97,6 +99,14 @@ export class ShellComponent implements OnInit {
       .subscribe((user: IUser) => {
         this.user = user;
         this.menuByUserRole();
+      });
+  }
+
+  onOrganizationChange() {
+    this.bus
+      .getOrganization$()
+      .subscribe((organization: any) => {
+        this.organization = organization;
       });
   }
 

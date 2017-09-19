@@ -14,8 +14,10 @@ import 'rxjs/add/operator/do';
 export class SecurityService {
   private userTokenKey = 'userToken';
   private userKey = 'user';
+  private organizationKey = 'organization';
   private url = 'credentials';
   private userUrl = '_/users';
+  private organizationUrl = '_/organizations';
 
   constructor(private bus: BusService, private http: HttpClient, private router: Router) {
     this.onSecurityErrLogOut();
@@ -37,6 +39,8 @@ export class SecurityService {
     this.bus.emitUserToken(null);
     localStorage.removeItem(this.userKey);
     this.bus.emitUser(null);
+    localStorage.removeItem(this.organizationKey);
+    this.bus.emitOrganization(null);
     this.bus.emit({ level: Level.SUCCESS, code: 'logout' });
     this.navigateTo(['/']);
     window.location.reload();
@@ -65,7 +69,8 @@ export class SecurityService {
   public getMe(): Observable<IUser> {
     return this.http
       .get<IUser>(`${this.userUrl}/me`)
-      .do(this.saveUser.bind(this));
+      .do(this.saveUser.bind(this))
+      .do(this.getOrganization.bind(this));
   }
 
   private onSecurityErrLogOut() {
@@ -99,6 +104,15 @@ export class SecurityService {
   private saveUser(user: any) {
     localStorage.setItem(this.userKey, JSON.stringify(user));
     this.bus.emitUser(user);
+  }
+
+  private getOrganization(user: any) {
+    this.http
+      .get(`${this.organizationUrl}/${user.organizationId}`)
+      .subscribe(organization => {
+        localStorage.setItem(this.organizationKey, JSON.stringify(organization));
+        this.bus.emitOrganization(organization);
+      });
   }
 
   private emitLogin(user) {
