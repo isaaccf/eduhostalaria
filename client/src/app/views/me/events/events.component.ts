@@ -15,6 +15,7 @@ import { Level } from 'app/tools/message.model';
 })
 export class EventsComponent implements OnInit {
 
+  public organization: IOrganization;
   public events: any[];
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
@@ -37,6 +38,15 @@ export class EventsComponent implements OnInit {
         this.reportSchema = schemas.report;
         this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
         this.getEvents();
+        this.security.getMe().subscribe((user: IUser) => {
+          this.me.getAdministratedOrganization(user.organizationId)
+            .subscribe((org: IOrganization) => {
+              this.organization = org;
+              console.log(this.createFormSchema);
+              this.schema.populateDefaultValues(this.createFormSchema, this.organization);
+              console.log(this.createFormSchema);
+            })
+        });
       });
   }
 

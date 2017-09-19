@@ -57,6 +57,32 @@
         "validators": []
       },
       {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Precio estándar",
+        "defaultValue": "this.organization.standardPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio estándar é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "number",
+        "label": "Precio reducido",
+        "defaultValue": "this.organization.reducedPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio reducido é requerido"
+          }
+        ]
+      },
+      {
         "key": "description",
         "type": "wysiwyg",
         "label": "Oferta",
