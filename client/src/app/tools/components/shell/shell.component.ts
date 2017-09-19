@@ -85,6 +85,7 @@ export class ShellComponent implements OnInit {
     this.bus
       .getMessage$()
       .subscribe((message: IMessage) => {
+        console.log(message);
         message.text = this.messages.getUserText(message);
         this.messages.saveMessage(message);
         this.message = message;

@@ -3,6 +3,10 @@
   min-height: 140px;
 }
 
+.panel .panel-body {
+  padding: 0.8rem;
+}
+
 .panel-footer {
   display: flex;
   justify-content: space-around;
