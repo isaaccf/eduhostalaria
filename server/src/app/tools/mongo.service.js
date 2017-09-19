@@ -71,6 +71,18 @@ module.exports.updateOne = async (col, id, doc) => {
   }
 };
 
+module.exports.updateQuery = async (col, id, query) => {
+  const colDb = await this.getCollection(col);
+  const filter = utils.getQueryById(id);
+  try {
+    const data = colDb.updateOne(filter, query);
+    return utils.getResult(data);
+  } catch (err) {
+    return utils.getError(err);
+  }
+
+}
+
 module.exports.removeOne = async (col, id) => {
   const colDb = await this.getCollection(col);
   const query = utils.getQueryById(id);

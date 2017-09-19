@@ -1,7 +1,9 @@
-const rest = require('../tools/rest.service');
 const multer = require('multer');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary');
+
+
+console.log(process.env.CLOUDINARY_URL);
 
 cloudinary.config();
 
@@ -14,7 +16,10 @@ const storage = cloudinaryStorage({
 
 const parser = multer({ storage });
 
-module.exports = (app, url) => {
+module.exports = parser;
+
+
+/*  = (app, url) => {
   app.route(`${url}`)
     .post(parser.any(), (req, res) => {
       req.files.forEach(e => {
@@ -24,3 +29,4 @@ module.exports = (app, url) => {
       return rest.returnArray([], res);
     });
 };
+ */

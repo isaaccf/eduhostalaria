@@ -30,13 +30,21 @@ export class EventsComponent implements OnInit {
     private bus: BusService) { }
 
   ngOnInit() {
+    this.organization = this.security.getLocalOrganization();
+    this.getSchema();
+    this.getEvents();
+  }
+
+  getSchema() {
     this.schema
       .getSchema$('me_events')
       .subscribe(schemas => {
         this.actionSchema = schemas.actions;
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
+        this.schema.populateDefaultValues(this.createFormSchema, this.organization);
         this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
+<<<<<<< HEAD
         this.getEvents();
         this.security.getMe().subscribe((user: IUser) => {
           this.me.getAdministratedOrganization(user.organizationId)
@@ -45,6 +53,8 @@ export class EventsComponent implements OnInit {
               this.schema.populateDefaultValues(this.createFormSchema, this.organization);
             })
         });
+=======
+>>>>>>> 7e7982389763238ac784c3da9b8a925344e5c925
       });
   }
 
@@ -56,36 +66,25 @@ export class EventsComponent implements OnInit {
 
   onCreate(data) {
     this.transformDate(data);
-
-    this.security.getMe().subscribe((user: IUser) => {
-      this.me.getAdministratedOrganization(user.organizationId)
-        .subscribe((org: IOrganization) => {
-          data['standardPrice'] = org.standardPrice;
-          data['reducedePrice'] = org.reducedPrice;
-          data['capacity'] = org.capacity;
-          data['capacity2'] = org.capacity2;
-          this.me.postEvent(data).subscribe(events => {
-            this.bus.emit({ level: Level.SUCCESS, text: 'Oferta creada con éxito', code: '' });
-            this.getEvents();
-          });
-        });
+    this.me.postEvent(data).subscribe(events => {
+      this.bus.emit({ level: Level.SUCCESS, text: 'Oferta creada con éxito', code: '' });
+      this.getEvents();
     });
   }
 
-  transformDate(data) {
-    const dateArr = data.date.split('-');
-    let hour;
-
-    dateArr[1] -= 1;
-
-    data.date = new Date(dateArr[0], dateArr[1], dateArr[2], 12, 0, 0, 0);
-
-    if (data.shift === 'Diurno') {
+  transformDate(event) {
+    const dateArr = event.date.split('-');
+    const year = dateArr[0];
+    const month = dateArr[1] - 1;
+    const day = dateArr[2];
+    let hour = 12;
+    event.date = new Date(year, month, day, hour, 0, 0, 0);
+    if (event.shift === 'Diurno') {
       hour = 14;
     } else {
       hour = 21;
     }
-    data['time'] = new Date(dateArr[0], dateArr[1], dateArr[2], hour, 0, 0, 0);
+    event['time'] = new Date(year, month, day, hour, 0, 0, 0);
   }
 
   onRowAction(action) {

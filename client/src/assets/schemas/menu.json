@@ -36,5 +36,12 @@
       "label": "Ofertas",
       "link": "/me/events/"
     }
+  ],
+  "interno": [
+    {
+      "icon": "icon-time",
+      "label": "Ofertas",
+      "link": "/me/events/"
+    }
   ]
 }
