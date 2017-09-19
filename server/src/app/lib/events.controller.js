@@ -1,5 +1,6 @@
 const srv = require('./events.service');
 const rest = require('../tools/rest.service');
+const parser = require('../tools/upload.service');
 
 module.exports = (app, url) => {
   app.route(`${url}`)
@@ -24,6 +25,7 @@ module.exports = (app, url) => {
       const data = await srv.getById(eventId);
       return rest.returnOne(data, res);
     })
+
     .patch(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const event = req.body;
@@ -36,5 +38,14 @@ module.exports = (app, url) => {
       const eventId = req.params.id;
       await srv.removeEvent(eventId);
       return res.status(204).end();
+    });
+  app.route(`${url}/:id/files`)
+    .post(parser.any(), (req, res) => {
+      req.files.forEach(async (file) => {
+        const eventId = req.params.id;
+        const obj = { name: file.originalname, url: file.secure_url, mimetype: file.mimetype };
+        await srv.addFiles(eventId, obj);
+      });
+      return rest.returnArray([], res);
     });
 };

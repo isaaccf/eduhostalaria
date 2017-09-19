@@ -14,3 +14,6 @@ module.exports.insertEvent = async (event) => mongo.insertOne(col, event);
 module.exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);
 module.exports.getById = async eventId => mongo.findOneById(col, eventId);
 module.exports.removeEvent = async eventId => mongo.removeOne(col, eventId);
+module.exports.addFiles = async (eventId, fileUrl) => {
+  return mongo.updateQuery(col, eventId, { $push: { files: fileUrl } });
+};
