@@ -1,0 +1,56 @@
+{
+  "user": {
+    "title": "Reservar evento",
+    "submitLabel": "Reservar",
+    "controls": [
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observaciones",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  },
+  "guest": {
+    "title": "Reservar evento",
+    "submitLabel": "Reservar",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nombre",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nombre requerido"
+          }
+        ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
+          }
+        ]
+      },
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observaciones",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  }
+}
