@@ -10,12 +10,31 @@
             (click)="onShowResponsive()">
           <i class="icon icon-menu"></i>
     </button>
-    <span class="navbar-brand mr-10 ">{{ organization?.name }}</span>
-    <span class="navbar-brand hide-lg">
+    <ul *ngIf="organization"
+        class="breadcrumb hide-lg">
+      <li class="breadcrumb-item">
+        <span class="navbar-brand">
+            <i class="icon icon-apps"></i>
+            <a [routerLink]="'org/' + organization?.slug">{{ organization?.name }}</a>
+        </span>
+      </li>
+      <li class="breadcrumb-item">
+        <span class="navbar-brand">
+          <span>{{ title }}</span>
+        </span>
+      </li>
+    </ul>
+    <span *ngIf="organization"
+          class="navbar-brand show-lg">
+      <span class="navbar-brand mr-10">{{ title }}</span>
+    </span>
+    <span *ngIf="!organization"
+          class="navbar-brand hide-lg">
       <i class="icon icon-apps"></i>
       <span class="navbar-brand mr-10">{{ title }}</span>
     </span>
-    <span class="navbar-brand mr-10 show-lg">{{ title }}</span>
+    <span *ngIf="!organization"
+          class="navbar-brand mr-10 show-lg">{{ title }}</span>
   </section>
   <section *ngIf="user"
            class="navbar-section">
