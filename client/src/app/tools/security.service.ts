@@ -65,6 +65,9 @@ export class SecurityService {
   public getLocalUser() {
     return JSON.parse(localStorage.getItem(this.userKey));
   }
+  public getLocalOrganization() {
+    return JSON.parse(localStorage.getItem(this.organizationKey));
+  }
 
   public getMe(): Observable<IUser> {
     return this.http

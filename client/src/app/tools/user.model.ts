@@ -4,7 +4,7 @@
 //   GOD = 'GOD',
 //   PUBLICO = 'PUBLICO',
 //   MESTRE = 'MESTRE',
-//   PUBLIC = 'PUBLICO',
+//   EXTERNO = 'EXTERNO',
 // }
 
 // export enum STATUS {
