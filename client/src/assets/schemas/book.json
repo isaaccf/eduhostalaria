@@ -45,6 +45,27 @@
         ]
       },
       {
+        "key": "role",
+        "type": "radio",
+        "label": "Rol",
+        "actions": [
+          {
+            "label": "Interno",
+            "value": "INTERNO"
+          },
+          {
+            "label": "Externo",
+            "value": "EXTERNO"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O rol é requerido"
+          }
+        ]
+      },
+      {
         "key": "comments",
         "type": "textarea",
         "label": "Observaciones",
