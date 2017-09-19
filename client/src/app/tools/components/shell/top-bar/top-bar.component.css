@@ -37,3 +37,14 @@ span.navbar-brand {
 a {
   text-decoration: none;
 }
+
+.breadcrumb .breadcrumb-item:not(:first-child)::before {
+  padding-left: 0.2rem;
+  font-size: 17px;
+  margin-left: 4px;
+}
+
+.breadcrumb .breadcrumb-item:not(:last-child) a {
+  color: #fff;
+  margin: inherit;
+}
