@@ -86,6 +86,7 @@ export class ShellComponent implements OnInit {
         console.log(message);
         message.text = this.messages.getUserText(message);
         this.messages.saveMessage(message);
+        this.message = message;
         this.numMessages++;
         this.show = true;
       });
