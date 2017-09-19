@@ -27,7 +27,7 @@ module.exports = (app, url) => {
         name: bookingRegistration.name,
         email: bookingRegistration.email,
         organizationId: bookingRegistration.organizationId,
-        roles: ['INTERNO'],
+        roles: [bookingRegistration.role],
         status: 'PENDING'
       }
       const newUser = await srv.createUser(registration, 'toBeConfirmed');
