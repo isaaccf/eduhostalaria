@@ -33,6 +33,8 @@
     </fieldset>
   </div>
   <footer class="panel-footer form-group">
+    <a *ngIf="formSchema.forgotPassword"
+       [routerLink]="'forgot-password'">¿Olvidacheste do teu contrasinal?</a>
     <button [ngClass]="{'btn btn-primary float-right': true, 'btn-block': formSchema.buttonBlock}"
             type="submit"
             (click)="onClick(); form.group.reset();"

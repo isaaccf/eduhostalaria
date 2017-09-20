@@ -4,6 +4,7 @@ export interface IFormSchema {
   title: string;
   submitLabel: string;
   buttonBlock?: boolean;
+  forgotPassword?: boolean;
   controls: IFormControl[];
 }
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { SecurityService, IUserCredential } from 'app/tools/security.service';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'app/views/login/login.service';
+import { BusService } from 'app/tools/bus.service';
+import { Level } from 'app/tools/message.model';
 
 @Component({
   selector: 'ab-forgot',
@@ -10,11 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ForgotComponent implements OnInit {
   public schemas;
+  private userId;
 
   constructor(
-    private security: SecurityService,
-    private schema: SchemaService,
-    private activatedRoute: ActivatedRoute) { }
+    private router: Router,
+    private bus: BusService,
+    private loginService: LoginService,
+    private schema: SchemaService) { }
 
   ngOnInit() {
     this.schema
@@ -22,8 +26,10 @@ export class ForgotComponent implements OnInit {
       .subscribe(schemas => this.schemas = schemas);
   }
 
-  onSend(credentials: IUserCredential) {
-    this.security
-      .logInUser(credentials);
+  onSend(email) {
+    this.loginService.restorePassword(email).subscribe(() => {
+      this.bus.emit({ level: Level.SUCCESS, text: 'Recibirás un correo cos pasos necesarios para activar o teu contrasinal', code: '' });
+    });
+    this.router.navigateByUrl('/');
   }
 }
