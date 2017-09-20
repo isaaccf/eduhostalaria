@@ -1,0 +1,8 @@
+<ab-panel *ngIf="schemas"
+          [schema]="schemas">
+  <panel-body>
+    <ab-form [formSchema]="schemas.form"
+             (send)="onSend($event)">
+    </ab-form>
+  </panel-body>
+</ab-panel>

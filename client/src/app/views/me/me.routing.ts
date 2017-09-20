@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MeComponent } from 'app/views/me/me/me.component';
 import { UsersComponent } from 'app/views/me/users/users.component';
-import { ConfirmationComponent } from 'app/views/me/confirmation/confirmation.component';
 import { OrganizationsComponent } from 'app/views/me/organizations/organizations.component';
 import { OrganizationComponent } from 'app/views/me/organization/organization.component';
 import { EventsComponent } from 'app/views/me/events/events.component';
@@ -12,11 +11,6 @@ const routes: Routes = [
     path: '',
     component: MeComponent,
     data: { name: 'me', title: 'O meu perfil' }
-  },
-  {
-    path: 'confirm/:user_id',
-    component: ConfirmationComponent,
-    data: { name: 'me_confirmation', title: 'Confirmación de conta' }
   },
   {
     path: 'events',

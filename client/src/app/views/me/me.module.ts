@@ -8,7 +8,6 @@ import { ComponentsModule } from 'app/tools/components/components.module';
 import { MeRoutingModule } from 'app/views/me/me.routing';
 import { MeService } from 'app/views/me/me.service';
 import { UsersComponent } from 'app/views/me/users/users.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { OrganizationsComponent } from 'app/views/me/organizations/organizations.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { EventsComponent } from './events/events.component';
@@ -19,7 +18,7 @@ import { EventsComponent } from './events/events.component';
     MeRoutingModule,
     ComponentsModule
   ],
-  declarations: [MeComponent, UsersComponent, ConfirmationComponent, OrganizationsComponent, OrganizationComponent, EventsComponent],
+  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent],
   providers: [MeService],
   schemas: [NO_ERRORS_SCHEMA]
 })

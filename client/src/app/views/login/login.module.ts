@@ -4,7 +4,9 @@ import { LoginRoutingModule } from './login.routing';
 import { LoginComponent } from './login/login.component';
 import { ComponentsModule } from 'app/tools/components/components.module';
 import { RegisterComponent } from './register/register.component';
-
+import { ForgotComponent } from './forgot/forgot.component';
+import { ConfirmationComponent } from 'app/views/login/confirmation/confirmation.component';
+import { MeService } from 'app/views/me/me.service';
 
 @NgModule({
   imports: [
@@ -12,8 +14,8 @@ import { RegisterComponent } from './register/register.component';
     LoginRoutingModule,
     ComponentsModule
   ],
-  declarations: [LoginComponent, RegisterComponent],
-  providers: [],
+  declarations: [LoginComponent, ConfirmationComponent, RegisterComponent, ForgotComponent],
+  providers: [MeService],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class LoginModule { }

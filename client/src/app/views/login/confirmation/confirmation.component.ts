@@ -39,7 +39,6 @@ export class ConfirmationComponent implements OnInit {
       .subscribe(schemas => this.schemas = schemas);
   }
 
-
   onSend(credentials: IInvitationCredential) {
     if (credentials.password === credentials.passwordBis) {
       credentials._id = this.userId;
