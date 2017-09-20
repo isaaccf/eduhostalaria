@@ -2,6 +2,7 @@ const mailer = require('nodemailer');
 const parseTemplate = require('es6-template-strings');
 const config = require('../tools/config');
 const wellcome = require('../../config/mailer/wellcome.json');
+const bookings = require('../../config/mailer/booking.json');
 
 const mailerCfg = config.mailer;
 
@@ -25,6 +26,20 @@ module.exports.sendWellcome = (user, templateName) => {
     subject: template.subject,
     text: parseTemplate(template.text, { user, url }),
     html: parseTemplate(template.html, { user, url }),
+  };
+  this.getTransporter().sendMail(message);
+};
+
+module.exports.sendBooking = (user, booking, templateName) => {
+  const url = config.URLBASE;
+  const template = bookings[templateName];
+  const bookingtext = booking.name;
+  const message = {
+    from: config.mailer.auth.user,
+    to: user.email,
+    subject: template.subject,
+    text: parseTemplate(template.text, { user, bookingtext, url }),
+    html: parseTemplate(template.html, { user, bookingtext, url }),
   };
   this.getTransporter().sendMail(message);
 };

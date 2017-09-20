@@ -11,8 +11,7 @@ module.exports = (app, url) => {
     })
     .post(async (req, res) => {
       const booking = req.body;
-      booking.ownerId = req.user._id;
-      const data = await srv.insertBooking(booking);
+      const data = await srv.insertBooking(req.user, booking);
       return rest.returnInserted(data, res);
     });
 
