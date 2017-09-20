@@ -9,6 +9,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   restorePassword(email) {
+    console.log(email);
     return this.http.post(`${this.credentialsUrl}/forgot-password`, email);
   }
 
