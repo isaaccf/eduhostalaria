@@ -28,7 +28,7 @@ export class ForgotComponent implements OnInit {
 
   onSend(email) {
     this.loginService.restorePassword(email).subscribe(() => {
-      this.bus.emit({ level: Level.SUCCESS, text: 'Recibirás un correo cos pasos necesarios para activar o teu contrasinal', code: '' });
+      this.bus.emit({ level: Level.SUCCESS, text: 'Recibirás un correo cos pasos necesarios para cambiar o teu contrasinal', code: '' });
     });
     this.router.navigateByUrl('/');
   }
