@@ -24,7 +24,6 @@ export class MessagesService {
       .getSchema$('messages')
       .subscribe(s => {
         this.texts = s.texts;
-
       });
   }
 
