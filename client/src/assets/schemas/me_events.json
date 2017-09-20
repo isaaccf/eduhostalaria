@@ -50,11 +50,24 @@
         ]
       },
       {
-        "key": "name",
+        "key": "title",
         "type": "input",
         "label": "Nome",
         "actions": [],
         "validators": []
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O aforo é requerido"
+          }
+        ]
       },
       {
         "key": "standardPrice",
@@ -83,7 +96,7 @@
         ]
       },
       {
-        "key": "description",
+        "key": "offer",
         "type": "wysiwyg",
         "label": "Oferta",
         "validators": [
@@ -123,6 +136,12 @@
       }
     ],
     "actions": [
+      {
+        "label": "",
+        "key": "deactivate",
+        "icon": "icon-cross",
+        "title": "Desactivar"
+      },
       {
         "label": "",
         "key": "edit",
