@@ -68,6 +68,10 @@ export class SecurityService {
   public getLocalOrganization() {
     return JSON.parse(localStorage.getItem(this.organizationKey));
   }
+  public setLocalOrganization(organization) {
+    localStorage.setItem(this.organizationKey, JSON.stringify(organization));
+    this.bus.emitOrganization(organization);
+  }
 
   public getMe(): Observable<IUser> {
     return this.http
@@ -113,8 +117,7 @@ export class SecurityService {
     this.http
       .get(`${this.organizationUrl}/${user.organizationId}`)
       .subscribe(organization => {
-        localStorage.setItem(this.organizationKey, JSON.stringify(organization));
-        this.bus.emitOrganization(organization);
+        this.setLocalOrganization(organization);
       });
   }
 
