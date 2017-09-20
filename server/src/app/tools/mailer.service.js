@@ -2,7 +2,7 @@ const mailer = require('nodemailer');
 const parseTemplate = require('es6-template-strings');
 const config = require('../tools/config');
 const wellcome = require('../../config/mailer/wellcome.json');
-const bookings = require('../../config/mailer/booking.json');
+const bookings = require('../../config/mailer/bookings.json');
 
 const mailerCfg = config.mailer;
 
