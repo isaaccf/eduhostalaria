@@ -5,11 +5,15 @@ import { HttpClient } from '@angular/common/http';
 export class LoginService {
 
   private credentialsUrl = 'credentials';
+  private usersUrl = 'home/users';
 
   constructor(private http: HttpClient) { }
 
+  getUserById(userId) {
+    return this.http.get(`${this.usersUrl}/${userId}`);
+  }
+
   restorePassword(email) {
-    console.log(email);
     return this.http.post(`${this.credentialsUrl}/forgot-password`, email);
   }
 

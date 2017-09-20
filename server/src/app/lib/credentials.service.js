@@ -64,7 +64,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
 
 
 module.exports.activateUser = async (activation, currentStatus, mailTemplate) => {
-  const user = await users.getByIdStatus(activation._id, currentStatus);
+  const user = await users.getById(activation._id);
   if (!user || user instanceof Error) {
     logger.warn(`not found user for: ${JSON.stringify(activation)}`);
     return invalidCredentials(activation);
