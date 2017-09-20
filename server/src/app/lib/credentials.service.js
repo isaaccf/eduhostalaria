@@ -161,6 +161,20 @@ module.exports.changePassword = async (claim) => {
   return result;
 };
 
+module.exports.forgotPassword = async (claim) => {
+  let result = null;
+  const user = await users.getByEmailActive(claim.email);
+  if (!user) {
+    logger.warn(`not found user for: ${JSON.stringify(claim)}`);
+    return invalidCredentials(claim);
+  }
+  const currentCredential = await this.getCredentialByUserId(user._id);
+  if (currentCredential) {
+    result = await mongo.removeOne(col, currentCredential._id);
+  }
+  mailer.sendWellcome(user, 'toBeChanged');
+  return result;
+}
 module.exports.getCredentialByUserId = async (userId) => {
   const credential = await mongo.findOne(col, { userId: userId.toString() });
   if (credential instanceof Error) {

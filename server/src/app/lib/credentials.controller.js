@@ -71,6 +71,12 @@ module.exports = (app, url) => {
       const activatedUser = await srv.disableUser(dissable);
       return rest.returnInserted(activatedUser, res);
     });
+  app.route(`${url}/forgot-password`)
+    .post(async (req, res) => {
+      const claim = req.body;
+      const result = await srv.forgotPassword(claim);
+      return rest.returnResult(result, res);
+    });
   app.route(`${url}/`)
     .post(async (req, res) => {
       const claim = req.body;
