@@ -10,3 +10,11 @@ article:last-of-type {
   display: flex;
   justify-content: space-around;
 }
+
+.tile-subtitle {
+  text-transform: uppercase;
+}
+
+.tile-title {
+  margin: 0.8rem 0 .8rem;
+}

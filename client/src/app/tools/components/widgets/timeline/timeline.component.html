@@ -13,10 +13,10 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <p *ngIf="event.label"
-               class="tile-subtitle">{{event.label}} - {{ event.date | date:'shortDate' }} - {{ event.shift }}</p>
-            <p *ngIf="!event.label"
-               class="tile-subtitle">{{ event.date | date:'shortDate' }} - {{ event.shift }}</p>
+            <b *ngIf="event.label"
+               class="tile-subtitle">{{event.label}} - {{ event.date | date:'shortDate' }} - {{ event.shift }}</b>
+            <b *ngIf="!event.label"
+               class="tile-subtitle">{{ event.date | date:'shortDate' }} - {{ event.shift }}</b>
             <p class="tile-title"
                *ngFor="let item of event.items"
                [innerHTML]="item.header.title">
