@@ -106,7 +106,8 @@ export class MeService {
 
   updateOrganization(organization: IOrganization): Observable<IOrganization> {
     return this.http
-      .patch<IOrganization>(`${this.organizationsUrl}`, organization);
+      .patch<IOrganization>(`${this.organizationsUrl}`, organization)
+      .do(res => this.security.setLocalOrganization(organization));
   }
 
   getEvents(): Observable<any[]> {
