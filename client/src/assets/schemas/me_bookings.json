@@ -1,0 +1,37 @@
+{
+  "actions": {
+    "header": {
+      "title": "Reservas",
+      "subtitle": "Lista de usuarios coa reserva feita",
+      "icon": "icon-bookmark"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de reservas",
+      "subtitle": "Lista de usuarios coa reserva feita",
+      "icon": "icon-bookmark"
+    },
+    "emptyMessage": "Non temos reservas para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Email",
+        "key": "email",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "cancel",
+        "icon": "icon-cross",
+        "title": "Anular"
+      }
+    ]
+  }
+}

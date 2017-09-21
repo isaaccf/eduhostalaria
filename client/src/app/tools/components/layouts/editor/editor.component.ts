@@ -10,7 +10,7 @@ export class EditorComponent implements OnInit {
   @Input() public actionSchema: IWidgetSchema;
   @Input() public reportSchema: IReportSchema;
   @Input() public tableData: IWidgetSchema;
-  @Input() public createFormSchema: IFormSchema;
+  @Input() public createFormSchema?: IFormSchema;
   @Input() public cardSchema: IWidgetSchema;
 
   @Output() public create = new EventEmitter<IKeyValue>();

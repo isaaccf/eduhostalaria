@@ -115,6 +115,10 @@ export class MeService {
       .get<any>(this.eventsUrl);
   }
 
+  getEventById(eventId) {
+    return this.http.get(`${this.eventsUrl}/${eventId}`);
+  }
+
   postEvent(event) {
     return this.http.post(this.eventsUrl, event);
   }
@@ -133,6 +137,10 @@ export class MeService {
 
   getUserById(userId) {
     return this.http.get(`${this.credentialsUrl}/_/${userId}`);
+  }
+
+  getBookingsByEventId(eventId) {
+    return this.http.get(`${this.bookingsUrl}?eventId=${eventId}`);
   }
 
 }

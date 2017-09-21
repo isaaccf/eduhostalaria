@@ -6,8 +6,8 @@
   },
   "toBeConfirmed": {
     "subject": "Invitacion á plataforma de reservas das escolas de Hostalaria",
-    "text": "Ola ${user.name}.\rEstás a un paso de participar como membro da plataforma de reservas das escolas de Hostalaria.\rVisita ${url}/me/confirm/${user._id} para confirmar e activar a túa conta.",
-    "html": "<p>Ola ${user.name}.</p><p>Estás a un paso de participar como membro da plataforma de reservas das escolas de Hostalaria.</p><p>Visita <a href=\"${url}/login/confirm/${user._id}\">${url}/me/confirm/${user._id}</a> para confirmar e activar a túa conta.</p>"
+    "text": "Ola ${user.name}.\rEstás a un paso de participar como membro da plataforma de reservas das escolas de Hostalaria.\rVisita ${url}/login/confirm/${user._id} para confirmar e activar a túa conta.",
+    "html": "<p>Ola ${user.name}.</p><p>Estás a un paso de participar como membro da plataforma de reservas das escolas de Hostalaria.</p><p>Visita <a href=\"${url}/login/confirm/${user._id}\">${url}/login/confirm/${user._id}</a> para confirmar e activar a túa conta.</p>"
   },
   "confirmed": {
     "subject": "Benvido á plataforma de reservas das escolas de Hostalaria",
@@ -27,6 +27,6 @@
   "toBeChanged": {
     "subject": "Cambia a password para reservas das escolas de Hostalaria",
     "text": "Ola ${user.name}.\rEstás a un paso de restablecer a túa password na plataforma de reservas das escolas de Hostalaria.\rVisita ${url}/login/confirm/${user._id} para establecer a nova password.",
-    "html": "<p>Ola ${user.name}.</p><p>Estás a un paso de participar restablecer a túa password na plataforma de reservas das escolas de Hostalaria.</p><p>Visita <a href=\"${url}/login/confirm/${user._id}\">${url}/me/confirm/${user._id}</a> para establecer a nova password.</p>"
+    "html": "<p>Ola ${user.name}.</p><p>Estás a un paso de participar restablecer a túa password na plataforma de reservas das escolas de Hostalaria.</p><p>Visita <a href=\"${url}/login/confirm/${user._id}\">${url}/login/confirm/${user._id}</a> para establecer a nova password.</p>"
   }
 }
