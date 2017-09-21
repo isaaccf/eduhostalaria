@@ -1,0 +1,116 @@
+{
+  "actions": {
+    "header": {
+      "title": "Usuarios ó meu cargo",
+      "subtitle": "Usuarios, estados e roles que podo administrar",
+      "icon": "icon-people"
+    },
+    "actions": [
+      {
+        "label": "Crear Novo Usuario",
+        "key": "create_new"
+      }
+    ]
+  },
+  "create": {
+    "title": "Novo Usuario",
+    "submitLabel": "Guardar Usuario",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nome do usuario",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O nome do usuario é requerido"
+          }
+        ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "E-mail do usuario",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O email do usuario é requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
+          }
+        ]
+      },
+      {
+        "key": "role",
+        "type": "select",
+        "label": "Rol",
+        "validators": [],
+        "actions": [
+          {
+            "label": "Mestre",
+            "key": "MESTRE"
+          },
+          {
+            "label": "Conserje",
+            "key": "CONSERJE"
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "header": {
+      "title": "Lista de usuarios"
+    },
+    "emptyMessage": "Non temos usurios para mostrar :(",
+    "fields": [
+      {
+        "label": "Usuario",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Email",
+        "key": "email",
+        "type": "string"
+      },
+      {
+        "label": "Phone",
+        "key": "phone",
+        "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
+      },
+      {
+        "label": "Roles",
+        "key": "roles",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "aprobe",
+        "icon": "icon-check",
+        "title": "In"
+      },
+      {
+        "label": "",
+        "key": "disable",
+        "icon": "icon-cross",
+        "title": "Out"
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Del"
+      }
+    ]
+  }
+}
