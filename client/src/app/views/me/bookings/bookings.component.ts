@@ -61,7 +61,6 @@ export class BookingsComponent implements OnInit {
   }
 
   onDelete(event) {
-    console.log(event);
     this.me.cancelBooking(event.value._id).subscribe(() => {
       this.getBookings();
     });

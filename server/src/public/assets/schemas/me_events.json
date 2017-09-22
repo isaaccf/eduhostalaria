@@ -116,7 +116,7 @@
     "fields": [
       {
         "label": "Nome",
-        "key": "name",
+        "key": "title",
         "type": "string"
       },
       {
@@ -138,9 +138,15 @@
     "actions": [
       {
         "label": "",
+        "key": "activate",
+        "icon": "icon-check",
+        "title": "Act."
+      },
+      {
+        "label": "",
         "key": "deactivate",
         "icon": "icon-cross",
-        "title": "Desactivar"
+        "title": "Des."
       },
       {
         "label": "",

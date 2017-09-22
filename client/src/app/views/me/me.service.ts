@@ -127,6 +127,11 @@ export class MeService {
     return this.http.delete(`${this.eventsUrl}/${eventId}`);
   }
 
+  changeEventStatus(event, status) {
+    event.status = status;
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, event);
+  }
+
   bookEvent(payload) {
     return this.http.post(this.bookingsUrl, payload);
   }

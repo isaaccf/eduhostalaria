@@ -42,9 +42,9 @@ export interface IOrganization {
 
 export interface IEvent {
   _id?: string;
-  name: string;
+  title: string;
   date: string;
   time: string;
   shift: string;
-  description: string;
+  offer: string;
 }
