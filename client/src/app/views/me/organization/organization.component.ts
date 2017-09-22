@@ -34,7 +34,7 @@ export class OrganizationComponent implements OnInit {
         this.bus
           .getUser$()
           .subscribe(user => {
-            if (user) {
+            if (user && user.organizationId) {
               this.me
                 .getAdministratedOrganization(user.organizationId)
                 .subscribe(organization => {

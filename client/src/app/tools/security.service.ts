@@ -114,11 +114,13 @@ export class SecurityService {
   }
 
   private getOrganization(user: any) {
-    this.http
-      .get(`${this.organizationUrl}/${user.organizationId}`)
-      .subscribe(organization => {
-        this.setLocalOrganization(organization);
-      });
+    if (user.organizationId) {
+      this.http
+        .get(`${this.organizationUrl}/${user.organizationId}`)
+        .subscribe(organization => {
+          this.setLocalOrganization(organization);
+        });
+    }
   }
 
   private emitLogin(user) {
