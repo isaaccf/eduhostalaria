@@ -27,5 +27,10 @@ module.exports = (app, url) => {
       const bookingId = req.params.id;
       const data = await srv.updateBooking(bookingId, booking);
       return rest.returnInserted(data, res);
+    })
+    .delete(async (req, res) => {
+      const bookingId = req.params.id;
+      const booking = await srv.deleteBooking(bookingId);
+      return rest.returnInserted(booking, res);
     });
 };

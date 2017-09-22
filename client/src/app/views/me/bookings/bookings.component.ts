@@ -37,14 +37,12 @@ export class BookingsComponent implements OnInit {
     this.me.getEventById(this.eventId).subscribe(event => {
       this.event = event;
       this.populateEventInfo();
-      console.log(event);
     });
   };
 
   getBookings() {
     this.me.getBookingsByEventId(this.eventId).subscribe(bookings => {
       this.bookings = bookings;
-      console.log(bookings);
     });
   }
 
@@ -59,7 +57,11 @@ export class BookingsComponent implements OnInit {
   }
 
   onRowAction(event) {
-
+    if (event.key === 'cancel') {
+      this.me.cancelBooking(event.value._id).subscribe(() => {
+        this.bookings = this.getBookings();
+      });
+    }
   }
 
   onDelete(event) {

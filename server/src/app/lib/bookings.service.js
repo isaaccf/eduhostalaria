@@ -29,4 +29,5 @@ module.exports.insertBooking = async (user, booking) => {
 };
 
 module.exports.updateBooking = async (bookingId, booking) => mongo.updateOne(col, bookingId, booking);
+module.exports.deleteBooking = async (bookingId) => mongo.removeOne(col, bookingId);
 module.exports.getById = async bookingId => mongo.findOneById(col, bookingId);

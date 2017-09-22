@@ -14,6 +14,11 @@ const routes: Routes = [
     data: { name: 'me', title: 'O meu perfil' }
   },
   {
+    path: 'confirm/:userId',
+    redirectTo: '/login/confirm/:userId',
+    data: { name: 'me_confirm', title: 'Confirm' }
+  },
+  {
     path: 'events',
     component: EventsComponent,
     data: { name: 'me_events', title: 'Eventos' }

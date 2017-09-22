@@ -143,4 +143,8 @@ export class MeService {
     return this.http.get(`${this.bookingsUrl}?eventId=${eventId}`);
   }
 
+  cancelBooking(bookingId) {
+    return this.http.delete(`${this.bookingsUrl}/${bookingId}`);
+  }
+
 }
