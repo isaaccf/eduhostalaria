@@ -43,7 +43,7 @@ export class EventsComponent implements OnInit {
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
         this.schema.populateDefaultValues(this.createFormSchema, this.organization);
-        this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
+        this.cardSchema = { header: { title: '' }, fields: this.reportSchema.fields };
       });
   }
 

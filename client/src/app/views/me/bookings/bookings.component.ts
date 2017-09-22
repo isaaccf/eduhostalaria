@@ -11,6 +11,7 @@ import { MeService } from 'app/views/me/me.service';
 export class BookingsComponent implements OnInit {
 
   public schema;
+  public cardSchema;
   public bookings;
   public event;
   public eventId;
@@ -26,7 +27,7 @@ export class BookingsComponent implements OnInit {
       this.eventId = params['eventId'];
       this.schemaService.getSchema$('me_bookings').subscribe(schema => {
         this.schema = schema;
-        this.schema.cardSchema = { header: { title: '' }, fields: '' };
+        this.cardSchema = { header: { title: '' }, fields: this.schema.report.fields };
         this.getEvent();
         this.getBookings();
       });
@@ -57,15 +58,13 @@ export class BookingsComponent implements OnInit {
   }
 
   onRowAction(event) {
-    if (event.key === 'cancel') {
-      this.me.cancelBooking(event.value._id).subscribe(() => {
-        this.bookings = this.getBookings();
-      });
-    }
   }
 
   onDelete(event) {
-
+    console.log(event);
+    this.me.cancelBooking(event.value._id).subscribe(() => {
+      this.getBookings();
+    });
   }
 
 }

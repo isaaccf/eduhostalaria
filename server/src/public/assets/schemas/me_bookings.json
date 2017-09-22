@@ -33,9 +33,9 @@
     "actions": [
       {
         "label": "",
-        "key": "cancel",
-        "icon": "icon-cross",
-        "title": "Anular"
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Borrar"
       }
     ]
   }
