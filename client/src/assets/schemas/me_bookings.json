@@ -16,12 +16,17 @@
     "fields": [
       {
         "label": "Nome",
-        "key": "name",
+        "key": "owner.name",
         "type": "string"
       },
       {
         "label": "Email",
-        "key": "email",
+        "key": "owner.email",
+        "type": "string"
+      },
+      {
+        "label": "Comments",
+        "key": "comments",
         "type": "string"
       }
     ],
