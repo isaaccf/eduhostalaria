@@ -20,7 +20,6 @@ module.exports = (app, url) => {
       const bookingId = req.params.id;
       const data = await srv.getById(bookingId);
       return rest.returnOne(data, res);
-
     })
     .patch(async (req, res) => {
       const booking = req.body;

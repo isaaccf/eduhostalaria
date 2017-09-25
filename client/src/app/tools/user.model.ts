@@ -8,11 +8,11 @@
 // }
 
 // export enum STATUS {
-//   PENDING = 'PENDING',
+//   PENDING = 'PENDING', -> AMARILLO
 //   CONFIRMED = 'CONFIRMED',
-//   ACTIVE = 'ACTIVE',
-//   DISABLED = 'DISABLED',
-//   CANCELED = 'CANCELED'
+//   ACTIVE = 'ACTIVE', -> VERDE
+//   DISABLED = 'DISABLED', -> DISABLED
+//   CANCELED = 'CANCELED' -> GRIS
 // }
 
 export interface IUser {

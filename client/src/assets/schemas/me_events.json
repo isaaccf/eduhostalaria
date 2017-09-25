@@ -133,6 +133,11 @@
         "label": "Reservas",
         "key": "bookingsNumber",
         "type": "number"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
       }
     ],
     "actions": [

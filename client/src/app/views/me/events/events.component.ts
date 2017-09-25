@@ -90,7 +90,7 @@ export class EventsComponent implements OnInit {
         });
         break;
       case 'deactivate':
-        this.me.changeEventStatus(event, 'DISABLED').subscribe(() => {
+        this.me.changeEventStatus(event, 'CANCELED').subscribe(() => {
           this.getEvents();
         });
         break;
