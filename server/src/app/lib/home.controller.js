@@ -1,5 +1,6 @@
 const mongo = require('../tools/mongo.service');
 const userSrv = require('./users.service');
+const eventSrv = require('./events.service');
 const rest = require('../tools/rest.service');
 
 module.exports = (app, url) => {
@@ -17,7 +18,8 @@ module.exports = (app, url) => {
   app.route(`${url}/organizations/:id/events`)
     .get(async (req, res) => {
       const organizationId = req.params.id;
-      const data = await mongo.find('events', { organizationId }, { date: -1 });
+      const data = await eventSrv.getByStatus(organizationId, 'ACTIVE');
+      console.log(data);
       return rest.returnArray(data, res);
     });
   app.route(`${url}/users/:userId`)
