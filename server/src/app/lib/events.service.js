@@ -1,6 +1,4 @@
-const ObjectID = require('mongodb').ObjectID;
 const mongo = require('../tools/mongo.service');
-const bookingsService = require('./bookings.service');
 
 const col = 'events';
 
@@ -15,10 +13,12 @@ module.exports.getAll = async (organizationId, ownerId) => {
   return events;
 };
 
-module.exports.insertEvent = async (event) => mongo.insertOne(col, event);
-module.exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);
-module.exports.getById = async eventId => mongo.findOneById(col, eventId);
-module.exports.removeEvent = async eventId => mongo.removeOne(col, eventId);
-module.exports.addFiles = async (eventId, fileUrl) => {
-  return mongo.updateQuery(col, eventId, { $push: { files: fileUrl } });
+exports.insertEvent = async event => mongo.insertOne(col, event);
+exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);
+exports.getById = async eventId => mongo.findOneById(col, eventId);
+exports.removeEvent = async eventId => mongo.removeOne(col, eventId);
+exports.addFiles = async (eventId, fileUrl) => {
+  const updateCommand = { $push: { files: fileUrl } };
+  const result = await mongo.updateQuery(col, eventId, updateCommand);
+  return result;
 };

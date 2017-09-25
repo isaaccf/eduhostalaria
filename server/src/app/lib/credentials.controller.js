@@ -23,20 +23,21 @@ module.exports = (app, url) => {
   app.route(`${url}/bookingregistrations`)
     .post(async (req, res) => {
       const bookingRegistration = req.body;
-      const registration = {
+      const userRegistration = {
         name: bookingRegistration.name,
         email: bookingRegistration.email,
         organizationId: bookingRegistration.organizationId,
         roles: [bookingRegistration.role],
-        status: 'PENDING'
-      }
-      const newUser = await srv.createUser(registration, 'toBeConfirmed');
+        status: 'PENDING',
+      };
+      const newUser = await srv.createUser(userRegistration, 'toBeConfirmed');
       const booking = {
         ownerId: newUser._id,
         eventId: bookingRegistration.eventId,
-        comment: bookingRegistration.comment
+        comment: bookingRegistration.comment,
+        status: 'PENDING',
       };
-      await srvBookings.insertBooking(booking);
+      await srvBookings.insertBooking(newUser, booking);
       return rest.returnInserted(newUser, res);
     });
   app.route(`${url}/_/invitations`)
