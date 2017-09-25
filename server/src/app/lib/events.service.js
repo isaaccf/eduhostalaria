@@ -2,6 +2,21 @@ const mongo = require('../tools/mongo.service');
 
 const col = 'events';
 
+async function fillEventsOwner(events) {
+  await Promise.all(await events.map(async (event) => {
+    event.owner = await userService.getById(event.ownerId);
+    delete event.ownerId;
+  }));
+  return events;
+}
+
+async function fillEventsBookingsNumber(events) {
+  await Promise.all(events.map(async (event) => {
+    event.bookingsNumber = await mongo.count('bookings', { eventId: String(event._id) });
+  }));
+  return events;
+}
+
 module.exports.getAll = async (organizationId, ownerId) => {
   const options = {};
   if (organizationId) { options.organizationId = organizationId; }
@@ -10,7 +25,7 @@ module.exports.getAll = async (organizationId, ownerId) => {
   await Promise.all(events.map(async (event) => {
     event.bookingsNumber = await mongo.count('bookings', { eventId: String(event._id) });
   }));
-  return events;
+  return fillEventsOwner(events);
 };
 
 module.exports.getByStatus = async (organizationId, status) => {

@@ -130,7 +130,7 @@
         "type": "string"
       },
       {
-        "label": "Res",
+        "label": "Nº R",
         "key": "bookingsNumber",
         "type": "number"
       },
@@ -150,20 +150,20 @@
       {
         "label": "",
         "key": "deactivate",
-        "icon": "icon-cross",
-        "title": "Des."
+        "icon": "icon-stop",
+        "title": "Bloq."
       },
       {
         "label": "",
         "key": "edit",
         "icon": "icon-edit",
-        "title": "Editar"
+        "title": "Edit."
       },
       {
         "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Borrar"
+        "title": "Cancel."
       }
     ]
   }

@@ -4,16 +4,20 @@ const userService = require('./users.service');
 
 const col = 'bookings';
 
-exports.getAll = async (eventId, ownerId) => {
-  const options = {};
-  if (eventId) { options.eventId = eventId; }
-  if (ownerId) { options.ownerId = ownerId; }
-  const bookings = await mongo.find(col, options);
+async function fillBookingsOwner(bookings) {
   await Promise.all(await bookings.map(async (booking) => {
     booking.owner = await userService.getById(booking.ownerId);
     delete booking.ownerId;
   }));
   return bookings;
+}
+
+exports.getAll = async (eventId, ownerId) => {
+  const options = {};
+  if (eventId) { options.eventId = eventId; }
+  if (ownerId) { options.ownerId = ownerId; }
+  const bookings = await mongo.find(col, options);
+  return fillBookingsOwner(bookings);
 };
 
 exports.insertBooking = async (user, booking) => {

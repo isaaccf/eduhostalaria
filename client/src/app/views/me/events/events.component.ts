@@ -90,7 +90,7 @@ export class EventsComponent implements OnInit {
         });
         break;
       case 'deactivate':
-        this.me.changeEventStatus(event, 'CANCELED').subscribe(() => {
+        this.me.changeEventStatus(event, 'DISABLED').subscribe(() => {
           this.getEvents();
         });
         break;
@@ -106,8 +106,7 @@ export class EventsComponent implements OnInit {
   }
 
   onDelete(event) {
-    this.me.removeEvent(event._id).subscribe(() => {
-      this.bus.emit({ level: Level.SUCCESS, text: 'Oferta eliminada con éxito', code: '' });
+    this.me.changeEventStatus(event, 'CANCELED').subscribe(() => {
       this.getEvents();
     });
   }
