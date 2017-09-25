@@ -19,7 +19,6 @@ module.exports = (app, url) => {
     .get(async (req, res) => {
       const organizationId = req.params.id;
       const data = await eventSrv.getByStatus(organizationId, 'ACTIVE');
-      console.log(data);
       return rest.returnArray(data, res);
     });
   app.route(`${url}/users/:userId`)

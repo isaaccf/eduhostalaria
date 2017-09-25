@@ -44,7 +44,6 @@ export class ConfirmationComponent implements OnInit {
   onSend(credentials: IInvitationCredential) {
     if (credentials.password === credentials.passwordBis) {
       credentials._id = this.userId;
-      console.log(credentials);
       this.securityService.confirmInvitation(credentials);
     } else {
       this.bus.emit({ level: Level.WARNING, code: 'passwordbis' })

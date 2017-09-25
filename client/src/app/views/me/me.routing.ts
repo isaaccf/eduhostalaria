@@ -5,7 +5,7 @@ import { UsersComponent } from 'app/views/me/users/users.component';
 import { OrganizationsComponent } from 'app/views/me/organizations/organizations.component';
 import { OrganizationComponent } from 'app/views/me/organization/organization.component';
 import { EventsComponent } from 'app/views/me/events/events.component';
-import { BookingsComponent } from 'app/views/me/bookings/bookings.component';
+import { EventBookingsComponent } from 'app/views/me/event-bookings/event-bookings.component';
 
 const routes: Routes = [
   {
@@ -24,9 +24,14 @@ const routes: Routes = [
     data: { name: 'me_events', title: 'Eventos' }
   },
   {
-    path: 'events/:eventId',
-    component: BookingsComponent,
+    path: 'bookings',
+    component: EventBookingsComponent,
     data: { name: 'me_bookings', title: 'Bookings' }
+  },
+  {
+    path: 'events/:eventId',
+    component: EventBookingsComponent,
+    data: { name: 'me_event_bookings', title: 'Bookings' }
   },
   {
     path: 'organizations',

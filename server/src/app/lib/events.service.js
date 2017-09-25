@@ -21,10 +21,8 @@ module.exports.getAll = async (organizationId, ownerId) => {
   const options = {};
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
-  const events = await mongo.find(col, options, { date: 1 });
-  await Promise.all(events.map(async (event) => {
-    event.bookingsNumber = await mongo.count('bookings', { eventId: String(event._id) });
-  }));
+  let events = await mongo.find(col, options, { date: 1 });
+  events = await fillEventsBookingsNumber(events);
   return fillEventsOwner(events);
 };
 

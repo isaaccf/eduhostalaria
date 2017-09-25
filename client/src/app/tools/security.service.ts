@@ -130,7 +130,7 @@ export class SecurityService {
   private emitLogin(user) {
     this.bus.emitUser(user);
     this.bus.emit({ level: Level.SUCCESS, code: 'login', text: user.name });
-    this.navigateTo(['/me']);
+    this.navigateTo(['/']);
   }
 
   navigateTo(target: any, args?: any) {

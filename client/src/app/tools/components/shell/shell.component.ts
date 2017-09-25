@@ -132,7 +132,6 @@ export class ShellComponent implements OnInit {
         });
       }
     }
-    console.log(JSON.stringify(this.menuLinks));
   }
 
   listenRouterChanges() {

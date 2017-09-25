@@ -111,7 +111,6 @@ export class MeComponent implements OnInit {
     this.changePasswordActive = false;
   }
   onEditProfileClick(editProfileClaim) {
-    console.log(editProfileClaim);
     this.me.editProfile(editProfileClaim).subscribe(r => this.security.getMe().subscribe(r => this.security.navigateTo(['/'])));
     this.editProfileActive = false;
   }
