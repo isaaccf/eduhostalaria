@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IOrganization } from 'app/tools/organization.model';
 import { SecurityService } from 'app/tools/security.service';
+import { LoggingService } from 'app/tools/analytics.service';
 
 @Injectable()
 export class MeService {
@@ -14,7 +15,7 @@ export class MeService {
   private bookingsUrl = '_/bookings';
   private credentialsUrl = 'credentials';
 
-  constructor(private http: HttpClient, private security: SecurityService) { }
+  constructor(private http: HttpClient, private security: SecurityService, private log: LoggingService) { }
 
   getOrganizationsCount(): Observable<number> {
     return this.http
@@ -64,12 +65,14 @@ export class MeService {
       .delete(`${this.credentialsUrl}/_/${user._id}`);
   }
 
-  inviteUser(user: any): Observable<any> {
-    user.roles = [user.role];
-    user.organizationId = this.security.getLocalUser().organizationId;
-    delete user.role;
+  inviteUser(newUser: any): Observable<any> {
+    const user = this.security.getLocalUser();
+    newUser.roles = [newUser.role];
+    newUser.organizationId = user.organizationId;
+    delete newUser.role;
     return this.http
-      .post(`${this.credentialsUrl}/_/invitations`, user);
+      .post(`${this.credentialsUrl}/_/invitations`, newUser)
+      .do(x => this.log.sendEvent('invitations', user.name, JSON.stringify(newUser)));
   }
 
   getOrganizations(): Observable<any[]> {
@@ -120,7 +123,10 @@ export class MeService {
   }
 
   postEvent(event) {
-    return this.http.post(this.eventsUrl, event);
+    const user = this.security.getLocalUser();
+    return this.http
+      .post(this.eventsUrl, event)
+      .do(x => this.log.sendEvent('events', user.name, JSON.stringify(event)));
   }
 
   removeEvent(eventId) {
@@ -133,11 +139,16 @@ export class MeService {
   }
 
   bookEvent(payload) {
-    return this.http.post(this.bookingsUrl, payload);
+    const user = this.security.getLocalUser();
+    return this.http
+      .post(this.bookingsUrl, payload)
+      .do(x => this.log.sendEvent('bookings', user.name, JSON.stringify(payload)));
   }
 
   bookEventGuest(payload) {
-    return this.http.post(`${this.credentialsUrl}/bookingregistrations`, payload);
+    return this.http
+      .post(`${this.credentialsUrl}/bookingregistrations`, payload)
+      .do(x => this.log.sendEvent('bookings', 'newUser', JSON.stringify(payload)));
   }
 
   getUserById(userId) {

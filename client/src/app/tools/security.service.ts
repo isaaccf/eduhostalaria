@@ -9,6 +9,7 @@ import { IUser } from 'app/tools/user.model';
 import { Level } from 'app/tools/message.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import { LoggingService } from 'app/tools/analytics.service';
 
 @Injectable()
 export class SecurityService {
@@ -19,7 +20,7 @@ export class SecurityService {
   private userUrl = '_/users';
   private organizationUrl = '_/organizations';
 
-  constructor(private bus: BusService, private http: HttpClient, private router: Router) {
+  constructor(private bus: BusService, private http: HttpClient, private router: Router, private log: LoggingService) {
     this.onSecurityErrLogOut();
     this.emitUserStatus();
   }
@@ -28,6 +29,7 @@ export class SecurityService {
     this.http
       .post(this.url, credentials)
       .subscribe(r => {
+        this.log.sendEvent('users', 'login', credentials.email);
         this.saveUserToken(r);
         this.getMe()
           .subscribe(this.emitLogin.bind(this));
@@ -35,6 +37,8 @@ export class SecurityService {
   }
 
   logOutUser() {
+    const user = this.getLocalUser();
+    this.log.sendEvent('users', 'logout', user.email);
     localStorage.removeItem(this.userTokenKey);
     this.bus.emitUserToken(null);
     localStorage.removeItem(this.userKey);
@@ -138,6 +142,7 @@ export class SecurityService {
       .post(`${this.url}/confirmations`, credentials)
       .subscribe(
       r => {
+        this.log.sendEvent('users', 'confirm', JSON.stringify(credentials))
         this.saveUserToken(r);
         this.getMe()
           .subscribe(this.emitLogin.bind(this));

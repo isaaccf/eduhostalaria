@@ -12,4 +12,12 @@ export class LoggingService {
       eventLabel: data
     })
   }
+  public sendEvent(category, message, data) {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: category,
+      eventAction: message,
+      eventLabel: data
+    })
+  }
 }
