@@ -2,3 +2,12 @@ a:focus, a:hover, a:active, a.active {
   text-decoration: none !important;
   cursor: pointer !important;
 }
+
+dt {
+  float: left;
+}
+
+dd {
+  display: inline;
+  margin-left: 5px;
+}

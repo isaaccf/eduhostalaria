@@ -47,7 +47,7 @@
       {
         "key": "role",
         "type": "radio",
-        "label": "Rol",
+        "label": "Eres membro do centro ou externo?",
         "actions": [
           {
             "label": "Interno",

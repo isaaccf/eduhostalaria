@@ -28,6 +28,11 @@
         "label": "Comments",
         "key": "comments",
         "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
       }
     ],
     "actions": [

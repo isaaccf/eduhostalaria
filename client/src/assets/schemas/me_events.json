@@ -130,7 +130,7 @@
         "type": "string"
       },
       {
-        "label": "Reservas",
+        "label": "Res",
         "key": "bookingsNumber",
         "type": "number"
       },
