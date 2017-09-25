@@ -11,6 +11,8 @@ module.exports = (app, url) => {
     })
     .post(async (req, res) => {
       const booking = req.body;
+      booking.ownerId = req.user._id;
+      booking.status = 'ACTIVE';
       const data = await srv.insertBooking(req.user, booking);
       return rest.returnInserted(data, res);
     });
@@ -20,7 +22,6 @@ module.exports = (app, url) => {
       const bookingId = req.params.id;
       const data = await srv.getById(bookingId);
       return rest.returnOne(data, res);
-
     })
     .patch(async (req, res) => {
       const booking = req.body;

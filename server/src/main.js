@@ -6,20 +6,11 @@ const logger = require('winston');
 logger.configure({
   transports: [
     new (logger.transports.Console)({
-      timestamp: () => (new Date()).toLocaleTimeString(),
+      // timestamp: () => (new Date()).toLocaleTimeString(),
       level: 'debug',
       handleExceptions: true,
       json: false,
-      colorize: true,
-    }),
-    new (logger.transports.File)({
-      level: 'info',
-      filename: './app-base.log',
-      handleExceptions: true,
-      json: false,
-      maxsize: 5242880,
-      maxFiles: 5,
-      colorize: false,
+      // colorize: true,
     }),
   ],
 });
