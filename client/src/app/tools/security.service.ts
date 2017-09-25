@@ -29,7 +29,7 @@ export class SecurityService {
     this.http
       .post(this.url, credentials)
       .subscribe(r => {
-        this.log.sendEvent('users', 'login', credentials.email);
+        this.log.sendEvent('users', 'login', credentials ? credentials.email : '');
         this.saveUserToken(r);
         this.getMe()
           .subscribe(this.emitLogin.bind(this));
@@ -38,7 +38,7 @@ export class SecurityService {
 
   logOutUser() {
     const user = this.getLocalUser();
-    this.log.sendEvent('users', 'logout', user.email);
+    this.log.sendEvent('users', 'logout', user ? user.email : '');
     localStorage.removeItem(this.userTokenKey);
     this.bus.emitUserToken(null);
     localStorage.removeItem(this.userKey);

@@ -148,7 +148,7 @@ export class MeService {
   bookEventGuest(payload) {
     return this.http
       .post(`${this.credentialsUrl}/bookingregistrations`, payload)
-      .do(x => this.log.sendEvent('bookings', 'newUser', JSON.stringify(payload)));
+      .do(x => this.log.sendEvent('bookings', 'bookingregistrations', JSON.stringify(payload)));
   }
 
   getUserById(userId) {
