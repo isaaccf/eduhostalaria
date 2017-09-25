@@ -13,6 +13,10 @@ module.exports.getAll = async (organizationId, ownerId) => {
   return events;
 };
 
+module.exports.getByStatus = async (organizationId, status) => {
+  return mongo.find(col, { organizationId, status }, { date: -1 });
+};
+
 exports.insertEvent = async event => mongo.insertOne(col, event);
 exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);
 exports.getById = async eventId => mongo.findOneById(col, eventId);

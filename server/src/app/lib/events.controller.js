@@ -29,7 +29,7 @@ module.exports = (app, url) => {
     .patch(async (req, res) => {
       const user = req.user;
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
-      if (!user || user._id !== req.params.id) {
+      if (!user || user._id !== req.body.ownerId) {
         return res.status(403).send();
       }
       const event = req.body;
