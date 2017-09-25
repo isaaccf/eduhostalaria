@@ -77,7 +77,7 @@ export class EventsComponent implements OnInit {
   }
 
   onRowAction(action) {
-    const event = action.value;
+    const event = Object.assign({}, action.value);
     delete event.bookingsNumber;
 
     switch (action.key) {

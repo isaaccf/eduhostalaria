@@ -27,7 +27,11 @@ module.exports = (app, url) => {
       return rest.returnOne(data, res);
     })
     .patch(async (req, res) => {
+      const user = req.user;
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
+      if (!user || user._id !== req.params.id) {
+        return res.status(403).send();
+      }
       const event = req.body;
       const eventId = req.params.id;
       const data = await srv.updateEvent(eventId, event);
