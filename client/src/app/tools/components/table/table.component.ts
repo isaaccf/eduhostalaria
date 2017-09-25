@@ -45,7 +45,7 @@ export class TableComponent implements OnInit {
       case 'PENDING':
         return 'label label-warning';
       case 'CANCELED':
-        return 'label label-warning';
+        return 'label label-grey';
       case 'DISABLED':
         return 'label label-error';
     }

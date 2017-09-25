@@ -77,14 +77,14 @@ export class OrganizationHomeComponent implements OnInit {
     if (this.events) {
       this.events.reverse().forEach((ev: IEvent) => {
         const event = {
-          label: ev.name,
+          label: ev.title,
           date: ev.date,
           shift: ev.shift,
           icon: '',
           items: [
             {
               header: {
-                title: ev.description
+                title: ev.offer
               }
             }
           ],

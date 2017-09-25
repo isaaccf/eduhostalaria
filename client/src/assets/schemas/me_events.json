@@ -116,7 +116,7 @@
     "fields": [
       {
         "label": "Nome",
-        "key": "name",
+        "key": "title",
         "type": "string"
       },
       {
@@ -133,14 +133,25 @@
         "label": "Reservas",
         "key": "bookingsNumber",
         "type": "number"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
       }
     ],
     "actions": [
       {
         "label": "",
+        "key": "activate",
+        "icon": "icon-check",
+        "title": "Act."
+      },
+      {
+        "label": "",
         "key": "deactivate",
         "icon": "icon-cross",
-        "title": "Desactivar"
+        "title": "Des."
       },
       {
         "label": "",

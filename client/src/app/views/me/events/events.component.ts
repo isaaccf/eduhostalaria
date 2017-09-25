@@ -77,8 +77,23 @@ export class EventsComponent implements OnInit {
   }
 
   onRowAction(action) {
-    if (action.key === 'edit') {
-      this.showEditModal = true;
+    const event = action.value;
+    delete event.bookingsNumber;
+
+    switch (action.key) {
+      case 'edit':
+        this.showEditModal = true;
+        break;
+      case 'activate':
+        this.me.changeEventStatus(event, 'ACTIVE').subscribe(() => {
+          this.getEvents();
+        });
+        break;
+      case 'deactivate':
+        this.me.changeEventStatus(event, 'CANCELED').subscribe(() => {
+          this.getEvents();
+        });
+        break;
     }
   }
 

@@ -15,6 +15,7 @@ module.exports = (app, url) => {
       const event = req.body;
       event.ownerId = req.user._id;
       event.organizationId = req.user.organizationId;
+      event.status = 'ACTIVE';
       const data = await srv.insertEvent(event);
       return rest.returnInserted(data, res);
     });
@@ -25,7 +26,6 @@ module.exports = (app, url) => {
       const data = await srv.getById(eventId);
       return rest.returnOne(data, res);
     })
-
     .patch(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const event = req.body;
