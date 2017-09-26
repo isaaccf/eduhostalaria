@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('./app/tools/config');
 const middleware = require('./app/tools/middleware');
 const logger = require('winston');
+const tracker = require('./app/tools/ga.service');
 
 logger.configure({
   transports: [
@@ -39,6 +40,7 @@ mongoService.connect()
     app.listen(config.port, () => logger.info(`Listening on port ${config.port}`));
   })
   .catch((err) => {
+    tracker('Mongo', err.message);
     logger.warn('No MongoDB');
     logger.error(err);
   });
