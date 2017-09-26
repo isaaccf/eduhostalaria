@@ -1,4 +1,5 @@
 const srv = require('./events.service');
+const bookingsSrv = require('./bookings.service');
 const rest = require('../tools/rest.service');
 const parser = require('../tools/upload.service');
 
@@ -51,5 +52,11 @@ module.exports = (app, url) => {
         await srv.addFiles(eventId, obj);
       });
       return rest.returnArray([], res);
+    });
+  app.route(`${url}/:id/bookings`)
+    .get(async (req, res) => {
+      const eventId = req.params.id;
+      const data = await bookingsSrv.getAll(eventId);
+      return rest.returnArray(data, res);
     });
 };

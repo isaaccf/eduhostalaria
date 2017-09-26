@@ -16,17 +16,17 @@
     "fields": [
       {
         "label": "Nome",
-        "key": "owner.name",
+        "key": "event.title",
         "type": "string"
       },
       {
-        "label": "Email",
-        "key": "owner.email",
+        "label": "Date",
+        "key": "event.date",
         "type": "string"
       },
       {
-        "label": "Comments",
-        "key": "comments",
+        "label": "Turno",
+        "key": "event.shift",
         "type": "string"
       },
       {
@@ -40,7 +40,7 @@
         "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Borrar"
+        "title": "Cancelar"
       }
     ]
   }

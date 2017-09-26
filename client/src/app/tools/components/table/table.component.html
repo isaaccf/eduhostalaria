@@ -15,11 +15,11 @@
       <tr *ngFor="let row of data"
           (click)="onRowClick(row)">
         <td *ngFor="let field of schema.fields">
-          <span *ngIf="field.key === 'date'"
+          <span *ngIf="field.key.includes('date')"
                 [ngClass]="getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) | date:'shortDate'}}</span>
           <a [routerLink]="valueByPath(row,'_id')"><span *ngIf="field.key === 'bookingsNumber'"
             class="label label-primary">{{ valueByPath(row,field?.key) }}</span></a>
-          <span *ngIf="field.key !== 'date' && field.key !== 'bookingsNumber'"
+          <span *ngIf="!field.key.includes('date') && field.key !== 'bookingsNumber'"
                 [ngClass]="getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) }}</span>
         </td>
         <td *ngFor="let action of schema.actions">

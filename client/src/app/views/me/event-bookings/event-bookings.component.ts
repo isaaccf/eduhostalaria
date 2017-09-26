@@ -25,7 +25,7 @@ export class EventBookingsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.eventId = params['eventId'];
-      this.schemaService.getSchema$('me_bookings').subscribe(schema => {
+      this.schemaService.getSchema$('me_event_bookings').subscribe(schema => {
         this.schema = schema;
         this.cardSchema = { header: { title: '' }, fields: this.schema.report.fields };
         this.getEvent();
@@ -61,9 +61,7 @@ export class EventBookingsComponent implements OnInit {
   }
 
   onDelete(event) {
-    this.me.cancelBooking(event.value._id).subscribe(() => {
-      this.getBookings();
-    });
+    // TODO
   }
 
 }
