@@ -6,6 +6,7 @@ const api = require('../lib/api');
 const logger = require('winston');
 const express = require('express');
 const path = require('path');
+const tracker = require('./ga.service');
 
 module.exports.useMiddleware = (app) => {
   app.disable('x-powered-by');
@@ -69,6 +70,7 @@ module.exports.useMiddleware = (app) => {
 
   app.use((err, req, res, next) => {
     if (!err) next();
+    tracker('Error', err.message);
     logger.error(err);
     res
       .status(err.status || 500)

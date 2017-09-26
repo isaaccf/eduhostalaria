@@ -1,5 +1,6 @@
 const ObjectID = require('mongodb').ObjectID;
 const logger = require('winston');
+const tracker = require('./ga.service');
 
 module.exports.getQueryById = (id) => {
   let query = {};
@@ -19,6 +20,7 @@ module.exports.getResult = (data, result) => {
 };
 
 module.exports.getError = (err) => {
+  tracker('Error', err.message);
   logger.error(err);
   return err;
 };
