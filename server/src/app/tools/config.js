@@ -14,7 +14,7 @@ config.mailer.secure = Boolean.valueOf(env.MAILER_SECURE)() || config.mailer.sec
 config.mailer.ignoreTLS = Boolean.valueOf(env.MAILER_TLS)() || config.mailer.ignoreTLS;
 config.mailer.auth.user = env.MAILER_USER || config.mailer.auth.user;
 config.mailer.auth.pass = env.MAILER_PASS || config.mailer.auth.pass;
-
+config.GOOGLE_ANALYTICS = env.GOOGLE_ANALYTICS || config.GOOGLE_ANALYTICS;
 // cloudinary library auto search in process.env
 process.env.CLOUDINARY_URL = process.env.CLOUDINARY_URL || dev.CLOUDINARY_URL;
 

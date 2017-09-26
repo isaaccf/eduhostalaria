@@ -17,5 +17,6 @@
     "logger": true
   },
   "path": "",
-  "CLOUDINARY_URL": "cloudinary://123456789012345:abcdeghijklmnopqrstuvwxyz12@n07t21i7"
+  "CLOUDINARY_URL": "cloudinary://123456789012345:abcdeghijklmnopqrstuvwxyz12@n07t21i7",
+  "GOOGLE_ANALYTICS": "UA-XXXXX-X"
 }
