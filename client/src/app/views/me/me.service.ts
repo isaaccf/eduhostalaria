@@ -159,8 +159,9 @@ export class MeService {
     return this.http.get(`${this.eventsUrl}/${eventId}/bookings`);
   }
 
-  cancelBooking(booking) {
-    booking.status = 'CANCELED';
+  changeBookingStatus(booking, status) {
+    console.log(booking);
+    booking.status = status;
     return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
   }
 

@@ -36,6 +36,13 @@ exports.insertBooking = async (user, booking) => {
   return result;
 };
 
-exports.updateBooking = async (bookingId, booking) => mongo.updateOne(col, bookingId, booking);
+exports.updateBooking = async (bookingId, booking) => {
+  const owner = booking.owner;
+  booking.ownerId = booking.owner._id;
+  delete booking.owner;
+  const newBooking = await mongo.updateOne(col, bookingId, booking);
+  newBooking.owner = owner;
+  return newBooking;
+};
 exports.deleteBooking = async bookingId => mongo.removeOne(col, bookingId);
 exports.getById = async bookingId => mongo.findOneById(col, bookingId);

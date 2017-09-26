@@ -38,9 +38,15 @@
     "actions": [
       {
         "label": "",
+        "key": "activate",
+        "icon": "icon-check",
+        "title": "Activar"
+      },
+      {
+        "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Borrar"
+        "title": "Cancelar"
       }
     ]
   }

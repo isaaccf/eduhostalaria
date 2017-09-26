@@ -44,6 +44,7 @@ export class EventBookingsComponent implements OnInit {
   getBookings() {
     this.me.getBookingsByEventId(this.eventId).subscribe(bookings => {
       this.bookings = bookings;
+      console.log(bookings);
     });
   }
 
@@ -57,11 +58,18 @@ export class EventBookingsComponent implements OnInit {
       + ' ' + this.event.shift;
   }
 
-  onRowAction(event) {
+  onRowAction(action) {
+    if (action.key === 'activate') {
+      this.me.changeBookingStatus(action.value, 'ACTIVE').subscribe(() => {
+        this.getBookings();
+      });
+    }
   }
 
-  onDelete(event) {
-    // TODO
+  onDelete(action) {
+    this.me.changeBookingStatus(action, 'CANCELED').subscribe(() => {
+      this.getBookings();
+    });
   }
 
 }

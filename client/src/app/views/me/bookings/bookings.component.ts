@@ -55,8 +55,7 @@ export class BookingsComponent implements OnInit {
 
   onDelete(action) {
     delete action.event;
-    console.log(action);
-    this.me.cancelBooking(action).subscribe(() => {
+    this.me.changeBookingStatus(action, 'CANCELED').subscribe(() => {
       this.getBookings();
     });
   }
