@@ -1,6 +1,7 @@
 const mongo = require('../tools/mongo.service');
 const mailer = require('../tools/mailer.service');
 const userService = require('./users.service');
+const eventService = require('./events.service');
 
 const col = 'bookings';
 
@@ -12,12 +13,21 @@ async function fillBookingsOwner(bookings) {
   return bookings;
 }
 
+async function fillEventInformation(bookings) {
+  await Promise.all(await bookings.map(async (booking) => {
+    booking.event = await eventService.getById(booking.eventId);
+  }));
+  return bookings;
+}
+
 exports.getAll = async (eventId, ownerId) => {
   const options = {};
   if (eventId) { options.eventId = eventId; }
   if (ownerId) { options.ownerId = ownerId; }
   const bookings = await mongo.find(col, options);
-  return fillBookingsOwner(bookings);
+  if (eventId) { await fillBookingsOwner(bookings) }
+  if (ownerId) { await fillEventInformation(bookings) }
+  return bookings;
 };
 
 exports.insertBooking = async (user, booking) => {

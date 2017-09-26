@@ -156,11 +156,16 @@ export class MeService {
   }
 
   getBookingsByEventId(eventId) {
-    return this.http.get(`${this.bookingsUrl}?eventId=${eventId}`);
+    return this.http.get(`${this.eventsUrl}/${eventId}/bookings`);
   }
 
-  cancelBooking(bookingId) {
-    return this.http.delete(`${this.bookingsUrl}/${bookingId}`);
+  cancelBooking(booking) {
+    booking.status = 'CANCELED';
+    return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
+  }
+
+  getBookingsByUserId() {
+    return this.http.get(`${this.bookingsUrl}`);
   }
 
 }

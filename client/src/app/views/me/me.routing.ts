@@ -6,6 +6,7 @@ import { OrganizationsComponent } from 'app/views/me/organizations/organizations
 import { OrganizationComponent } from 'app/views/me/organization/organization.component';
 import { EventsComponent } from 'app/views/me/events/events.component';
 import { EventBookingsComponent } from 'app/views/me/event-bookings/event-bookings.component';
+import { BookingsComponent } from 'app/views/me/bookings/bookings.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'bookings',
-    component: EventBookingsComponent,
+    component: BookingsComponent,
     data: { name: 'me_bookings', title: 'Bookings' }
   },
   {

@@ -4,9 +4,8 @@ const rest = require('../tools/rest.service');
 module.exports = (app, url) => {
   app.route(`${url}`)
     .get(async (req, res) => {
-      const eventId = req.query.eventId;
-      const ownerId = req.query.ownerId;
-      const data = await srv.getAll(eventId, ownerId);
+      const ownerId = req.user._id;
+      const data = await srv.getAll(undefined, ownerId);
       return rest.returnArray(data, res);
     })
     .post(async (req, res) => {

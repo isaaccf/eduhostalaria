@@ -1,4 +1,5 @@
 const mongo = require('../tools/mongo.service');
+const userService = require('./users.service');
 
 const col = 'events';
 

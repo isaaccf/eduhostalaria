@@ -28,6 +28,11 @@
       "icon": "icon-people",
       "label": "Usuarios",
       "link": "/me/users/"
+    },
+    {
+      "icon": "icon-bookmark",
+      "label": "Reservas",
+      "link": "/me/bookings/"
     }
   ],
   "mestre": [
@@ -35,6 +40,11 @@
       "icon": "icon-time",
       "label": "Ofertas",
       "link": "/me/events/"
+    },
+    {
+      "icon": "icon-bookmark",
+      "label": "Reservas",
+      "link": "/me/bookings/"
     }
   ],
   "interno": [
@@ -42,6 +52,23 @@
       "icon": "icon-time",
       "label": "Ofertas",
       "link": "/me/events/"
+    },
+    {
+      "icon": "icon-bookmark",
+      "label": "Reservas",
+      "link": "/me/bookings/"
+    }
+  ],
+  "externo": [
+    {
+      "icon": "icon-time",
+      "label": "Ofertas",
+      "link": "/me/events/"
+    },
+    {
+      "icon": "icon-bookmark",
+      "label": "Reservas",
+      "link": "/me/bookings/"
     }
   ]
 }

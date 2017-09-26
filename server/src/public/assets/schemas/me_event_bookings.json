@@ -2,31 +2,31 @@
   "actions": {
     "header": {
       "title": "Reservas",
-      "subtitle": "Lista de usuarios coa reserva feita",
+      "subtitle": "Lista de eventos con reserva feita",
       "icon": "icon-bookmark"
     }
   },
   "report": {
     "header": {
       "title": "Lista de reservas",
-      "subtitle": "Lista de usuarios coa reserva feita",
+      "subtitle": "Lista de eventos con reserva feita",
       "icon": "icon-bookmark"
     },
     "emptyMessage": "Non temos reservas para mostrar :(",
     "fields": [
       {
         "label": "Nome",
-        "key": "event.title",
+        "key": "owner.name",
         "type": "string"
       },
       {
-        "label": "Date",
-        "key": "event.date",
+        "label": "Email",
+        "key": "owner.email",
         "type": "string"
       },
       {
-        "label": "Turno",
-        "key": "event.shift",
+        "label": "Comments",
+        "key": "comments",
         "type": "string"
       },
       {
@@ -40,7 +40,7 @@
         "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Cancelar"
+        "title": "Borrar"
       }
     ]
   }
