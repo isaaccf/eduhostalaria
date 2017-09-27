@@ -157,6 +157,7 @@
         "key": "description",
         "type": "wysiwyg",
         "label": "Descrición",
+        "defaultValue": "this.organization.description",
         "validators": [
           {
             "key": "required",

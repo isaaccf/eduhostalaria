@@ -19,7 +19,7 @@
       {
         "key": "date",
         "type": "date",
-        "label": "Data",
+        "label": "Fecha",
         "actions": [],
         "validators": [
           {
@@ -50,11 +50,128 @@
         ]
       },
       {
+        "key": "room",
+        "type": "text",
+        "label": "Comedor",
+        "defaultValue": "1",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio reducido é requerido"
+          }
+        ]
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Precio estándar",
+        "defaultValue": "this.organization.standardPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio estándar é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "number",
+        "label": "Precio reducido",
+        "defaultValue": "this.organization.defaultPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio reducido é requerido"
+          }
+        ]
+      },
+      {
         "key": "title",
         "type": "input",
         "label": "Nome",
         "actions": [],
         "validators": []
+      },
+      {
+        "key": "description",
+        "type": "wysiwyg",
+        "label": "Descripción",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A oferta do evento é requerida"
+          }
+        ]
+      }
+    ]
+  },
+  "edit": {
+    "title": "Editar oferta",
+    "submitLabel": "Gardar oferta",
+    "controls": [
+      {
+        "key": "date",
+        "type": "date",
+        "label": "Turno",
+        "defaultValue": "this.event.date",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data do evento é requerida"
+          }
+        ]
+      },
+      {
+        "key": "shift",
+        "type": "radio",
+        "defaultValue": "this.event.shift",
+        "label": "Turno",
+        "actions": [
+          {
+            "label": "Diurno",
+            "value": "Diurno"
+          },
+          {
+            "label": "Nocturno",
+            "value": "Nocturno"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O turno é requerido"
+          }
+        ]
+      },
+      {
+        "key": "room",
+        "type": "text",
+        "label": "Comedor",
+        "defaultValue": "this.event.room",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio reducido é requerido"
+          }
+        ]
       },
       {
         "key": "capacity",
@@ -96,9 +213,18 @@
         ]
       },
       {
-        "key": "offer",
+        "key": "title",
+        "type": "input",
+        "label": "Nome",
+        "defaultValue": "this.event.title",
+        "actions": [],
+        "validators": []
+      },
+      {
+        "key": "description",
         "type": "wysiwyg",
-        "label": "Oferta",
+        "label": "Descripción",
+        "defaultValue": "this.event.description",
         "validators": [
           {
             "key": "required",
@@ -125,7 +251,7 @@
         "type": "string"
       },
       {
-        "label": "Hora",
+        "label": "Turno",
         "key": "shift",
         "type": "string"
       },

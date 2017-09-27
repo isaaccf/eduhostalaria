@@ -1,8 +1,20 @@
 {
   "user": {
-    "title": "Reservar evento",
+    "title": "Reservar mesa",
     "submitLabel": "Reservar",
     "controls": [
+      {
+        "key": "seats",
+        "type": "number",
+        "label": "Nº de comensales",
+        "defaultValue": "1",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nº de comensales requerido"
+          }
+        ]
+      },
       {
         "key": "comments",
         "type": "textarea",
@@ -13,7 +25,7 @@
     ]
   },
   "guest": {
-    "title": "Reservar evento",
+    "title": "Reservar mesa",
     "submitLabel": "Reservar",
     "controls": [
       {
@@ -62,6 +74,18 @@
           {
             "key": "required",
             "errorMessage": "O rol é requerido"
+          }
+        ]
+      },
+      {
+        "key": "seats",
+        "type": "number",
+        "label": "Nº de comensales",
+        "defaultValue": "1",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nº de comensales requerido"
           }
         ]
       },

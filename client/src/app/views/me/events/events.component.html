@@ -15,7 +15,7 @@
           [active]="showEditModal"
           (close)="onCloseModal()">
   <modal-content>
-    <ab-form [formSchema]="createFormSchema"
+    <ab-form [formSchema]="editFormSchema"
              (send)="onEdit($event)">
     </ab-form>
   </modal-content>

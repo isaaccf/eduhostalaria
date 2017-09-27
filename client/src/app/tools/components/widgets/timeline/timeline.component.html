@@ -32,7 +32,7 @@
       </section>
     </article>
   </ng-container>
-  <ab-modal [title]="'Reservar evento'"
+  <ab-modal [title]="'Reservar mesa'"
             [active]="isBookingModalActive"
             (close)="onCloseModal()">
     <modal-content>
@@ -40,7 +40,7 @@
                (send)="onSubmitBooking($event)"></ab-form>
     </modal-content>
   </ab-modal>
-  <ab-modal [title]="'Reservar evento'"
+  <ab-modal [title]="'Reservar mesa'"
             [active]="isRegisterModalActive"
             (close)="onCloseModal()">
     <modal-content>

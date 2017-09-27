@@ -20,9 +20,11 @@ export class EventsComponent implements OnInit {
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
   public createFormSchema: IFormSchema;
+  public editFormSchema: IFormSchema;
   public reportSchema: IReportSchema;
   public cardSchema: IWidgetSchema;
   public showEditModal = false;
+  public event: any;
 
   constructor(private schema: SchemaService,
     private me: MeService,
@@ -40,6 +42,7 @@ export class EventsComponent implements OnInit {
       .getSchema$('me_events')
       .subscribe(schemas => {
         this.actionSchema = schemas.actions;
+        this.editFormSchema = schemas.edit;
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
         this.schema.populateDefaultValues(this.createFormSchema, this.organization);
@@ -77,24 +80,32 @@ export class EventsComponent implements OnInit {
   }
 
   onRowAction(action) {
-    const event = Object.assign({}, action.value);
-    delete event.bookingsNumber;
+    this.event = Object.assign({}, action.value);
+    delete this.event.bookingsNumber;
 
     switch (action.key) {
       case 'edit':
+        this.schema.populateDefaultValues(this.editFormSchema, this.event);
+        this.editFormSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
+        this.editFormSchema = Object.assign({}, this.editFormSchema);
         this.showEditModal = true;
         break;
       case 'activate':
-        this.me.changeEventStatus(event, 'ACTIVE').subscribe(() => {
+        this.me.changeEventStatus(this.event, 'ACTIVE').subscribe(() => {
           this.getEvents();
         });
         break;
       case 'deactivate':
-        this.me.changeEventStatus(event, 'DISABLED').subscribe(() => {
+        this.me.changeEventStatus(this.event, 'DISABLED').subscribe(() => {
           this.getEvents();
         });
         break;
     }
+  }
+
+  dateToString(dateStr) {
+    const date = new Date(dateStr);
+    return (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
   }
 
   onCloseModal() {

@@ -49,6 +49,11 @@ export class SchemaService {
   }
 
   populateDefaultValues(form: IFormSchema, target: any) {
-    form.controls.forEach(c => c.defaultValue = this.valueByPath(target, c.key))
+    form.controls.forEach((c) => {
+      if (c.defaultValue) {
+        c.defaultValue = this.valueByPath(target, c.key);
+      }
+    });
   }
+
 }

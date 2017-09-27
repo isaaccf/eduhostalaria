@@ -2,6 +2,9 @@ const srv = require('./events.service');
 const bookingsSrv = require('./bookings.service');
 const rest = require('../tools/rest.service');
 const parser = require('../tools/upload.service');
+const slugger = require('slug');
+
+const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
 module.exports = (app, url) => {
   app.route(`${url}`)
@@ -14,6 +17,28 @@ module.exports = (app, url) => {
     .post(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const event = req.body;
+
+      if (!event.hasOwnProperty('title') || event.title === null || event.title === '') {
+        const eventDate = new Date(event.date);
+        let title = weekDays[eventDate.getDay() - 1];
+        title += (` ${eventDate.getDate()}`);
+        switch (event.shift) {
+          case 'Diurno':
+            title += ' - Comida';
+            break;
+          case 'Nocturno':
+            title += ' - Cena';
+            break;
+          default:
+            break;
+        }
+        event.title = title;
+      }
+
+      if (!event.hasOwnProperty('slug') || event.slug === '') {
+        event.slug = `${slugger(event.title.toLowerCase())}.${Date.now()}`;
+      }
+
       event.ownerId = req.user._id;
       event.organizationId = req.user.organizationId;
       event.status = 'ACTIVE';

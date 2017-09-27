@@ -160,7 +160,6 @@ export class MeService {
   }
 
   changeBookingStatus(booking, status) {
-    console.log(booking);
     booking.status = status;
     return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
   }
