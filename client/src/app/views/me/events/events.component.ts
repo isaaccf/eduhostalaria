@@ -81,7 +81,6 @@ export class EventsComponent implements OnInit {
 
   onRowAction(action) {
     this.event = Object.assign({}, action.value);
-    delete this.event.bookingsNumber;
 
     switch (action.key) {
       case 'edit':

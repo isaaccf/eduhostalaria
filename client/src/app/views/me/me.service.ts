@@ -134,8 +134,12 @@ export class MeService {
   }
 
   changeEventStatus(event, status) {
-    event.status = status;
-    return this.http.patch(`${this.eventsUrl}/${event._id}`, event);
+    const payload = Object.assign({}, event);
+    delete event.bookingsNumber;
+    payload.ownerId = event.owner._id;
+    delete payload.owner;
+    payload.status = status;
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, payload);
   }
 
   bookEvent(payload) {
