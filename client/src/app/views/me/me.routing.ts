@@ -30,7 +30,7 @@ const routes: Routes = [
     data: { name: 'me_bookings', title: 'Bookings' }
   },
   {
-    path: 'events/:eventId',
+    path: 'events/:slug',
     component: EventBookingsComponent,
     data: { name: 'me_event_bookings', title: 'Bookings' }
   },

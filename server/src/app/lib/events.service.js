@@ -31,6 +31,10 @@ module.exports.getByStatus = async (organizationId, status) => {
   return mongo.find(col, { organizationId, status }, { date: -1 });
 };
 
+module.exports.getBySlug = async (slug) => {
+  return mongo.find(col, { slug });
+};
+
 exports.insertEvent = async event => mongo.insertOne(col, event);
 exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);
 exports.getById = async eventId => mongo.findOneById(col, eventId);

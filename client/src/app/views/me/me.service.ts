@@ -122,6 +122,10 @@ export class MeService {
     return this.http.get(`${this.eventsUrl}/${eventId}`);
   }
 
+  getEventBySlug(eventSlug) {
+    return this.http.get(`${this.eventsUrl}/slug/${eventSlug}`);
+  }
+
   postEvent(event) {
     const user = this.security.getLocalUser();
     return this.http

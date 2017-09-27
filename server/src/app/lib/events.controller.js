@@ -84,4 +84,10 @@ module.exports = (app, url) => {
       const data = await bookingsSrv.getAll(eventId);
       return rest.returnArray(data, res);
     });
+  app.route(`${url}/slug/:slug`)
+    .get(async (req, res) => {
+      const slug = req.params.slug;
+      const data = await srv.getBySlug(slug);
+      return rest.returnOne(data, res);
+    });
 };

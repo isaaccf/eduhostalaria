@@ -14,7 +14,7 @@ export class EventBookingsComponent implements OnInit {
   public cardSchema;
   public bookings;
   public event;
-  public eventId;
+  public eventSlug;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,27 +24,26 @@ export class EventBookingsComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.eventId = params['eventId'];
+      this.eventSlug = params['slug'];
       this.schemaService.getSchema$('me_event_bookings').subscribe(schema => {
         this.schema = schema;
         this.cardSchema = { header: { title: '' }, fields: this.schema.report.fields };
         this.getEvent();
-        this.getBookings();
       });
     });
   }
 
   getEvent() {
-    this.me.getEventById(this.eventId).subscribe(event => {
-      this.event = event;
+    this.me.getEventBySlug(this.eventSlug).subscribe(event => {
+      this.event = event[0];
       this.populateEventInfo();
+      this.getBookings();
     });
   };
 
   getBookings() {
-    this.me.getBookingsByEventId(this.eventId).subscribe(bookings => {
+    this.me.getBookingsByEventId(this.event._id).subscribe(bookings => {
       this.bookings = bookings;
-      console.log(bookings);
     });
   }
 
@@ -52,7 +51,7 @@ export class EventBookingsComponent implements OnInit {
     if (this.event.name && this.event.name.length > 0) {
       this.schema.actions.header.title = this.schema.actions.header.title + ' - ' + this.event.name;
     }
-
+    console.log(this.event);
     this.schema.actions.header.title +=
       ' - ' + new Date(this.event.date).toLocaleString().split(' ')[0]
       + ' ' + this.event.shift;
