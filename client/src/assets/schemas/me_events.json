@@ -102,7 +102,7 @@
         ]
       },
       {
-        "key": "title",
+        "key": "name",
         "type": "input",
         "label": "Nome",
         "actions": [],
@@ -213,10 +213,10 @@
         ]
       },
       {
-        "key": "title",
+        "key": "name",
         "type": "input",
         "label": "Nome",
-        "defaultValue": "this.event.title",
+        "defaultValue": "this.event.name",
         "actions": [],
         "validators": []
       },
@@ -242,7 +242,7 @@
     "fields": [
       {
         "label": "Nome",
-        "key": "title",
+        "key": "name",
         "type": "string"
       },
       {

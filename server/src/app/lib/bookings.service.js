@@ -32,16 +32,17 @@ exports.getAll = async (eventId, ownerId) => {
 
 exports.insertBooking = async (user, booking) => {
   const result = await mongo.insertOne(col, booking);
-  mailer.sendBooking(user, booking, 'booked');
+  const event = await eventService.getById(booking.eventId);
+  mailer.sendBooking(user, event, booking, 'booked');
   return result;
 };
 
 exports.updateBooking = async (bookingId, booking) => {
-  const owner = booking.owner;
+  /*const owner = booking.owner;
   booking.ownerId = booking.owner._id;
-  delete booking.owner;
+  delete booking.owner; */
   const newBooking = await mongo.updateOne(col, bookingId, booking);
-  newBooking.owner = owner;
+  // newBooking.owner = owner;
   return newBooking;
 };
 exports.deleteBooking = async bookingId => mongo.removeOne(col, bookingId);

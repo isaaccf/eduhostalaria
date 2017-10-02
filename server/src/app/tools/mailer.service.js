@@ -30,10 +30,10 @@ module.exports.sendWellcome = (user, templateName) => {
   this.getTransporter().sendMail(message);
 };
 
-module.exports.sendBooking = (user, booking, templateName) => {
+module.exports.sendBooking = (user, event, booking, templateName) => {
   const url = config.URLBASE;
   const template = bookings[templateName];
-  const bookingtext = booking.name;
+  const bookingtext = event.name;
   const message = {
     from: config.mailer.auth.user,
     to: user.email,

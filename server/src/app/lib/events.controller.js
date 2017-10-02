@@ -18,7 +18,7 @@ module.exports = (app, url) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const event = req.body;
 
-      if (!event.hasOwnProperty('title') || event.title === null || event.title === '') {
+      if (!event.hasOwnProperty('title') || event.name === null || event.name === '') {
         const eventDate = new Date(event.date);
         let title = weekDays[eventDate.getDay() - 1];
         title += (` ${eventDate.getDate()}`);
@@ -32,11 +32,11 @@ module.exports = (app, url) => {
           default:
             break;
         }
-        event.title = title;
+        event.name = title;
       }
 
       if (!event.hasOwnProperty('slug') || event.slug === '') {
-        event.slug = `${slugger(event.title.toLowerCase())}.${Date.now()}`;
+        event.slug = `${slugger(event.name.toLowerCase())}.${Date.now()}`;
       }
 
       event.ownerId = req.user._id;

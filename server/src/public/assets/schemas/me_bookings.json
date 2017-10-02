@@ -16,7 +16,7 @@
     "fields": [
       {
         "label": "Nome",
-        "key": "event.title",
+        "key": "event.name",
         "type": "string"
       },
       {
