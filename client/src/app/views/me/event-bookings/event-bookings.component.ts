@@ -51,7 +51,6 @@ export class EventBookingsComponent implements OnInit {
     if (this.event.name && this.event.name.length > 0) {
       this.schema.actions.header.title = this.schema.actions.header.title + ' - ' + this.event.name;
     }
-    console.log(this.event);
     this.schema.actions.header.title +=
       ' - ' + new Date(this.event.date).toLocaleString().split(' ')[0]
       + ' ' + this.event.shift;

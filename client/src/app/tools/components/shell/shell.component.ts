@@ -125,12 +125,24 @@ export class ShellComponent implements OnInit {
         }
         */
         this.user.roles.forEach(userRole => {
-          const menuRole = this.menuSchema[userRole.toLowerCase()];
-          if (menuRole) {
-            this.menuLinks = this.menuLinks.concat(menuRole);
-          }
+          // const menuRole = this.menuSchema[userRole.toLowerCase()];
+          // if (menuRole) {
+          //     this.menuLinks = this.menuLinks.concat(menuRole);
+          // }
+          this.pushMenuLinksByRole(userRole);
         });
       }
+    }
+  }
+
+  pushMenuLinksByRole(role) {
+    const menuRole: IAction[] = this.menuSchema[role.toLowerCase()];
+    if (menuRole) {
+      menuRole.forEach(newElem => {
+        if (this.menuLinks.findIndex(oldElem => oldElem.link === newElem.link) === -1) {
+          this.menuLinks.push(newElem);
+        }
+      });
     }
   }
 

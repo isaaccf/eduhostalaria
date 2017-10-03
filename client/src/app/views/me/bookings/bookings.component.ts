@@ -35,7 +35,6 @@ export class BookingsComponent implements OnInit {
 
   getBookings() {
     this.me.getBookingsByUserId().subscribe(bookings => {
-      console.log(bookings);
       this.bookings = bookings;
     });
   }
