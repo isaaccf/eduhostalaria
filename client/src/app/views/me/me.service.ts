@@ -128,9 +128,15 @@ export class MeService {
 
   postEvent(event) {
     const user = this.security.getLocalUser();
+    delete event.bookingsNumber;
     return this.http
       .post(this.eventsUrl, event)
       .do(x => this.log.sendEvent('events', user.name, JSON.stringify(event)));
+  }
+
+  editEvent(event) {
+    delete event.bookingsNumber;
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, event);
   }
 
   removeEvent(eventId) {

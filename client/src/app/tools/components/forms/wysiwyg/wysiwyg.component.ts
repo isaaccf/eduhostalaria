@@ -28,7 +28,6 @@ export class WysiwygComponent implements OnInit {
   constructor(public formTools: FormToolsService) { }
 
   ngOnInit() {
-    console.log(this.control);
   }
 
 }

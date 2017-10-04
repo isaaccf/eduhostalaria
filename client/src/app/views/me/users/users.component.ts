@@ -39,12 +39,10 @@ export class UsersComponent implements OnInit {
   }
 
   onCreate(data) {
-    console.log('creating user: ', data);
     this.me.inviteUser(data).subscribe(r => this.getUsers());
   }
 
   onDelete(data) {
-    console.log('deleting user: ', data);
     this.me.deleteUser(data).subscribe(r => this.getUsers());
   }
 

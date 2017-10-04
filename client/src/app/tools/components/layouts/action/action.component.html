@@ -1,5 +1,5 @@
 <a *ngIf="schema.link"
-   [routerLink]="schema.link">
+   [routerLink]="schema.link" class="btn btn-primary">
   <i *ngIf="schema.icon" [class]="'icon ' + schema.icon"></i>
   <span *ngIf="schema.label" [ngClass]="{'ml-10': schema.icon}">{{ schema.label }}</span>
 </a>

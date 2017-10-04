@@ -22,7 +22,6 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.formSchema);
     if (changes.formSchema) {
       const formSchema = changes.formSchema.currentValue;
       if (!formSchema || !formSchema.controls) {

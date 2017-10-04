@@ -7,6 +7,7 @@ import { SecurityService } from 'app/tools/security.service';
 import { IUser } from 'app/tools/user.model';
 import { IOrganization } from 'app/tools/organization.model';
 import { Level } from 'app/tools/message.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ab-events',
@@ -15,24 +16,19 @@ import { Level } from 'app/tools/message.model';
 })
 export class EventsComponent implements OnInit {
 
-  public organization: IOrganization;
   public events: any[];
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
-  public createFormSchema: IFormSchema;
-  public editFormSchema: IFormSchema;
   public reportSchema: IReportSchema;
   public cardSchema: IWidgetSchema;
-  public showEditModal = false;
-  public event: any;
 
   constructor(private schema: SchemaService,
     private me: MeService,
+    private router: Router,
     private security: SecurityService,
     private bus: BusService) { }
 
   ngOnInit() {
-    this.organization = this.security.getLocalOrganization();
     this.getSchema();
     this.getEvents();
   }
@@ -42,10 +38,7 @@ export class EventsComponent implements OnInit {
       .getSchema$('me_events')
       .subscribe(schemas => {
         this.actionSchema = schemas.actions;
-        this.editFormSchema = schemas.edit;
-        this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
-        this.schema.populateDefaultValues(this.createFormSchema, this.organization);
         this.cardSchema = { header: { title: '' }, fields: this.reportSchema.fields };
       });
   }
@@ -56,66 +49,24 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  onCreate(data) {
-    this.transformDate(data);
-    this.me.postEvent(data).subscribe(events => {
-      this.bus.emit({ level: Level.SUCCESS, text: 'Oferta creada con éxito', code: '' });
-      this.getEvents();
-    });
-  }
-
-  transformDate(event) {
-    const dateArr = event.date.split('-');
-    const year = dateArr[0];
-    const month = dateArr[1] - 1;
-    const day = dateArr[2];
-    let hour = 12;
-    event.date = new Date(year, month, day, hour, 0, 0, 0);
-    if (event.shift === 'Diurno') {
-      hour = 14;
-    } else {
-      hour = 21;
-    }
-    event['time'] = new Date(year, month, day, hour, 0, 0, 0);
-  }
-
   onRowAction(action) {
-    this.event = Object.assign({}, action.value);
+    const event = Object.assign({}, action.value);
 
     switch (action.key) {
       case 'edit':
-        const editForm = Object.assign({}, this.editFormSchema);
-        this.editFormSchema = null;
-        this.schema.populateDefaultValues(editForm, this.event);
-        editForm.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
-        this.editFormSchema = editForm;
-        this.showEditModal = true;
+        this.router.navigateByUrl(`me/events/${event._id}`);
         break;
       case 'activate':
-        this.me.changeEventStatus(this.event, 'ACTIVE').subscribe(() => {
+        this.me.changeEventStatus(event, 'ACTIVE').subscribe(() => {
           this.getEvents();
         });
         break;
       case 'deactivate':
-        this.me.changeEventStatus(this.event, 'DISABLED').subscribe(() => {
+        this.me.changeEventStatus(event, 'DISABLED').subscribe(() => {
           this.getEvents();
         });
         break;
     }
-  }
-
-  dateToString(dateStr) {
-    const date = new Date(dateStr);
-    return (date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear());
-  }
-
-  onCloseModal() {
-    this.showEditModal = false;
-  }
-
-  onEdit(event) {
-    console.log(event);
-    this.showEditModal = false;
   }
 
   onDelete(event) {

@@ -7,6 +7,7 @@ import { OrganizationComponent } from 'app/views/me/organization/organization.co
 import { EventsComponent } from 'app/views/me/events/events.component';
 import { EventBookingsComponent } from 'app/views/me/event-bookings/event-bookings.component';
 import { BookingsComponent } from 'app/views/me/bookings/bookings.component';
+import { EventComponent } from 'app/views/me/event/event.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
   {
     path: 'confirm/:userId',
     redirectTo: '/login/confirm/:userId',
-    data: { name: 'me_confirm', title: 'Confirm' }
+    data: { name: 'me_confirm', title: 'Confirmar' }
   },
   {
     path: 'events',
@@ -27,12 +28,22 @@ const routes: Routes = [
   {
     path: 'bookings',
     component: BookingsComponent,
-    data: { name: 'me_bookings', title: 'Bookings' }
+    data: { name: 'me_bookings', title: 'Reservas' }
   },
   {
-    path: 'events/:slug',
+    path: 'events/new',
+    component: EventComponent,
+    data: { name: 'me_events_new', title: 'Novo evento' }
+  },
+  {
+    path: 'events/:id',
+    component: EventComponent,
+    data: { name: 'me_events_edit', title: 'Editar evento' }
+  },
+  {
+    path: 'events/:slug/bookings',
     component: EventBookingsComponent,
-    data: { name: 'me_event_bookings', title: 'Bookings' }
+    data: { name: 'me_event_bookings', title: 'Reservas' }
   },
   {
     path: 'organizations',

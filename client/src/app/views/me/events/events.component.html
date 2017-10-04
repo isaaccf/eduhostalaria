@@ -4,19 +4,9 @@
                [tableData]="events"
                [reportSchema]="reportSchema"
                (rowAction)="onRowAction($event)"
-               [createFormSchema]="createFormSchema"
+               [createFormSchema]=""
                [cardSchema]="cardSchema"
-               (create)="onCreate($event)"
                (delete)="onDelete($event)">
     </ab-editor>
   </panel-body>
 </ab-panel>
-<ab-modal [title]="'Editar evento'"
-          [active]="showEditModal"
-          (close)="onCloseModal()">
-  <modal-content>
-    <ab-form [formSchema]="editFormSchema"
-             (send)="onEdit($event)">
-    </ab-form>
-  </modal-content>
-</ab-modal>

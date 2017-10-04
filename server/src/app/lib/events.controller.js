@@ -6,6 +6,29 @@ const slugger = require('slug');
 
 const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
+const checkEventNameAndSlug = (event) => {
+  if (!event.hasOwnProperty('name') || event.name === null || event.name === '') {
+    const eventDate = new Date(event.date);
+    let name = weekDays[eventDate.getDay() - 1];
+    name += (` ${eventDate.getDate()}`);
+    switch (event.shift) {
+      case 'Diurno':
+        name += ' - Comida';
+        break;
+      case 'Nocturno':
+        name += ' - Cena';
+        break;
+      default:
+        break;
+    }
+    event.name = name;
+  }
+
+  if (!event.hasOwnProperty('slug') || event.slug === '') {
+    event.slug = `${slugger(event.name.toLowerCase())}.${Date.now()}`;
+  }
+};
+
 module.exports = (app, url) => {
   app.route(`${url}`)
     .get(async (req, res) => {
@@ -17,28 +40,7 @@ module.exports = (app, url) => {
     .post(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const event = req.body;
-
-      if (!event.hasOwnProperty('title') || event.name === null || event.name === '') {
-        const eventDate = new Date(event.date);
-        let title = weekDays[eventDate.getDay() - 1];
-        title += (` ${eventDate.getDate()}`);
-        switch (event.shift) {
-          case 'Diurno':
-            title += ' - Comida';
-            break;
-          case 'Nocturno':
-            title += ' - Cena';
-            break;
-          default:
-            break;
-        }
-        event.name = title;
-      }
-
-      if (!event.hasOwnProperty('slug') || event.slug === '') {
-        event.slug = `${slugger(event.name.toLowerCase())}.${Date.now()}`;
-      }
-
+      checkEventNameAndSlug(event);
       event.ownerId = req.user._id;
       event.organizationId = req.user.organizationId;
       event.status = 'ACTIVE';
@@ -59,6 +61,7 @@ module.exports = (app, url) => {
         return res.status(403).send();
       }
       const event = req.body;
+      checkEventNameAndSlug(event);
       const eventId = req.params.id;
       const data = await srv.updateEvent(eventId, event);
       return rest.returnInserted(data, res);
