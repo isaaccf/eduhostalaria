@@ -1,7 +1,9 @@
-<section [formGroup]="form.group">
-  <label [for]="control.key" class="form-label text-bold">{{ control.label }}:</label>
-  <quill-editor class="form-control" [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}" [options]="editorOptions"
-    [formControlName]="control.key"></quill-editor>
-  <ab-control-error [form]="form" [control]="control">
-  </ab-control-error>
-</section>
+<ng-container *ngIf="formTools.getControl(form.group, 'description')">
+  <section [formGroup]="form.group">
+    <label [for]="control.key" class="form-label text-bold">{{ control.label }}:</label>
+    <quill-editor class="form-control" [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}" [options]="editorOptions"
+      [formControlName]="control.key"></quill-editor>
+    <ab-control-error [form]="form" [control]="control">
+    </ab-control-error>
+  </section>
+</ng-container>

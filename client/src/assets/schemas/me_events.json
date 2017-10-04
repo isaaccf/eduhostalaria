@@ -128,7 +128,7 @@
       {
         "key": "date",
         "type": "date",
-        "label": "Turno",
+        "label": "Fecha",
         "defaultValue": "this.event.date",
         "actions": [],
         "validators": [

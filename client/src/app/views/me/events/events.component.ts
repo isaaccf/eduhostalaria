@@ -84,9 +84,11 @@ export class EventsComponent implements OnInit {
 
     switch (action.key) {
       case 'edit':
-        this.schema.populateDefaultValues(this.editFormSchema, this.event);
-        this.editFormSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
-        this.editFormSchema = Object.assign({}, this.editFormSchema);
+        const editForm = Object.assign({}, this.editFormSchema);
+        this.editFormSchema = null;
+        this.schema.populateDefaultValues(editForm, this.event);
+        editForm.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
+        this.editFormSchema = editForm;
         this.showEditModal = true;
         break;
       case 'activate':
@@ -112,7 +114,8 @@ export class EventsComponent implements OnInit {
   }
 
   onEdit(event) {
-
+    console.log(event);
+    this.showEditModal = false;
   }
 
   onDelete(event) {

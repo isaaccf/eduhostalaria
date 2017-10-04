@@ -44,6 +44,7 @@ export class EventBookingsComponent implements OnInit {
   getBookings() {
     this.me.getBookingsByEventId(this.event._id).subscribe(bookings => {
       this.bookings = bookings;
+      console.log(bookings);
     });
   }
 
