@@ -9,12 +9,13 @@ import { IWidgetSchema, IKeyValue } from 'app/tools/schema.model';
 export class TileComponent implements OnInit {
 
   @Input() schema: IWidgetSchema;
-
   @Output() send = new EventEmitter<IKeyValue>();
+
   constructor() { }
 
   ngOnInit() {
   }
+
   onClick(keyValue) {
     this.send.emit(keyValue);
   }

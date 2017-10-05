@@ -139,6 +139,14 @@ export class MeService {
     return this.http.patch(`${this.eventsUrl}/${event._id}`, event);
   }
 
+  postEventFiles(eventId, files: FormData) {
+    return this.http.post(`${this.eventsUrl}/${eventId}/files`, files);
+  }
+
+  removeFile(eventId, fileName) {
+    return this.http.delete(`${this.eventsUrl}/${eventId}/files/${fileName}`);
+  }
+
   removeEvent(eventId) {
     return this.http.delete(`${this.eventsUrl}/${eventId}`);
   }

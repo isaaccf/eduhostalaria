@@ -13,14 +13,18 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <b *ngIf="event.label"
-               class="tile-subtitle">{{event.label}} - {{ event.date | date:'shortDate' }} - {{ event.shift }}</b>
-            <b *ngIf="!event.label"
-               class="tile-subtitle">{{ event.date | date:'shortDate' }} - {{ event.shift }}</b>
+            <b class="tile-subtitle">{{event.name}} - {{ event.date | date:'shortDate' }} - {{ event.shift }}</b>
             <p class="tile-title"
                *ngFor="let item of event.items"
                [innerHTML]="item.header.title">
             </p>
+            <div *ngIf="event.files && event.files.length > 0"
+                 class="files-container">
+              <ng-container *ngFor="let file of event.files">
+                <a [href]="file.url"
+                   target="_blank"><i class="icon icon-link"></i>{{ file.name }}</a>
+              </ng-container>
+            </div>
           </div>
           <div *ngIf="event.action"
                class="tile-action">

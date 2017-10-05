@@ -28,12 +28,11 @@ module.exports.getAll = async (organizationId, ownerId) => {
 };
 
 module.exports.getByStatus = async (organizationId, status) => {
-  return mongo.find(col, { organizationId, status }, { date: -1 });
+  const data = mongo.find(col, { organizationId, status }, { date: -1 });
+  return data;
 };
 
-module.exports.getBySlug = async (slug) => {
-  return mongo.find(col, { slug });
-};
+module.exports.getBySlug = async slug => mongo.find(col, { slug });
 
 exports.insertEvent = async event => mongo.insertOne(col, event);
 exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);

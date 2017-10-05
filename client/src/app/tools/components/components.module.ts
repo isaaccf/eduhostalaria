@@ -29,6 +29,7 @@ import { MainNavComponent } from 'app/tools/components/shell/main-nav/main-nav.c
 import { MainNavResponsiveComponent } from 'app/tools/components/shell/main-nav-responsive/main-nav-responsive.component';
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { WysiwygComponent } from './forms/wysiwyg/wysiwyg.component';
+import { TileCompactComponent } from './widgets/tile-compact/tile-compact.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { WysiwygComponent } from './forms/wysiwyg/wysiwyg.component';
     ToastComponent,
     TopBarComponent,
     WysiwygComponent,
+    TileCompactComponent,
   ],
   exports: [
     ActionComponent,
@@ -78,6 +80,7 @@ import { WysiwygComponent } from './forms/wysiwyg/wysiwyg.component';
     ShellComponent,
     TableComponent,
     TileComponent,
+    TileCompactComponent,
     TimelineComponent,
     ToastComponent,
   ],

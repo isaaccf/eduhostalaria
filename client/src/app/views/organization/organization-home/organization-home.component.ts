@@ -75,16 +75,17 @@ export class OrganizationHomeComponent implements OnInit {
   populateEvents() {
     const events = [];
     if (this.events) {
-      this.events.reverse().forEach((ev: IEvent) => {
+      this.events.reverse().forEach((ev: any) => {
         const event = {
-          label: ev.title,
+          name: ev.name,
           date: ev.date,
           shift: ev.shift,
+          files: ev.files,
           icon: '',
           items: [
             {
               header: {
-                title: ev.offer
+                title: ev.description
               }
             }
           ],

@@ -3,6 +3,7 @@ const bookingsSrv = require('./bookings.service');
 const rest = require('../tools/rest.service');
 const parser = require('../tools/upload.service');
 const slugger = require('slug');
+const cloudinary = require('cloudinary');
 
 const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -80,6 +81,17 @@ module.exports = (app, url) => {
         await srv.addFiles(eventId, obj);
       });
       return rest.returnArray([], res);
+    });
+  app.route(`${url}/:id/files/:name`)
+    .delete(async (req, res) => {
+      const eventId = req.params.id;
+      const fileName = req.params.name;
+      const event = await srv.getById(eventId);
+      await cloudinary.uploader.destroy(fileName);
+      event.files = event.files.filter(el => el.name !== fileName);
+      console.log(event.files);
+      const data = await srv.updateEvent(event._id, event);
+      return rest.returnInserted(data, res);
     });
   app.route(`${url}/:id/bookings`)
     .get(async (req, res) => {

@@ -18,3 +18,12 @@ article:last-of-type {
 .tile-title {
   margin: 0.8rem 0 .8rem;
 }
+
+.icon-link {
+  margin-right: 5px;
+}
+
+.files-container {
+  display: flex;
+  flex-direction: column;
+}

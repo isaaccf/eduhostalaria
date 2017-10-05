@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { MeService } from 'app/views/me/me.service';
 import { SecurityService } from 'app/tools/security.service';
@@ -10,13 +10,21 @@ import { Level } from 'app/tools/message.model';
 @Component({
   selector: 'ab-event',
   templateUrl: './event.component.html',
-  styles: []
+  styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
 
+  @ViewChild('filesInput') filesInput;
+
   public formKey: 'create' | 'edit' = 'create';
   public panelSchema: IWidgetSchema;
+  public tileSchema: IWidgetSchema;
   public formSchema: IFormSchema;
+  public showModal: false;
+  public fileConfirmButton = {
+    label: 'Subir',
+    key: 'upload'
+  }
   public organization: any;
   public event: any;
 
@@ -47,6 +55,7 @@ export class EventComponent implements OnInit {
       .getSchema$('me_event')
       .subscribe(schemas => {
         this.panelSchema = schemas;
+        this.tileSchema = schemas['tile'];
         this.formSchema = schemas[this.formKey];
         if (this.event) {
           this.panelSchema.header.title = `Editar evento - ${this.event.name}`;
@@ -59,11 +68,16 @@ export class EventComponent implements OnInit {
       });
   }
 
-  onSend(data) {
+  onSend(ev) {
+    const data = Object.assign({}, ev);
+
     this.transformDate(data);
     if (this.formKey === 'create') {
-      this.me.postEvent(data).subscribe(events => {
+      this.me.postEvent(data).subscribe((event: any) => {
         this.bus.emit({ level: Level.SUCCESS, text: 'Oferta creada con éxito', code: '' });
+        this.event = event;
+        this.formKey = 'edit';
+        this.ngOnInit();
       });
     }
     if (this.formKey === 'edit') {
@@ -73,13 +87,44 @@ export class EventComponent implements OnInit {
         this.bus.emit({ level: Level.SUCCESS, text: 'Oferta editada con éxito', code: '' });
       });
     }
-    this.router.navigateByUrl('me/events');
+  }
+
+  onDelete(ev) {
+    return this.me.removeFile(this.event._id, ev).subscribe(event => {
+      this.event = event;
+    });
   }
 
   updateEvent(data) {
     Object.keys(data).map(key => {
       this.event[key] = data[key];
     });
+  }
+
+  uploadFiles(ev) {
+    const filesData: FormData = this.getFilesToUpload();
+    this.me.postEventFiles(ev._id, filesData).subscribe(d => {
+      if (this.formKey === 'edit') {
+        this.me.getEventById(this.event._id).subscribe(event => {
+          this.event = event;
+          this.showModal = false;
+        });
+      }
+    });
+  }
+
+  getFilesToUpload() {
+    let filesToUpload: Array<File> = [];
+    const domFiles = this.filesInput.nativeElement.files;
+    const formData: FormData = new FormData();
+
+    filesToUpload = <Array<File>>domFiles;
+
+    for (let i = 0; i < domFiles.length; i++) {
+      formData.append('files', filesToUpload[i], filesToUpload[i]['name']);
+    }
+
+    return formData;
   }
 
   transformDate(event) {

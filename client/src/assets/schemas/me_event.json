@@ -4,6 +4,19 @@
     "subtitle": "",
     "icon": "icon-time"
   },
+  "tile": {
+    "header": {
+      "title": "Arquivos",
+      "subtitle": "Lista de arquivos adxuntos ao evento",
+      "icon": "icon-link"
+    },
+    "actions": [
+      {
+        "label": "Subir arquivos",
+        "key": "upload"
+      }
+    ]
+  },
   "create": {
     "title": "Nova oferta",
     "submitLabel": "Gardar oferta",

@@ -1,0 +1,15 @@
+<div class="column col-12">
+  <div class="tile tile-centered">
+    <div class="tile-content">
+      <a [href]="image?.url"
+         target="_blank"
+         class="tile-title">{{ image?.name }}</a>
+    </div>
+    <div class="tile-action">
+      <button class="btn btn-link"
+              (click)="onClick(image.name)">
+        <i class="icon icon-delete"></i>
+      </button>
+    </div>
+  </div>
+</div>

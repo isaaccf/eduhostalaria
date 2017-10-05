@@ -90,5 +90,5 @@ export interface IEvent {
 
 export interface ITimelineSchema {
   header: IWidgetSchema,
-  events: IEvent[];
+  events: any[];
 }
