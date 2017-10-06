@@ -2,6 +2,7 @@ const rest = require('../tools/rest.service');
 const srv = require('./credentials.service');
 const srvBookings = require('./bookings.service');
 const srvUsers = require('./users.service');
+const mailer = require('../tools/mailer.service');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
@@ -51,6 +52,12 @@ module.exports = (app, url) => {
       invitation.status = 'PENDING';
       const newUser = await srv.createUser(invitation, 'toBeConfirmed');
       return rest.returnInserted(newUser, res);
+    });
+  app.route(`${url}/_/invitations/resend`)
+    .post(async (req, res) => {
+      const user = req.body;
+      mailer.sendWellcome(user, 'toBeConfirmed');
+      return rest.returnOne({}, res);
     });
   app.route(`${url}/confirmations`)
     .post(async (req, res) => {

@@ -46,7 +46,7 @@ export class ConfirmationComponent implements OnInit {
       credentials._id = this.userId;
       this.securityService.confirmInvitation(credentials);
     } else {
-      this.bus.emit({ level: Level.WARNING, code: 'passwordbis' })
+      this.bus.emit({ level: Level.WARNING, code: 'passwordbis' });
     }
   }
 

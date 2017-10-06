@@ -3,6 +3,7 @@ import { BusService } from '../../../tools/bus.service';
 import { Component, OnInit } from '@angular/core';
 import { IWidgetSchema, IReportSchema, IFormSchema } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { Level } from 'app/tools/message.model';
 
 @Component({
   selector: 'ab-users',
@@ -47,12 +48,20 @@ export class UsersComponent implements OnInit {
   }
 
   onRowAction(data) {
-    console.log(`action : ${data.key} over user: ${data.value}`);
-    if (data.key === 'aprobe') {
-      this.me.approbeUser(data.value).subscribe(r => this.getUsers());
-    } else if (data.key === 'disable') {
-      this.me.disableUser(data.value).subscribe(r => this.getUsers());
+    switch (data.key) {
+      case 'aprobe':
+        this.me.approbeUser(data.value).subscribe(r => this.getUsers());
+        this.bus.emit({ level: Level.SUCCESS, text: 'Usuario aprobado con éxito', code: '' });
+        break;
+      case 'disable':
+        this.me.disableUser(data.value).subscribe(r => this.getUsers());
+        this.bus.emit({ level: Level.SUCCESS, text: 'Usuario deshabilitado con éxito', code: '' });
+        break;
+      case 'resend':
+        this.me.reInviteUser(data.value).subscribe(r => {
+          this.bus.emit({ level: Level.SUCCESS, text: 'Invitación reenviada con éxito', code: '' });
+        });
+        break;
     }
   }
-
 }

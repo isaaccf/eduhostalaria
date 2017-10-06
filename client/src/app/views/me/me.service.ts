@@ -75,6 +75,10 @@ export class MeService {
       .do(x => this.log.sendEvent('invitations', user.name, JSON.stringify(newUser)));
   }
 
+  reInviteUser(user: any): Observable<any> {
+    return this.http.post(`${this.credentialsUrl}/_/invitations/resend`, user);
+  }
+
   getOrganizations(): Observable<any[]> {
     return this.http
       .get<any>(this.organizationsUrl)

@@ -109,7 +109,13 @@
         "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Del"
+        "title": "Elim"
+      },
+      {
+        "label": "",
+        "key": "resend",
+        "icon": "icon-mail",
+        "title": "Env"
       }
     ]
   }
