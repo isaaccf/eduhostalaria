@@ -177,6 +177,10 @@ export class MeService {
       .do(x => this.log.sendEvent('bookings', 'bookingregistrations', JSON.stringify(payload)));
   }
 
+  editBooking(booking) {
+    return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
+  }
+
   getUserById(userId) {
     return this.http.get(`${this.credentialsUrl}/_/${userId}`);
   }

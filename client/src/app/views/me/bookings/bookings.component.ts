@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { FormToolsService } from 'app/tools/components/forms/form-tools.service';
+import { BusService } from 'app/tools/bus.service';
+import { Level } from 'app/tools/message.model';
 
 @Component({
   selector: 'ab-bookings',
@@ -12,11 +15,14 @@ export class BookingsComponent implements OnInit {
 
   public schema;
   public cardSchema;
+  public booking;
   public bookings;
   public event;
   public eventId;
+  public showModal = false;
 
   constructor(
+    private bus: BusService,
     private route: ActivatedRoute,
     private me: MeService,
     private schemaService: SchemaService
@@ -50,6 +56,20 @@ export class BookingsComponent implements OnInit {
   }
 
   onRowAction(event) {
+    this.booking = event.value;
+    if (event.key === 'edit') {
+      this.schemaService.populateDefaultValues(this.schema.editForm, this.booking);
+      this.showModal = true;
+    }
+  }
+
+  onEdit(data) {
+    this.booking.comments = data.comments;
+    this.me.editBooking(this.booking).subscribe(r => {
+      this.getBookings();
+      this.showModal = false;
+      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva editada con éxito', code: '' });
+    });
   }
 
   onDelete(action) {
