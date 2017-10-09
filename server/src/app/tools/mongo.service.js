@@ -80,8 +80,7 @@ module.exports.updateQuery = async (col, id, query) => {
   } catch (err) {
     return utils.getError(err);
   }
-
-}
+};
 
 module.exports.removeOne = async (col, id) => {
   const colDb = await this.getCollection(col);

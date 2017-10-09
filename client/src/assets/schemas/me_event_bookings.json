@@ -15,17 +15,17 @@
     "emptyMessage": "Non temos reservas para mostrar :(",
     "fields": [
       {
-        "label": "Nome",
-        "key": "owner.name",
-        "type": "string"
-      },
-      {
         "label": "Email",
         "key": "owner.email",
         "type": "string"
       },
       {
-        "label": "Comments",
+        "label": "Prazas",
+        "key": "seats",
+        "type": "string"
+      },
+      {
+        "label": "Observacións",
         "key": "comments",
         "type": "string"
       },

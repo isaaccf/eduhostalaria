@@ -1,4 +1,5 @@
 const srv = require('./bookings.service');
+const eventSrv = require('./events.service');
 const rest = require('../tools/rest.service');
 
 module.exports = (app, url) => {
@@ -13,6 +14,12 @@ module.exports = (app, url) => {
       booking.ownerId = req.user._id;
       booking.status = 'ACTIVE';
       const data = await srv.insertBooking(req.user, booking);
+      const event = await eventSrv.getById(booking.eventId);
+      if (booking.seats > event.freeSeats) {
+        return rest.returnError(400, res);
+      }
+      event.freeSeats -= booking.seats;
+      await eventSrv.updateEvent(booking.eventId, event);
       return rest.returnInserted(data, res);
     });
 

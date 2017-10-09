@@ -1,8 +1,8 @@
 {
   "booked": {
-    "subject": "A súa reserva foi recibida",
-    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} xa está activa.\rVisita ${url} para xestionála.",
-    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} xa está activa.</p><p>Visita <a href=\"${url}\">${url}</a> para xestionála.</p>"
+    "subject": "A súa reserva está confirmada",
+    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} xa está confirmada.\rVisita ${url} para xestionála.",
+    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} xa está activa.</p><p>Se queres cancelala, preme no seguinte enlace e accede á seccioón das túas reservas: <a href=\"${url}\">${url}</a></p>"
   },
   "canceled": {
     "subject": "A súa reserva foi cancelada",

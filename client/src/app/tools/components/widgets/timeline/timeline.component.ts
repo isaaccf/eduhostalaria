@@ -12,6 +12,7 @@ import { SecurityService } from 'app/tools/security.service';
 export class TimelineComponent implements OnInit {
 
   private eventId;
+  public selEvent;
   public bookingformSchema;
   public registerFormSchema;
   public isBookingModalActive = false;
@@ -33,13 +34,14 @@ export class TimelineComponent implements OnInit {
 
   onClick(action) {
     const user: IUser = this.security.getLocalUser();
+    this.selEvent = action.value;
 
     if (user) {
       this.isBookingModalActive = true;
     } else {
       this.isRegisterModalActive = true;
     }
-    this.eventId = action.value;
+    this.eventId = this.selEvent._id;
   }
 
   onCloseModal() {
@@ -48,7 +50,7 @@ export class TimelineComponent implements OnInit {
   }
 
   onSubmitBooking(event) {
-    this.book.emit({ eventId: this.eventId, comments: event.comments });
+    this.book.emit({ eventId: this.eventId, seats: event.seats, comments: event.comments });
     this.isBookingModalActive = false;
   }
 

@@ -35,6 +35,7 @@ module.exports = (app, url) => {
       const booking = {
         ownerId: newUser._id,
         eventId: bookingRegistration.eventId,
+        seats: bookingRegistration.seats,
         comment: bookingRegistration.comment,
         status: 'PENDING',
       };

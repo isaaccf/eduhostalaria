@@ -36,15 +36,22 @@
             <div *ngIf="field.key !== 'name' && field.key !== 'email' && field.key !== 'url' && field.key !== 'slogan' && field.key !== 'image' && field.key !== 'description'"
 
                  class="column col-6 col-lg-12">
-              <b class="text-bold"> {{ field.label }}: </b><span>{{ valueByPath(organizationData,field?.key) }}</span>
+              <b class="text-bold"> {{ field.label }}: </b>
+              <span>{{ valueByPath(organizationData,field?.key) }}</span>
             </div>
             <div *ngIf="field.key === 'email'"
                  class="column col-6 col-lg-12">
-              <b class="text-bold"> {{ field.label }}: </b><span><a [href]="'mailto:' + valueByPath(organizationData,field?.key)">{{ valueByPath(organizationData,field?.key) }}</a></span>
+              <b class="text-bold"> {{ field.label }}: </b>
+              <span>
+                <a [href]="'mailto:' + valueByPath(organizationData,field?.key)">{{ valueByPath(organizationData,field?.key) }}</a>
+              </span>
             </div>
             <div *ngIf="field.key === 'url'"
                  class="column col-6 col-lg-12">
-              <b class="text-bold"> {{ field.label }}: </b><span><a [routerLink]="valueByPath(organizationData,field?.key)">{{ valueByPath(organizationData,field?.key) }}</a></span>
+              <b class="text-bold"> {{ field.label }}: </b>
+              <span>
+                <a [routerLink]="valueByPath(organizationData,field?.key)">{{ valueByPath(organizationData,field?.key) }}</a>
+              </span>
             </div>
             <div *ngIf="field.key === 'description'"
                  class="column col-12">

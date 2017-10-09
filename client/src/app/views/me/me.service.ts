@@ -132,6 +132,7 @@ export class MeService {
 
   postEvent(event) {
     const user = this.security.getLocalUser();
+    event.freeSeats = event.capacity;
     delete event.bookingsNumber;
     return this.http
       .post(this.eventsUrl, event)

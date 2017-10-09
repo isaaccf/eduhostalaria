@@ -44,6 +44,10 @@ export class OrganizationHomeComponent implements OnInit {
     this.schema.getSchema$('organization').subscribe(s => {
       this.viewSchema = s;
     });
+    this.getEvents();
+  }
+
+  getEvents() {
     this.schema.getSchema$('events').subscribe(schema => {
       this.eventsSchema = schema.timeline;
       this.organization.getEventsByOrganizationId(this.organizationData._id).subscribe((events: IEvent[]) => {
@@ -92,7 +96,7 @@ export class OrganizationHomeComponent implements OnInit {
           action: {
             label: 'Reservar',
             key: 'book',
-            value: ev._id
+            value: ev
           }
         }
         events.push(event);
@@ -107,6 +111,7 @@ export class OrganizationHomeComponent implements OnInit {
 
   onBook(payload) {
     this.me.bookEvent(payload).subscribe(d => {
+      this.getEvents();
       this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada con éxito', code: '' });
     });
   }
@@ -114,7 +119,8 @@ export class OrganizationHomeComponent implements OnInit {
   onRegister(payload) {
     payload['organizationId'] = this.organizationData._id;
     this.me.bookEventGuest(payload).subscribe(d => {
-      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada e pendente de aprobación.', code: '' });
+      this.getEvents();
+      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada e pendente de aprobación', code: '' });
     });
   }
 

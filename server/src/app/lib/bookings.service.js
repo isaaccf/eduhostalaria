@@ -25,8 +25,8 @@ exports.getAll = async (eventId, ownerId) => {
   if (eventId) { options.eventId = eventId; }
   if (ownerId) { options.ownerId = ownerId; }
   const bookings = await mongo.find(col, options);
-  if (eventId) { await fillBookingsOwner(bookings) }
-  if (ownerId) { await fillEventInformation(bookings) }
+  if (eventId) { await fillBookingsOwner(bookings); }
+  if (ownerId) { await fillEventInformation(bookings); }
   return bookings;
 };
 

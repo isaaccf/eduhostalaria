@@ -42,6 +42,11 @@
         "type": "string"
       },
       {
+        "label": "Prazas",
+        "key": "seats",
+        "type": "string"
+      },
+      {
         "label": "Estado",
         "key": "status",
         "type": "string"
