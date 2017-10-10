@@ -43,3 +43,17 @@ module.exports.sendBooking = (user, event, booking, templateName) => {
   };
   this.getTransporter().sendMail(message);
 };
+
+module.exports.sendCanceled = (user, event, templateName) => {
+  const url = config.URLBASE;
+  const template = bookings[templateName];
+  const bookingtext = event.name;
+  const message = {
+    from: config.mailer.auth.user,
+    to: user.email,
+    subject: template.subject,
+    text: parseTemplate(template.text, { user, bookingtext, url }),
+    html: parseTemplate(template.html, { user, bookingtext, url }),
+  };
+  this.getTransporter().sendMail(message);
+};

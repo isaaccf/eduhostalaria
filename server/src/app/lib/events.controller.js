@@ -89,7 +89,6 @@ module.exports = (app, url) => {
       const event = await srv.getById(eventId);
       await cloudinary.uploader.destroy(fileName);
       event.files = event.files.filter(el => el.name !== fileName);
-      console.log(event.files);
       const data = await srv.updateEvent(event._id, event);
       return rest.returnInserted(data, res);
     });

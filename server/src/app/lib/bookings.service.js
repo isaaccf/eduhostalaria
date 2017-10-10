@@ -31,13 +31,19 @@ exports.getAll = async (eventId, ownerId) => {
 };
 
 exports.insertBooking = async (user, booking) => {
-  const result = await mongo.insertOne(col, booking);
   const event = await eventService.getById(booking.eventId);
+  if (booking.seats > event.freeSeats) {
+    return new Error('There are no free seats :(');
+  }
+  const result = await mongo.insertOne(col, booking);
+  event.freeSeats -= booking.seats;
+  await eventService.updateEvent(booking.eventId, event);
   mailer.sendBooking(user, event, booking, 'booked');
   return result;
 };
 
 exports.updateBooking = async (bookingId, booking) => {
+  const oldBooking = await this.getById(bookingId);
   let owner;
   if (booking.owner) {
     owner = booking.owner;
@@ -47,6 +53,20 @@ exports.updateBooking = async (bookingId, booking) => {
   const newBooking = await mongo.updateOne(col, bookingId, booking);
   if (owner) {
     newBooking.owner = owner;
+  }
+  let event = await eventService.getById(newBooking.eventId);
+  const user = await userService.getById(newBooking.ownerId);
+  /* Si pasamos la reserva a cancelada, se restan los sitios */
+  if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
+    event.freeSeats += booking.seats;
+    event = await eventService.updateEvent(event._id, event);
+    mailer.sendCanceled(user, event, 'canceled');
+  }
+  /* Si pasamos la reserva a ACTIVE, se vuelven a reservar los sitios */
+  if (booking.status === 'ACTIVE' && oldBooking.status !== booking.status) {
+    event.freeSeats -= booking.seats;
+    event = await eventService.updateEvent(event._id, event);
+    mailer.sendBooking(user, event, booking);
   }
   return newBooking;
 };

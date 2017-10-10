@@ -132,7 +132,7 @@ export class MeService {
 
   postEvent(event) {
     const user = this.security.getLocalUser();
-    event.freeSeats = event.capacity;
+    event.freeSeats = Number(event.capacity);
     delete event.bookingsNumber;
     return this.http
       .post(this.eventsUrl, event)
@@ -167,12 +167,14 @@ export class MeService {
 
   bookEvent(payload) {
     const user = this.security.getLocalUser();
+    payload.seats = Number(payload.seats);
     return this.http
       .post(this.bookingsUrl, payload)
       .do(x => this.log.sendEvent('bookings', user.name, JSON.stringify(payload)));
   }
 
   bookEventGuest(payload) {
+    payload.seats = Number(payload.seats);
     return this.http
       .post(`${this.credentialsUrl}/bookingregistrations`, payload)
       .do(x => this.log.sendEvent('bookings', 'bookingregistrations', JSON.stringify(payload)));

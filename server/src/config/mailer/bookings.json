@@ -6,7 +6,7 @@
   },
   "canceled": {
     "subject": "A súa reserva foi cancelada",
-    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} foi cancelada.\rVisita ${url} para xestionála.",
-    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} foi cancelada.</p><p>Visita <a href=\"${url}\">${url}</a> para xestionála.</p>"
+    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} foi cancelada.\r",
+    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} foi cancelada.</p>"
   }
 }

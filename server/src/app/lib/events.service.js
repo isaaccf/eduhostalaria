@@ -1,5 +1,7 @@
 const mongo = require('../tools/mongo.service');
 const userService = require('./users.service');
+const bookingsSrv = require('./bookings.service');
+const mailer = require('../tools/mailer.service');
 
 const col = 'events';
 
@@ -35,7 +37,22 @@ module.exports.getByStatus = async (organizationId, status) => {
 module.exports.getBySlug = async slug => mongo.find(col, { slug });
 
 exports.insertEvent = async event => mongo.insertOne(col, event);
-exports.updateEvent = async (eventId, event) => mongo.updateOne(col, eventId, event);
+exports.updateEvent = async (eventId, event) => {
+  const oldEvent = await this.getById(eventId);
+  /* Si pasamos el evento a cancelado, cancelamos todas las reservas y aumentamos freeSeats */
+  if (event.status === 'CANCELED' && oldEvent.status !== event.status) {
+    const bookings = await bookingsSrv.getAll(eventId, undefined);
+    await Promise.all(bookings.map(async (booking) => {
+      booking.status = 'CANCELED';
+      await bookingsSrv.updateBooking(booking._id, booking);
+    }));
+  }
+  /* Si pasamos el evento a activo, reseteamos los freeSeats */
+  if (event.status === 'ACTIVE' && oldEvent.status !== event.status) {
+    event.freeSeats = event.capacity;
+  }
+  return await mongo.updateOne(col, eventId, event);
+};
 exports.getById = async eventId => mongo.findOneById(col, eventId);
 exports.removeEvent = async eventId => mongo.removeOne(col, eventId);
 exports.addFiles = async (eventId, fileUrl) => {

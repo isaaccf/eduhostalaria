@@ -84,6 +84,7 @@ export class EventComponent implements OnInit {
       this.updateEvent(data);
       this.me.editEvent(this.event).subscribe(d => {
         data.ownerId = this.event.ownerId;
+        this.ngOnInit();
         this.bus.emit({ level: Level.SUCCESS, text: 'Oferta editada con éxito', code: '' });
       });
     }
