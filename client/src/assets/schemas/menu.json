@@ -47,6 +47,13 @@
       "link": "/me/bookings/"
     }
   ],
+  "conserxe": [
+    {
+      "icon": "icon-people",
+      "label": "Asistencia",
+      "link": "/me/events-ushier/"
+    }
+  ],
   "interno": [
     {
       "icon": "icon-bookmark",

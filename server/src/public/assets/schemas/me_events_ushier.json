@@ -1,0 +1,46 @@
+{
+  "actions": {
+    "header": {
+      "title": "Asistencia",
+      "subtitle": "Lista de eventos e comidas do centro",
+      "icon": "icon-people"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de ofertas"
+    },
+    "emptyMessage": "Non temos eventos para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Fecha",
+        "key": "date",
+        "type": "string"
+      },
+      {
+        "label": "Turno",
+        "key": "shift",
+        "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "Reservas",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "link": "/",
+        "title": ""
+      }
+    ]
+  }
+}

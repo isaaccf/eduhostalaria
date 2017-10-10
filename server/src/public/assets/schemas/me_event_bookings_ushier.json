@@ -1,0 +1,53 @@
+{
+  "actions": {
+    "header": {
+      "title": "Reservas",
+      "subtitle": "Lista de eventos con reserva feita",
+      "icon": "icon-bookmark"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de reservas",
+      "subtitle": "Lista de eventos con reserva feita",
+      "icon": "icon-bookmark"
+    },
+    "emptyMessage": "Non temos reservas para mostrar :(",
+    "fields": [
+      {
+        "label": "Email",
+        "key": "owner.email",
+        "type": "string"
+      },
+      {
+        "label": "Prazas",
+        "key": "seats",
+        "type": "string"
+      },
+      {
+        "label": "Observacións",
+        "key": "comments",
+        "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "attended",
+        "icon": "icon-check",
+        "title": "Asistió"
+      },
+      {
+        "label": "",
+        "key": "paid",
+        "icon": "icon-check",
+        "title": "Pagó"
+      }
+    ]
+  }
+}

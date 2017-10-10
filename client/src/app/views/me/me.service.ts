@@ -1,7 +1,6 @@
 import { observable } from 'rxjs/symbol/observable';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IOrganization } from 'app/tools/organization.model';
 import { SecurityService } from 'app/tools/security.service';
@@ -192,13 +191,18 @@ export class MeService {
     return this.http.get(`${this.eventsUrl}/${eventId}/bookings`);
   }
 
+  getBookingsByUserId() {
+    return this.http.get(`${this.bookingsUrl}`);
+  }
+
+  getBookingsByEventIdAndStatus(eventId, status) {
+    const params = new HttpParams().set('status', status);
+    return this.http.get(`${this.eventsUrl}/${eventId}/bookings`, { params });
+  }
+
   changeBookingStatus(booking, status) {
     booking.status = status;
     return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
-  }
-
-  getBookingsByUserId() {
-    return this.http.get(`${this.bookingsUrl}`);
   }
 
 }

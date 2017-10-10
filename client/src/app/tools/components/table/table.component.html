@@ -25,13 +25,19 @@
                 [ngClass]="getClass(valueByPath(row,field?.key))">{{ valueByPath(row,field?.key) }}</span>
         </td>
         <td *ngFor="let action of schema.actions">
-          <ab-action *ngIf="action.key !== 'resend'"
+          <ab-action *ngIf="action.key === 'view-bookings'"
+                     class="centered"
+                     btnClass='btn-action'
+                     noLabel="true"
+                     [schema]="transform(action, valueByPath(row,'slug'))"
+                     (action)="onActionClick($event, row)"></ab-action>
+          <ab-action *ngIf="action.key === 'resend' && valueByPath(row,'status') === 'PENDING'"
                      class="centered"
                      btnClass='btn-action'
                      noLabel="true"
                      [schema]="action"
                      (action)="onActionClick($event, row)"></ab-action>
-          <ab-action *ngIf="action.key === 'resend' && valueByPath(row,'status') === 'PENDING'"
+          <ab-action *ngIf="action.key !== 'resend' && action.key !== 'view-bookings'"
                      class="centered"
                      btnClass='btn-action'
                      noLabel="true"

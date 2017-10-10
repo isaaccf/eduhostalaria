@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IReportSchema, IKeyValue, IField } from 'app/tools/schema.model';
+import { IReportSchema, IKeyValue, IField, IAction } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
 
 @Component({
@@ -51,5 +51,9 @@ export class TableComponent implements OnInit {
     }
   }
 
+  transform(action: IAction, slug: string) {
+    action.link = slug + '/bookings';
+    return action;
+  }
 }
 
