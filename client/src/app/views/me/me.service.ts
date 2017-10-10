@@ -195,7 +195,7 @@ export class MeService {
     return this.http.get(`${this.bookingsUrl}`);
   }
 
-  getBookingsByEventIdAndStatus(eventId, status) {
+  getBookingsByEventIdAndNotStatus(eventId, status) {
     const params = new HttpParams().set('status', status);
     return this.http.get(`${this.eventsUrl}/${eventId}/bookings`, { params });
   }

@@ -42,7 +42,7 @@ export class EventBookingsUshierComponent implements OnInit {
   };
 
   getBookings() {
-    this.me.getBookingsByEventIdAndStatus(this.event._id, 'ACTIVE').subscribe(bookings => {
+    this.me.getBookingsByEventIdAndNotStatus(this.event._id, 'CANCELED').subscribe(bookings => {
       this.bookings = bookings;
     });
   }
