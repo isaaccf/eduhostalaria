@@ -26,6 +26,7 @@ export interface IAction extends IKeyValue {
   link?: string;
   icon?: string;
   title?: string;
+  btnType?: string;
   dynamicLink?: string;
   staticLink?: string;
   showKey?: string;

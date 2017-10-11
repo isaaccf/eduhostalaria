@@ -50,6 +50,15 @@
     "actions": [
       {
         "label": "",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "title": "Res.",
+        "btnType": "default",
+        "dynamicLink": "slug",
+        "staticLink": "/bookings"
+      },
+      {
+        "label": "",
         "key": "activate",
         "icon": "icon-check",
         "title": "Act."

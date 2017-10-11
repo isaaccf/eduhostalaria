@@ -1,6 +1,6 @@
 <a *ngIf="schema && schema.link"
    [routerLink]="schema.link"
-   class="btn btn-primary">
+   [ngClass]="getClass(schema.btnType)">
   <i *ngIf="schema.icon"
      [class]="'icon ' + schema.icon"></i>
   <span *ngIf="schema.label"

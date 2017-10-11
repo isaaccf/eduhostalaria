@@ -21,4 +21,13 @@ export class ActionComponent implements OnInit {
     console.log('onClick', this.schema);
     this.action.emit({ key: this.schema.key, value: this.schema.value });
   }
+
+  getClass(value) {
+    switch (value) {
+      case 'default':
+        return 'btn';
+      default:
+        return 'btn btn-primary';
+    }
+  }
 }

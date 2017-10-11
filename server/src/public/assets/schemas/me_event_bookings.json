@@ -38,7 +38,8 @@
       {
         "label": "Estado",
         "key": "status",
-        "type": "string"
+        "type": "string",
+        "tableType": "pill"
       }
     ],
     "actions": [
