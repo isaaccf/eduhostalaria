@@ -3,7 +3,7 @@
     "header": {
       "title": "Asistencia",
       "subtitle": "Lista de eventos e comidas do centro",
-      "icon": "icon-people"
+      "icon": "icon-emoji"
     }
   },
   "report": {
@@ -20,7 +20,8 @@
       {
         "label": "Fecha",
         "key": "date",
-        "type": "string"
+        "type": "string",
+        "tableType": "date"
       },
       {
         "label": "Turno",
@@ -28,9 +29,16 @@
         "type": "string"
       },
       {
+        "label": "Nº R",
+        "key": "bookingsNumber",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
         "label": "Estado",
         "key": "status",
-        "type": "string"
+        "type": "string",
+        "tableType": "pill"
       }
     ],
     "actions": [
@@ -38,7 +46,8 @@
         "label": "Reservas",
         "key": "view-bookings",
         "icon": "icon-search",
-        "link": "/",
+        "dynamicLink": "slug",
+        "staticLink": "/bookings",
         "title": ""
       }
     ]

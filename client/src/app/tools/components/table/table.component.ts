@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
   orderDataByKey(values: any[], orderKey: any) {
     return this.schemaService.orderDataByKey(values, orderKey);
   }
-  // { key: action, value: row }
+
   onActionClick(event, row) {
     this.rowAction.emit({ key: event.key, value: row });
   }
@@ -38,21 +38,10 @@ export class TableComponent implements OnInit {
     return this.schemaService.valueByPath(target, path);
   }
 
-  getClass(value: string) {
-    switch (value) {
-      case 'ACTIVE':
-        return 'label label-success';
-      case 'PENDING':
-        return 'label label-warning';
-      case 'CANCELED':
-        return 'label label-grey';
-      case 'DISABLED':
-        return 'label label-error';
+  transform(target, action: IAction) {
+    if (action.dynamicLink && action.staticLink) {
+      action.link = this.valueByPath(target, action.dynamicLink) + action.staticLink;
     }
-  }
-
-  transform(action: IAction, slug: string) {
-    action.link = slug + '/bookings';
     return action;
   }
 }

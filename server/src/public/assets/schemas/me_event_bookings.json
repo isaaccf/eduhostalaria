@@ -4,7 +4,13 @@
       "title": "Reservas",
       "subtitle": "Lista de eventos con reserva feita",
       "icon": "icon-bookmark"
-    }
+    },
+    "actions": [
+      {
+        "label": "Control de asistencia",
+        "link": "/"
+      }
+    ]
   },
   "report": {
     "header": {

@@ -30,6 +30,9 @@ import { MainNavResponsiveComponent } from 'app/tools/components/shell/main-nav-
 import { QuillEditorModule } from 'ngx-quill-editor';
 import { WysiwygComponent } from './forms/wysiwyg/wysiwyg.component';
 import { TileCompactComponent } from './widgets/tile-compact/tile-compact.component';
+import { TextComponent } from './table/text/text.component';
+import { PillComponent } from './table/pill/pill.component';
+import { DateComponent } from './table/date/date.component';
 
 @NgModule({
   imports: [
@@ -64,6 +67,9 @@ import { TileCompactComponent } from './widgets/tile-compact/tile-compact.compon
     TopBarComponent,
     WysiwygComponent,
     TileCompactComponent,
+    TextComponent,
+    PillComponent,
+    DateComponent,
   ],
   exports: [
     ActionComponent,

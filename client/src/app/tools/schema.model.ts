@@ -26,6 +26,10 @@ export interface IAction extends IKeyValue {
   link?: string;
   icon?: string;
   title?: string;
+  dynamicLink?: string;
+  staticLink?: string;
+  showKey?: string;
+  showValue?: string;
 }
 
 export interface IKeyValue {
@@ -55,6 +59,8 @@ export interface IField {
   label: string;
   key: string;
   type: string;
+  tableType?: string;
+  pillLink?: string;
 }
 
 export interface IHeader {

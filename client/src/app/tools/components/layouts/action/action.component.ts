@@ -14,6 +14,7 @@ export class ActionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.schema);
   }
 
   onClick() {

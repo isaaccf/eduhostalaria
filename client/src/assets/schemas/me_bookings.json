@@ -34,7 +34,8 @@
       {
         "label": "Date",
         "key": "event.date",
-        "type": "string"
+        "type": "string",
+        "tableType": "date"
       },
       {
         "label": "Turno",
@@ -49,7 +50,8 @@
       {
         "label": "Estado",
         "key": "status",
-        "type": "string"
+        "type": "string",
+        "tableType": "pill"
       }
     ],
     "actions": [

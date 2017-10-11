@@ -84,7 +84,8 @@
       {
         "label": "Estado",
         "key": "status",
-        "type": "string"
+        "type": "string",
+        "tableType": "pill"
       },
       {
         "label": "Roles",
@@ -115,7 +116,9 @@
         "label": "",
         "key": "resend",
         "icon": "icon-mail",
-        "title": "Env"
+        "title": "Env",
+        "showKey": "status",
+        "showValue": "PENDING"
       }
     ]
   }

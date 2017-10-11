@@ -1,0 +1,9 @@
+<a *ngIf="link; else template"
+   [routerLink]="link">
+  <span [ngClass]="getClass()"
+        class="label">{{ text }}</span>
+</a>
+<ng-template #template>
+  <span [ngClass]="getClass()"
+        class="label">{{ text }}</span>
+</ng-template>
