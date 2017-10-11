@@ -43,32 +43,53 @@ exports.insertBooking = async (user, booking) => {
   return result;
 };
 
+/* Solo se podrán cancelar y activar las reservas cuyo estado
+ * no contenga los estados 'ATTENDED' O 'PAID' */
 exports.updateBooking = async (bookingId, booking) => {
   const oldBooking = await this.getById(bookingId);
+
+  /* */
+  if (oldBooking.status === 'FINISHED') {
+    return oldBooking;
+  }
+
   let owner;
+
   if (booking.owner) {
     owner = booking.owner;
     booking.ownerId = booking.owner._id;
     delete booking.owner;
   }
+
+  if ((booking.status === 'ATTENDED' && oldBooking.status === 'PAID')
+    || (booking.status === 'PAID' && oldBooking.status === 'ATTENDED')) {
+    booking.status = 'FINISHED';
+  }
+  /* */
+
   const newBooking = await mongo.updateOne(col, bookingId, booking);
+
   if (owner) {
     newBooking.owner = owner;
   }
+
   let event = await eventService.getById(newBooking.eventId);
   const user = await userService.getById(newBooking.ownerId);
+
   /* Si pasamos la reserva a cancelada, se restan los sitios */
   if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
     event.freeSeats += booking.seats;
     event = await eventService.updateEvent(event._id, event);
     mailer.sendCanceled(user, event, 'canceled');
   }
+
   /* Si pasamos la reserva a ACTIVE, se vuelven a reservar los sitios */
   if (booking.status === 'ACTIVE' && oldBooking.status !== booking.status) {
     event.freeSeats -= booking.seats;
     event = await eventService.updateEvent(event._id, event);
     mailer.sendBooking(user, event, booking);
   }
+
   return newBooking;
 };
 exports.deleteBooking = async bookingId => mongo.removeOne(col, bookingId);

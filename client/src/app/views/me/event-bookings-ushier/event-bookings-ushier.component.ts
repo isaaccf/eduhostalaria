@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { Level } from 'app/tools/message.model';
+import { BusService } from 'app/tools/bus.service';
 
 @Component({
   selector: 'ab-event-bookings-ushier',
@@ -17,6 +19,7 @@ export class EventBookingsUshierComponent implements OnInit {
   public eventSlug;
 
   constructor(
+    private bus: BusService,
     private route: ActivatedRoute,
     private me: MeService,
     private schemaService: SchemaService
@@ -57,6 +60,9 @@ export class EventBookingsUshierComponent implements OnInit {
   }
 
   onRowAction(action) {
-
+    const status = action.key.toUpperCase();
+    this.me.changeBookingStatus(action.value, status).subscribe((booking: any) => {
+      this.getBookings();
+    });
   }
 }
