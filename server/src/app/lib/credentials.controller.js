@@ -33,10 +33,10 @@ module.exports = (app, url) => {
       };
       const newUser = await srv.createUser(userRegistration, 'toBeConfirmed');
       const booking = {
-        ownerId: newUser._id,
+        ownerId: String(newUser._id),
         eventId: bookingRegistration.eventId,
         seats: bookingRegistration.seats,
-        comment: bookingRegistration.comment,
+        comments: bookingRegistration.comments,
         status: 'PENDING',
       };
       await srvBookings.insertBooking(newUser, booking);

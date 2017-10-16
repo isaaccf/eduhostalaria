@@ -5,12 +5,13 @@ module.exports = (app, url) => {
   app.route(`${url}`)
     .get(async (req, res) => {
       const ownerId = req.user._id;
-      const data = await srv.getAll(undefined, ownerId);
+      const data = await srv.getAll(undefined, ownerId, undefined);
       return rest.returnArray(data, res);
     })
     .post(async (req, res) => {
       const booking = req.body;
-      booking.ownerId = req.user._id;
+      booking.ownerId = String(req.user._id);
+      console.log(booking.ownerId);
       booking.status = 'ACTIVE';
       const data = await srv.insertBooking(req.user, booking);
       return rest.returnInserted(data, res);

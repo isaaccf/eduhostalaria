@@ -23,11 +23,11 @@ async function fillEventInformation(bookings) {
 exports.getAll = async (eventId, ownerId, status) => {
   const options = {};
   if (eventId) { options.eventId = eventId; }
-  if (ownerId) { options.ownerId = ownerId; }
+  if (ownerId) { options.ownerId = String(ownerId); }
   if (status) { options.status = { $ne: status }; }
   const bookings = await mongo.find(col, options);
-  if (eventId) { await fillBookingsOwner(bookings); }
-  if (ownerId) { await fillEventInformation(bookings); }
+  await fillEventInformation(bookings);
+  await fillBookingsOwner(bookings);
   return bookings;
 };
 
