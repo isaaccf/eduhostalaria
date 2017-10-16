@@ -75,6 +75,7 @@ module.exports = (app, url) => {
     });
   app.route(`${url}/:id/files`)
     .post(parser.any(), (req, res) => {
+      rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       req.files.forEach(async (file) => {
         const eventId = req.params.id;
         const obj = { name: file.originalname, url: file.secure_url, mimetype: file.mimetype };
@@ -84,6 +85,7 @@ module.exports = (app, url) => {
     });
   app.route(`${url}/:id/files/:name`)
     .delete(async (req, res) => {
+      rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const eventId = req.params.id;
       const fileName = req.params.name;
       const event = await srv.getById(eventId);

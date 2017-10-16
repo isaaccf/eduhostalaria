@@ -23,6 +23,7 @@ module.exports = (app, url) => {
       return rest.returnOne(data, res);
     })
     .patch(async (req, res) => {
+      rest.checkRole(req, res, ['CONSERXE', 'MESTRE', 'ADMIN', 'GOD']);
       const booking = req.body;
       const bookingId = req.params.id;
       const data = await srv.updateBooking(bookingId, booking);
