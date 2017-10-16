@@ -48,8 +48,8 @@ exports.insertBooking = async (user, booking) => {
 exports.updateBooking = async (bookingId, booking) => {
   const oldBooking = await this.getById(bookingId);
 
-  /* */
-  if (oldBooking.status === 'FINISHED') {
+  if (oldBooking.status === 'PAID' ||
+    (oldBooking.status === 'ATTENDED' && booking.status !== 'PAID')) {
     return oldBooking;
   }
 
@@ -60,12 +60,6 @@ exports.updateBooking = async (bookingId, booking) => {
     booking.ownerId = booking.owner._id;
     delete booking.owner;
   }
-
-  if ((booking.status === 'ATTENDED' && oldBooking.status === 'PAID')
-    || (booking.status === 'PAID' && oldBooking.status === 'ATTENDED')) {
-    booking.status = 'FINISHED';
-  }
-  /* */
 
   const newBooking = await mongo.updateOne(col, bookingId, booking);
 

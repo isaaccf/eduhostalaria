@@ -15,16 +15,21 @@ export class PillComponent implements OnInit {
   ngOnInit() {
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   getClass(value: string) {
     switch (this.text) {
       case 'ACTIVE':
         return 'label-success';
+      case 'ATTENDED':
+        return 'label-warning'
+      case 'CANCELED':
+        return 'label-error';
+      case 'DISABLED':
+        return 'label-grey';
+      case 'PAID':
+        return 'label-primary';
       case 'PENDING':
         return 'label-warning';
-      case 'CANCELED':
-        return 'label-grey';
-      case 'DISABLED':
-        return 'label-error';
       default:
         return 'label-primary';
     }
