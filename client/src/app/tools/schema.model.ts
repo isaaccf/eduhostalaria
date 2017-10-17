@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 export interface IFormSchema {
   title: string;
   submitLabel: string;
+  submitIcon?: string;
   buttonBlock?: boolean;
   forgotPassword?: boolean;
   controls: IFormControl[];

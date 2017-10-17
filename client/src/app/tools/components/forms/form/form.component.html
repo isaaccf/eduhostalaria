@@ -39,6 +39,9 @@
             type="submit"
             (click)="onClick(); form.group.reset();"
             [disabled]="form.group.invalid">
+      <span *ngIf="form.schema.submitIcon">
+        <i [ngClass]="'icon ' + form.schema.submitIcon"></i>
+      </span>
       {{ form.schema.submitLabel}}
     </button>
   </footer>

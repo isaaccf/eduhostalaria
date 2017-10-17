@@ -2,6 +2,7 @@
   "form": {
     "title": "Filtros",
     "submitLabel": "Filtrar",
+    "submitIcon": "icon-search",
     "controls": [
       {
         "key": "name",
