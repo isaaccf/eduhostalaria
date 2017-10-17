@@ -8,8 +8,11 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class OrganizationService {
   private organizationsUrl = 'home/organizations';
-  constructor(private http: HttpClient, private schemaService: SchemaService) {
-  }
+
+  constructor(
+    private http: HttpClient,
+    private schemaService: SchemaService) { }
+
   getOrganizationBySlug(slug) {
     return this.http
       .get<IOrganization>(`${this.organizationsUrl}/${slug}`)

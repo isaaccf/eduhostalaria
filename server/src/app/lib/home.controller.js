@@ -18,7 +18,13 @@ module.exports = (app, url) => {
   app.route(`${url}/organizations/:id/events`)
     .get(async (req, res) => {
       const organizationId = req.params.id;
-      const data = await eventSrv.getByStatus(organizationId, 'ACTIVE');
+      const now = new Date();
+      now.setDate(now.getDate() + 4);
+      const startDate = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+      now.setDate(now.getDate() + 11);
+      const endingDate = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+      const data = await eventSrv.getAll(
+        organizationId, undefined, undefined, 'ACTIVE', startDate, endingDate);
       return rest.returnArray(data, res);
     });
   app.route(`${url}/users/:userId`)
