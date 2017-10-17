@@ -24,6 +24,7 @@ export class EventsUshierComponent implements OnInit {
   constructor(private schema: SchemaService,
     private orgService: OrganizationService,
     private router: Router,
+    private me: MeService,
     private security: SecurityService,
     private bus: BusService) { }
 
@@ -46,11 +47,13 @@ export class EventsUshierComponent implements OnInit {
     this.organization = this.security.getLocalOrganization();
     this.orgService.getEventsByOrganizationId(this.organization._id).subscribe((events: any) => {
       this.events = events;
-      this.addLinksToActions();
     });
   }
 
-  addLinksToActions() {
-
+  onFilter(payload) {
+    payload.status = 'active';
+    this.me.filterEvents(payload).subscribe((events: any[]) => {
+      this.events = events;
+    });
   }
 }

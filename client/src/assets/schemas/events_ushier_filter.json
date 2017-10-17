@@ -1,0 +1,30 @@
+{
+  "form": {
+    "title": "Filtros",
+    "submitLabel": "Filtrar",
+    "submitIcon": "icon-search",
+    "controls": [
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "defaultValue": "",
+        "validators": []
+      },
+      {
+        "key": "startDate",
+        "type": "date",
+        "label": "Data inicio",
+        "defaultValue": "",
+        "validators": []
+      },
+      {
+        "key": "endingDate",
+        "type": "date",
+        "label": "Data fin",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  }
+}

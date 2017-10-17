@@ -4,7 +4,9 @@
                [tableData]="events"
                [reportSchema]="reportSchema"
                [createFormSchema]=""
-               [cardSchema]="cardSchema">
+               [cardSchema]="cardSchema"
+               [filterSchema]="'events_ushier_filter'"
+               (filter)="onFilter($event)">
     </ab-editor>
   </panel-body>
 </ab-panel>
