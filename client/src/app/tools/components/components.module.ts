@@ -33,6 +33,7 @@ import { TileCompactComponent } from './widgets/tile-compact/tile-compact.compon
 import { TextComponent } from './table/text/text.component';
 import { PillComponent } from './table/pill/pill.component';
 import { DateComponent } from './table/date/date.component';
+import { FilterComponent } from './widgets/filter/filter.component';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { DateComponent } from './table/date/date.component';
     TextComponent,
     PillComponent,
     DateComponent,
+    FilterComponent,
   ],
   exports: [
     ActionComponent,

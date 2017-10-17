@@ -205,4 +205,13 @@ export class MeService {
     return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
   }
 
+  filterEvents(payload) {
+    let params = new HttpParams();
+
+    Object.keys(payload).forEach(key => {
+      params = params.set(key, payload[key]);
+    });
+
+    return this.http.get(`${this.eventsUrl}`, { params });
+  }
 }

@@ -12,14 +12,17 @@ export class EditorComponent implements OnInit {
   @Input() public tableData: IWidgetSchema;
   @Input() public createFormSchema?: IFormSchema;
   @Input() public cardSchema: IWidgetSchema;
+  @Input() public filterSchema;
 
   @Output() public create = new EventEmitter<IKeyValue>();
   @Output() public delete = new EventEmitter<IKeyValue>();
   @Output() public rowAction = new EventEmitter<IKeyValue>();
+  @Output() public filter = new EventEmitter<any>();
 
   public createModalActive = false;
   public deleteModalActive = false;
   public selectedItem: any;
+
   constructor() { }
 
   ngOnInit() {
@@ -33,6 +36,7 @@ export class EditorComponent implements OnInit {
       this.rowAction.emit(data);
     }
   }
+
   onRowAction(data: IKeyValue) {
     console.log('onRowAction', data);
     if (data.key === 'delete') {
@@ -42,18 +46,26 @@ export class EditorComponent implements OnInit {
       this.rowAction.emit(data);
     }
   }
+
   onCreate(data) {
     this.createModalActive = false;
     this.create.emit(data);
   }
+
   onDelete(data) {
     this.deleteModalActive = false;
     this.delete.emit(data);
   }
+
   onCancelCreate() {
     this.createModalActive = false;
   }
+
   onCancelDelete() {
     this.deleteModalActive = false;
+  }
+
+  onFilter(data) {
+    this.filter.emit(data);
   }
 }

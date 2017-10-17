@@ -1,0 +1,50 @@
+{
+  "form": {
+    "title": "Filtros",
+    "submitLabel": "Filtrar",
+    "controls": [
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "defaultValue": "",
+        "validators": []
+      },
+      {
+        "key": "status",
+        "type": "select",
+        "label": "Estado",
+        "defaultValue": "",
+        "validators": [],
+        "actions": [
+          {
+            "label": "ACTIVE",
+            "key": "active"
+          },
+          {
+            "label": "CANCELED",
+            "key": "canceled"
+          },
+          {
+            "label": "DISABLED",
+            "key": "disabled"
+          }
+        ]
+      },
+      {
+        "key": "startDate",
+        "type": "date",
+        "label": "Data inicio",
+        "defaultValue": "",
+        "validators": []
+      },
+      {
+        "key": "endingDate",
+        "type": "date",
+        "label": "Data fin",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  }
+}

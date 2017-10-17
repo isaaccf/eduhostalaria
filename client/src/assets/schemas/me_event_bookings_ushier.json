@@ -41,13 +41,13 @@
         "label": "",
         "key": "attended",
         "icon": "icon-check",
-        "title": "Asistió"
+        "title": "Asistiu"
       },
       {
         "label": "",
         "key": "paid",
         "icon": "icon-check",
-        "title": "Pagó"
+        "title": "Pagou"
       }
     ]
   }

@@ -2,6 +2,9 @@
          [schema]="actionSchema"
          (send)="onAction($event)">
 </ab-tile>
+<ab-filter *ngIf="filterSchema"
+           [schemaName]="filterSchema"
+           (filter)="onFilter($event)"></ab-filter>
 <ab-table *ngIf="reportSchema"
           [data]="tableData"
           [schema]="reportSchema"

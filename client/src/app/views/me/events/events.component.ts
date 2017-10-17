@@ -75,4 +75,9 @@ export class EventsComponent implements OnInit {
     });
   }
 
+  onFilter(payload) {
+    this.me.filterEvents(payload).subscribe((events: any[]) => {
+      this.events = events;
+    });
+  }
 }

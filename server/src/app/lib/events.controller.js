@@ -35,7 +35,12 @@ module.exports = (app, url) => {
     .get(async (req, res) => {
       const organizationId = req.query.organizationId;
       const ownerId = req.query.ownerId;
-      const data = await srv.getAll(organizationId, ownerId);
+      const name = req.query.name;
+      const status = req.query.status;
+      const startDate = req.query.startDate;
+      const endingDate = req.query.endingDate;
+      const data = await srv.getAll(
+        organizationId, ownerId, name, status, startDate, endingDate);
       return rest.returnArray(data, res);
     })
     .post(async (req, res) => {

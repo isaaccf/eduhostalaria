@@ -20,12 +20,25 @@ async function fillEventsBookingsNumber(events) {
   return events;
 }
 
-module.exports.getAll = async (organizationId, ownerId) => {
+module.exports.getAll = async (organizationId, ownerId, name, status, startDate, endingDate) => {
   const options = {};
+
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
+  if (name) { options.name = { $regex: name, $options: 'i' }; }
+  if (status) { options.status = status.toUpperCase(); }
+  if (startDate) { options.date = { $gte: new Date(startDate).toISOString() }; }
+  if (endingDate) {
+    if (options.date) {
+      options.date.$lte = new Date(endingDate).toISOString();
+    }
+    options.date = { $lte: new Date(endingDate).toISOString() };
+  }
+
   let events = await mongo.find(col, options, { date: 1 });
+
   events = await fillEventsBookingsNumber(events);
+
   return fillEventsOwner(events);
 };
 
