@@ -1,0 +1,66 @@
+<ng-container *ngIf="schema && booking">
+  <ab-panel [schema]="schema.actions">
+    <panel-body>
+      <div *ngIf="booking"
+           class="columns">
+        <ng-container *ngFor="let field of schema.fields; let i = index">
+          <div class="column col-4 col-lg-12">
+            <b class="text-bold"> {{ field.label }}: </b>
+            <ng-container [ngSwitch]="field.key">
+              <ab-pill *ngSwitchCase="'status'"
+                       [text]="booking[field.key]"></ab-pill>
+              <span *ngSwitchDefault>{{ booking[field.key] }}</span>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <div class="button-group">
+        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'CANCELED' || booking.status === 'PAID' || booking.status === 'ATTENDED'}"
+      
+                (click)="onShowEditModal()">
+          <i class="icon icon-edit"></i>Editar</button>
+        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'CANCELED' || booking.status === 'PAID' || booking.status === 'ATTENDED'}"
+      
+                (click)="onShowCancelModal()">
+          <i class="icon icon-cross"></i>Cancelar</button>
+        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'CANCELED' || booking.status !== 'PAID' || booking.status !== 'ATTENDED' || booking.rating}"
+      
+                (click)="onShowRateModal()">
+          <i class="icon icon-emoji"></i>Valorar</button>
+      </div>
+    </panel-body>
+  </ab-panel>
+  <ab-modal title="Editar reserva"
+            [active]="showEditModal"
+            (close)="showEditModal = false">
+    <modal-content>
+      <ab-form [formSchema]="schema.editForm"
+               (send)="onEdit($event)">
+      </ab-form>
+    </modal-content>
+  </ab-modal>
+  <ab-modal title="Cancelar reserva"
+            [active]="showCancelModal"
+            (close)="showCancelModal = false">
+    <modal-content>
+      <ab-card [data]="booking"
+               [schema]="cardSchema">
+      </ab-card>
+    </modal-content>
+    <modal-footer>
+      <button (click)="showCancelModal = false"
+              class="btn btn-link">Non, deixar</button>
+      <button (click)="onDelete()"
+              class="btn btn-primary">Si, cancelar</button>
+    </modal-footer>
+  </ab-modal>
+  <ab-modal title="Valorar evento"
+            [active]="showRateModal"
+            (close)="showRateModal = false">
+    <modal-content>
+      <ab-form [formSchema]="schema.editForm"
+               (send)="onEdit($event)">
+      </ab-form>
+    </modal-content>
+  </ab-modal>
+</ng-container>

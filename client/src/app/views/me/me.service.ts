@@ -187,6 +187,10 @@ export class MeService {
     return this.http.get(`${this.credentialsUrl}/_/${userId}`);
   }
 
+  getBooking(bookingId) {
+    return this.http.get(`${this.bookingsUrl}/${bookingId}`);
+  }
+
   getBookingsByEventId(eventId) {
     return this.http.get(`${this.eventsUrl}/${eventId}/bookings`);
   }

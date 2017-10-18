@@ -6,18 +6,6 @@
       "icon": "icon-bookmark"
     }
   },
-  "editForm": {
-    "title": "Datos da reserva",
-    "submitLabel": "Gardar",
-    "controls": [
-      {
-        "key": "comments",
-        "type": "textarea",
-        "label": "Observacións",
-        "validators": []
-      }
-    ]
-  },
   "report": {
     "header": {
       "title": "Lista de reservas",
@@ -56,16 +44,12 @@
     ],
     "actions": [
       {
-        "label": "",
-        "key": "edit",
-        "icon": "icon-edit",
-        "title": "Editar"
-      },
-      {
-        "label": "",
-        "key": "delete",
-        "icon": "icon-delete",
-        "title": "Cancelar"
+        "label": "Detalles",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "dynamicLink": "_id",
+        "staticLink": "/",
+        "title": ""
       }
     ]
   }

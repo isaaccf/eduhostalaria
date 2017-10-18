@@ -48,6 +48,11 @@ exports.insertBooking = async (user, booking) => {
 exports.updateBooking = async (bookingId, booking) => {
   const oldBooking = await this.getById(bookingId);
 
+  const tempEvent = await eventService.getById(booking.eventId);
+  if (booking.seats > tempEvent.freeSeats) {
+    return new Error('There are no free seats :(');
+  }
+
   if (oldBooking.status === 'PAID' ||
     (oldBooking.status === 'ATTENDED' && booking.status !== 'PAID')) {
     return oldBooking;
@@ -87,4 +92,9 @@ exports.updateBooking = async (bookingId, booking) => {
   return newBooking;
 };
 exports.deleteBooking = async bookingId => mongo.removeOne(col, bookingId);
-exports.getById = async bookingId => mongo.findOneById(col, bookingId);
+exports.getById = async (bookingId) => {
+  const booking = await mongo.findOneById(col, bookingId);
+  const bookings = await fillEventInformation([booking]);
+  delete bookings[0].eventId;
+  return bookings[0];
+};

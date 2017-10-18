@@ -15,11 +15,8 @@ export class BookingsComponent implements OnInit {
 
   public schema;
   public cardSchema;
-  public booking;
   public bookings;
-  public event;
   public eventId;
-  public showModal = false;
 
   constructor(
     private bus: BusService,
@@ -42,40 +39,6 @@ export class BookingsComponent implements OnInit {
   getBookings() {
     this.me.getBookingsByUserId().subscribe(bookings => {
       this.bookings = bookings;
-    });
-  }
-
-  populateEventInfo() {
-    if (this.event.name && this.event.name.length > 0) {
-      this.schema.actions.header.title = this.schema.actions.header.title + ' - ' + this.event.name;
-    }
-
-    this.schema.actions.header.title +=
-      ' - ' + new Date(this.event.date).toLocaleString().split(' ')[0]
-      + ' ' + this.event.shift;
-  }
-
-  onRowAction(event) {
-    this.booking = event.value;
-    if (event.key === 'edit') {
-      this.schemaService.populateDefaultValues(this.schema.editForm, this.booking);
-      this.showModal = true;
-    }
-  }
-
-  onEdit(data) {
-    this.booking.comments = data.comments;
-    this.me.editBooking(this.booking).subscribe(r => {
-      this.getBookings();
-      this.showModal = false;
-      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva editada con éxito', code: '' });
-    });
-  }
-
-  onDelete(action) {
-    delete action.event;
-    this.me.changeBookingStatus(action, 'CANCELED').subscribe(() => {
-      this.getBookings();
     });
   }
 

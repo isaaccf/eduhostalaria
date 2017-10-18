@@ -14,6 +14,7 @@ import { EventComponent } from './event/event.component';
 import { EventsUshierComponent } from './events-ushier/events-ushier.component';
 import { EventBookingsUshierComponent } from './event-bookings-ushier/event-bookings-ushier.component';
 import { OrganizationService } from 'app/views/organization/organization.service';
+import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { OrganizationService } from 'app/views/organization/organization.service
     MeRoutingModule,
     ComponentsModule
   ],
-  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent, EventBookingsComponent, BookingsComponent, EventComponent, EventsUshierComponent, EventBookingsUshierComponent],
+  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent, EventBookingsComponent, BookingsComponent, EventComponent, EventsUshierComponent, EventBookingsUshierComponent, BookingComponent],
   providers: [MeService, OrganizationService],
   schemas: [NO_ERRORS_SCHEMA]
 })

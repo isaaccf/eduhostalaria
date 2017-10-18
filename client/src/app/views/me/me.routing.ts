@@ -10,6 +10,7 @@ import { BookingsComponent } from 'app/views/me/bookings/bookings.component';
 import { EventComponent } from 'app/views/me/event/event.component';
 import { EventsUshierComponent } from 'app/views/me/events-ushier/events-ushier.component';
 import { EventBookingsUshierComponent } from 'app/views/me/event-bookings-ushier/event-bookings-ushier.component';
+import { BookingComponent } from 'app/views/me/booking/booking.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
     path: 'bookings',
     component: BookingsComponent,
     data: { name: 'me_bookings', title: 'Reservas' }
+  },
+  {
+    path: 'bookings/:bookingId',
+    component: BookingComponent,
+    data: { name: 'me_booking', title: 'Reserva' }
   },
   {
     path: 'events/new',

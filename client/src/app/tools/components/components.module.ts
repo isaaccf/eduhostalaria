@@ -84,6 +84,7 @@ import { FilterComponent } from './widgets/filter/filter.component';
     LoadEmptyStateComponent,
     ModalComponent,
     PanelComponent,
+    PillComponent,
     ReactiveFormsModule,
     ShellComponent,
     TableComponent,

@@ -1,0 +1,36 @@
+{
+  "actions": {
+    "header": {
+      "title": "Reserva",
+      "subtitle": "Información da túa reserva",
+      "icon": "icon-bookmark"
+    }
+  },
+  "fields": [
+    {
+      "label": "Nº de comensales",
+      "key": "seats"
+    },
+    {
+      "label": "Observacións",
+      "key": "comments"
+    },
+    {
+      "label": "Estado",
+      "key": "status"
+    }
+  ],
+  "editForm": {
+    "title": "Editar reserva",
+    "submitLabel": "Gardar",
+    "controls": [
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observacións",
+        "defaultValue": "this.booking.comments",
+        "validators": []
+      }
+    ]
+  }
+}
