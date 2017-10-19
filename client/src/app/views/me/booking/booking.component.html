@@ -1,10 +1,10 @@
 <ng-container *ngIf="schema && booking">
-  <ab-panel [schema]="schema.actions">
+  <ab-panel [schema]="schema.firstPanel">
     <panel-body>
       <div *ngIf="booking"
            class="columns">
         <ng-container *ngFor="let field of schema.fields; let i = index">
-          <div class="column col-4 col-lg-12">
+          <div class="column col-12 text-center">
             <b class="text-bold"> {{ field.label }}: </b>
             <ng-container [ngSwitch]="field.key">
               <ab-pill *ngSwitchCase="'status'"
@@ -14,22 +14,39 @@
           </div>
         </ng-container>
       </div>
-      <div class="button-group">
-        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'CANCELED' || booking.status === 'PAID' || booking.status === 'ATTENDED'}"
-      
-                (click)="onShowEditModal()">
-          <i class="icon icon-edit"></i>Editar</button>
-        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'CANCELED' || booking.status === 'PAID' || booking.status === 'ATTENDED'}"
-      
-                (click)="onShowCancelModal()">
-          <i class="icon icon-cross"></i>Cancelar</button>
-        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'ACTIVE' || booking.rating}"
-      
-                (click)="onShowRateModal()">
-          <i class="icon icon-emoji"></i>Valorar</button>
-      </div>
+      <ng-container *ngIf="(booking.status === 'ACTIVE') || (booking.status !== 'ACTIVE' && !booking.rating)">
+        <div class="button-group">
+          <button *ngIf="booking.status === 'ACTIVE'"
+                  class="btn btn-primary"
+                  (click)="onShowEditModal()">
+            <i class="icon icon-edit"></i>Editar observacións</button>
+          <button *ngIf="booking.status === 'ACTIVE'"
+                  class="btn btn-primary"
+                  (click)="onShowCancelModal()">
+            <i class="icon icon-cross"></i>Cancelar reserva</button>
+          <button *ngIf="booking.status !== 'ACTIVE' && !booking.rating"
+                  class="btn btn-primary"
+                  (click)="onShowRateModal()">
+            <i class="icon icon-emoji"></i>Valorar reserva</button>
+        </div>
+      </ng-container>
     </panel-body>
   </ab-panel>
+  <div *ngIf="schema && booking.rating"
+       class="second-panel">
+    <ab-panel [schema]="schema.secondPanel">
+      <panel-body>
+        <div class="column col-12 text-center">
+          <b class="text-bold">Puntuación: </b>
+          <span>{{ booking.rating.score }} sobre 5</span>
+        </div>
+        <div class="column col-12 text-center">
+          <b class="text-bold">Comentarios: </b>
+          <span>{{ booking.rating.comments }}</span>
+        </div>
+      </panel-body>
+    </ab-panel>
+  </div>
   <ab-modal title="Editar reserva"
             [active]="showEditModal"
             (close)="showEditModal = false">

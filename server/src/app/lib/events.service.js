@@ -40,7 +40,6 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
       options.date = { $lte: new Date(ending).toISOString() };
     }
   }
-  console.log(options);
 
   let events = await mongo.find(col, options, { date: 1 });
 

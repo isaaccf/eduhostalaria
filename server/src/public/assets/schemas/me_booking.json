@@ -1,8 +1,15 @@
 {
-  "actions": {
+  "firstPanel": {
     "header": {
       "title": "Reserva",
       "subtitle": "Información da túa reserva",
+      "icon": "icon-bookmark"
+    }
+  },
+  "secondPanel": {
+    "header": {
+      "title": "Valoración",
+      "subtitle": "Datos da valoración enviada",
       "icon": "icon-bookmark"
     }
   },
