@@ -76,11 +76,17 @@ export class BookingComponent implements OnInit {
     delete bookingTemp.event;
     this.me.changeBookingStatus(bookingTemp, 'CANCELED').subscribe(() => {
       this.getBooking();
+      this.showCancelModal = false;
+      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva cancelada con éxito', code: '' });
     });
   }
 
-  onRate() {
-
+  onRate(payload) {
+    this.me.rateBooking(this.bookingId, payload).subscribe(booking => {
+      this.booking = booking;
+      this.showRateModal = false;
+      this.bus.emit({ level: Level.SUCCESS, text: 'Valoración enviada con éxito', code: '' });
+    });
   }
 
 }

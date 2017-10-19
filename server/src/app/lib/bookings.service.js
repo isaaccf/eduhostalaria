@@ -98,3 +98,10 @@ exports.getById = async (bookingId) => {
   delete bookings[0].eventId;
   return bookings[0];
 };
+
+exports.rateBooking = async (bookingId, score, comments) => {
+  const oldBooking = await mongo.findOneById(col, bookingId);
+  oldBooking.rating = { score, comments };
+  const booking = await mongo.updateOne(col, bookingId, oldBooking);
+  return booking;
+};

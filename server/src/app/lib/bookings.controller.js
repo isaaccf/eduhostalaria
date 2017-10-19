@@ -34,4 +34,13 @@ module.exports = (app, url) => {
       const booking = await srv.deleteBooking(bookingId);
       return rest.returnInserted(booking, res);
     });
+
+  app.route(`${url}/:id/rating`)
+    .post(async (req, res) => {
+      const bookingId = req.params.id;
+      const score = req.body.score;
+      const comments = req.body.comments;
+      const booking = await srv.rateBooking(bookingId, score, comments);
+      return rest.returnInserted(booking, res);
+    });
 };

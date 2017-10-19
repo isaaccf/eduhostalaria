@@ -23,7 +23,7 @@
       
                 (click)="onShowCancelModal()">
           <i class="icon icon-cross"></i>Cancelar</button>
-        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'CANCELED' || booking.status !== 'PAID' || booking.status !== 'ATTENDED' || booking.rating}"
+        <button [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': booking.status === 'ACTIVE' || booking.rating}"
       
                 (click)="onShowRateModal()">
           <i class="icon icon-emoji"></i>Valorar</button>
@@ -58,8 +58,8 @@
             [active]="showRateModal"
             (close)="showRateModal = false">
     <modal-content>
-      <ab-form [formSchema]="schema.editForm"
-               (send)="onEdit($event)">
+      <ab-form [formSchema]="schema.rateForm"
+               (send)="onRate($event)">
       </ab-form>
     </modal-content>
   </ab-modal>

@@ -218,4 +218,8 @@ export class MeService {
 
     return this.http.get(`${this.eventsUrl}`, { params });
   }
+
+  rateBooking(bookingId, payload) {
+    return this.http.post(`${this.bookingsUrl}/${bookingId}/rating`, payload);
+  }
 }
