@@ -55,17 +55,11 @@
         ]
       },
       {
-        "key": "room",
-        "type": "text",
-        "label": "Comedor",
-        "defaultValue": "1",
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
         "actions": [],
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "O precio reducido é requerido"
-          }
-        ]
+        "validators": []
       },
       {
         "key": "capacity",
@@ -105,13 +99,6 @@
             "errorMessage": "O precio reducido é requerido"
           }
         ]
-      },
-      {
-        "key": "name",
-        "type": "input",
-        "label": "Nome",
-        "actions": [],
-        "validators": []
       },
       {
         "key": "description",

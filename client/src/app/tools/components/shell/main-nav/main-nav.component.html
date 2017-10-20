@@ -19,21 +19,10 @@
         <a [routerLink]="menuLink.link"
            routerLinkActive="active-link"
            [routerLinkActiveOptions]="{exact: true}">
-        <i [class]="'icon mr-5 ' + menuLink.icon "></i>
-        {{ menuLink.label }}
-      </a>
+          <i [class]="'icon mr-5 ' + menuLink.icon "></i>
+          {{ menuLink.label }}
+        </a>
       </li>
     </ng-container>
-    <li class="divider"></li>
-    <li class="menu-item">
-      <div class="menu-badge">
-        <label class="label label-primary">{{numMessages}}</label>
-      </div>
-      <a routerLink="messages"
-         routerLinkActive="active-link"
-         [routerLinkActiveOptions]="{exact: true}">
-        <i class="icon icon-mail mr-5"></i> Mensaxes
-      </a>
-    </li>
   </main>
 </ul>

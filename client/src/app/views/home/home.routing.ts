@@ -5,7 +5,7 @@ import { HomeComponent } from 'app/views/home/home/home.component';
 const routes: Routes = [{
   path: '',
   component: HomeComponent,
-  data: { name: 'home', title: 'Hostelaría' }
+  data: { name: 'home', title: 'Hostalaría' }
 }];
 
 @NgModule({
