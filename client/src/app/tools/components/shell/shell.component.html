@@ -1,5 +1,5 @@
 <nav class="columns header-bg">
-  <div class="column col-10 col-lg-11 col-xl-11 centered">
+  <div class="column col-10 col-lg-11 col-xl-10 centered">
     <ab-top-bar [user]="user"
                 [title]="title"
                 [organization]="organization"
@@ -11,19 +11,19 @@
   <main class="columns">
     <div class="column col-10 col-lg-11 col-xl-11 centered">
       <div class="columns">
-        <div class="column col-2 col-xl-3 hide-lg">
+        <div class="column col-2 col-xl-3 hide-xl">
           <ab-main-nav [user]="user"
                        [numMessages]="numMessages"
                        [menuLinks]="menuLinks"></ab-main-nav>
         </div>
         <div *ngIf="showResponsive"
-             class="column col-2 col-xl-3 show-lg">
+             class="column col-2 col-xl-3 show-xl">
           <ab-main-nav-responsive [user]="user"
                                   [menuLinks]="menuLinks"
                                   [numMessages]="numMessages"
                                   [showResponsive]="showResponsive"></ab-main-nav-responsive>
         </div>
-        <div class="column col-10 col-xl-9 col-lg-12">
+        <div class="column col-10 col-xl-11 col-lg-12 centered">
           <ab-main-content loadedMetadata="true"></ab-main-content>
         </div>
       </div>

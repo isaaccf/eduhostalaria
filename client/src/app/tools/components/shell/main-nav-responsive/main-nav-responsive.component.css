@@ -14,6 +14,15 @@
   display: none;
 }
 
+.sidebar-responsive li {
+  margin-top: 0;
+}
+
+.sidebar-responsive a {
+  display: block;
+  padding: 0.5rem 0;
+}
+
 .sidebar-responsive-visible {
   display: block;
 }

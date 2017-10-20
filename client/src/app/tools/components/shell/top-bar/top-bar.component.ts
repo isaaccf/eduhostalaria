@@ -36,7 +36,7 @@ export class TopBarComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (event.target.innerWidth > 960) {
+    if (event.target.innerWidth > 1280) {
       if (this.currentState) {
         this.currentState = false;
         this.toggleResponsive.emit(this.currentState);

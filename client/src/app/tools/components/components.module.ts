@@ -34,13 +34,14 @@ import { TextComponent } from './table/text/text.component';
 import { PillComponent } from './table/pill/pill.component';
 import { DateComponent } from './table/date/date.component';
 import { FilterComponent } from './widgets/filter/filter.component';
+import { StatusPipe } from 'app/tools/status.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    QuillEditorModule
+    QuillEditorModule,
   ],
   declarations: [
     ActionComponent,
@@ -72,6 +73,7 @@ import { FilterComponent } from './widgets/filter/filter.component';
     PillComponent,
     DateComponent,
     FilterComponent,
+    StatusPipe
   ],
   exports: [
     ActionComponent,

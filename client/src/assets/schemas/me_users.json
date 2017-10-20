@@ -77,11 +77,6 @@
         "type": "string"
       },
       {
-        "label": "Phone",
-        "key": "phone",
-        "type": "string"
-      },
-      {
         "label": "Estado",
         "key": "status",
         "type": "string",
@@ -98,25 +93,25 @@
         "label": "",
         "key": "aprobe",
         "icon": "icon-check",
-        "title": "In"
+        "title": "Aprobar"
       },
       {
         "label": "",
         "key": "disable",
         "icon": "icon-cross",
-        "title": "Out"
+        "title": "Rexeitar"
       },
       {
         "label": "",
         "key": "delete",
         "icon": "icon-delete",
-        "title": "Elim"
+        "title": "Eliminar"
       },
       {
         "label": "",
         "key": "resend",
         "icon": "icon-mail",
-        "title": "Env",
+        "title": "Enviar",
         "showKey": "status",
         "showValue": "PENDING"
       }
