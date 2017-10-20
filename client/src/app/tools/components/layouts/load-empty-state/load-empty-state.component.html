@@ -3,12 +3,12 @@
     <div *ngIf="schema.loading"
          class="loading"></div>
     <i *ngIf="!schema.loading && schema.empty"
-       class="icon icon-stop"></i>
+       class="icon icon-message"></i>
   </div>
   <h4 *ngIf="schema.loading"
       class="empty-title">Cargando, espere por favor....</h4>
   <h4 *ngIf="!schema.loading && schema.empty"
-      class="empty-title">Sen datos polo momento!</h4>
+      class="empty-title">Non temos datos para mostrar :(</h4>
   <div *ngIf="schema.action"
        class="empty-action">
     <p class="empty-subtitle">Click para empezar.</p>

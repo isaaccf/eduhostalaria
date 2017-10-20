@@ -16,6 +16,7 @@
     "header": {
       "title": "Lista de ofertas"
     },
+    "deleteMessage": "Cancelar oferta",
     "emptyMessage": "Non temos eventos para mostrar :(",
     "fields": [
       {

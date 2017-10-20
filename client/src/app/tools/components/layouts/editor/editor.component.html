@@ -21,7 +21,7 @@
   </modal-content>
 </ab-modal>
 <ab-modal *ngIf="actionSchema"
-          title="{{ 'Borrar ' + actionSchema.header.title }}"
+          title="{{ reportSchema.deleteMessage }}"
           [active]="deleteModalActive"
           (close)="onCancelDelete()">
   <modal-content>

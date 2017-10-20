@@ -33,6 +33,7 @@
     "header": {
       "title": "Lista de centros"
     },
+    "deleteMessage": "Borrar organización",
     "emptyMessage": "Non hay centros para ver :(",
     "fields": [
       {

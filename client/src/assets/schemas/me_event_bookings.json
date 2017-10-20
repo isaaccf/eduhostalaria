@@ -18,6 +18,7 @@
       "subtitle": "Lista de eventos con reserva feita",
       "icon": "icon-bookmark"
     },
+    "deleteMessage": "Cancelar reserva",
     "emptyMessage": "Non temos reservas para mostrar :(",
     "fields": [
       {

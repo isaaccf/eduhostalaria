@@ -64,7 +64,8 @@
     "header": {
       "title": "Lista de usuarios"
     },
-    "emptyMessage": "Non temos usurios para mostrar :(",
+    "deleteMessage": "Eliminar usuario",
+    "emptyMessage": "Non temos usuarios para mostrar :(",
     "fields": [
       {
         "label": "Usuario",

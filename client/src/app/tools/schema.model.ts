@@ -52,6 +52,7 @@ export interface IForm {
 
 export interface IReportSchema {
   header: IHeader;
+  deleteMessage?: string;
   emptyMessage?: string;
   fields: IField[];
   actions: IAction[];
