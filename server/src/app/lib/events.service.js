@@ -70,7 +70,7 @@ exports.updateEvent = async (eventId, event) => {
   if (event.status === 'ACTIVE' && oldEvent.status !== event.status) {
     event.freeSeats = event.capacity;
   }
-  return await mongo.updateOne(col, eventId, event);
+  return mongo.updateOne(col, eventId, event);
 };
 exports.getById = async eventId => mongo.findOneById(col, eventId);
 exports.removeEvent = async eventId => mongo.removeOne(col, eventId);

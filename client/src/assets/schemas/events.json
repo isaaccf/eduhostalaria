@@ -2,7 +2,7 @@
   "timeline": {
     "header": {
       "title": "Eventos próximos",
-      "subtitle": "Listado dos eventos que terán lugar neste centros proximamente",
+      "subtitle": "Listado dos eventos que terán lugar neste centro proximamente",
       "icon": "icon-time"
     },
     "events": []
