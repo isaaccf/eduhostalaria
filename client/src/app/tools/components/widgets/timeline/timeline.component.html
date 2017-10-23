@@ -20,6 +20,8 @@
                *ngFor="let item of event.items"
                [innerHTML]="item.header.title">
             </p>
+            <p>Colaboración económica recomendada: {{ event.standardPrice }} €</p>
+            <p>Colaboración económica recomendada (alumnos centro): {{ event.reducedPrice }} €</p>
             <div *ngIf="event.files && event.files.length > 0"
                  class="files-container">
               <ng-container *ngFor="let file of event.files">
@@ -44,6 +46,8 @@
             (close)="onCloseModal()">
     <modal-content>
       <p>Prazas restantes: {{selEvent?.freeSeats}}</p>
+      <p>Colaboración económica recomendada: {{selEvent?.standardPrice}} €</p>
+      <p>Colaboración económica recomendada (alumnos centro): {{selEvent?.reducedPrice}} €</p>
       <ab-form [formSchema]="bookingformSchema"
                (send)="onSubmitBooking($event)"></ab-form>
     </modal-content>
@@ -54,6 +58,9 @@
     <modal-content>
       <p>Para reservar unha oferta é necesario estar rexistrado na plataforma. No caso de non o estar, crea unha conta cubrindo
         o seguinte formulario. Unha vez confirmado o teu email a reserva farase efectiva.</p>
+      <p>Prazas restantes: {{selEvent?.freeSeats}}</p>
+      <p>Colaboración económica recomendada: {{selEvent?.standardPrice}} €</p>
+      <p>Colaboración económica recomendada (alumnos centro): {{selEvent?.reducedPrice}} €</p>
       <ab-form [formSchema]="registerFormSchema"
                (send)="onSubmitRegister($event)"></ab-form>
     </modal-content>

@@ -39,7 +39,7 @@ module.exports = (app, url) => {
         comments: bookingRegistration.comments,
         status: 'PENDING',
       };
-      await srvBookings.insertBooking(newUser, booking);
+      await srvBookings.insertBooking(newUser, booking, 'GUEST');
       return rest.returnInserted(newUser, res);
     });
   app.route(`${url}/_/invitations`)

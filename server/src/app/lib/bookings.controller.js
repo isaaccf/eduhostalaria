@@ -12,7 +12,7 @@ module.exports = (app, url) => {
       const booking = req.body;
       booking.ownerId = String(req.user._id);
       booking.status = 'ACTIVE';
-      const data = await srv.insertBooking(req.user, booking);
+      const data = await srv.insertBooking(req.user, booking, 'USER');
       return rest.returnInserted(data, res);
     });
 

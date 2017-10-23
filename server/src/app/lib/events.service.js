@@ -20,11 +20,23 @@ async function fillEventsBookingsNumber(events) {
   return events;
 }
 
+async function calculatePax(events) {
+  await Promise.all(events.map(async (event) => {
+    const bookings = await bookingsSrv.getByEventId(event._id);
+    let pax = 0;
+    await Promise.all(bookings.map(async (booking) => {
+      pax += Number(booking.seats);
+    }));
+    event.pax = pax;
+  }));
+  return events;
+}
+
 module.exports.getAll = async (organizationId, ownerId, name, status, startDate, endingDate) => {
   const options = {};
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
-  if (name) { options.name = { $regex: name, $options: 'i' }; }
+  if (name) { options.$or = [{ name: { $regex: name, $options: 'i' } }, { description: { $regex: name, $options: 'i' } }]; }
   if (status) { options.status = status.toUpperCase(); }
   if (startDate) {
     let start = new Date(startDate);
@@ -43,6 +55,7 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
 
   let events = await mongo.find(col, options, { date: 1 });
 
+  events = await calculatePax(events);
   events = await fillEventsBookingsNumber(events);
 
   return fillEventsOwner(events);

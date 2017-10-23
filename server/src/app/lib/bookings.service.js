@@ -31,7 +31,7 @@ exports.getAll = async (eventId, ownerId, status) => {
   return bookings;
 };
 
-exports.insertBooking = async (user, booking) => {
+exports.insertBooking = async (user, booking, userType) => {
   const event = await eventService.getById(booking.eventId);
   if (booking.seats > event.freeSeats) {
     return new Error('There are no free seats :(');
@@ -39,7 +39,11 @@ exports.insertBooking = async (user, booking) => {
   const result = await mongo.insertOne(col, booking);
   event.freeSeats -= booking.seats;
   await eventService.updateEvent(booking.eventId, event);
-  mailer.sendBooking(user, event, booking, 'booked');
+  if (userType === 'GUEST') {
+    mailer.sendBooking(user, event, booking, 'booked_guest');
+  } else {
+    mailer.sendBooking(user, event, booking, 'booked');
+  }
   return result;
 };
 
@@ -47,14 +51,21 @@ exports.insertBooking = async (user, booking) => {
  * no contenga los estados 'ATTENDED' O 'PAID' */
 exports.updateBooking = async (bookingId, booking) => {
   const oldBooking = await this.getById(bookingId);
+  let undo = false;
 
   const tempEvent = await eventService.getById(booking.eventId);
   if (booking.seats > tempEvent.freeSeats) {
     return new Error('There are no free seats :(');
   }
 
-  if (oldBooking.status === 'PAID' ||
-    (oldBooking.status === 'ATTENDED' && booking.status !== 'PAID')) {
+  if ((oldBooking.status === 'ATTENDED' && booking.status === 'ATTENDED')
+    || (oldBooking.status === 'PAID' && booking.status === 'PAID')) {
+    undo = true;
+    booking.status = 'ACTIVE';
+  }
+
+  if ((oldBooking.status === 'PAID' && !undo)
+    || (oldBooking.status === 'ATTENDED' && booking.status !== 'PAID' && !undo)) {
     return oldBooking;
   }
 
@@ -83,10 +94,15 @@ exports.updateBooking = async (bookingId, booking) => {
   }
 
   /* Si pasamos la reserva a ACTIVE, se vuelven a reservar los sitios */
-  if (booking.status === 'ACTIVE' && oldBooking.status !== booking.status) {
+  if (booking.status === 'ACTIVE' && oldBooking.status !== 'PENDING'
+    && !undo && oldBooking.status !== booking.status) {
     event.freeSeats -= booking.seats;
     event = await eventService.updateEvent(event._id, event);
-    mailer.sendBooking(user, event, booking);
+  }
+
+  /* Enviamos correo si se active una oferta */
+  if (booking.status === 'ACTIVE') {
+    mailer.sendBooking(user, event, booking, 'booked');
   }
 
   return newBooking;
@@ -103,5 +119,12 @@ exports.rateBooking = async (bookingId, score, comments) => {
   const oldBooking = await mongo.findOneById(col, bookingId);
   oldBooking.rating = { score, comments };
   const booking = await mongo.updateOne(col, bookingId, oldBooking);
+  /* Información para enviar el email */
+  const user = await userService.getById(String(booking.ownerId));
+  const event = await eventService.getById(booking.eventId);
+  const owner = await userService.getById(event.ownerId);
+  mailer.sendRating(user, owner, event, { score, comments }, 'rated');
   return booking;
 };
+
+exports.getByEventId = async eventId => mongo.find(col, { eventId: String(eventId), status: { $ne: 'CANCELED' } });

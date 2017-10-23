@@ -139,6 +139,7 @@ export class MeService {
   }
 
   editEvent(event) {
+    delete event.pax;
     delete event.bookingsNumber;
     return this.http.patch(`${this.eventsUrl}/${event._id}`, event);
   }
@@ -157,6 +158,7 @@ export class MeService {
 
   changeEventStatus(event, status) {
     const payload = Object.assign({}, event);
+    delete event.pax;
     delete event.bookingsNumber;
     payload.ownerId = event.owner._id;
     delete payload.owner;

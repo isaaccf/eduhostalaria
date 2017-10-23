@@ -42,6 +42,12 @@
         "tableType": "pill"
       },
       {
+        "label": "Pax",
+        "key": "pax",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
         "label": "Estado",
         "key": "status",
         "type": "string",

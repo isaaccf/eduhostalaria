@@ -84,6 +84,8 @@ export class OrganizationHomeComponent implements OnInit {
           name: ev.name,
           date: ev.date,
           shift: ev.shift,
+          standardPrice: ev.standardPrice,
+          reducedPrice: ev.reducedPrice,
           files: ev.files,
           icon: '',
           items: [

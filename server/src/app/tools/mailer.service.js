@@ -3,6 +3,7 @@ const parseTemplate = require('es6-template-strings');
 const config = require('../tools/config');
 const wellcome = require('../../config/mailer/wellcome.json');
 const bookings = require('../../config/mailer/bookings.json');
+const ratings = require('../../config/mailer/ratings.json');
 
 const mailerCfg = config.mailer;
 
@@ -31,7 +32,7 @@ module.exports.sendWellcome = (user, templateName) => {
 };
 
 module.exports.sendBooking = (user, event, booking, templateName) => {
-  const url = config.URLBASE;
+  const url = `${config.URLBASE}/me/bookings/${booking._id}`;
   const template = bookings[templateName];
   const bookingtext = event.name;
   const message = {
@@ -54,6 +55,18 @@ module.exports.sendCanceled = (user, event, templateName) => {
     subject: template.subject,
     text: parseTemplate(template.text, { user, bookingtext, url }),
     html: parseTemplate(template.html, { user, bookingtext, url }),
+  };
+  this.getTransporter().sendMail(message);
+};
+
+module.exports.sendRating = (user, owner, event, rating, templateName) => {
+  const template = ratings[templateName];
+  const message = {
+    from: config.mailer.auth.user,
+    to: owner.email,
+    subject: parseTemplate(template.subject, { event }),
+    text: parseTemplate(template.text, { user, owner, event, rating }),
+    html: parseTemplate(template.html, { user, owner, event, rating }),
   };
   this.getTransporter().sendMail(message);
 };
