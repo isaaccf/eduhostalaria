@@ -103,6 +103,12 @@ module.exports = (app, url) => {
       const user = await srvUsers.getById(userId);
       return rest.returnOne(user, res);
     })
+    .patch(async (req, res) => {
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
+      const user = req.body;
+      const updatedUser = await srvUsers.updateUser(user);
+      return rest.returnOne(updatedUser, res);
+    })
     .delete(async (req, res) => {
       rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const userId = req.params.id;

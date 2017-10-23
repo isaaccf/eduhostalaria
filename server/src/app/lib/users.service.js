@@ -1,6 +1,9 @@
 const ObjectID = require('mongodb').ObjectID;
 const mongo = require('../tools/mongo.service');
 const logger = require('winston');
+const bookingsService = require('./bookings.service');
+const eventService = require('./events.service');
+const credentialsService = require('./credentials.service');
 
 const col = 'users';
 function _id(id) {
@@ -19,7 +22,23 @@ module.exports.getByRole = async (role) => {
   return null;
 };
 module.exports.insertUser = async user => mongo.insertOne(col, user);
-module.exports.updateUser = async user => mongo.updateOne(col, user._id, user);
+module.exports.updateUser = async (user) => {
+  const oldUser = await this.getById(user._id);
+
+  if (user.status === 'CANCELED' && oldUser.status === 'ACTIVE') {
+    const now = Date.now();
+    const bookings = await bookingsService.getAll(undefined, user._id);
+    await Promise.all(await bookings.map(async (booking) => {
+      const event = await eventService.getById(booking.eventId);
+      if (new Date(event.date) > now) {
+        booking.status = 'CANCELED';
+        await bookingsService.updateBooking(booking._id, booking);
+      }
+    }));
+  }
+
+  return mongo.updateOne(col, user._id, user);
+};
 module.exports.removeUser = async userId => mongo.removeOne(col, userId);
 module.exports.getByIdStatus = async (id, status) => mongo.findOne(col, { _id: _id(id), status });
 module.exports.getByEmail = async (email) => {

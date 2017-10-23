@@ -40,28 +40,24 @@ export class MeService {
   editProfile(userProfile: any): Observable<any> {
     const user = this.security.getLocalUser();
     const aux = Object.assign(user, userProfile);
-    return this.http
-      .patch(`${this.usersUrl}/me`, aux);
+    return this.http.patch(`${this.usersUrl}/me`, aux);
   }
 
   getUsers(): Observable<any[]> {
-    return this.http
-      .get<any>(this.usersUrl);
+    return this.http.get<any>(this.usersUrl);
   }
 
   disableUser(user: any): Observable<any> {
-    return this.http
-      .post(`${this.credentialsUrl}/_/dissableds`, user);
+    return this.http.post(`${this.credentialsUrl}/_/dissableds`, user);
   }
 
   approbeUser(user: any): Observable<any> {
-    return this.http
-      .post(`${this.credentialsUrl}/_/approvals`, user);
+    return this.http.post(`${this.credentialsUrl}/_/approvals`, user);
   }
 
   deleteUser(user: any): Observable<any> {
-    return this.http
-      .delete(`${this.credentialsUrl}/_/${user._id}`);
+    user.status = 'CANCELED';
+    return this.http.patch(`${this.credentialsUrl}/_/${user._id}`, user);
   }
 
   inviteUser(newUser: any): Observable<any> {
