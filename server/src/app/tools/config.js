@@ -3,7 +3,7 @@ const dev = require('../../config/dev.json');
 const env = process.env;
 const config = {};
 
-process.env.NODE_ENV = env.NODE_ENV || dev.NODE_ENV;
+env.NODE_ENV = env.NODE_ENV || dev.NODE_ENV;
 config.port = env.PORT || dev.PORT;
 config.secret = env.secret || dev.secret;
 config.MONGODB_URI = env.MONGODB_URI || dev.MONGODB_URI;
