@@ -83,7 +83,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de inicio é requerida"
+            "errorMessage": "A hora de inicio é requerida (hh:ss)"
           }
         ]
       },
@@ -96,7 +96,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de fin é requerida"
+            "errorMessage": "A hora de fin é requerida (hh:ss)"
           }
         ]
       },
@@ -146,13 +146,13 @@
       {
         "key": "date",
         "type": "date",
-        "label": "Fecha",
+        "label": "Fecha (dd/mm/aaaa)",
         "defaultValue": "this.event.date",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A data do evento é requerida"
+            "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
           }
         ]
       },
@@ -213,7 +213,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de inicio é requerida"
+            "errorMessage": "A hora de inicio é requerida (hh:ss)"
           }
         ]
       },
@@ -226,7 +226,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de fin é requerida"
+            "errorMessage": "A hora de fin é requerida (hh:ss)"
           }
         ]
       },

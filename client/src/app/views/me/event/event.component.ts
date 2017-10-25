@@ -64,6 +64,9 @@ export class EventComponent implements OnInit {
           this.formSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
         } else {
           this.schema.populateDefaultValues(this.formSchema, this.organization);
+          this.formSchema.controls[0].defaultValue = 'dd/mm/aaaa';
+          this.formSchema.controls[4].defaultValue = 'hh:mm';
+          this.formSchema.controls[5].defaultValue = 'hh:mm';
         }
       });
   }
