@@ -2,28 +2,28 @@ const multer = require('multer');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary');
 
-cloudinary.config();
+let storage;
 
-const storage = cloudinaryStorage({
-  cloudinary,
-  filename: (req, file, cb) => {
-    cb(undefined, file.originalname);
-  },
-});
+if (process.env.NODE_ENV === 'development') {
+  cloudinary.config();
+  storage = cloudinaryStorage({
+    cloudinary,
+    filename: (req, file, cb) => {
+      cb(undefined, file.originalname);
+    },
+  });
+} else {
+  const storagePath = '/home/cifppaseodaspontes/eduhostalaria/images';
+  storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, storagePath);
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${file.originalname}-${new Date()}`);
+    },
+  });
+}
 
 const parser = multer({ storage });
 
 module.exports = parser;
-
-
-/*  = (app, url) => {
-  app.route(`${url}`)
-    .post(parser.any(), (req, res) => {
-      req.files.forEach(e => {
-        console.log(e.url);
-        console.log(e.secure_url);
-      });
-      return rest.returnArray([], res);
-    });
-};
- */

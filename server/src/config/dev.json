@@ -1,5 +1,6 @@
 {
   "env": "dev",
+  "NODE_ENV": "development",
   "PORT": 2000,
   "URLBASE": "http://localhost:4200",
   "secret": "secret",
