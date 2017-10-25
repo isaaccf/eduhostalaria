@@ -117,6 +117,12 @@ export class EventComponent implements OnInit {
     });
   }
 
+  onDeleteFile(fileName) {
+    this.me.removeFile(this.event._id, fileName).subscribe(event => {
+      this.event = event;
+    });
+  }
+
   getFilesToUpload() {
     let filesToUpload: Array<File> = [];
     const domFiles = this.filesInput.nativeElement.files;
