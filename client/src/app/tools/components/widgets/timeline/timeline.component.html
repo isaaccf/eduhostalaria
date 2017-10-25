@@ -15,13 +15,17 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <b class="tile-subtitle">{{event.name}} - {{ event.date | date:'shortDate' }} - {{ event.shift }}</b>
+            <b class="tile-subtitle">{{event.name}} ({{ event.date | date:'dd/MM/yyyy' }})</b>
             <p class="tile-title"
                *ngFor="let item of event.items"
                [innerHTML]="item.header.title">
             </p>
-            <p>Colaboración económica recomendada: {{ event.standardPrice }} €</p>
-            <p>Colaboración económica recomendada (alumnos centro): {{ event.reducedPrice }} €</p>
+            <p>
+              <span class="text-bold">Horario: </span>De {{ event.startTime }} a {{ event.endTime }}</p>
+            <p>
+              <span class="text-bold">Colaboración económica recomendada: </span>{{ event.standardPrice }} €</p>
+            <p>
+              <span class="text-bold">Colaboración económica recomendada (alumnos centro): </span>{{ event.reducedPrice }} €</p>
             <div *ngIf="event.files && event.files.length > 0"
                  class="files-container">
               <ng-container *ngFor="let file of event.files">

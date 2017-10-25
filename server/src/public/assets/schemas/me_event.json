@@ -24,12 +24,12 @@
       {
         "key": "date",
         "type": "date",
-        "label": "Fecha",
+        "label": "Fecha (dd/mm/aaaa)",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A data do evento é requerida"
+            "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
           }
         ]
       },
@@ -71,6 +71,32 @@
           {
             "key": "required",
             "errorMessage": "O aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "startTime",
+        "type": "time",
+        "label": "Hora de inicio (hh:ss)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida"
+          }
+        ]
+      },
+      {
+        "key": "endTime",
+        "type": "time",
+        "label": "Hora de fin (hh:ss)",
+        "defaultValue": "this.organization.endTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de fin é requerida"
           }
         ]
       },
@@ -175,6 +201,32 @@
           {
             "key": "required",
             "errorMessage": "O aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "startTime",
+        "type": "time",
+        "label": "Hora de inicio (hh:ss)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida"
+          }
+        ]
+      },
+      {
+        "key": "endTime",
+        "type": "time",
+        "label": "Hora de fin (hh:ss)",
+        "defaultValue": "this.organization.endTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de fin é requerida"
           }
         ]
       },

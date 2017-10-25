@@ -53,7 +53,7 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
     }
   }
 
-  let events = await mongo.find(col, options, { date: 1 });
+  let events = await mongo.find(col, options, { date: -1 });
 
   events = await calculatePax(events);
   events = await fillEventsBookingsNumber(events);
