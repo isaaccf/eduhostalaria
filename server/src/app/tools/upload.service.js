@@ -4,7 +4,7 @@ const cloudinary = require('cloudinary');
 
 let storage;
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   cloudinary.config();
   storage = cloudinaryStorage({
     cloudinary,
@@ -12,7 +12,9 @@ if (process.env.NODE_ENV === 'development') {
       cb(undefined, file.originalname);
     },
   });
-} else {
+}
+
+if (process.env.NODE_ENV === 'staging') {
   const storagePath = '/home/cifppaseodaspontes/eduhostalaria/images';
   storage = multer.diskStorage({
     destination: (req, file, cb) => {
