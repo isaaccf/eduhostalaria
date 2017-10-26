@@ -7,7 +7,7 @@ import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angu
 })
 export class TileCompactComponent implements OnInit {
 
-  @Input() image: { url: string, name: string };
+  @Input() image: { url: string, name: string, showName: string };
   @Output() clicked = new EventEmitter<string>();
 
   constructor() { }

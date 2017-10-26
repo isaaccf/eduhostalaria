@@ -40,6 +40,11 @@ module.exports.useMiddleware = (app) => {
     if (!req.originalUrl.includes('/_/')) {
       return next();
     }
+    if (req.originalUrl.includes('/_/events/')
+      && req.originalUrl.includes('/files/')
+      && req.method === 'GET') {
+      return next();
+    }
     let user = null;
     const authHeader = req.get('authorization');
     if (authHeader) {

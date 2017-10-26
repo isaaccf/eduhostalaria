@@ -1,9 +1,8 @@
 const srv = require('./events.service');
 const bookingsSrv = require('./bookings.service');
 const rest = require('../tools/rest.service');
-const parser = require('../tools/upload.service');
+const uploadService = require('../tools/upload.service');
 const slugger = require('slug');
-const cloudinary = require('cloudinary');
 
 const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -79,24 +78,33 @@ module.exports = (app, url) => {
       return res.status(204).end();
     });
   app.route(`${url}/:id/files`)
-    .post(parser.any(), (req, res) => {
+    .post(uploadService.getParser().any(), async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
-      req.files.forEach(async (file) => {
-        const eventId = req.params.id;
-        const obj = { name: file.originalname, url: file.secure_url, mimetype: file.mimetype };
-        await srv.addFiles(eventId, obj);
-      });
+      const eventId = req.params.id;
+      await uploadService.uploadFiles(eventId, req.files, url);
       return rest.returnArray([], res);
     });
   app.route(`${url}/:id/files/:name`)
+    .get(async (req, res) => {
+      const eventId = req.params.id;
+      const fileName = req.params.name;
+      const event = await srv.getById(eventId);
+      let path;
+      event.files.forEach((file) => {
+        if (file.name === fileName) {
+          path = file.path;
+        }
+      });
+      if (!path) {
+        return rest.returnError(404, res);
+      }
+      return res.sendFile(path);
+    })
     .delete(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const eventId = req.params.id;
       const fileName = req.params.name;
-      const event = await srv.getById(eventId);
-      await cloudinary.uploader.destroy(fileName);
-      event.files = event.files.filter(el => el.name !== fileName);
-      const data = await srv.updateEvent(event._id, event);
+      const data = await uploadService.removeFile(eventId, fileName);
       return rest.returnInserted(data, res);
     });
   app.route(`${url}/:id/bookings`)
