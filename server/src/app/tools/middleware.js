@@ -7,9 +7,10 @@ const logger = require('winston');
 const express = require('express');
 const path = require('path');
 const tracker = require('./ga.service');
+const helmet = require('helmet');
 
 module.exports.useMiddleware = (app) => {
-  app.disable('x-powered-by');
+  app.use(helmet());
 
   logger.stream = {
     write(message) {
