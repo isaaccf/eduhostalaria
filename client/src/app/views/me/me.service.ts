@@ -145,6 +145,7 @@ export class MeService {
   }
 
   removeFile(eventId, fileName) {
+    // TODO: Change url for file url
     return this.http.delete(`${this.eventsUrl}/${eventId}/files/${fileName}`);
   }
 

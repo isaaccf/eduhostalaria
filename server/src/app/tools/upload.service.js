@@ -68,14 +68,14 @@ const removeFile = async (eventId, fileName) => {
 
   if (process.env.NODE_ENV === 'production') {
     event.files.map((file) => {
-      if (file.name === fileName) {
+      if (file.realName === fileName) {
         fs.unlinkSync(file.path);
       }
       return file;
     });
   }
 
-  event.files = event.files.filter(el => el.name !== fileName);
+  event.files = event.files.filter(el => el.realName !== fileName);
 
   return eventService.updateEvent(event._id, event);
 };

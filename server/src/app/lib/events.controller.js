@@ -92,7 +92,6 @@ module.exports = (app, url) => {
       const fileName = req.params.name;
       const event = await srv.getById(eventId);
       let path;
-      console.log(fileName);
       event.files.forEach((file) => {
         if (file.realName === fileName) {
           path = file.path;
