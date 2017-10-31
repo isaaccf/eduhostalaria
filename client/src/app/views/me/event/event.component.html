@@ -15,7 +15,7 @@
       <ng-container *ngIf="formKey === 'edit' && event?.files">
         <ab-tile-compact *ngFor="let file of event.files"
                          [image]="file"
-                         (clicked)="onDeleteFile($event)">
+                         (clicked)="onDeleteFile(file)">
         </ab-tile-compact>
       </ng-container>
     </panel-body>

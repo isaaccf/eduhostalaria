@@ -93,8 +93,8 @@ export class EventComponent implements OnInit {
     }
   }
 
-  onDelete(ev) {
-    return this.me.removeFile(this.event._id, ev).subscribe(event => {
+  onDelete(file) {
+    return this.me.removeFile(file.url).subscribe(event => {
       this.event = event;
     });
   }
@@ -117,8 +117,8 @@ export class EventComponent implements OnInit {
     });
   }
 
-  onDeleteFile(fileName) {
-    this.me.removeFile(this.event._id, fileName).subscribe(event => {
+  onDeleteFile(file) {
+    this.me.removeFile(file.url).subscribe(event => {
       this.event = event;
     });
   }
