@@ -3,6 +3,7 @@ const bookingsSrv = require('./bookings.service');
 const rest = require('../tools/rest.service');
 const uploadService = require('../tools/upload.service');
 const slugger = require('slug');
+const config = require('./../tools/config');
 
 const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -81,7 +82,8 @@ module.exports = (app, url) => {
     .post(uploadService.getParser().any(), async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const eventId = req.params.id;
-      await uploadService.uploadFiles(eventId, req.files, url);
+      const serverName = `http://${req.hostname}:${config.port}${url}`;
+      await uploadService.uploadFiles(eventId, req.files, serverName);
       return rest.returnArray([], res);
     });
   app.route(`${url}/:id/files/:name`)
@@ -90,8 +92,9 @@ module.exports = (app, url) => {
       const fileName = req.params.name;
       const event = await srv.getById(eventId);
       let path;
+      console.log(fileName);
       event.files.forEach((file) => {
-        if (file.name === fileName) {
+        if (file.realName === fileName) {
           path = file.path;
         }
       });

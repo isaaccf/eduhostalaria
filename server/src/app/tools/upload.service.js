@@ -4,6 +4,7 @@ const cloudinaryStorage = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary');
 const fs = require('fs');
 const mime = require('mime');
+const path = require('path');
 
 const storagePath = `${__dirname}/../../../img/`;
 
@@ -44,13 +45,14 @@ const uploadFiles = async (eventId, files, url) => {
     const obj = {
       name: file.originalname,
       mimetype: file.mimetype,
+      realName: path.basename(file.path)
     };
 
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
       obj.url = file.secure_url;
     }
     if (process.env.NODE_ENV === 'production') {
-      obj.url = `http://localhost:2000${url}/${eventId}/files/${obj.name}`;
+      obj.url = `${url}/${eventId}/files/${obj.realName}`;
       obj.path = file.path;
     }
     await eventService.addFiles(eventId, obj);
