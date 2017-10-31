@@ -7,7 +7,7 @@ module.exports = (app, url) => {
       let data = [req.user];
       if (rest.hasRole(req, 'GOD')) {
         data = await srv.getAll();
-      } if (rest.hasRole(req, 'ADMIN')) {
+      } else if (rest.hasRole(req, 'ADMIN')) {
         data = await srv.getByOrganizationId(req.user.organizationId.toString());
       }
       return rest.returnArray(data, res);
