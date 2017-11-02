@@ -15,7 +15,7 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <span class="label label-primary">{{ event.date | date:'fullDate' }}</span>
+            <span class="label label-primary">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
             <b class="tile-subtitle">{{event.name}}&nbsp;</b>
             <p class="tile-title"
                *ngFor="let item of event.items"

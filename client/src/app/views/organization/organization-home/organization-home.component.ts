@@ -99,6 +99,7 @@ export class OrganizationHomeComponent implements OnInit {
           ],
           action: {
             label: 'Reservar',
+            icon: 'icon-bookmark',
             key: 'book',
             value: ev
           }
