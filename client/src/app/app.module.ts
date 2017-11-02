@@ -12,6 +12,7 @@ import { MessagesService } from 'app/tools/messages.service';
 import { LoggingService } from 'app/tools/analytics.service';
 import { MyErrorHandler } from 'app/tools/custom-error';
 import { AppRoutingModule } from 'app/app.routing';
+import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AppRoutingModule } from 'app/app.routing';
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: ErrorHandler, useClass: MyErrorHandler, deps: [LoggingService] },
+    { provide: LOCALE_ID, useValue: 'es-ES' },
     MessagesService,
     SecurityService
   ],

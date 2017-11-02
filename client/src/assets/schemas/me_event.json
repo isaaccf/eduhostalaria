@@ -179,17 +179,12 @@
         ]
       },
       {
-        "key": "room",
-        "type": "text",
-        "label": "Comedor",
-        "defaultValue": "this.event.room",
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "defaultValue": "this.event.name",
         "actions": [],
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "O precio reducido é requerido"
-          }
-        ]
+        "validators": []
       },
       {
         "key": "capacity",
@@ -255,14 +250,6 @@
             "errorMessage": "O precio reducido é requerido"
           }
         ]
-      },
-      {
-        "key": "name",
-        "type": "input",
-        "label": "Nome",
-        "defaultValue": "this.event.name",
-        "actions": [],
-        "validators": []
       },
       {
         "key": "description",

@@ -16,7 +16,7 @@
         <div class="tile">
           <div class="tile-content">
             <b class="tile-subtitle">{{event.name}}&nbsp;
-              <span class="label label-primary">{{ event.date | date:'dd/MM/yyyy' }}</span>
+              <span class="label label-primary">{{ event.date | date:'fullDate' }}</span>
             </b>
             <p class="tile-title"
                *ngFor="let item of event.items"
