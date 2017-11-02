@@ -19,7 +19,7 @@ module.exports = (app, url) => {
     .get(async (req, res) => {
       const organizationId = req.params.id;
       const data = await eventSrv.getAll(
-        organizationId, undefined, undefined, 'ACTIVE');
+        organizationId, undefined, undefined, 'ACTIVE', new Date(), undefined);
       return rest.returnArray(data, res);
     });
   app.route(`${url}/users/:userId`)
