@@ -113,8 +113,7 @@ export class MeService {
   }
 
   getEvents(): Observable<any[]> {
-    return this.http
-      .get<any>(this.eventsUrl);
+    return this.http.get<any>(this.eventsUrl);
   }
 
   getEventById(eventId) {
@@ -146,8 +145,8 @@ export class MeService {
 
   removeFile(url) {
     // TODO: Change url for file url
-    let init = url.indexOf(this.eventsUrl);
-    let path = url.substring(init);
+    const init = url.indexOf(this.eventsUrl);
+    const path = url.substring(init);
     return this.http.delete(path);
     /* return this.http.delete(`${this.eventsUrl}/${eventId}/files/${fileName}`); */
   }

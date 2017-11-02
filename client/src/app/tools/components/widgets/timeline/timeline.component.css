@@ -27,3 +27,8 @@ article:last-of-type {
   display: flex;
   flex-direction: column;
 }
+
+.label {
+  padding: 2px 5px;
+  margin-right: 7px;
+}
