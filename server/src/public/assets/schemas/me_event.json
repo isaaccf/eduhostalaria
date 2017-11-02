@@ -30,6 +30,10 @@
           {
             "key": "required",
             "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
+          },
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
           }
         ]
       },
@@ -77,26 +81,34 @@
       {
         "key": "startTime",
         "type": "time",
-        "label": "Hora de inicio (hh:ss)",
+        "label": "Hora de inicio (hh:mm)",
         "defaultValue": "this.organization.startTime",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de inicio é requerida (hh:ss)"
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
           }
         ]
       },
       {
         "key": "endTime",
         "type": "time",
-        "label": "Hora de fin (hh:ss)",
+        "label": "Hora de fin (hh:mm)",
         "defaultValue": "this.organization.endTime",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de fin é requerida (hh:ss)"
+            "errorMessage": "A hora de fin é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
           }
         ]
       },
@@ -153,6 +165,10 @@
           {
             "key": "required",
             "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
+          },
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
           }
         ]
       },
@@ -202,26 +218,34 @@
       {
         "key": "startTime",
         "type": "time",
-        "label": "Hora de inicio (hh:ss)",
+        "label": "Hora de inicio (hh:mm)",
         "defaultValue": "this.organization.startTime",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de inicio é requerida (hh:ss)"
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
           }
         ]
       },
       {
         "key": "endTime",
         "type": "time",
-        "label": "Hora de fin (hh:ss)",
+        "label": "Hora de fin (hh:mm)",
         "defaultValue": "this.organization.endTime",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A hora de fin é requerida (hh:ss)"
+            "errorMessage": "A hora de fin é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
           }
         ]
       },

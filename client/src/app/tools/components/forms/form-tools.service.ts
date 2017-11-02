@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { IValidator, IFormSchema } from 'app/tools/schema.model';
-
+import { validateDate } from 'app/tools/validators/date.validator';
+import { validateTime } from 'app/tools/validators/time.validator';
 
 @Injectable()
 export class FormToolsService {
@@ -23,16 +24,18 @@ export class FormToolsService {
 
   getMessage(errors: { [key: string]: any }, field: string, schema: IFormSchema) {
     // To Do: Repeat for every key
-    const errorKey = Object.keys(errors)[0];
-    const control = schema.controls.find(c => c.key === field);
-    if (control) {
-      const validator = control.validators.find(v => v.key === errorKey);
-      if (validator) {
-        return validator.errorMessage;
+    // const errorKey = Object.keys(errors)[0];
+    Object.keys(errors).forEach(errorKey => {
+      const control = schema.controls.find(c => c.key === field);
+      if (control) {
+        const validator = control.validators.find(v => v.key === errorKey);
+        if (validator) {
+          return validator.errorMessage;
+        }
+      } else {
+        return errorKey;
       }
-    } else {
-      return errorKey;
-    }
+    });
   }
 
   getControl(form: FormGroup, field: string) {
@@ -49,6 +52,10 @@ export class FormToolsService {
         return Validators.required;
       case 'email':
         return Validators.email;
+      case 'validDate':
+        return validateDate;
+      case 'time':
+        return validateTime;
       default:
         break;
     }

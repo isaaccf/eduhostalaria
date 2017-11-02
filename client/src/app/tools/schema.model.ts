@@ -40,7 +40,7 @@ export interface IKeyValue {
 }
 
 export interface IValidator {
-  key: 'required' | 'email';
+  key: 'required' | 'email' | 'validDate' | 'time';
   args?: any[];
   errorMessage?: string;
 }
