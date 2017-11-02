@@ -15,17 +15,13 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <b class="tile-subtitle">{{event.name}} ({{ event.date | date:'dd/MM/yyyy' }})</b>
+            <b class="tile-subtitle">{{event.name}}&nbsp;
+              <span class="label label-primary">{{ event.date | date:'dd/MM/yyyy' }}</span>
+            </b>
             <p class="tile-title"
                *ngFor="let item of event.items"
                [innerHTML]="item.header.title">
             </p>
-            <p>
-              <span class="text-bold">Horario: </span>De {{ event.startTime }} a {{ event.endTime }}</p>
-            <p>
-              <span class="text-bold">Colaboración económica recomendada: </span>{{ event.standardPrice }} €</p>
-            <p>
-              <span class="text-bold">Colaboración económica recomendada (alumnos centro): </span>{{ event.reducedPrice }} €</p>
             <div *ngIf="event.files && event.files.length > 0"
                  class="files-container">
               <ng-container *ngFor="let file of event.files">
@@ -50,6 +46,7 @@
             (close)="onCloseModal()">
     <modal-content>
       <p>Prazas restantes: {{selEvent?.freeSeats}}</p>
+      <p>Horario de recepción: De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}</p>
       <p>Colaboración económica recomendada: {{selEvent?.standardPrice}} €</p>
       <p>Colaboración económica recomendada (alumnos centro): {{selEvent?.reducedPrice}} €</p>
       <ab-form [formSchema]="bookingformSchema"
@@ -63,6 +60,7 @@
       <p>Para reservar unha oferta é necesario estar rexistrado na plataforma. No caso de non o estar, crea unha conta cubrindo
         o seguinte formulario. Unha vez confirmado o teu email a reserva farase efectiva.</p>
       <p>Prazas restantes: {{selEvent?.freeSeats}}</p>
+      <p>Horario de recepción: De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}</p>
       <p>Colaboración económica recomendada: {{selEvent?.standardPrice}} €</p>
       <p>Colaboración económica recomendada (alumnos centro): {{selEvent?.reducedPrice}} €</p>
       <ab-form [formSchema]="registerFormSchema"
