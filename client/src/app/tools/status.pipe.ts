@@ -9,7 +9,7 @@ export class StatusPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     switch (value) {
       case 'ACTIVE':
-        return 'ACTIVO';
+        return 'CONFIRMADO';
       case 'CANCELED':
         return 'CANCELADO';
       case 'DISABLED':
