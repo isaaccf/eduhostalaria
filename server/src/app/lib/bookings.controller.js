@@ -1,5 +1,6 @@
 const srv = require('./bookings.service');
 const rest = require('../tools/rest.service');
+const logger = require('../tools/ga.service');
 
 module.exports = (app, url) => {
   app.route(`${url}`)
@@ -9,11 +10,15 @@ module.exports = (app, url) => {
       return rest.returnArray(data, res);
     })
     .post(async (req, res) => {
-      const booking = req.body;
-      booking.ownerId = String(req.user._id);
-      booking.status = 'ACTIVE';
-      const data = await srv.insertBooking(req.user, booking, 'USER');
-      return rest.returnInserted(data, res);
+      try {
+        const booking = req.body;
+        booking.ownerId = String(req.user._id);
+        booking.status = 'ACTIVE';
+        const data = await srv.insertBooking(req.user, booking, 'USER');
+        return rest.returnInserted(data, res);
+      } catch (e) {
+        logger.tracker('Error', e.message);
+      }
     });
 
   app.route(`${url}/:id`)
