@@ -6,8 +6,8 @@
   },
   "booked_guest": {
     "subject": "A súa reserva está pendente de aprobación",
-    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} xa está confirmada e pendente de aprobación.\rVisita ${url} para xestionála.",
-    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} xa está confirmada e pendente de aprobación.</p><p>Se queres cancelala, preme no seguinte enlace e accede á sección das túas reservas: <a href=\"${url}\">${url}</a></p>"
+    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} está pendente de aprobación.\rVisita ${url} para xestionála.",
+    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} está pendente de aprobación.</p><p>Se queres cancelala, preme no seguinte enlace e accede á sección das túas reservas: <a href=\"${url}\">${url}</a></p>"
   },
   "canceled": {
     "subject": "A súa reserva foi cancelada",
