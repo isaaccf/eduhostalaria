@@ -35,16 +35,26 @@
       {
         "key": "startDate",
         "type": "date",
-        "label": "Data inicio",
+        "label": "Data inicio (dd/mm/aaaa)",
         "defaultValue": "",
-        "validators": []
+        "validators": [
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
+          }
+        ]
       },
       {
         "key": "endingDate",
         "type": "date",
-        "label": "Data fin",
+        "label": "Data fin (dd/mm/aaaa)",
         "defaultValue": "",
-        "validators": []
+        "validators": [
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
+          }
+        ]
       }
     ]
   }
