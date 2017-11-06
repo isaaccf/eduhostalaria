@@ -45,7 +45,6 @@ const uploadFiles = async (eventId, files, url) => {
     const obj = {
       name: file.originalname,
       mimetype: file.mimetype,
-      realName: path.basename(file.path)
     };
 
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
@@ -64,6 +63,7 @@ const removeFile = async (eventId, fileName) => {
 
   if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
     await cloudinary.uploader.destroy(fileName);
+    event.files = event.files.filter(file => file.name !== fileName);
   }
 
   if (process.env.NODE_ENV === 'production') {
@@ -75,7 +75,7 @@ const removeFile = async (eventId, fileName) => {
     });
   }
 
-  event.files = event.files.filter(el => el.realName !== fileName);
+  // event.files = event.files.filter(el => el.realName !== fileName);
 
   return eventService.updateEvent(event._id, event);
 };

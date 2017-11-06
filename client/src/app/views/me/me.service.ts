@@ -143,12 +143,12 @@ export class MeService {
     return this.http.post(`${this.eventsUrl}/${eventId}/files`, files);
   }
 
-  removeFile(url) {
+  removeFile(eventId, fileName) {
     // TODO: Change url for file url
-    const init = url.indexOf(this.eventsUrl);
-    const path = url.substring(init);
-    return this.http.delete(path);
-    /* return this.http.delete(`${this.eventsUrl}/${eventId}/files/${fileName}`); */
+    // const init = url.indexOf(this.eventsUrl);
+    // const path = url.substring(init);
+    // return this.http.delete(path);
+    return this.http.delete(`${this.eventsUrl}/${eventId}/files/${fileName}`);
   }
 
   removeEvent(eventId) {

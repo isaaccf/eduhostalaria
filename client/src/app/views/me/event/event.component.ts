@@ -93,12 +93,6 @@ export class EventComponent implements OnInit {
     }
   }
 
-  onDelete(file) {
-    return this.me.removeFile(file.url).subscribe(event => {
-      this.event = event;
-    });
-  }
-
   updateEvent(data) {
     Object.keys(data).map(key => {
       this.event[key] = data[key];
@@ -118,7 +112,7 @@ export class EventComponent implements OnInit {
   }
 
   onDeleteFile(file) {
-    this.me.removeFile(file.url).subscribe(event => {
+    this.me.removeFile(this.event._id, file.name).subscribe(event => {
       this.event = event;
     });
   }
