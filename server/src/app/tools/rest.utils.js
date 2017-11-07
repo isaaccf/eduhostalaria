@@ -1,4 +1,5 @@
 const logger = require('winston');
+const ga = require('./ga.service');
 
 module.exports.isError = data => data instanceof Error;
 
@@ -23,6 +24,7 @@ module.exports.returnNotFound = (res) => {
 };
 
 module.exports.returnError = (err, res) => {
+  ga('HTTP Error', err.message);
   logger.warn(err.message);
   let code = 400;
   if (err.code === 11000) {

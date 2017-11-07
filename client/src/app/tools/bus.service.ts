@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { IUser } from 'app/tools/user.model';
 import { IMessage, Level } from 'app/tools/message.model';
+import { LoggingService } from 'app/tools/analytics.service';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class BusService {
   private user$ = new BehaviorSubject<IUser>(null);
   private organization$ = new BehaviorSubject<any>(null);
 
-  constructor() {
+  constructor(private log: LoggingService) {
   }
 
   getMessage$(): Observable<IMessage> {
@@ -39,9 +40,11 @@ export class BusService {
     this.message$.next(message);
   }
   emitHttpError(error) {
+    this.log.sendError('Http Error', error);
     this.emit({ level: Level.ERROR, code: error.status });
   }
   emitSecurityError(error) {
+    this.log.sendError('Security Error', error);
     this.emit({ level: Level.WARNING, code: error.status });
     this.securityErr$.next(error);
   }
