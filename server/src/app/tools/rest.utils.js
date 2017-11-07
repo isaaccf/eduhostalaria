@@ -24,7 +24,7 @@ module.exports.returnNotFound = (res) => {
 };
 
 module.exports.returnError = (err, res) => {
-  ga('HTTP Error', err.message);
+  ga('Server Error', err.message);
   logger.warn(err.message);
   let code = 400;
   if (err.code === 11000) {
