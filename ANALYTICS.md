@@ -18,7 +18,7 @@
     - **Unhandled Errors:** Logs relacionados con errores no capturados en el lado del cliente. La acción se corresponde con el nombre del error.
 - **Node:**
     - **Server Error:** Logs relacionados con fallos en el servidor que se devolverán como errores HTTP al cliente.
-    - **Error:** Logs relacionados con errores no capturados del lado del servidor.
+    - **Unhandled Errors:** Logs relacionados con errores no capturados del lado del servidor.
 
 ## Etiquetas
 
