@@ -25,7 +25,6 @@ export class UsersComponent implements OnInit {
     this.schema
       .getSchema$('me_users')
       .subscribe(schemas => {
-        console.log(schemas);
         this.actionSchema = schemas.actions;
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;

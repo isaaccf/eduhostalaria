@@ -30,6 +30,9 @@ module.exports.returnError = (err, res) => {
   if (err.code === 11000) {
     code = 409;
   }
+  if (err.code === 401) {
+    code = 401;
+  }
   if (err.code === 403) {
     code = 403;
   }

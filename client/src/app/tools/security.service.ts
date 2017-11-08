@@ -36,7 +36,7 @@ export class SecurityService {
       });
   }
 
-  logOutUser() {
+  logOutUser(route: string = '/') {
     const user = this.getLocalUser();
     this.log.sendEvent('users', 'logout', user ? user.email : '');
     localStorage.removeItem(this.userTokenKey);
@@ -46,8 +46,8 @@ export class SecurityService {
     localStorage.removeItem(this.organizationKey);
     this.bus.emitOrganization(null);
     this.bus.emit({ level: Level.SUCCESS, code: 'logout' });
-    this.navigateTo(['/']);
-    window.location.reload();
+    this.navigateTo([route]);
+    // window.location.reload();
   }
 
   checkBigbang() {
@@ -87,7 +87,9 @@ export class SecurityService {
   private onSecurityErrLogOut() {
     this.bus
       .getSecurityErr$()
-      .subscribe(err => this.logOutUser());
+      .subscribe(err => {
+        this.logOutUser('/login')
+      });
   }
 
   private emitUserStatus() {

@@ -49,6 +49,7 @@ a {
   margin: inherit;
 }
 
-.login-button {
-  color: #fff;
+.btn-default:hover {
+  background: white;
+  color: #0371b3;
 }

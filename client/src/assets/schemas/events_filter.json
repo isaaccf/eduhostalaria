@@ -7,7 +7,7 @@
       {
         "key": "name",
         "type": "input",
-        "label": "Nome",
+        "label": "Que conteña",
         "defaultValue": "",
         "validators": []
       },
@@ -19,15 +19,15 @@
         "validators": [],
         "actions": [
           {
-            "label": "ACTIVE",
+            "label": "CONFIRMADO",
             "key": "active"
           },
           {
-            "label": "CANCELED",
+            "label": "CANCELADO",
             "key": "canceled"
           },
           {
-            "label": "DISABLED",
+            "label": "DESHABILITADO",
             "key": "disabled"
           }
         ]
@@ -35,7 +35,7 @@
       {
         "key": "startDate",
         "type": "date",
-        "label": "Data inicio (dd/mm/aaaa)",
+        "label": "Posterior a (dd/mm/aaaa)",
         "defaultValue": "",
         "validators": [
           {
@@ -47,7 +47,7 @@
       {
         "key": "endingDate",
         "type": "date",
-        "label": "Data fin (dd/mm/aaaa)",
+        "label": "Anterior a (dd/mm/aaaa)",
         "defaultValue": "",
         "validators": [
           {

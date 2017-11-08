@@ -3,7 +3,7 @@ const logger = require('winston');
 const config = require('../tools/config');
 
 const secret = config.secret;
-const expiresIn = 60 * 60 * 24;
+const expiresIn = 60 * 60 * 24 * 7;
 exports.createToken = user => jwt.sign(user, secret, { expiresIn });
 
 exports.verifyToken = (token) => {

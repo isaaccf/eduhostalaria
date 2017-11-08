@@ -27,11 +27,11 @@ export class PillComponent implements OnInit {
       case 'DISABLED':
         return 'label-grey';
       case 'PAID':
-        return 'label-primary';
+        return 'label-secondary';
       case 'PENDING':
         return 'label-warning';
       default:
-        return 'label-primary';
+        return 'label-default';
     }
   }
 

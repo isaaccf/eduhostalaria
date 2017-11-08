@@ -14,19 +14,19 @@
     <ng-container *ngFor="let menuLink of menuLinks">
       <li>
         <a [routerLink]="menuLink.link">
-        <i [class]="'icon mr-5 ' + menuLink.icon "></i>
-        {{ menuLink.label }}
-      </a>
+          <i [class]="'icon mr-5 ' + menuLink.icon "></i>
+          {{ menuLink.label }}
+        </a>
       </li>
     </ng-container>
     <li class="divider"></li>
     <li>
       <a routerLink="messages">
         <span class="badge"
-            [attr.data-badge]="numMessages">
-        <i class="icon icon-mail mr-5"></i>
-        Messages
-      </span>
+              [attr.data-badge]="numMessages">
+          <i class="icon icon-mail mr-5"></i>
+          Messages
+        </span>
       </a>
     </li>
   </ul>

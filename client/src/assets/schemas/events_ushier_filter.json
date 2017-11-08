@@ -7,14 +7,14 @@
       {
         "key": "name",
         "type": "input",
-        "label": "Nome",
+        "label": "Que conteña",
         "defaultValue": "",
         "validators": []
       },
       {
         "key": "startDate",
         "type": "date",
-        "label": "Data inicio (dd/mm/aaaa)",
+        "label": "Posterior a (dd/mm/aaaa)",
         "defaultValue": "",
         "validators": [
           {
@@ -26,7 +26,7 @@
       {
         "key": "endingDate",
         "type": "date",
-        "label": "Data fin (dd/mm/aaaa)",
+        "label": "Anterior a (dd/mm/aaaa)",
         "defaultValue": "",
         "validators": [
           {

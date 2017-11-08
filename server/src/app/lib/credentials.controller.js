@@ -31,6 +31,10 @@ module.exports = (app, url) => {
         roles: [bookingRegistration.role],
         status: 'PENDING',
       };
+      const user = await srvUsers.getByEmail(bookingRegistration.email);
+      if (user) {
+        return rest.returnError({ code: 401 }, res);
+      }
       const newUser = await srv.createUser(userRegistration, 'toBeConfirmed');
       const booking = {
         ownerId: String(newUser._id),
