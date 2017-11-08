@@ -9,7 +9,7 @@ module.exports = (app, url) => {
       const data = await srv.getAll(undefined, ownerId, undefined);
       return rest.returnArray(data, res);
     })
-    .post(async (req, res) => {
+    .post(async (req, res, next) => {
       try {
         const booking = req.body;
         booking.ownerId = String(req.user._id);
@@ -17,7 +17,7 @@ module.exports = (app, url) => {
         const data = await srv.insertBooking(req.user, booking, 'USER');
         return rest.returnInserted(data, res);
       } catch (e) {
-        logger.tracker('Error', e.message);
+        next(e);
       }
     });
 

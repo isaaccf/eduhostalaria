@@ -105,19 +105,3 @@
     ]
   }
 }
-/*
-{
-        "label": "",
-        "key": "delete",
-        "icon": "icon-delete",
-        "title": "Eliminar"
-      },
-      {
-        "label": "",
-        "key": "resend",
-        "icon": "icon-mail",
-        "title": "Reenviar",
-        "showKey": "status",
-        "showValue": "PENDING"
-      }
-*/
