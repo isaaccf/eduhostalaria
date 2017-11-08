@@ -15,7 +15,7 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <span class="label label-primary">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
+            <span class="label label-default">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
             <b class="tile-subtitle">{{event.name}}&nbsp;</b>
             <p class="tile-title"
                *ngFor="let item of event.items"
@@ -48,8 +48,8 @@
       <p>Prazas restantes: {{selEvent?.freeSeats}}
         <span> Horario de recepción: De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}</span>
       </p>
-      <p>Colaboración económica recomendada: {{selEvent?.standardPrice}} €</p>
-      <p>Colaboración económica recomendada (alumnos centro): {{selEvent?.reducedPrice}} €</p>
+      <small>Colaboración económica recomendada: {{selEvent?.standardPrice}}€ para externos y {{selEvent?.reducedPrice}}€ para alumnos
+        do centro.</small>
       <ab-form [formSchema]="bookingformSchema"
                (send)="onSubmitBooking($event)"></ab-form>
     </modal-content>
@@ -58,14 +58,19 @@
             [active]="isRegisterModalActive"
             (close)="onCloseModal()">
     <modal-content>
-      <p>Para reservar unha oferta é necesario estar rexistrado na plataforma. Xa tes conta?
-        <a routerLink="/login">Inicia sesión aquí.</a> No caso de non o estar, crea unha conta cubrindo o seguinte formulario. Unha vez confirmado
-        o teu email a reserva farase efectiva.</p>
-      <p>Prazas restantes: {{selEvent?.freeSeats}}.
-        <span> Horario de recepción: De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}</span>
-      </p>
-      <small>Colaboración económica recomendada: {{selEvent?.standardPrice}}€ para externos y {{selEvent?.reducedPrice}}€ para alumnos
-        do centro.</small>
+      <small>Para reservar unha oferta é necesario estar rexistrado na plataforma. Se xa tes conta
+        <a routerLink="/login"> inicia sesión aquí.</a> Se non, cubre o seguinte formulario.</small>
+      <br>
+      <small>Colaboración económica recomendada:
+        <b>{{selEvent?.standardPrice}}€ para externos y {{selEvent?.reducedPrice}}€ para alumnos do centro.</b>
+      </small>
+      <br>
+      <small>Prazas restantes:
+        <b>{{selEvent?.freeSeats}}</b>.
+        <span> Horario de recepción:
+          <b> De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}.</b>
+        </span>
+      </small>
       <ab-form [formSchema]="registerFormSchema"
                (send)="onSubmitRegister($event)"></ab-form>
     </modal-content>

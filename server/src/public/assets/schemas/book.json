@@ -41,6 +41,22 @@
         ]
       },
       {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
+          }
+        ]
+      },
+      {
         "key": "role",
         "type": "radio",
         "label": "Eres membro do centro ou externo?",
@@ -58,22 +74,6 @@
           {
             "key": "required",
             "errorMessage": "O rol é requerido"
-          }
-        ]
-      },
-      {
-        "key": "email",
-        "type": "email",
-        "label": "Email",
-        "defaultValue": "",
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "Email requerido"
-          },
-          {
-            "key": "email",
-            "errorMessage": "Formato de email inválido"
           }
         ]
       },
