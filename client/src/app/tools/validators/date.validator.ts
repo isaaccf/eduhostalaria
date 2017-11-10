@@ -12,7 +12,7 @@ function validateChrome(arr, control) {
     return { validDate: true };
   }
 
-  if (arr[0] < now.getFullYear()) {
+  if (arr[0].length !== 4) {
     return { validDate: true };
   };
 
@@ -35,7 +35,7 @@ function validateOther(arr, control) {
     return { validDate: true };
   }
 
-  if (arr[2] < now.getFullYear()) {
+  if (arr[2].length !== 4) {
     return { validDate: true };
   };
 
