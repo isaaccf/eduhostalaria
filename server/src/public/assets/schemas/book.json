@@ -1,0 +1,101 @@
+{
+  "user": {
+    "title": "Reservar mesa",
+    "submitLabel": "Reservar",
+    "controls": [
+      {
+        "key": "seats",
+        "type": "number",
+        "label": "Nº de comensales",
+        "defaultValue": "1",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nº de comensales requerido"
+          }
+        ]
+      },
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observaciones",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  },
+  "guest": {
+    "title": "Reservar mesa",
+    "submitLabel": "Reservar",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nombre",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nombre requerido"
+          }
+        ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
+          }
+        ]
+      },
+      {
+        "key": "role",
+        "type": "radio",
+        "label": "Eres membro do centro ou externo?",
+        "actions": [
+          {
+            "label": "Interno",
+            "value": "INTERNO"
+          },
+          {
+            "label": "Visita",
+            "value": "EXTERNO"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O rol é requerido"
+          }
+        ]
+      },
+      {
+        "key": "seats",
+        "type": "number",
+        "label": "Nº de comensales",
+        "defaultValue": "1",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nº de comensales requerido"
+          }
+        ]
+      },
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observaciones",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  }
+}

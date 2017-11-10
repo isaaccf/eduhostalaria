@@ -1,0 +1,103 @@
+{
+  "actions": {
+    "header": {
+      "title": "Ofertas",
+      "subtitle": "Lista de eventos e comidas do centro",
+      "icon": "icon-time"
+    },
+    "actions": [
+      {
+        "label": "Crear oferta",
+        "link": "new"
+      }
+    ]
+  },
+  "report": {
+    "header": {
+      "title": "Lista de ofertas"
+    },
+    "deleteMessage": "Cancelar oferta",
+    "emptyMessage": "Non temos eventos para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Fecha",
+        "key": "date",
+        "type": "string",
+        "tableType": "date"
+      },
+      {
+        "label": "Turno",
+        "key": "shift",
+        "type": "string"
+      },
+      {
+        "label": "Hora ini",
+        "key": "startTime",
+        "type": "string"
+      },
+      {
+        "label": "Hora fin",
+        "key": "endTime",
+        "type": "string"
+      },
+      {
+        "label": "Nº R",
+        "key": "bookingsNumber",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Pax",
+        "key": "pax",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string",
+        "tableType": "pill"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "title": "Res.",
+        "btnType": "default",
+        "dynamicLink": "slug",
+        "staticLink": "/bookings"
+      },
+      {
+        "label": "",
+        "key": "activate",
+        "icon": "icon-check",
+        "title": "Act."
+      },
+      {
+        "label": "",
+        "key": "deactivate",
+        "icon": "icon-stop",
+        "title": "Bloq."
+      },
+      {
+        "label": "",
+        "key": "edit",
+        "icon": "icon-edit",
+        "title": "Edit."
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Cancel."
+      }
+    ]
+  }
+}

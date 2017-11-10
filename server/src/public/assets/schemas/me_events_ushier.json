@@ -1,0 +1,71 @@
+{
+  "actions": {
+    "header": {
+      "title": "Asistencia",
+      "subtitle": "Lista de eventos e comidas do centro",
+      "icon": "icon-emoji"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de ofertas"
+    },
+    "emptyMessage": "Non temos eventos para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Fecha",
+        "key": "date",
+        "type": "string",
+        "tableType": "date"
+      },
+      {
+        "label": "Turno",
+        "key": "shift",
+        "type": "string"
+      },
+      {
+        "label": "Hora ini",
+        "key": "startTime",
+        "type": "string"
+      },
+      {
+        "label": "Hora fin",
+        "key": "endTime",
+        "type": "string"
+      },
+      {
+        "label": "Nº R",
+        "key": "bookingsNumber",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Pax",
+        "key": "pax",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string",
+        "tableType": "pill"
+      }
+    ],
+    "actions": [
+      {
+        "label": "Reservas",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "dynamicLink": "slug",
+        "staticLink": "/bookings",
+        "title": ""
+      }
+    ]
+  }
+}

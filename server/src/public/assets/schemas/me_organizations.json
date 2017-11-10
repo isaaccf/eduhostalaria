@@ -1,0 +1,98 @@
+{
+  "actions": {
+    "header": {
+      "title": "Centros da plataforma",
+      "subtitle": "Administración dos centros de formación",
+      "icon": "icon-flag"
+    },
+    "actions": [
+      {
+        "label": "Crear un novo",
+        "key": "create_new"
+      }
+    ]
+  },
+  "create": {
+    "title": "Novo centro",
+    "submitLabel": "Guardar centro",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nome",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O nome do centro é requerido"
+          }
+        ]
+      }
+    ]
+  },
+  "report": {
+    "header": {
+      "title": "Lista de centros"
+    },
+    "deleteMessage": "Borrar organización",
+    "emptyMessage": "Non hay centros para ver :(",
+    "fields": [
+      {
+        "label": "Centro",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Director",
+        "key": "admin.name",
+        "type": "string"
+      },
+      {
+        "label": "Email",
+        "key": "admin.email",
+        "type": "string"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "setAdmin",
+        "icon": "icon-people",
+        "title": "Dir"
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Bor"
+      }
+    ]
+  },
+  "setAdmin": {
+    "title": "Invitar Director",
+    "submitLabel": "Enviar invitación",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "Nome do director",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O nome do director é requerido"
+          }
+        ]
+      },
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email do director",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O email para enviar a invitación é requerido"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "header": {
+    "title": "Rexistro para crear unha conta de usuario",
+    "subtitle": "Por favor, escribe o teu email e as túa contrasinal para rexistrarte na plataforma de reservas."
+  },
+  "form": {
+    "title": "Entrar",
+    "submitLabel": "Rexistrarme",
+    "controls": [
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
+          }
+        ]
+      },
+      {
+        "key": "password",
+        "type": "password",
+        "label": "Contrasinal",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Contrasinal requerido"
+          }
+        ]
+      }
+    ]
+  }
+}

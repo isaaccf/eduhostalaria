@@ -1,0 +1,89 @@
+{
+  "firstPanel": {
+    "header": {
+      "title": "Reserva",
+      "subtitle": "Información da túa reserva",
+      "icon": "icon-bookmark"
+    }
+  },
+  "secondPanel": {
+    "header": {
+      "title": "Valoración",
+      "subtitle": "Datos da valoración enviada",
+      "icon": "icon-bookmark"
+    }
+  },
+  "fields": [
+    {
+      "label": "Nº de comensales",
+      "key": "seats"
+    },
+    {
+      "label": "Observacións",
+      "key": "comments"
+    },
+    {
+      "label": "Estado",
+      "key": "status"
+    }
+  ],
+  "editForm": {
+    "title": "Editar reserva",
+    "submitLabel": "Gardar",
+    "controls": [
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Observacións",
+        "defaultValue": "this.booking.comments",
+        "validators": []
+      }
+    ]
+  },
+  "rateForm": {
+    "title": "Valorar reserva",
+    "submitLabel": "Enviar",
+    "controls": [
+      {
+        "key": "score",
+        "type": "select",
+        "label": "Puntuación",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O novo contrasinal repetido é requerido"
+          }
+        ],
+        "actions": [
+          {
+            "label": "1 (Moi malo)",
+            "key": "1"
+          },
+          {
+            "label": "2 (Malo)",
+            "key": "2"
+          },
+          {
+            "label": "3 (Regular)",
+            "key": "3"
+          },
+          {
+            "label": "4 (Bó)",
+            "key": "4"
+          },
+          {
+            "label": "5 (Moi bó)",
+            "key": "5"
+          }
+        ]
+      },
+      {
+        "key": "comments",
+        "type": "textarea",
+        "label": "Comentarios",
+        "validators": []
+      }
+    ]
+  }
+}

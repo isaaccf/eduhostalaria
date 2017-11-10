@@ -1,0 +1,57 @@
+{
+  "actions": {
+    "header": {
+      "title": "Reservas",
+      "subtitle": "Lista de usuarios coa reserva feita",
+      "icon": "icon-bookmark"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de reservas",
+      "subtitle": "Lista de usuarios coa reserva feita",
+      "icon": "icon-bookmark"
+    },
+    "deleteMessage": "Cancelar reserva",
+    "emptyMessage": "Non temos reservas para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "event.name",
+        "type": "string"
+      },
+      {
+        "label": "Date",
+        "key": "event.date",
+        "type": "string",
+        "tableType": "date"
+      },
+      {
+        "label": "Turno",
+        "key": "event.shift",
+        "type": "string"
+      },
+      {
+        "label": "Prazas",
+        "key": "seats",
+        "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string",
+        "tableType": "pill"
+      }
+    ],
+    "actions": [
+      {
+        "label": "Detalles",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "dynamicLink": "_id",
+        "staticLink": "/",
+        "title": ""
+      }
+    ]
+  }
+}

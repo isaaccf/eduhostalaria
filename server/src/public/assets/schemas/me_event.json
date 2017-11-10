@@ -1,0 +1,292 @@
+{
+  "header": {
+    "title": "Novo evento",
+    "subtitle": "",
+    "icon": "icon-time"
+  },
+  "tile": {
+    "header": {
+      "title": "Arquivos",
+      "subtitle": "Lista de arquivos adxuntos ao evento",
+      "icon": "icon-link"
+    },
+    "actions": [
+      {
+        "label": "Subir arquivos",
+        "key": "upload"
+      }
+    ]
+  },
+  "create": {
+    "title": "Nova oferta",
+    "submitLabel": "Gardar oferta",
+    "controls": [
+      {
+        "key": "date",
+        "type": "date",
+        "label": "Fecha (dd/mm/aaaa)",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
+          },
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
+          }
+        ]
+      },
+      {
+        "key": "shift",
+        "type": "radio",
+        "label": "Turno",
+        "actions": [
+          {
+            "label": "Diurno",
+            "value": "Diurno"
+          },
+          {
+            "label": "Nocturno",
+            "value": "Nocturno"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O turno é requerido"
+          }
+        ]
+      },
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "actions": [],
+        "validators": []
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "startTime",
+        "type": "time",
+        "label": "Hora de inicio (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "endTime",
+        "type": "time",
+        "label": "Hora de fin (hh:mm)",
+        "defaultValue": "this.organization.endTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de fin é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Precio estándar",
+        "defaultValue": "this.organization.standardPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio estándar é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "number",
+        "label": "Precio reducido",
+        "defaultValue": "this.organization.defaultPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio reducido é requerido"
+          }
+        ]
+      },
+      {
+        "key": "description",
+        "type": "wysiwyg",
+        "label": "Descripción",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A oferta do evento é requerida"
+          }
+        ]
+      }
+    ]
+  },
+  "edit": {
+    "title": "Editar oferta",
+    "submitLabel": "Gardar oferta",
+    "controls": [
+      {
+        "key": "date",
+        "type": "date",
+        "label": "Fecha (dd/mm/aaaa)",
+        "defaultValue": "this.event.date",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
+          },
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
+          }
+        ]
+      },
+      {
+        "key": "shift",
+        "type": "radio",
+        "defaultValue": "this.event.shift",
+        "label": "Turno",
+        "actions": [
+          {
+            "label": "Diurno",
+            "value": "Diurno"
+          },
+          {
+            "label": "Nocturno",
+            "value": "Nocturno"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O turno é requerido"
+          }
+        ]
+      },
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "defaultValue": "this.event.name",
+        "actions": [],
+        "validators": []
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "startTime",
+        "type": "time",
+        "label": "Hora de inicio (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "endTime",
+        "type": "time",
+        "label": "Hora de fin (hh:mm)",
+        "defaultValue": "this.organization.endTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de fin é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Precio estándar",
+        "defaultValue": "this.organization.standardPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio estándar é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "number",
+        "label": "Precio reducido",
+        "defaultValue": "this.organization.reducedPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O precio reducido é requerido"
+          }
+        ]
+      },
+      {
+        "key": "description",
+        "type": "wysiwyg",
+        "label": "Descripción",
+        "defaultValue": "this.event.description",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A oferta do evento é requerida"
+          }
+        ]
+      }
+    ]
+  }
+}
