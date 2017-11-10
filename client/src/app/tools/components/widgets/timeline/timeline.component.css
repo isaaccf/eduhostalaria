@@ -36,3 +36,11 @@ article:last-of-type {
 .separator {
   margin: 8px 0px;
 }
+
+.icon {
+  margin-right: 5px;
+}
+
+.icon-time {
+  margin-left: 30px;
+}

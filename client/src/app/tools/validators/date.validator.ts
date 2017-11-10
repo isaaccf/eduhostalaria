@@ -4,10 +4,6 @@ import { AbstractControl } from '@angular/forms';
 function validateChrome(arr, control) {
   const now = new Date();
 
-  if (arr[0] < now.getFullYear()) {
-    return { validDate: true };
-  };
-
   if (arr[1] <= 0 || arr[1] > 12) {
     return { validDate: true };
   }
@@ -15,7 +11,12 @@ function validateChrome(arr, control) {
   if (arr[2] <= 0 || arr[2] > 31) {
     return { validDate: true };
   }
-  if (Number.isNaN(Date.parse(control.value))) {
+
+  if (arr[0] < now.getFullYear()) {
+    return { validDate: true };
+  };
+
+  if (Number.isNaN(Date.parse(`${arr[0]}-${arr[1]}-${arr[2]}`))) {
     return { validDate: true };
   }
 
@@ -38,7 +39,7 @@ function validateOther(arr, control) {
     return { validDate: true };
   };
 
-  if (Number.isNaN(Date.parse(control.value))) {
+  if (Number.isNaN(Date.parse(`${arr[2]}-${arr[1]}-${arr[0]}`))) {
     return { validDate: true };
   }
 

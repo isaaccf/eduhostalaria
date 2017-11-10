@@ -45,11 +45,18 @@
             [active]="isBookingModalActive"
             (close)="onCloseModal()">
     <modal-content>
-      <p>Prazas restantes: {{selEvent?.freeSeats}}
-        <span> Horario de recepción: De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}</span>
-      </p>
-      <small>Colaboración económica recomendada: {{selEvent?.standardPrice}}€ para externos y {{selEvent?.reducedPrice}}€ para alumnos
-        do centro.</small>
+      <small>Colaboración económica recomendada:
+        <b>{{selEvent?.standardPrice}}€ para visitas y {{selEvent?.reducedPrice}}€ para alumnos do centro.</b>
+      </small>
+      <br>
+      <small>
+        <i class="icon icon-people"></i>Prazas disponibles:
+        <b>{{selEvent?.freeSeats}}</b>.
+        <span>
+          <i class="icon icon-time"></i> Horario de recepción:
+          <b> De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}.</b>
+        </span>
+      </small>
       <ab-form [formSchema]="bookingformSchema"
                (send)="onSubmitBooking($event)"></ab-form>
     </modal-content>
@@ -62,12 +69,14 @@
         <a routerLink="/login"> inicia sesión aquí.</a> Se non, cubre o seguinte formulario.</small>
       <br>
       <small>Colaboración económica recomendada:
-        <b>{{selEvent?.standardPrice}}€ para externos y {{selEvent?.reducedPrice}}€ para alumnos do centro.</b>
+        <b>{{selEvent?.standardPrice}}€ para visitas y {{selEvent?.reducedPrice}}€ para alumnos do centro.</b>
       </small>
       <br>
-      <small>Prazas restantes:
+      <small>
+        <i class="icon icon-people"></i>Prazas disponibles:
         <b>{{selEvent?.freeSeats}}</b>.
-        <span> Horario de recepción:
+        <span>
+          <i class="icon icon-time"></i> Horario de recepción:
           <b> De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}.</b>
         </span>
       </small>

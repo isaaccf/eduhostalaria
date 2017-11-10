@@ -15,7 +15,7 @@
         "key": "startDate",
         "type": "date",
         "label": "Posterior a (dd/mm/aaaa)",
-        "defaultValue": "",
+        "defaultValue": "dd/mm/aaaa",
         "validators": [
           {
             "key": "validDate",
@@ -27,7 +27,7 @@
         "key": "endingDate",
         "type": "date",
         "label": "Anterior a (dd/mm/aaaa)",
-        "defaultValue": "",
+        "defaultValue": "dd/mm/aaaa",
         "validators": [
           {
             "key": "validDate",
