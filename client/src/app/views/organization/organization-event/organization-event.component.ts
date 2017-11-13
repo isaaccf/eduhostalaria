@@ -34,6 +34,7 @@ export class OrganizationEventComponent implements OnInit {
         this.schemaService.getSchema$('organization_event').subscribe(schema => {
           schema.panel.header.title = event.name;
           this.panelSchema = schema.panel;
+          this.checkButtonStatus();
         });
         this.schemaService.getSchema$('book').subscribe(schema => {
           this.bookingFormSchema = schema.user;
@@ -41,6 +42,12 @@ export class OrganizationEventComponent implements OnInit {
         });
       });
     });
+  }
+
+  checkButtonStatus() {
+    if (this.event.freeSeats === 0 || new Date(this.event.date) < new Date()) {
+      this.panelSchema.actions[0].disabled = true;
+    }
   }
 
   onClick(action) {
@@ -65,6 +72,7 @@ export class OrganizationEventComponent implements OnInit {
       this.isBookingModalActive = false;
       this.meService.getEventById(this.event._id).subscribe((event: any) => {
         this.event = event;
+        this.checkButtonStatus();
       });
     });
   }
@@ -76,6 +84,7 @@ export class OrganizationEventComponent implements OnInit {
       this.isRegisterModalActive = false;
       this.meService.getEventById(this.event._id).subscribe((event: any) => {
         this.event = event;
+        this.checkButtonStatus();
       });
     });
   }

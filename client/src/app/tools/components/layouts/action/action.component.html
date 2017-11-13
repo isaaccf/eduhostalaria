@@ -8,7 +8,8 @@
 </a>
 <button *ngIf="schema && !schema.link"
         (click)="onClick()"
-        [class]=" 'btn ' + btnClass">
+        [ngClass]="{'btn': true, 'disabled': schema.disabled ? true : false}"
+        [class]="btnClass">
   <i *ngIf="schema.icon"
      [class]="'icon ' + schema.icon"></i>
   <span *ngIf="schema.label"
