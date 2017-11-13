@@ -39,7 +39,6 @@ module.exports = (app, url) => {
       const status = req.query.status;
       const startDate = req.query.startDate;
       const endingDate = req.query.endingDate;
-      console.log(startDate);
       const data = await srv.getAll(
         organizationId, ownerId, name, status, startDate, endingDate);
       return rest.returnArray(data, res);

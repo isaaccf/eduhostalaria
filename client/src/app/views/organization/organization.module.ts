@@ -6,6 +6,7 @@ import { ComponentsModule } from 'app/tools/components/components.module';
 import { OrganizationService } from 'app/views/organization/organization.service';
 import { SecurityService } from 'app/tools/security.service';
 import { MeService } from 'app/views/me/me.service';
+import { OrganizationEventComponent } from './organization-event/organization-event.component';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { MeService } from 'app/views/me/me.service';
     OrganizationRoutingModule,
     ComponentsModule
   ],
-  declarations: [OrganizationHomeComponent],
+  declarations: [OrganizationHomeComponent, OrganizationEventComponent],
   providers: [OrganizationService, MeService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

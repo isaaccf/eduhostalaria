@@ -46,6 +46,10 @@ module.exports.useMiddleware = (app) => {
       && req.method === 'GET') {
       return next();
     }
+    if (req.originalUrl.includes('/_/events')
+      && req.method === 'GET') {
+      return next();
+    }
     let user = null;
     const authHeader = req.get('authorization');
     if (authHeader) {

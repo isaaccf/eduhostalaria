@@ -27,6 +27,14 @@ export class FilterComponent implements OnInit {
   onFormSubmit(payload) {
     const filters = {};
 
+    if (payload.startDate === 'dd/mm/aaaa') {
+      delete payload.startDate;
+    }
+
+    if (payload.endingDate === 'dd/mm/aaaa') {
+      delete payload.endingDate;
+    }
+
     Object.keys(payload).forEach(key => {
       if (payload[key]) {
         filters[key] = payload[key];

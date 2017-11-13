@@ -16,72 +16,25 @@
         <div class="tile">
           <div class="tile-content">
             <span class="label label-default">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
-            <b class="tile-subtitle">{{event.name}}&nbsp;</b>
-            <p class="tile-title"
-               *ngFor="let item of event.items"
-               [innerHTML]="item.header.title">
-            </p>
-            <div *ngIf="event.files && event.files.length > 0"
-                 class="files-container">
-              <ng-container *ngFor="let file of event.files">
-                <a [href]="file.url"
-                   target="_blank">
-                  <i class="icon icon-link"></i>{{ file.name }}</a>
-              </ng-container>
+            <a [routerLink]="'events/' + event._id"
+               class="text-bold">{{event.name}}</a>
+            <div class="columns">
+              <div class="column col-12">
+                <i class="icon icon-people"></i>Prazas disponibles:
+                <b>{{event?.freeSeats}}</b>.
+              </div>
+              <div class="column col-12">
+                <i class="icon icon-time"></i> Horario de recepción:
+                <b> De {{ event?.startTime }} a {{ event?.endTime }}.</b>
+              </div>
+              <div class="column col-12">
+                <i class="icon icon-message"></i> Colaboración económica recomendada:
+                <b>{{event?.standardPrice}}€ para visitas y {{event?.reducedPrice}}€ para alumnos do centro.</b>
+              </div>
             </div>
           </div>
-          <div *ngIf="event.action"
-               class="tile-action">
-            <ab-action class="ml-10 float-right "
-                       [schema]="event.action"
-                       (action)="onClick($event)"></ab-action>
-          </div>
         </div>
-        <div class="divider"></div>
       </section>
     </article>
   </ng-container>
-  <ab-modal [title]="'Reservar mesa'"
-            [active]="isBookingModalActive"
-            (close)="onCloseModal()">
-    <modal-content>
-      <small>Colaboración económica recomendada:
-        <b>{{selEvent?.standardPrice}}€ para visitas y {{selEvent?.reducedPrice}}€ para alumnos do centro.</b>
-      </small>
-      <br>
-      <small>
-        <i class="icon icon-people"></i>Prazas disponibles:
-        <b>{{selEvent?.freeSeats}}</b>.
-        <span>
-          <i class="icon icon-time"></i> Horario de recepción:
-          <b> De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}.</b>
-        </span>
-      </small>
-      <ab-form [formSchema]="bookingformSchema"
-               (send)="onSubmitBooking($event)"></ab-form>
-    </modal-content>
-  </ab-modal>
-  <ab-modal [title]="'Reservar mesa'"
-            [active]="isRegisterModalActive"
-            (close)="onCloseModal()">
-    <modal-content>
-      <small>Para reservar unha oferta é necesario estar rexistrado na plataforma. Se xa tes conta
-        <a routerLink="/login"> inicia sesión aquí.</a> Se non, cubre o seguinte formulario.</small>
-      <br>
-      <small>Colaboración económica recomendada:
-        <b>{{selEvent?.standardPrice}}€ para visitas y {{selEvent?.reducedPrice}}€ para alumnos do centro.</b>
-      </small>
-      <br>
-      <small>
-        <i class="icon icon-people"></i>Prazas disponibles:
-        <b>{{selEvent?.freeSeats}}</b>.
-        <span>
-          <i class="icon icon-time"></i> Horario de recepción:
-          <b> De {{ selEvent?.startTime }} a {{ selEvent?.endTime }}.</b>
-        </span>
-      </small>
-      <ab-form [formSchema]="registerFormSchema"
-               (send)="onSubmitRegister($event)"></ab-form>
-    </modal-content>
-  </ab-modal>
 </div>

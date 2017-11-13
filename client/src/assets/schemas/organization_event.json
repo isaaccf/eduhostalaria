@@ -1,0 +1,16 @@
+{
+  "panel": {
+    "header": {
+      "title": "Evento",
+      "subtitle": "Información acerca do evento",
+      "icon": "icon-bookmark"
+    },
+    "actions": [
+      {
+        "label": "Reservar",
+        "icon": "icon-bookmark",
+        "key": "book"
+      }
+    ]
+  }
+}

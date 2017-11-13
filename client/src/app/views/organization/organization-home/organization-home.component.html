@@ -17,13 +17,17 @@
   <div class="column col-12">
     <ab-panel [schema]="eventsSchema">
       <panel-body>
+        <ab-date-paginator (dates)=onDatesChange($event)></ab-date-paginator>
         <ab-timeline *ngIf="eventsSchema && eventsSchema.events"
-                     [schema]="eventsSchema"
-                     (book)="onBook($event)"
-                     (register)="onRegister($event)">
+                     [schema]="eventsSchema">
         </ab-timeline>
-        <ab-load-empty-state *ngIf="eventsSchema && (!eventsSchema.events || (eventsSchema.events && !(eventsSchema.events.length > 0)))"
-      
+        <ab-load-empty-state *ngIf="eventsSchema
+                     &&
+                     (!eventsSchema.events
+                     ||
+                     (eventsSchema.events
+                     &&
+                     !(eventsSchema.events.length> 0)))"
                              [schema]="{loading: false, empty: true}">
         </ab-load-empty-state>
       </panel-body>
@@ -38,7 +42,7 @@
              class="columns">
           <ng-container *ngFor="let field of viewSchema.fields; let i = index">
             <div *ngIf="field.key !== 'name' && field.key !== 'email' && field.key !== 'url' && field.key !== 'slogan' && field.key !== 'image' && field.key !== 'description'"
-          
+
                  class="column col-6 col-lg-12">
               <b class="text-bold"> {{ field.label }}: </b>
               <span>{{ valueByPath(organizationData,field?.key) }}</span>

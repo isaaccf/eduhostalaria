@@ -1,0 +1,14 @@
+div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+p {
+  margin: 0 10px;
+}
+
+.text-bold {
+  text-transform: uppercase;
+}

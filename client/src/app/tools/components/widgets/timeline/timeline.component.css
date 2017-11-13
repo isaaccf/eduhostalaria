@@ -41,6 +41,11 @@ article:last-of-type {
   margin-right: 5px;
 }
 
-.icon-time {
-  margin-left: 30px;
+.columns {
+  margin-top: 0.4rem;
+}
+
+.column {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
 }

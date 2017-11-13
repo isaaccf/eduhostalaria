@@ -48,7 +48,9 @@ function validateOther(arr, control) {
 
 // tslint:disable-next-line:cyclomatic-complexity
 export function validateDate(control: AbstractControl) {
-  if (control.value === '') {
+  console.log(control.value);
+
+  if (!control.value || control.value === '' || control.value === 'dd/mm/aaaa') {
     return null;
   }
 
@@ -59,7 +61,6 @@ export function validateDate(control: AbstractControl) {
   }
 
   arr.map(value => Number(value));
-  console.log(arr);
 
   if (arr.length === 3 && arr[0].length === 2 && arr[1].length === 2 && arr[2].length === 4) {
     return validateOther(arr, control);

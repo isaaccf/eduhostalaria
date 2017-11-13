@@ -35,6 +35,7 @@ import { PillComponent } from './table/pill/pill.component';
 import { DateComponent } from './table/date/date.component';
 import { FilterComponent } from './widgets/filter/filter.component';
 import { StatusPipe } from 'app/tools/status.pipe';
+import { DatePaginatorComponent } from './date-paginator/date-paginator.component';
 
 @NgModule({
   imports: [
@@ -73,13 +74,15 @@ import { StatusPipe } from 'app/tools/status.pipe';
     PillComponent,
     DateComponent,
     FilterComponent,
-    StatusPipe
+    StatusPipe,
+    DatePaginatorComponent
   ],
   exports: [
     ActionComponent,
     CardComponent,
     ControlErrorComponent,
     DashboardComponent,
+    DatePaginatorComponent,
     EditorComponent,
     FormComponent,
     InputComponent,

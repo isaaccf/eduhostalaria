@@ -18,42 +18,36 @@ import { Level } from 'app/tools/message.model';
   styleUrls: ['./organization-home.component.css']
 })
 export class OrganizationHomeComponent implements OnInit {
-  schemaService: any;
-  organizationsUrl = 'organizations';
   public showEdition = false;
-  loadedMetadata = false;
-  loadingPanelSchema = {
+  public loadedMetadata = false;
+  public loadingPanelSchema = {
     loading: true,
     empty: false
   };
   public organizationData: IOrganization;
   public viewSchema: IWidgetSchema;
-  public events: IEvent[];
+  public events;
   public eventsSchema;
 
   constructor(
     private route: ActivatedRoute,
-    private bus: BusService,
-    private security: SecurityService,
     private me: MeService,
     private organization: OrganizationService,
-    private schema: SchemaService,
-    private location: Location) { }
+    private schema: SchemaService) { }
 
   setSchemas() {
     this.schema.getSchema$('organization').subscribe(s => {
       this.viewSchema = s;
     });
-    this.getEvents();
-  }
-
-  getEvents() {
     this.schema.getSchema$('events').subscribe(schema => {
       this.eventsSchema = schema.timeline;
-      this.organization.getEventsByOrganizationId(this.organizationData._id).subscribe((events: IEvent[]) => {
-        this.events = events;
-        this.eventsSchema.events = this.populateEvents();
-      });
+    });
+  }
+
+  getEvents(payload) {
+    this.me.filterEvents(payload).subscribe((events: any) => {
+      this.events = events
+      this.eventsSchema.events = this.events;
     });
   }
 
@@ -76,57 +70,11 @@ export class OrganizationHomeComponent implements OnInit {
       });
   }
 
-  populateEvents() {
-    const events = [];
-    if (this.events) {
-      this.events.reverse().forEach((ev: any) => {
-        const event = {
-          name: ev.name,
-          date: ev.date,
-          shift: ev.shift,
-          startTime: ev.startTime,
-          endTime: ev.endTime,
-          standardPrice: ev.standardPrice,
-          reducedPrice: ev.reducedPrice,
-          files: ev.files,
-          icon: '',
-          items: [
-            {
-              header: {
-                title: ev.description
-              }
-            }
-          ],
-          action: {
-            label: 'Reservar',
-            icon: 'icon-bookmark',
-            key: 'book',
-            value: ev
-          }
-        }
-        events.push(event);
-      });
-    }
-    return events;
-  }
-
   valueByPath(target, path) {
     return this.schema.valueByPath(target, path);
   }
 
-  onBook(payload) {
-    this.me.bookEvent(payload).subscribe(d => {
-      this.getEvents();
-      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada con éxito', code: '' });
-    });
+  onDatesChange(payload) {
+    this.getEvents(payload);
   }
-
-  onRegister(payload) {
-    payload['organizationId'] = this.organizationData._id;
-    this.me.bookEventGuest(payload).subscribe(d => {
-      this.getEvents();
-      this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada e pendente de aprobación', code: '' });
-    });
-  }
-
 }

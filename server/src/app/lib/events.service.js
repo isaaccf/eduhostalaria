@@ -39,20 +39,17 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
   if (name) { options.$or = [{ name: { $regex: name, $options: 'i' } }, { description: { $regex: name, $options: 'i' } }]; }
   if (status) { options.status = status.toUpperCase(); }
   if (startDate) {
-    let start = new Date(startDate);
-    start = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate(), 0, 0, 0, 0);
-    options.date = { $gte: new Date(start).toISOString() };
+    options.date = { $gte: startDate };
   }
   if (endingDate) {
-    let ending = new Date(endingDate);
-    ending = Date.UTC(ending.getFullYear(), ending.getMonth(), ending.getDate(), 23, 59, 59, 59);
     if (startDate) {
-      options.date.$lte = new Date(ending).toISOString();
+      options.date.$lte = endingDate;
     } else {
-      options.date = { $lte: new Date(ending).toISOString() };
+      options.date = { $lte: endingDate };
     }
   }
 
+  console.log(options);
   let events = await mongo.find(col, options, { date: -1 });
 
   events = await calculatePax(events);

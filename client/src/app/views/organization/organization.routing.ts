@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { OrganizationHomeComponent } from 'app/views/organization/organization-home/organization-home.component';
+import { OrganizationEventComponent } from 'app/views/organization/organization-event/organization-event.component';
 
 const routes: Routes = [
   {
@@ -8,10 +9,11 @@ const routes: Routes = [
     component: OrganizationHomeComponent,
     data: { title: 'O Centro' }
   },
-  // {
-  //   path: ':id',
-  //   component: OrganizationHomeComponent
-  // }
+  {
+    path: 'events/:eventId',
+    component: OrganizationEventComponent,
+    data: { title: 'Evento' }
+  }
 ];
 
 @NgModule({

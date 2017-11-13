@@ -2,6 +2,14 @@ import { AbstractControl } from '@angular/forms';
 
 // tslint:disable-next-line:cyclomatic-complexity
 export function validateTime(control: AbstractControl) {
+  if (!control.value) {
+    return null;
+  }
+
+  if (control.value === '') {
+    return null;
+  }
+
   const arr = control.value.split(':');
 
   if (arr.length !== 2 || arr[0].length !== 2 || arr[1].length !== 2) {

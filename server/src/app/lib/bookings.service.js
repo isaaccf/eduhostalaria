@@ -33,6 +33,7 @@ exports.getAll = async (eventId, ownerId, status) => {
 
 exports.insertBooking = async (user, booking, userType) => {
   const event = await eventService.getById(booking.eventId);
+
   if (booking.seats > event.freeSeats) {
     return new Error('There are no free seats :(');
   }

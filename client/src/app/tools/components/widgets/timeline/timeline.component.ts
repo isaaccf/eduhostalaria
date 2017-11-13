@@ -15,8 +15,6 @@ export class TimelineComponent implements OnInit {
   public selEvent;
   public bookingformSchema;
   public registerFormSchema;
-  public isBookingModalActive = false;
-  public isRegisterModalActive = false;
 
   @Input() schema: ITimelineSchema;
   @Output() book = new EventEmitter<any>();
@@ -30,34 +28,6 @@ export class TimelineComponent implements OnInit {
       this.bookingformSchema = s.user;
       this.registerFormSchema = s.guest;
     });
-  }
-
-  onClick(action) {
-    const user: IUser = this.security.getLocalUser();
-    this.selEvent = action.value;
-
-    if (user) {
-      this.isBookingModalActive = true;
-    } else {
-      this.isRegisterModalActive = true;
-    }
-    this.eventId = this.selEvent._id;
-  }
-
-  onCloseModal() {
-    this.isBookingModalActive = false;
-    this.isRegisterModalActive = false;
-  }
-
-  onSubmitBooking(event) {
-    this.book.emit({ eventId: this.eventId, seats: event.seats, comments: event.comments });
-    this.isBookingModalActive = false;
-  }
-
-  onSubmitRegister(event) {
-    event['eventId'] = this.eventId;
-    this.register.emit(event);
-    this.isRegisterModalActive = false;
   }
 
 }
