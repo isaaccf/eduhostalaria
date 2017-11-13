@@ -49,7 +49,6 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
     }
   }
 
-  console.log(options);
   let events = await mongo.find(col, options, { date: -1 });
 
   events = await calculatePax(events);

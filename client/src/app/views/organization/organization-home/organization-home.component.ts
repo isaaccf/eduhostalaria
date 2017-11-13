@@ -75,6 +75,7 @@ export class OrganizationHomeComponent implements OnInit {
   }
 
   onDatesChange(payload) {
+    payload.organizationId = this.organizationData._id;
     this.getEvents(payload);
   }
 }
