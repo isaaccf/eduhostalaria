@@ -46,6 +46,13 @@ export class OrganizationHomeComponent implements OnInit {
 
   getEvents(payload) {
     this.me.filterEvents(payload).subscribe((events: any) => {
+      if (events) {
+        events.forEach((event: any) => {
+          if (event.freeSeats === 0 || new Date(event.date) < new Date()) {
+            event.status = 'DISABLED';
+          }
+        });
+      }
       this.events = events
       this.eventsSchema.events = this.events;
     });

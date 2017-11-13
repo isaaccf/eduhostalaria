@@ -25,7 +25,6 @@ export class DatePaginatorComponent implements OnInit {
       this.getEndingDay(), 23, 59, 59, 99));
     this.shownEndingDate = new Date(this.endingDate.getTime());
     this.shownEndingDate.setDate(this.shownEndingDate.getDate() - 1);
-    console.log(this.shownEndingDate);
 
     this.dates.emit({ startDate: this.startDate.toISOString(), endingDate: this.endingDate.toISOString() });
   }

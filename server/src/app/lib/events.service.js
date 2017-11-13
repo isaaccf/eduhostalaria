@@ -1,7 +1,6 @@
 const mongo = require('../tools/mongo.service');
 const userService = require('./users.service');
 const bookingsSrv = require('./bookings.service');
-const mailer = require('../tools/mailer.service');
 
 const col = 'events';
 
