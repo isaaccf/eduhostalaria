@@ -6,6 +6,7 @@ import { BusService } from 'app/tools/bus.service';
 import { Level } from 'app/tools/message.model';
 import { IUser } from 'app/tools/user.model';
 import { SecurityService } from 'app/tools/security.service';
+import { StatusPipe } from 'app/tools/status.pipe';
 
 @Component({
   selector: 'ab-organization-event',
@@ -46,6 +47,7 @@ export class OrganizationEventComponent implements OnInit {
 
   checkButtonStatus() {
     if (this.event.freeSeats === 0 || new Date(this.event.date) < new Date()) {
+      this.event.status = 'CANCELED';
       this.panelSchema.actions[0].disabled = true;
     }
   }

@@ -20,6 +20,10 @@
                class="text-bold">{{event.name}}</a>
             <div class="columns">
               <div class="column col-12">
+                <i class="icon icon-message"></i> Estado del evento:
+                <ab-pill [text]="event.status"></ab-pill>
+              </div>
+              <div class="column col-12">
                 <i class="icon icon-people"></i>Prazas disponibles:
                 <b>{{event?.freeSeats}}</b>.
               </div>

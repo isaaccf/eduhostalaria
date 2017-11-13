@@ -6,6 +6,10 @@
     </ab-tile>
     <div class="container">
       <div class="columns">
+        <div class="column col-12">
+          <i class="icon icon-message"></i> Estado del evento:
+          <ab-pill [text]="event.status"></ab-pill>
+        </div>
         <div class="column col-6 col-md-12">
           <i class="icon icon-people"></i>Prazas disponibles:
           <b>{{event?.freeSeats}}</b>.

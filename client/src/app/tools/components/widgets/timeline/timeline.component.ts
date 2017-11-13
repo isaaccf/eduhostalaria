@@ -28,6 +28,15 @@ export class TimelineComponent implements OnInit {
       this.bookingformSchema = s.user;
       this.registerFormSchema = s.guest;
     });
+    this.checkEventStatus();
+  }
+
+  checkEventStatus() {
+    this.schema.events.forEach(event => {
+      if (event.freeSeats === 0 || new Date(event.date) < new Date()) {
+        event.status = 'CANCELED';
+      }
+    });
   }
 
 }
