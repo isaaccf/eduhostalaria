@@ -15,12 +15,14 @@
       <section class="timeline-content">
         <div class="tile">
           <div class="tile-content">
-            <span class="label label-default">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
-            <a [routerLink]="'events/' + event._id"
-               class="text-bold">{{event.name}}</a>
+            <div class="tile-title">
+              <a [routerLink]="'events/' + event._id"
+                 class="btn text-bold">{{event.name}}</a>
+              <span class="label label-default">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
+            </div>
             <div class="columns">
               <div class="column col-12">
-                <i class="icon icon-message"></i> Estado del evento:
+                <i class="icon icon-message"></i> Estado do evento:
                 <ab-pill [text]="event.status"></ab-pill>
               </div>
               <div class="column col-12">
@@ -33,7 +35,7 @@
               </div>
               <div class="column col-12">
                 <i class="icon icon-message"></i> Colaboración económica recomendada:
-                <b>{{event?.standardPrice}}€ para visitas y {{event?.reducedPrice}}€ para alumnos do centro.</b>
+                <b>{{event?.standardPrice}}€ para visitas e {{event?.reducedPrice}}€ para alumnos do centro.</b>
               </div>
             </div>
           </div>

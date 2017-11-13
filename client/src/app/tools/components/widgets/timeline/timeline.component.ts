@@ -34,7 +34,7 @@ export class TimelineComponent implements OnInit {
   checkEventStatus() {
     this.schema.events.forEach(event => {
       if (event.freeSeats === 0 || new Date(event.date) < new Date()) {
-        event.status = 'CANCELED';
+        event.status = 'DISABLED';
       }
     });
   }

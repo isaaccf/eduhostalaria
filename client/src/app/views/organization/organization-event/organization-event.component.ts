@@ -47,7 +47,7 @@ export class OrganizationEventComponent implements OnInit {
 
   checkButtonStatus() {
     if (this.event.freeSeats === 0 || new Date(this.event.date) < new Date()) {
-      this.event.status = 'CANCELED';
+      this.event.status = 'DISABLED';
       this.panelSchema.actions[0].disabled = true;
     }
   }
