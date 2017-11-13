@@ -4,7 +4,7 @@
     <i class="icon icon-arrow-left"></i>
     <span class="hide-md">Semana anterior</span>
   </button>
-  <p class="text-center text-bold">{{ startDate | date: 'EEEE, d MMM' }} - {{ endingDate | date:'EEEE, d MMM'}}</p>
+  <p class="text-center text-bold">{{ startDate | date: 'EEEE, d MMM' }} - {{ shownEndingDate | date:'EEEE, d MMM'}}</p>
   <button class="btn btn-primary"
           (click)="onNextWeek()">
     <span class="hide-md">Semana siguiente</span>
