@@ -112,10 +112,6 @@ export class MeService {
       .do(res => this.security.setLocalOrganization(organization));
   }
 
-  getEvents(): Observable<any[]> {
-    return this.http.get<any>(this.eventsUrl);
-  }
-
   getEventById(eventId) {
     return this.http.get(`${this.eventsUrl}/${eventId}`);
   }

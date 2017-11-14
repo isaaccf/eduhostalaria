@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class EventsComponent implements OnInit {
 
+  private organizationId;
   public events: any[];
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
@@ -44,7 +45,8 @@ export class EventsComponent implements OnInit {
   }
 
   getEvents() {
-    this.me.getEvents().subscribe(events => {
+    const organizationId = this.security.getLocalOrganization()._id;
+    this.me.filterEvents({ organizationId }).subscribe((events: any) => {
       this.events = events;
     });
   }

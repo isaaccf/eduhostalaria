@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { OrganizationService } from 'app/views/organization/organization.service';
+import { SecurityService } from 'app/tools/security.service';
 
 @Component({
   selector: 'ab-filter',
@@ -15,7 +17,8 @@ export class FilterComponent implements OnInit {
   public schema;
 
   constructor(
-    private schemaService: SchemaService
+    private schemaService: SchemaService,
+    private securityService: SecurityService
   ) { }
 
   ngOnInit() {
@@ -34,6 +37,8 @@ export class FilterComponent implements OnInit {
     if (payload.endingDate === 'dd/mm/aaaa') {
       delete payload.endingDate;
     }
+
+    payload.organizationId = this.securityService.getLocalOrganization()._id;
 
     Object.keys(payload).forEach(key => {
       if (payload[key]) {
