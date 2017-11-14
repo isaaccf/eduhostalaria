@@ -39,7 +39,6 @@ export class BookingComponent implements OnInit {
 
   getBooking() {
     this.me.getBooking(this.bookingId).subscribe(booking => {
-      console.log(booking);
       this.booking = booking;
       this.schema.firstPanel.header.title += (' para ' + this.booking.event.name);
       this.schemaService.populateDefaultValues(this.schema.editForm, this.booking);

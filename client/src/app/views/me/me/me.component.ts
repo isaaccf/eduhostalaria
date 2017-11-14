@@ -60,7 +60,6 @@ export class MeComponent implements OnInit {
           this.configureRoleSchemas(userRole, roleSchema);
           this.widgetsSchema = this.widgetsSchema.concat(roleSchema);
         } else {
-          console.log('no user');
           this.security.logOutUser();
         }
       });
@@ -92,7 +91,6 @@ export class MeComponent implements OnInit {
     } else if (userRole === 'interno') {
 
     } else {
-      console.log(userRole);
       this.security.logOutUser();
     }
   }
