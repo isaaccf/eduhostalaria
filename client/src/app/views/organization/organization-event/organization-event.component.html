@@ -6,10 +6,6 @@
     </ab-tile>
     <div class="container">
       <div class="columns">
-        <div class="column col-12">
-          <i class="icon icon-message"></i> Estado del evento:
-          <ab-pill [text]="event.status"></ab-pill>
-        </div>
         <div class="column col-6 col-md-12">
           <i class="icon icon-people"></i>Prazas disponibles:
           <b>{{event?.freeSeats}}</b>.
@@ -19,23 +15,23 @@
           <b> De {{ event?.startTime }} a {{ event?.endTime }}.</b>
         </div>
         <div class="column col-12">
+          <p class="text-gray">Descripción do evento</p>
+        </div>
+        <div class="column col-12"
+             [innerHTML]="event.description"></div>
+        <div class="column col-12">
           <i class="icon icon-message"></i> Colaboración económica recomendada:
           <b>{{event?.standardPrice}}€ para visitas y {{event?.reducedPrice}}€ para alumnos do centro.</b>
         </div>
-      </div>
-      <div class="column col-12">
-        <p class="text-gray">Descripción do evento</p>
-      </div>
-      <div class="column col-12"
-           [innerHTML]="event.description"></div>
-      <div *ngIf="event.files && event.files.length > 0"
-           class="column col-12">
-        <p class="text-gray">Archivos adxuntos</p>
-        <ng-container *ngFor="let file of event.files">
-          <a [href]="file.url"
-             target="_blank">
-            <i class="icon icon-link"></i>{{ file.name }}</a>
-        </ng-container>
+        <div *ngIf="event.files && event.files.length > 0"
+             class="column col-12">
+          <p class="text-gray">Archivos adxuntos</p>
+          <ng-container *ngFor="let file of event.files">
+            <a [href]="file.url"
+               target="_blank">
+              <i class="icon icon-link"></i>{{ file.name }}</a>
+          </ng-container>
+        </div>
       </div>
     </div>
   </panel-body>
