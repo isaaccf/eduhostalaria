@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { MeService } from 'app/views/me/me.service';
 import { BusService } from 'app/tools/bus.service';
@@ -15,6 +16,7 @@ import { StatusPipe } from 'app/tools/status.pipe';
 })
 export class OrganizationEventComponent implements OnInit {
 
+  public url;
   public panelSchema;
   public event: any;
   public isBookingModalActive = false;
@@ -23,12 +25,14 @@ export class OrganizationEventComponent implements OnInit {
   public registerFormSchema;
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private schemaService: SchemaService,
     private bus: BusService,
     private security: SecurityService,
     private meService: MeService) { }
 
   ngOnInit() {
+    this.url = this.router.url;
     this.route.params.subscribe(params => {
       this.meService.getEventById(params.eventId).subscribe((event: any) => {
         this.event = event;
