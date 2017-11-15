@@ -35,6 +35,7 @@ export class OrganizationEventComponent implements OnInit {
         this.schemaService.getSchema$('organization_event').subscribe(schema => {
           schema.panel.header.title = event.name;
           this.panelSchema = schema.panel;
+          this.panelSchema.header.subtitle = this.getDate();
           this.checkButtonStatus();
         });
         this.schemaService.getSchema$('book').subscribe(schema => {
@@ -43,6 +44,16 @@ export class OrganizationEventComponent implements OnInit {
         });
       });
     });
+  }
+
+  getDate() {
+    const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    const date: Date = new Date(this.event.date);
+    const formattedDate = `${date.getDate()} de ${monthNames[date.getMonth()]} del ${date.getFullYear()}`;
+
+    return formattedDate;
   }
 
   checkButtonStatus() {

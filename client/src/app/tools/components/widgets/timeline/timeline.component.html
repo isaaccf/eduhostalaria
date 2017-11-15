@@ -16,13 +16,12 @@
         <div class="tile">
           <div class="tile-content">
             <div class="tile-title">
-              <a [routerLink]="'events/' + event._id"
-                 [ngClass]="{'btn': true, 'text-bold': true, 'disabled': event.status !== 'ACTIVE'}">{{event.name}}</a>
-              <span class="label label-default">{{ event.date.toUpperCase() | date:'fullDate' }}</span>
+              <span class="label label-default">{{ event.date.toUpperCase() | date:'EEEE dd' }}</span>
+              <p class="text-bold">{{event.name}}</p>
             </div>
             <div class="columns">
               <div class="column col-12">
-                <i class="icon icon-people"></i>Prazas disponibles:
+                <i class="icon icon-people"></i> Prazas disponibles:
                 <b>{{event?.freeSeats}}</b>.
               </div>
               <div class="column col-12">

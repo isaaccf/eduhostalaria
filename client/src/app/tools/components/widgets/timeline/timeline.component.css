@@ -55,8 +55,9 @@ article:last-of-type {
   align-items: center;
 }
 
-.btn.text-bold {
-  margin-right: 20px;
+.text-bold {
+  margin-bottom: 0;
+  margin-left: 7px;
 }
 
 .icon-bookmark {
@@ -64,5 +65,5 @@ article:last-of-type {
 }
 
 .timeline-content {
-  padding-top: 0px;
+  padding-top: 0px !important;
 }
