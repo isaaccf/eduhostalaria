@@ -33,6 +33,11 @@
           </div>
         </div>
       </section>
+      <div class="tile-action">
+        <a [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': event.status !== 'ACTIVE'}"
+           [routerLink]="'events/' + event._id">
+          <i class="icon icon-bookmark"></i>Reservar</a>
+      </div>
     </article>
   </ng-container>
 </div>
