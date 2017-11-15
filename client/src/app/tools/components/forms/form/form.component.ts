@@ -46,4 +46,21 @@ export class FormComponent implements OnInit, OnChanges {
   onClick() {
     this.send.emit(this.form.group.value);
   }
+
+  // tslint:disable-next-line:cyclomatic-complexity
+  getClasses(control) {
+    let classes = 'form-group column col-lg-12';
+
+    if (control.type !== 'wysiwyg' && control.type !== 'textarea' &&
+      control.type !== 'email' && control.type !== 'password') {
+      classes += ' col-6';
+    }
+
+    if (control.type === 'wysiwyg' || control.type === 'textarea'
+      || control.type === 'email' || control.type === 'password') {
+      classes += ' col-12';
+    }
+
+    return classes;
+  }
 }

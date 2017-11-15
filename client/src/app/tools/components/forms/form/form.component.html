@@ -3,7 +3,7 @@
       class="container">
   <div class="columns">
     <fieldset *ngFor="let control of form.schema.controls"
-              [ngClass]="{'form-group': true, 'column': true, 'col-6': (control.type !== 'wysiwyg' && control.type !== 'textarea' && control.type !== 'email' && control.type !== 'password'), 'col-12': (control.type === 'wysiwyg' || control.type === 'textarea' || control.type === 'email' || control.type === 'password'), 'col-lg-12': true}">
+              [ngClass]="getClasses(control)">
       <ng-container [ngSwitch]="control.type">
         <ab-select *ngSwitchCase="'select'"
                    [form]="form"

@@ -41,6 +41,18 @@
         ]
       },
       {
+        "key": "phone",
+        "type": "text",
+        "label": "Teléfono",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Teléfono requerido"
+          }
+        ]
+      },
+      {
         "key": "email",
         "type": "email",
         "label": "Email",
