@@ -25,10 +25,6 @@
                target="_blank">
               <i class="icon icon-link"></i>{{ file.name }}</a>
           </ng-container>
-          <div class="column col-12">
-            <i class="icon icon-message"></i> Colaboración económica recomendada:
-            <b>{{event?.standardPrice}}€ para visitas y {{event?.reducedPrice}}€ para alumnos do centro.</b>
-          </div>
         </div>
       </div>
       <div class="column col-12 text-center">
@@ -42,6 +38,10 @@
           [active]="isBookingModalActive"
           (close)="onCloseModal()">
   <modal-content>
+    <small>
+      <i class="icon icon-message"></i> Colaboración económica recomendada:
+      <b>{{event?.standardPrice}}€ para visitas y {{event?.reducedPrice}}€ para alumnos do centro.</b>
+    </small>
     <ab-form [formSchema]="bookingFormSchema"
              (send)="onSubmitBooking($event)"></ab-form>
   </modal-content>
@@ -53,6 +53,10 @@
     <small>Para reservar unha oferta é necesario estar rexistrado na plataforma. Se xa tes conta
       <a routerLink="/login"> inicia sesión aquí.</a> Se non, cubre o seguinte formulario.</small>
     <br>
+    <small>
+      <i class="icon icon-message"></i> Colaboración económica recomendada:
+      <b>{{event?.standardPrice}}€ para visitas y {{event?.reducedPrice}}€ para alumnos do centro.</b>
+    </small>
     <ab-form [formSchema]="registerFormSchema"
              (send)="onSubmitRegister($event)"></ab-form>
   </modal-content>
