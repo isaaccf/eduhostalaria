@@ -39,7 +39,7 @@
         "defaultValue": "dd/mm/aaaa",
         "validators": [
           {
-            "key": "validDate",
+            "key": "validOptionalDate",
             "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
           }
         ]
@@ -51,7 +51,7 @@
         "defaultValue": "dd/mm/aaaa",
         "validators": [
           {
-            "key": "validDate",
+            "key": "validOptionalDate",
             "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
           }
         ]

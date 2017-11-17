@@ -47,9 +47,9 @@ function validateOther(arr, control) {
 };
 
 // tslint:disable-next-line:cyclomatic-complexity
-export function validateDate(control: AbstractControl) {
+export function validateOptionalDate(control: AbstractControl) {
   if (!control.value || control.value === '' || control.value === 'dd/mm/aaaa') {
-    return { validDate: true };
+    return null;
   }
 
   let arr = control.value.split('/');

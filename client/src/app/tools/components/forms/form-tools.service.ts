@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { IValidator, IFormSchema } from 'app/tools/schema.model';
 import { validateDate } from 'app/tools/validators/date.validator';
+import { validateOptionalDate } from 'app/tools/validators/optional-date.validator';
 import { validateTime } from 'app/tools/validators/time.validator';
 
 @Injectable()
@@ -46,6 +47,7 @@ export class FormToolsService {
     return (control.touched || control.dirty);
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   getValidator(validation: IValidator) {
     switch (validation.key) {
       case 'required':
@@ -54,6 +56,8 @@ export class FormToolsService {
         return Validators.email;
       case 'validDate':
         return validateDate;
+      case 'validOptionalDate':
+        return validateOptionalDate;
       case 'time':
         return validateTime;
       default:

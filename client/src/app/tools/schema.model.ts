@@ -41,7 +41,7 @@ export interface IKeyValue {
 }
 
 export interface IValidator {
-  key: 'required' | 'email' | 'validDate' | 'time';
+  key: 'required' | 'email' | 'validDate' | 'validOptionalDate' | 'time';
   args?: any[];
   errorMessage?: string;
 }
