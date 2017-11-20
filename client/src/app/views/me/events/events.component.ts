@@ -47,6 +47,7 @@ export class EventsComponent implements OnInit {
   getEvents() {
     const organizationId = this.security.getLocalOrganization()._id;
     this.me.filterEvents({ organizationId }).subscribe((events: any) => {
+      console.log(events);
       this.events = events;
     });
   }
