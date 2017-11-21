@@ -4,6 +4,7 @@ import { IValidator, IFormSchema } from 'app/tools/schema.model';
 import { validateDate } from 'app/tools/validators/date.validator';
 import { validateOptionalDate } from 'app/tools/validators/optional-date.validator';
 import { validateTime } from 'app/tools/validators/time.validator';
+import { validateInteger } from 'app/tools/validators/integer.validator';
 
 @Injectable()
 export class FormToolsService {
@@ -60,6 +61,8 @@ export class FormToolsService {
         return validateOptionalDate;
       case 'time':
         return validateTime;
+      case 'integer':
+        return validateInteger;
       default:
         break;
     }

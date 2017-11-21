@@ -12,6 +12,10 @@
           {
             "key": "required",
             "errorMessage": "Nº de comensales requerido"
+          },
+          {
+            "key": "integer",
+            "errorMessage": "O número de comensales ten que ser enteiro"
           }
         ]
       },
@@ -98,6 +102,10 @@
           {
             "key": "required",
             "errorMessage": "Nº de comensales requerido"
+          },
+          {
+            "key": "integer",
+            "errorMessage": "O número de comensales ten que ser enteiro"
           }
         ]
       },

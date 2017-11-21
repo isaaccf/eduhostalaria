@@ -75,6 +75,10 @@
           {
             "key": "required",
             "errorMessage": "O aforo é requerido"
+          },
+          {
+            "key": "integer",
+            "errorMessage": "O aforo ten que ser un número enteiro"
           }
         ]
       },
