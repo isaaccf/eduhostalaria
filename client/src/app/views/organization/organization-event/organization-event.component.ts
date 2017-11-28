@@ -96,6 +96,7 @@ export class OrganizationEventComponent implements OnInit {
 
   onSubmitRegister(payload) {
     payload['eventId'] = this.event._id;
+    payload['organizationId'] = this.event.organizationId;
     this.meService.bookEventGuest(payload).subscribe(d => {
       this.bus.emit({ level: Level.SUCCESS, text: 'Reserva realizada e pendente de aprobación', code: '' });
       this.isRegisterModalActive = false;
