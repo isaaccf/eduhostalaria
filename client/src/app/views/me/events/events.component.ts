@@ -46,10 +46,11 @@ export class EventsComponent implements OnInit {
 
   getEvents() {
     const organizationId = this.security.getLocalOrganization()._id;
-    this.me.filterEvents({ organizationId }).subscribe((events: any) => {
-      console.log(events);
-      this.events = events;
-    });
+    this.me.filterEvents({ organizationId })
+      .map((events: any) => events.filter(event => event.status !== 'CANCELED'))
+      .subscribe((events: any) => {
+        this.events = events;
+      });
   }
 
   onRowAction(action) {

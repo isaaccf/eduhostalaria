@@ -45,9 +45,11 @@ export class EventsUshierComponent implements OnInit {
 
   getEvents() {
     this.organization = this.security.getLocalOrganization();
-    this.orgService.getEventsByOrganizationId(this.organization._id).subscribe((events: any) => {
-      this.events = events;
-    });
+    this.me.filterEvents({ organizationId: this.organization._id })
+      .map((events: any) => events.filter(event => event.status !== 'CANCELED'))
+      .subscribe((events: any) => {
+        this.events = events;
+      });
   }
 
   onFilter(payload) {
