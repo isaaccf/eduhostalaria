@@ -91,7 +91,7 @@ export class MeService {
 
   setOrganizationAdmin(newAdmin) {
     newAdmin.roles = [];
-    newAdmin.roles.push('ADMIN');
+    newAdmin.roles.push('ADMIN', 'MESTRE');
     return this.http
       .post(`${this.credentialsUrl}/_/invitations`, newAdmin);
   }
