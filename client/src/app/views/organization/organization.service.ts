@@ -38,6 +38,7 @@ export interface IOrganization {
   address: any;
   city: string;
   description: string;
+  banner: object;
   image: string;
   standardPrice: string;
   reducedPrice: string;

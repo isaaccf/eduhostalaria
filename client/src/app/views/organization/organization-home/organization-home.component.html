@@ -40,6 +40,10 @@
       <panel-body>
         <div *ngIf="organizationData"
              class="columns">
+          <img *ngIf="organizationData.banner"
+               class="banner"
+               [src]="organizationData.banner.url"
+               alt="">
           <ng-container *ngFor="let field of viewSchema.fields; let i = index">
             <div *ngIf="field.key !== 'name' && field.key !== 'email' && field.key !== 'url' && field.key !== 'slogan' && field.key !== 'image' && field.key !== 'description'"
 
