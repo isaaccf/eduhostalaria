@@ -4,6 +4,20 @@
     "subtitle": "Configurar e aportar información sobre o meu centro.",
     "icon": "icon-edit"
   },
+  "tile": {
+    "header": {
+      "title": "Imaxe destacada",
+      "subtitle": "Calendario de eventos, imaxe do centro, banner publicitario...",
+      "icon": "icon-link"
+    },
+    "actions": [
+      {
+        "label": "Subir imaxe",
+        "key": "upload",
+        "disabled": false
+      }
+    ]
+  },
   "form": {
     "title": "Datos do meu centro",
     "submitLabel": "Guardar os datos",

@@ -112,7 +112,7 @@ export class EventComponent implements OnInit {
   }
 
   onDeleteFile(file) {
-    this.me.removeFile(this.event._id, file.name).subscribe(event => {
+    this.me.removeEventFile(this.event._id, file.name).subscribe(event => {
       this.event = event;
     });
   }

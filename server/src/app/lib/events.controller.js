@@ -79,7 +79,7 @@ module.exports = (app, url) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const eventId = req.params.id;
       const serverName = `http://${req.hostname}:${config.port}${url}`;
-      await uploadService.uploadFiles(eventId, req.files, serverName);
+      await uploadService.uploadFiles(eventId, req.files, serverName, true);
       return rest.returnArray([], res);
     });
   app.route(`${url}/:id/files/:name`)
@@ -102,7 +102,7 @@ module.exports = (app, url) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const eventId = req.params.id;
       const fileName = req.params.name;
-      const data = await uploadService.removeFile(eventId, fileName);
+      const data = await uploadService.removeFile(eventId, fileName, true);
       return rest.returnInserted(data, res);
     });
   app.route(`${url}/:id/bookings`)

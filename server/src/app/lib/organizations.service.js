@@ -17,3 +17,9 @@ module.exports.updateOrganization = async (organization) => {
   organization.slug = slugger(organization.name.toLowerCase());
   return mongo.updateOne(col, organization._id, organization);
 };
+exports.addFiles = async (organizationId, fileUrl) => {
+  const organization = await this.getById(organizationId);
+  organization.banner = fileUrl;
+  const result = await this.updateOrganization(organization);
+  return result;
+};

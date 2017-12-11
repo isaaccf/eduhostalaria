@@ -1,5 +1,7 @@
 const srv = require('./organizations.service');
+const uploadService = require('../tools/upload.service');
 const rest = require('../tools/rest.service');
+const config = require('../tools/config');
 
 module.exports = (app, url) => {
   app.route(url)
@@ -11,6 +13,8 @@ module.exports = (app, url) => {
       rest.checkRole(req, res, ['ADMIN', 'GOD']);
       const organization = req.body;
       const data = await srv.updateOrganization(organization);
+      // const serverName = `http://${req.hostname}:${config.port}${url}`;
+      // await uploadService.uploadFiles(organization._id, req.files, serverName);
       return rest.returnResult(data, res);
     })
     .post(async (req, res) => {
@@ -20,6 +24,21 @@ module.exports = (app, url) => {
       const data = await srv.insertOrganization(organization);
       return rest.returnInserted(data, res);
     });
+  app.route(`${url}/:id/files`)
+    .post(uploadService.getParser().any(), async (req, res) => {
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
+      const organizationId = req.params.id;
+      const serverName = `http://${req.hostname}:${config.port}${url}`;
+      await uploadService.uploadFiles(organizationId, req.files, serverName, false);
+      return rest.returnArray([], res);
+    });
+  app.route(`${url}/:id/files/:name`).delete(async (req, res) => {
+    rest.checkRole(req, res, ['ADMIN', 'GOD']);
+    const organizationId = req.params.id;
+    const fileName = req.params.name;
+    const data = await uploadService.removeFile(organizationId, fileName, false);
+    return rest.returnInserted(data, res);
+  });
   app.route(`${url}/count`)
     .get(async (req, res) => {
       rest.checkRole(req, res, 'GOD');

@@ -136,16 +136,25 @@ export class MeService {
   }
 
   postEventFiles(eventId, files: FormData) {
+    console.log(files);
     return this.http.post(`${this.eventsUrl}/${eventId}/files`, files);
   }
 
-  removeFile(eventId, fileName) {
+  postOrganizationBanner(organizationId, files: FormData) {
+    return this.http.post(`${this.organizationsUrl}/${organizationId}/files`, files);
+  };
+
+  removeEventFile(eventId, fileName) {
     // TODO: Change url for file url
     // const init = url.indexOf(this.eventsUrl);
     // const path = url.substring(init);
     // return this.http.delete(path);
     return this.http.delete(`${this.eventsUrl}/${eventId}/files/${fileName}`);
   }
+
+  removeOrganizationBanner(organizationId, fileName) {
+    return this.http.delete(`${this.organizationsUrl}/${organizationId}/files/${fileName}`)
+  };
 
   removeEvent(eventId) {
     return this.http.delete(`${this.eventsUrl}/${eventId}`);

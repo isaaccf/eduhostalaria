@@ -76,11 +76,13 @@ export class OrganizationsComponent implements OnInit {
     this.activeOrganization = null;
     this.activeSetAdminModal = false;
   }
+
   onRowAction(data: IKeyValue) {
     if (data.key === 'setAdmin') {
       this.onSetAdmin(data.value);
     }
   }
+
   setOrganizationAdmin(newAdmin) {
     newAdmin.organizationId = this.activeOrganization._id;
     this.me

@@ -17,7 +17,6 @@ export class ActionComponent implements OnInit {
   }
 
   onClick() {
-    console.log('onClick', this.schema);
     this.action.emit({ key: this.schema.key, value: this.schema.value });
   }
 

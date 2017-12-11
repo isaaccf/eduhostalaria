@@ -1,10 +1,10 @@
 const eventService = require('../lib/events.service');
+const organizationService = require('../lib/organizations.service');
 const multer = require('multer');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary');
 const fs = require('fs');
 const mime = require('mime');
-const path = require('path');
 
 const storagePath = `${__dirname}/../../../img/`;
 
@@ -40,7 +40,7 @@ const getParser = () => {
   return multer({ storage });
 };
 
-const uploadFiles = async (eventId, files, url) => {
+const uploadFiles = async (id, files, url, isEvent) => {
   files.forEach(async (file) => {
     const obj = {
       name: file.originalname,
@@ -50,24 +50,41 @@ const uploadFiles = async (eventId, files, url) => {
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
       obj.url = file.secure_url;
     }
+
     if (process.env.NODE_ENV === 'production') {
-      obj.url = `${url}/${eventId}/files/${obj.realName}`;
+      obj.url = `${url}/${id}/files/${obj.realName}`;
       obj.path = file.path;
     }
-    await eventService.addFiles(eventId, obj);
+
+    if (isEvent) {
+      await eventService.addFiles(id, obj);
+    } else {
+      await organizationService.addFiles(id, obj);
+    }
   });
 };
 
-const removeFile = async (eventId, fileName) => {
-  const event = await eventService.getById(eventId);
+const removeFile = async (id, fileName, isEvent) => {
+  let element;
+
+  if (isEvent) {
+    element = await eventService.getById(id);
+  } else {
+    element = await organizationService.getById(id);
+  }
 
   if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
     await cloudinary.uploader.destroy(fileName);
-    event.files = event.files.filter(file => file.name !== fileName);
+
+    if (isEvent) {
+      element.files = element.files.filter(file => file.name !== fileName);
+    } else {
+      element.banner = undefined;
+    }
   }
 
   if (process.env.NODE_ENV === 'production') {
-    event.files.map((file) => {
+    element.files.map((file) => {
       if (file.realName === fileName) {
         fs.unlinkSync(file.path);
       }
@@ -77,7 +94,10 @@ const removeFile = async (eventId, fileName) => {
 
   // event.files = event.files.filter(el => el.realName !== fileName);
 
-  return eventService.updateEvent(event._id, event);
+  if (isEvent) {
+    return eventService.updateEvent(element._id, element);
+  }
+  return organizationService.updateOrganization(element);
 };
 
 module.exports = {
