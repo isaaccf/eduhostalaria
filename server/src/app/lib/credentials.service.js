@@ -92,7 +92,7 @@ module.exports.activateUser = async (activation, currentStatus, mailTemplate) =>
 
 
 module.exports.disableUser = async (disabilitation) => {
-  const user = await users.getByIdStatus(disabilitation._id, 'ACTIVE');
+  const user = await users.getById(disabilitation._id);
   if (!user || user instanceof Error) {
     logger.warn(`not found user for: ${JSON.stringify(disabilitation)}`);
     return invalidCredentials(disabilitation);
