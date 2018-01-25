@@ -16,7 +16,7 @@ module.exports = (app, url) => {
         const data = await srv.insertBooking(req.user, booking, 'USER');
         return rest.returnInserted(data, res);
       } catch (e) {
-        next(e);
+        return next(e);
       }
     });
 

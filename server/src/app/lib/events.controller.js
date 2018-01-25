@@ -4,6 +4,7 @@ const rest = require('../tools/rest.service');
 const uploadService = require('../tools/upload.service');
 const slugger = require('slug');
 const config = require('./../tools/config');
+const utils = require('../tools/rest.utils');
 
 const weekDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -62,11 +63,19 @@ module.exports = (app, url) => {
     })
     .patch(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
-      const event = req.body;
-      checkEventNameAndSlug(event);
-      const eventId = req.params.id;
-      const data = await srv.updateEvent(eventId, event);
-      return rest.returnInserted(data, res);
+      if (req.user.roles.includes('MESTRE') && req.user.id !== req.owner) {
+        const err = new Error(`Not MESTRE role for user: ${JSON.stringify(req.user)}`);
+        err.code = 403;
+        utils.returnError(err, res);
+        res.end();
+        throw err;
+      } else {
+        const event = req.body;
+        checkEventNameAndSlug(event);
+        const eventId = req.params.id;
+        const data = await srv.updateEvent(eventId, event);
+        return rest.returnInserted(data, res);
+      }
     })
     .delete(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
