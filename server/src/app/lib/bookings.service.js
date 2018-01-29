@@ -55,7 +55,7 @@ exports.updateBooking = async (bookingId, booking) => {
   let undo = false;
 
   const tempEvent = await eventService.getById(booking.eventId);
-  if (booking.seats > tempEvent.freeSeats) {
+  if ((oldBooking.seats !== booking.seats) && (booking.seats > tempEvent.freeSeats)) {
     return new Error('There are no free seats :(');
   }
 

@@ -30,6 +30,7 @@ module.exports = (app, url) => {
       rest.checkRole(req, res, ['INTERNO', 'CONSERXE', 'MESTRE', 'ADMIN', 'GOD']);
       const booking = req.body;
       const bookingId = req.params.id;
+      console.log(booking);
       const data = await srv.updateBooking(bookingId, booking);
       return rest.returnInserted(data, res);
     })
