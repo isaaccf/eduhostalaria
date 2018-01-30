@@ -27,6 +27,11 @@
         "type": "string"
       },
       {
+        "label": "Nome",
+        "key": "owner.name",
+        "type": "string"
+      },
+      {
         "label": "Prazas",
         "key": "seats",
         "type": "string"
