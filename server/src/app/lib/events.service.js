@@ -36,7 +36,7 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
   if (name) { options.$or = [{ name: { $regex: name, $options: 'i' } }, { description: { $regex: name, $options: 'i' } }]; }
-  if (status) { options.status = { $ne: status.toUpperCase() }; }
+  if (status) { options.status = status.toUpperCase(); }
   if (startDate) {
     options.date = { $gte: startDate };
   }

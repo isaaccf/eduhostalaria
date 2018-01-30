@@ -84,7 +84,7 @@ export class OrganizationHomeComponent implements OnInit {
 
   onDatesChange(payload) {
     payload.organizationId = this.organizationData._id;
-    payload.status = 'CANCELED';
+    payload.status = 'ACTIVE';
     this.getEvents(payload);
   }
 }
