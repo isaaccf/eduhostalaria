@@ -136,7 +136,6 @@ export class MeService {
   }
 
   postEventFiles(eventId, files: FormData) {
-    console.log(files);
     return this.http.post(`${this.eventsUrl}/${eventId}/files`, files);
   }
 

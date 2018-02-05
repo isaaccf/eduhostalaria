@@ -29,7 +29,6 @@ export class EditorComponent implements OnInit {
   }
 
   onAction(data: IKeyValue) {
-    console.log('onAction', data);
     if (data.key === 'create_new') {
       this.createModalActive = true;
     } else {
@@ -38,7 +37,7 @@ export class EditorComponent implements OnInit {
   }
 
   onRowAction(data: IKeyValue) {
-    console.log('onRowAction', data);
+
     if (data.key === 'delete') {
       this.deleteModalActive = true;
       this.selectedItem = data.value;

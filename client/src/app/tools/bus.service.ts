@@ -49,15 +49,13 @@ export class BusService {
     this.securityErr$.next(error);
   }
   emitUser(user: IUser) {
-    console.log('emitUser:', JSON.stringify(user));
     this.user$.next(user);
   }
   emitUserToken(userToken: string) {
-    console.log('emitUserToken:', userToken);
     this.userToken$.next(userToken);
   }
   emitOrganization(organization: any) {
-    console.log('emitOrganization:', JSON.stringify(organization));
+
     this.organization$.next(organization);
   }
 

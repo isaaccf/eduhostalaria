@@ -32,6 +32,21 @@
     "submitLabel": "Gardar",
     "controls": [
       {
+        "label": "Nº de comensales",
+        "key": "seats",
+        "defaultValue": "this.booking.seats",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O número de sitios é requerido"
+          },
+          {
+            "key": "integer",
+            "errorMessage": "O número de comensales ten que ser enteiro"
+          }
+        ]
+      },
+      {
         "key": "comments",
         "type": "textarea",
         "label": "Observacións",

@@ -52,10 +52,11 @@ exports.insertBooking = async (user, booking, userType) => {
  * no contenga los estados 'ATTENDED' O 'PAID' */
 exports.updateBooking = async (bookingId, booking) => {
   const oldBooking = await this.getById(bookingId);
+  const tempEvent = await eventService.getById(booking.eventId);
   let undo = false;
 
-  const tempEvent = await eventService.getById(booking.eventId);
-  if ((oldBooking.seats !== booking.seats) && (booking.seats > tempEvent.freeSeats)) {
+  if ((oldBooking.seats !== booking.seats)
+    && (Number(booking.seats) > (Number(tempEvent.freeSeats) + Number(oldBooking.seats)))) {
     return new Error('There are no free seats :(');
   }
 
@@ -87,22 +88,26 @@ exports.updateBooking = async (bookingId, booking) => {
   let event = await eventService.getById(newBooking.eventId);
   const user = await userService.getById(newBooking.ownerId);
 
+  /* Si se modifican los sitios, entonces se modifican los sitios libres del evento */
+  if (oldBooking.seats !== booking.seats) {
+    event.freeSeats += (Number(oldBooking.seats) - Number(booking.seats));
+  }
+
   /* Si pasamos la reserva a cancelada, se restan los sitios */
   if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
-    event.freeSeats += booking.seats;
-    event = await eventService.updateEvent(event._id, event);
-    mailer.sendCanceled(user, event, 'canceled');
+    event.freeSeats += Number(booking.seats);
   }
 
   /* Si pasamos la reserva a ACTIVE, se vuelven a reservar los sitios */
   if (booking.status === 'ACTIVE' && oldBooking.status !== 'PENDING'
     && !undo && oldBooking.status !== booking.status) {
-    event.freeSeats -= booking.seats;
-    event = await eventService.updateEvent(event._id, event);
+    event.freeSeats -= Number(booking.seats);
   }
 
-  /* Enviamos correo si se active una oferta */
-  if (booking.status === 'ACTIVE') {
+  event = await eventService.updateEvent(event._id, event);
+
+  /* Enviamos correo si se active una reserva */
+  if (booking.status === 'ACTIVE' && oldBooking.status === 'PENDING') {
     mailer.sendBooking(user, event, booking, 'booked');
   }
 

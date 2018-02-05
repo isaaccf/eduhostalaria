@@ -60,6 +60,7 @@ export class BookingComponent implements OnInit {
   onEdit(data) {
     const bookingTemp = Object.assign({}, this.booking);
     bookingTemp.comments = data.comments;
+    bookingTemp.seats = data.seats;
     bookingTemp.eventId = this.booking.event._id;
     delete bookingTemp.event;
     this.me.editBooking(bookingTemp).subscribe(booking => {

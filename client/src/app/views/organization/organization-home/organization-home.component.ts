@@ -65,7 +65,6 @@ export class OrganizationHomeComponent implements OnInit {
         this.organization
           .getOrganizationBySlug(slug)
           .subscribe(organization => {
-            console.log(organization);
             this.organizationData = organization;
             if (this.organizationData) {
               this.setSchemas();

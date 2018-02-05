@@ -74,10 +74,11 @@ exports.updateEvent = async (eventId, event) => {
       await bookingsSrv.updateBooking(booking._id, booking);
     }));
   }
-  /* Si pasamos el evento a activo, reseteamos los freeSeats */
-  if (event.status === 'ACTIVE' && oldEvent.status !== event.status) {
-    event.freeSeats = event.capacity;
-  }
+  // /* Si pasamos el evento a activo, reseteamos los freeSeats */
+  // if (event.status === 'ACTIVE' && oldEvent.status !== event.status) {
+  //   event.freeSeats = event.capacity;
+  // }
+
   return mongo.updateOne(col, eventId, event);
 };
 exports.getById = async eventId => mongo.findOneById(col, eventId);
