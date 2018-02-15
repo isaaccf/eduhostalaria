@@ -96,6 +96,7 @@ exports.updateBooking = async (bookingId, booking) => {
   /* Si pasamos la reserva a cancelada, se restan los sitios */
   if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
     event.freeSeats += Number(booking.seats);
+    mailer.sendCanceled(user, event, 'canceled');
   }
 
   /* Si pasamos la reserva a ACTIVE, se vuelven a reservar los sitios */

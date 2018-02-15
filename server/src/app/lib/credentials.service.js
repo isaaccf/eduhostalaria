@@ -40,7 +40,7 @@ module.exports.createUser = async (claim, mailTemplate) => {
   const currentUser = await users.getByEmail(claim.email);
   if (currentUser) {
     logger.warn(`email already in use: ${claim.email}`);
-    return new Error(`Not created: ${JSON.stringify(claim)}`);
+    return new Error(`User already in use: ${JSON.stringify(claim)}`);
   }
   if (claim.roles.includes('ADMIN')) {
     await users.ensureNoAdmin(claim.organizationId);
@@ -49,13 +49,13 @@ module.exports.createUser = async (claim, mailTemplate) => {
   delete user.password;
   const newUser = await users.insertUser(user);
   if (!newUser._id) {
-    return new Error(`Not created: ${JSON.stringify(claim)}`);
+    return new Error(`Error in db: ${JSON.stringify(claim)}`);
   }
   if (claim.password) {
     const newCredential = await insertCredential(newUser._id.toString(), claim.password);
     if (!newCredential._id) {
       await users.removeUser(newUser._id);
-      return new Error(`Not created: ${JSON.stringify(claim)}`);
+      return new Error(`Errir in db: ${JSON.stringify(claim)}`);
     }
   }
   mailer.sendWellcome(newUser, mailTemplate);

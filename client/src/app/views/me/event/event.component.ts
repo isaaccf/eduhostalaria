@@ -94,9 +94,11 @@ export class EventComponent implements OnInit {
   }
 
   updateEvent(data) {
+    console.log(this.event);
     Object.keys(data).map(key => {
       this.event[key] = data[key];
     });
+    console.log(this.event);
   }
 
   uploadFiles(ev) {

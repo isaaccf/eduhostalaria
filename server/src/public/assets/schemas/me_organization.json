@@ -137,7 +137,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Precio reducido é requerido"
+            "errorMessage": "Comunidad educativa é requerido"
           }
         ]
       },
