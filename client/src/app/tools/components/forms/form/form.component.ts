@@ -43,6 +43,9 @@ export class FormComponent implements OnInit, OnChanges {
         group: formGroup
       };
       this.formSchema = formSchema;
+      if (this.formSchema.title === 'Filtros') {
+        this.watchFilterChanges();
+      }
       this.afterInit.emit(this.form.group.value);
     }
   }
@@ -59,6 +62,14 @@ export class FormComponent implements OnInit, OnChanges {
       }
     });
     return formSchema;
+  }
+
+  watchFilterChanges() {
+    this.form.group.valueChanges.subscribe(
+      (form: FormGroup) => {
+        this.onClick();
+      }
+    )
   }
 
   onClick() {
