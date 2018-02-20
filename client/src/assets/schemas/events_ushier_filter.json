@@ -15,7 +15,7 @@
         "key": "startDate",
         "type": "date",
         "label": "Posterior a (dd/mm/aaaa)",
-        "defaultValue": "dd/mm/aaaa",
+        "today": "true",
         "validators": [
           {
             "key": "validOptionalDate",

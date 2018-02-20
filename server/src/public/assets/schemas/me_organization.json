@@ -106,7 +106,7 @@
         "validators": []
       },
       {
-        "key": "capacity",
+        "key": "freeSeats",
         "type": "number",
         "label": "Aforo",
         "defaultValue": "this.organization.capacity",

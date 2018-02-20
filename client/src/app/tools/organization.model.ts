@@ -13,6 +13,5 @@ export interface IOrganization {
   image: string;
   standardPrice: number;
   reducedPrice: number;
-  capacity: number;
-  capacity2: number;
+  freeSeats: number;
 }

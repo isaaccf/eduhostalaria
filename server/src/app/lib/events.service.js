@@ -66,6 +66,19 @@ module.exports.getBySlug = async slug => mongo.find(col, { slug });
 exports.insertEvent = async event => mongo.insertOne(col, event);
 exports.updateEvent = async (eventId, event) => {
   const oldEvent = await this.getById(eventId);
+
+  if (event.capacity < (oldEvent.capacity - oldEvent.freeSeats)) {
+    return new Error('Capacity is not valid :(');
+  }
+
+  if (event.capacity > oldEvent.capacity) {
+    event.freeSeats += Number(event.capacity) - Number(oldEvent.capacity);
+  }
+
+  if (event.capacity < oldEvent.capacity) {
+    event.freeSeats -= Number(oldEvent.capacity) - Number(event.capacity);
+  }
+
   /* Si pasamos el evento a cancelado, cancelamos todas las reservas y aumentamos freeSeats */
   if (event.status === 'CANCELED' && oldEvent.status !== event.status) {
     const bookings = await bookingsSrv.getAll(eventId, undefined);
