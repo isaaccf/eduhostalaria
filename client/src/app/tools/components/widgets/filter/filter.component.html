@@ -1,5 +1,6 @@
 <div>
   <ab-form [formSchema]="schema?.form"
-           (send)="onFormSubmit($event)">
+           (send)="onFormSubmit($event)"
+           (afterInit)="onFormSubmit($event)">
   </ab-form>
 </div>

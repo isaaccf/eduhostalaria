@@ -5,9 +5,15 @@
           class="form-select"
           [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}">
     <option value=""
+            *ngIf="!control.defaultValue"
             [selected]="true">-- Escolla opción --</option>
-    <option *ngFor="let action of control.actions"
-            [value]="action.key">{{ action.label }}</option>
+    <ng-container *ngFor="let action of control.actions">
+      <option *ngIf="control.defaultValue && control.defaultValue === action.key"
+              [value]="action.key"
+              [selected]="true">{{ action.label }}</option>
+      <option *ngIf="(control.defaultValue && control.defaultValue !== action.key) || (!control.defaultValue)"
+              [value]="action.key">{{ action.label }}</option>
+    </ng-container>
   </select>
   <ab-control-error [form]="form"
                     [control]="control">

@@ -15,7 +15,7 @@
         "key": "status",
         "type": "select",
         "label": "Estado",
-        "defaultValue": "",
+        "defaultValue": "active",
         "validators": [],
         "actions": [
           {
@@ -36,7 +36,7 @@
         "key": "startDate",
         "type": "date",
         "label": "Posterior a (dd/mm/aaaa)",
-        "defaultValue": "dd/mm/aaaa",
+        "today": "true",
         "validators": [
           {
             "key": "validOptionalDate",

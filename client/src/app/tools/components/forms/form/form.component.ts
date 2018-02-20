@@ -11,9 +11,11 @@ import { FormToolsService } from 'app/tools/components/forms/form-tools.service'
 export class FormComponent implements OnInit, OnChanges {
 
   @Input() formSchema: IFormSchema;
-  @Output() send: EventEmitter<any> = new EventEmitter<any>();
 
-  form: IForm;
+  @Output() send: EventEmitter<any> = new EventEmitter<any>();
+  @Output() afterInit: EventEmitter<any> = new EventEmitter<any>();
+
+  public form: IForm;
 
   constructor(private formBuilder: FormBuilder, private formTools: FormToolsService) { }
 
@@ -23,10 +25,11 @@ export class FormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.formSchema) {
-      const formSchema = changes.formSchema.currentValue;
+      let formSchema = changes.formSchema.currentValue;
       if (!formSchema || !formSchema.controls) {
         return;
       }
+      formSchema = this.checkDates(formSchema);
       const controlsGroup = {};
       formSchema.controls.forEach(c => {
         controlsGroup[c.key] = [
@@ -40,7 +43,22 @@ export class FormComponent implements OnInit, OnChanges {
         group: formGroup
       };
       this.formSchema = formSchema;
+      this.afterInit.emit(this.form.group.value);
     }
+  }
+
+  checkDates(formSchema) {
+    formSchema.controls.forEach(control => {
+      if (control.type === 'date' && control.today) {
+        const currDate = new Date();
+        if ((currDate.getMonth() + 1).toString().length === 1) {
+          control.defaultValue = `${currDate.getFullYear()}-0${currDate.getMonth() + 1}-${currDate.getDate()}`;
+        } else {
+          control.defaultValue = `${currDate.getFullYear()}-0${currDate.getMonth() + 1}-${currDate.getDate()}`;
+        }
+      }
+    });
+    return formSchema;
   }
 
   onClick() {

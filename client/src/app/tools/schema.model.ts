@@ -11,11 +11,12 @@ export interface IFormSchema {
 
 export interface IFormControl extends IField {
   key: string;
-  type: 'email' | 'password' | 'radio' | 'select' | 'switch' | 'text' | 'textarea';
+  type: 'email' | 'password' | 'radio' | 'select' | 'switch' | 'text' | 'textarea' |  'date';
   label: string;
   actions?: IAction[];
   placeholder?: string;
   defaultValue?: any;
+  today?: any;
   validators?: IValidator[];
   isDisabled?: boolean;
 }

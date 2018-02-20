@@ -32,6 +32,11 @@
         "type": "string"
       },
       {
+        "label": "Teléfono",
+        "key": "owner.phone",
+        "type": "string"
+      },
+      {
         "label": "Prazas",
         "key": "seats",
         "type": "string"
