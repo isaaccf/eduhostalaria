@@ -1,0 +1,19 @@
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+ab-action {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.delete-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.delete-button {
+  margin-left: 0.5rem;
+}

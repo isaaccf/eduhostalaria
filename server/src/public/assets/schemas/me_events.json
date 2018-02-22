@@ -76,28 +76,34 @@
       },
       {
         "label": "",
-        "key": "activate",
-        "icon": "icon-check",
-        "title": "Act."
-      },
-      {
-        "label": "",
-        "key": "deactivate",
-        "icon": "icon-stop",
-        "title": "Bloq."
-      },
-      {
-        "label": "",
         "key": "edit",
         "icon": "icon-edit",
         "title": "Edit."
-      },
-      {
-        "label": "",
-        "key": "delete",
-        "icon": "icon-delete",
-        "title": "Cancel."
       }
     ]
-  }
+  },
+  "editActions": [
+    {
+      "label": "Editar evento",
+      "key": "edit",
+      "icon": "icon-edit"
+    },
+    {
+      "label": "Activar evento",
+      "key": "activate",
+      "disabledStatus": "ACTIVE",
+      "icon": "icon-check"
+    },
+    {
+      "label": "Deshabilitar evento",
+      "key": "deactivate",
+      "disabledStatus": "DISABLED",
+      "icon": "icon-stop"
+    },
+    {
+      "label": "Eliminar evento",
+      "key": "delete",
+      "icon": "icon-delete"
+    }
+  ]
 }

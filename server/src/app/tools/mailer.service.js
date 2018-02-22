@@ -45,7 +45,7 @@ module.exports.sendBooking = (user, event, booking, templateName) => {
   this.getTransporter().sendMail(message);
 };
 
-module.exports.sendCanceled = (user, event, templateName) => {
+module.exports.sendCanceledDefault = (user, event, templateName) => {
   const url = config.URLBASE;
   const template = bookings[templateName];
   const bookingtext = event.name;
@@ -55,6 +55,19 @@ module.exports.sendCanceled = (user, event, templateName) => {
     subject: template.subject,
     text: parseTemplate(template.text, { user, bookingtext, url }),
     html: parseTemplate(template.html, { user, bookingtext, url }),
+  };
+  this.getTransporter().sendMail(message);
+};
+
+module.exports.sendCanceledCustom = (user, event, customMessage) => {
+  const url = config.URLBASE;
+  const bookingtext = event.name;
+  const message = {
+    from: config.mailer.auth.user,
+    to: user.email,
+    subject: 'Cancelación de evento - reservas.eduhostalaria.com',
+    text: parseTemplate(customMessage, { user, bookingtext, url }),
+    html: parseTemplate(customMessage, { user, bookingtext, url }),
   };
   this.getTransporter().sendMail(message);
 };

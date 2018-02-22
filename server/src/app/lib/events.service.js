@@ -64,7 +64,7 @@ module.exports.getByStatus = async (organizationId, status) => {
 module.exports.getBySlug = async slug => mongo.find(col, { slug });
 
 exports.insertEvent = async event => mongo.insertOne(col, event);
-exports.updateEvent = async (eventId, event) => {
+exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
   const oldEvent = await this.getById(eventId);
 
   if (event.capacity < (oldEvent.capacity - oldEvent.freeSeats)) {
@@ -82,15 +82,12 @@ exports.updateEvent = async (eventId, event) => {
   /* Si pasamos el evento a cancelado, cancelamos todas las reservas y aumentamos freeSeats */
   if (event.status === 'CANCELED' && oldEvent.status !== event.status) {
     const bookings = await bookingsSrv.getAll(eventId, undefined);
+
     await Promise.all(bookings.map(async (booking) => {
       booking.status = 'CANCELED';
-      await bookingsSrv.updateBooking(booking._id, booking);
+      await bookingsSrv.updateBooking(booking._id, booking, sendMessage, customMessage);
     }));
   }
-  // /* Si pasamos el evento a activo, reseteamos los freeSeats */
-  // if (event.status === 'ACTIVE' && oldEvent.status !== event.status) {
-  //   event.freeSeats = event.capacity;
-  // }
 
   return mongo.updateOne(col, eventId, event);
 };

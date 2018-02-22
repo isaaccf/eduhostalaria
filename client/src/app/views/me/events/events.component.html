@@ -7,8 +7,58 @@
                [createFormSchema]=""
                [cardSchema]="cardSchema"
                [filterSchema]="'events_filter'"
-               (delete)="onDelete($event)"
                (filter)="onFilter($event)">
     </ab-editor>
   </panel-body>
 </ab-panel>
+<ab-modal [title]="'Modificar evento'"
+          [active]="isEditModalActive"
+          (close)="onCloseEditModal()">
+  <modal-content>
+    <div class="buttons-container"
+         *ngIf="!isDeletingMode">
+      <ng-container *ngFor="let action of editActionsSchema">
+        <ab-action class="centered"
+                   [schema]="action"
+                   (action)="onEditAction(action.key)"></ab-action>
+      </ng-container>
+    </div>
+    <div class="form-container"
+         *ngIf="isDeletingMode"
+         (submit)="onSubmitDeleteForm()">
+      <form [formGroup]="deleteForm">
+        <div class="form-group">
+          <label class="form-switch">
+            <input type="checkbox"
+                   formControlName="sendMessage">
+            <i class="form-icon"></i> Enviar mensaxe de cancelación aos asistentes
+          </label>
+        </div>
+        <div class="form-group"
+             *ngIf="deleteForm.get('sendMessage').value">
+          <label class="form-switch">
+            <input type="checkbox"
+                   formControlName="sendCustomMessage">
+            <i class="form-icon"></i> Personalizar a mensaxe de cancelación
+          </label>
+        </div>
+        <div class="form-group"
+             *ngIf="deleteForm.get('sendMessage').value && deleteForm.get('sendCustomMessage').value">
+          <label class="form-label"
+                 for="input-example-3">Mensaxe</label>
+          <textarea class="form-input"
+                    formControlName="customMessage"
+                    placeholder="Mensaxe personalizada"
+                    rows="3"></textarea>
+        </div>
+        <div class="form-group delete-buttons-container">
+          <button class="btn"
+                  (click)="onReturnFromDeletingMode()">Volver atrás</button>
+          <button class="btn btn-primary delete-button"
+                  type="submit"
+                  [disabled]="!deleteForm.valid">Eliminar evento</button>
+        </div>
+      </form>
+    </div>
+  </modal-content>
+</ab-modal>

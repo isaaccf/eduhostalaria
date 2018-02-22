@@ -132,7 +132,7 @@ export class MeService {
   editEvent(event) {
     delete event.pax;
     delete event.bookingsNumber;
-    return this.http.patch(`${this.eventsUrl}/${event._id}`, event);
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, { event });
   }
 
   postEventFiles(eventId, files: FormData) {
@@ -160,13 +160,32 @@ export class MeService {
   }
 
   changeEventStatus(event, status) {
-    const payload = Object.assign({}, event);
+    const payload = {
+      event
+    };
+
+    delete payload.event.pax;
+    delete payload.event.bookingsNumber;
+
+    payload.event.ownerId = event.owner._id;
+    delete payload.event.owner;
+
+    payload.event.status = status;
+
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, payload);
+  }
+
+  deleteEvent(event, sendMessage, customMessage) {
+
+    event.status = 'CANCELED';
+
     delete event.pax;
     delete event.bookingsNumber;
-    payload.ownerId = event.owner._id;
-    delete payload.owner;
-    payload.status = status;
-    return this.http.patch(`${this.eventsUrl}/${event._id}`, payload);
+
+    event.ownerId = event.owner._id;
+    delete event.owner;
+
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, { event, sendMessage, customMessage });
   }
 
   bookEvent(payload) {

@@ -50,7 +50,7 @@ exports.insertBooking = async (user, booking, userType) => {
 
 /* Solo se podrán cancelar y activar las reservas cuyo estado
  * no contenga los estados 'ATTENDED' O 'PAID' */
-exports.updateBooking = async (bookingId, booking) => {
+exports.updateBooking = async (bookingId, booking, sendMessage, customMessage) => {
   const oldBooking = await this.getById(bookingId);
   const tempEvent = await eventService.getById(booking.eventId);
   let undo = false;
@@ -93,10 +93,17 @@ exports.updateBooking = async (bookingId, booking) => {
     event.freeSeats += (Number(oldBooking.seats) - Number(booking.seats));
   }
 
-  /* Si pasamos la reserva a cancelada, se restan los sitios */
+  /* Si pasamos la reserva a cancelada, se aumentan los sitios del evento */
   if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
     event.freeSeats += Number(booking.seats);
-    mailer.sendCanceled(user, event, 'canceled');
+
+    if (sendMessage && !customMessage) {
+      mailer.sendCanceledDefault(user, event, 'canceled');
+    }
+
+    if (sendMessage && customMessage) {
+      mailer.sendCanceledCustom(user, event, customMessage);
+    }
   }
 
   /* Si pasamos la reserva a ACTIVE, se vuelven a reservar los sitios */

@@ -70,10 +70,10 @@ module.exports = (app, url) => {
         res.end();
         throw err;
       } else {
-        const event = req.body;
+        const event = req.body.event;
         checkEventNameAndSlug(event);
         const eventId = req.params.id;
-        const data = await srv.updateEvent(eventId, event);
+        const data = await srv.updateEvent(eventId, event, req.body.sendMessage, req.body.customMessage);
         return rest.returnInserted(data, res);
       }
     })

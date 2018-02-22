@@ -11,7 +11,7 @@ export interface IFormSchema {
 
 export interface IFormControl extends IField {
   key: string;
-  type: 'email' | 'password' | 'radio' | 'select' | 'switch' | 'text' | 'textarea' |  'date';
+  type: 'email' | 'password' | 'radio' | 'select' | 'switch' | 'text' | 'textarea' | 'date';
   label: string;
   actions?: IAction[];
   placeholder?: string;
@@ -34,6 +34,7 @@ export interface IAction extends IKeyValue {
   staticLink?: string;
   showKey?: string;
   showValue?: string;
+  disabledStatus?: string;
 }
 
 export interface IKeyValue {
