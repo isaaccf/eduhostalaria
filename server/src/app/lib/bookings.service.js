@@ -93,10 +93,8 @@ exports.updateBooking = async (bookingId, booking, sendMessage, customMessage) =
     event.freeSeats += (Number(oldBooking.seats) - Number(booking.seats));
   }
 
-  /* Si pasamos la reserva a cancelada, se aumentan los sitios del evento */
+  /* Si pasamos la reserva a cancelada, se envían los correos necesarios */
   if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
-    event.freeSeats += Number(booking.seats);
-
     if (sendMessage && !customMessage) {
       mailer.sendCanceledDefault(user, event, 'canceled');
     }

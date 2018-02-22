@@ -84,9 +84,13 @@ exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
     const bookings = await bookingsSrv.getAll(eventId, undefined);
 
     await Promise.all(bookings.map(async (booking) => {
-      booking.status = 'CANCELED';
-      await bookingsSrv.updateBooking(booking._id, booking, sendMessage, customMessage);
+      if (booking.status !== 'CANCELED') {
+        booking.status = 'CANCELED';
+        await bookingsSrv.updateBooking(booking._id, booking, sendMessage, customMessage);
+      }
     }));
+
+    event.freeSeats = Number(event.capacity);
   }
 
   return mongo.updateOne(col, eventId, event);
