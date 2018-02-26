@@ -1,6 +1,7 @@
 const mongo = require('../tools/mongo.service');
 const userService = require('./users.service');
 const bookingsSrv = require('./bookings.service');
+const uploadService = require('../tools/upload.service');
 
 const col = 'events';
 
@@ -80,6 +81,7 @@ exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
   }
 
   /* Si pasamos el evento a cancelado, cancelamos todas las reservas y aumentamos freeSeats */
+  /* También eliminamos sus fotos asociadas */
   if (event.status === 'CANCELED' && oldEvent.status !== event.status) {
     const bookings = await bookingsSrv.getAll(eventId, undefined);
 
@@ -91,6 +93,10 @@ exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
     }));
 
     event.freeSeats = Number(event.capacity);
+
+    event.files.forEach(async (file) => {
+      await uploadService.removeFile(eventId, file.name, true);
+    });
   }
 
   return mongo.updateOne(col, eventId, event);
