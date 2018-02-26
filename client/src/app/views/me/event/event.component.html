@@ -20,9 +20,24 @@
       </ng-container>
     </panel-body>
   </ab-panel>
+  <ab-modal title="Miniatura do evento"
+            [active]="showThumbnailModal"
+            (close)="this.showThumbnailModal = false;">
+    <modal-content>
+      <input #thumbnailInput
+             type="file"
+             accept=".jpg, .jpeg, .png"
+             multiple="false">
+    </modal-content>
+    <modal-footer>
+      <ab-action [schema]="fileConfirmButton"
+                 (action)="uploadThumbnail(this.event)">
+      </ab-action>
+    </modal-footer>
+  </ab-modal>
   <ab-modal title="Subir arquivos"
-            [active]="showModal"
-            (close)="this.showModal = false;">
+            [active]="showFilesModal"
+            (close)="this.showFilesModal = false;">
     <modal-content>
       <input #filesInput
              type="file"

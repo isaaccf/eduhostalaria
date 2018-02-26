@@ -27,6 +27,7 @@ module.exports = (app, url) => {
       const userRegistration = {
         name: bookingRegistration.name,
         email: bookingRegistration.email,
+        phone: bookingRegistration.phone,
         organizationId: bookingRegistration.organizationId,
         roles: [bookingRegistration.role],
         status: 'PENDING',

@@ -31,18 +31,8 @@
         "tableType": "date"
       },
       {
-        "label": "Turno",
-        "key": "shift",
-        "type": "string"
-      },
-      {
-        "label": "Hora ini",
-        "key": "startTime",
-        "type": "string"
-      },
-      {
-        "label": "Hora fin",
-        "key": "endTime",
+        "label": "Horario",
+        "key": "time",
         "type": "string"
       },
       {
@@ -54,6 +44,12 @@
       {
         "label": "Pax",
         "key": "pax",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Libres",
+        "key": "free",
         "type": "number",
         "tableType": "pill"
       },

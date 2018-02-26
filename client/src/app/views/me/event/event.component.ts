@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { MeService } from 'app/views/me/me.service';
 import { SecurityService } from 'app/tools/security.service';
@@ -14,13 +14,15 @@ import { Level } from 'app/tools/message.model';
 })
 export class EventComponent implements OnInit {
 
-  @ViewChild('filesInput') filesInput;
+  @ViewChild('thumbnailInput') thumbnailInput: ElementRef;
+  @ViewChild('filesInput') filesInput: ElementRef;
 
   public formKey: 'create' | 'edit' = 'create';
   public panelSchema: IWidgetSchema;
   public tileSchema: IWidgetSchema;
   public formSchema: IFormSchema;
-  public showModal: false;
+  public showFilesModal = false;
+  public showThumbnailModal = false;
   public fileConfirmButton = {
     label: 'Subir',
     key: 'upload'
@@ -99,13 +101,29 @@ export class EventComponent implements OnInit {
     });
   }
 
+  uploadThumbnail(ev) {
+    const thumbnail: File = this.thumbnailInput.nativeElement.files[0];
+
+    console.log(this.convertFileToBase64(thumbnail));
+  }
+
+  convertFileToBase64(file: File) {
+    const reader: FileReader = new FileReader();
+
+    reader.readAsBinaryString(file);
+
+    reader.onload = (ev: any) => {
+      return btoa(ev.target.result);
+    }
+  }
+
   uploadFiles(ev) {
     const filesData: FormData = this.getFilesToUpload();
     this.me.postEventFiles(ev._id, filesData).subscribe(d => {
       if (this.formKey === 'edit') {
         this.me.getEventById(this.event._id).subscribe(event => {
           this.event = event;
-          this.showModal = false;
+          this.showFilesModal = false;
         });
       }
     });

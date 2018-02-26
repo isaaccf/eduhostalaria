@@ -1,7 +1,7 @@
 {
   "form": {
     "title": "Filtros",
-    "submitLabel": "Resetear filtros",
+    "submitLabel": "Ver historial",
     "submitIcon": "icon-cross",
     "controls": [
       {

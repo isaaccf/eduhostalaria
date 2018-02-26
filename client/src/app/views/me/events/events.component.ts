@@ -71,9 +71,18 @@ export class EventsComponent implements OnInit {
       this.filters = payload;
     }
 
-    this.me.filterEvents(params).subscribe((events: any[]) => {
-      this.events = events;
-    });
+    this.me.filterEvents(params)
+      .map((events: any) => {
+        events.map(event => {
+          event.free = event.capacity - event.pax;
+          event.time = `De ${event.startTime} a ${event.endTime}`;
+          return event;
+        })
+        return events
+      })
+      .subscribe((events: any[]) => {
+        this.events = events;
+      });
   }
 
   onRowAction(action) {
