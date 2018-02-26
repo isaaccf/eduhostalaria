@@ -1,0 +1,36 @@
+{
+  "form": {
+    "title": "Filtros",
+    "submitLabel": "Resetear filtros",
+    "submitIcon": "icon-cross",
+    "controls": [
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Que o nome conteña",
+        "defaultValue": "",
+        "validators": []
+      },
+      {
+        "key": "status",
+        "type": "select",
+        "label": "Estado",
+        "validators": [],
+        "actions": [
+          {
+            "label": "CONFIRMADO",
+            "key": "active"
+          },
+          {
+            "label": "CANCELADO",
+            "key": "canceled"
+          },
+          {
+            "label": "DESHABILITADO",
+            "key": "disabled"
+          }
+        ]
+      }
+    ]
+  }
+}

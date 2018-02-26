@@ -1,8 +1,8 @@
 {
   "form": {
     "title": "Filtros",
-    "submitLabel": "Filtrar",
-    "submitIcon": "icon-search",
+    "submitLabel": "Resetear filtros",
+    "submitIcon": "icon-cross",
     "controls": [
       {
         "key": "name",

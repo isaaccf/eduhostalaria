@@ -29,32 +29,36 @@ export class UsersComponent implements OnInit {
         this.createFormSchema = schemas.create;
         this.reportSchema = schemas.report;
         this.cardSchema = { header: { title: '' }, fields: this.createFormSchema.controls };
-        this.getUsers();
+        this.filterUsers();
       });
   }
 
-  getUsers() {
+  filterUsers(name?: string, status?: string) {
     this.me
-      .getUsers()
+      .getUsers(name, status)
       .subscribe(users => this.users = users);
   }
 
+  onFilter(payload) {
+    this.filterUsers(payload.name, payload.status);
+  }
+
   onCreate(data) {
-    this.me.inviteUser(data).subscribe(r => this.getUsers());
+    this.me.inviteUser(data).subscribe(r => this.filterUsers());
   }
 
   onDelete(data) {
-    this.me.deleteUser(data).subscribe(r => this.getUsers());
+    this.me.deleteUser(data).subscribe(r => this.filterUsers());
   }
 
   onRowAction(data) {
     switch (data.key) {
       case 'aprobe':
-        this.me.approbeUser(data.value).subscribe(r => this.getUsers());
+        this.me.approbeUser(data.value).subscribe(r => this.filterUsers());
         this.bus.emit({ level: Level.SUCCESS, text: 'Usuario aprobado con éxito', code: '' });
         break;
       case 'disable':
-        this.me.disableUser(data.value).subscribe(r => this.getUsers());
+        this.me.disableUser(data.value).subscribe(r => this.filterUsers());
         this.bus.emit({ level: Level.SUCCESS, text: 'Usuario deshabilitado con éxito', code: '' });
         break;
       case 'resend':

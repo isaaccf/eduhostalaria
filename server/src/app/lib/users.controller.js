@@ -8,7 +8,7 @@ module.exports = (app, url) => {
       if (rest.hasRole(req, 'GOD')) {
         data = await srv.getAll();
       } else if (rest.hasRole(req, 'ADMIN')) {
-        data = await srv.getByOrganizationId(req.user.organizationId.toString());
+        data = await srv.getByOrganizationId(req.user.organizationId.toString(), req.query.name, req.query.status);
       }
       return rest.returnArray(data, res);
     });

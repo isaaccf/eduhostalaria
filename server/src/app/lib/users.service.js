@@ -13,7 +13,19 @@ module.exports.getAll = async () => mongo.find(col, {});
 module.exports.getCount = async query => mongo.count(col, query);
 module.exports.getCountByOrganizationId = async organizationId => this.getCount({ organizationId });
 module.exports.getById = async userId => mongo.findOneById(col, userId);
-module.exports.getByOrganizationId = async organizationId => mongo.find(col, { organizationId });
+module.exports.getByOrganizationId = async (organizationId, name, status) => {
+  const options = { organizationId };
+
+  if (name) {
+    options.name = { $regex: name, $options: 'i' };
+  }
+
+  if (status) {
+    options.status = status.toUpperCase();
+  }
+
+  return mongo.find(col, options);
+};
 module.exports.getByRole = async (role) => {
   const users = await mongo.find(col, { roles: role });
   if (Array.isArray(users) && users.length > 0) {

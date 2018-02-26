@@ -43,8 +43,18 @@ export class MeService {
     return this.http.patch(`${this.usersUrl}/me`, aux);
   }
 
-  getUsers(): Observable<any[]> {
-    return this.http.get<any>(this.usersUrl);
+  getUsers(name: string, status: string): Observable<any[]> {
+    let params = new HttpParams();
+
+    if (name) {
+      params = params.set('name', name);
+    }
+
+    if (status) {
+      params = params.set('status', status);
+    }
+
+    return this.http.get<any>(this.usersUrl, { params });
   }
 
   disableUser(user: any): Observable<any> {

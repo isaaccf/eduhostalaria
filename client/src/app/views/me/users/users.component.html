@@ -6,6 +6,8 @@
                (rowAction)="onRowAction($event)"
                [createFormSchema]="createFormSchema"
                [cardSchema]="cardSchema"
+               [filterSchema]="'users_filter'"
+               (filter)="onFilter($event)"
                (create)="onCreate($event)"
                (delete)="onDelete($event)">
     </ab-editor>
