@@ -12,7 +12,11 @@
       <ab-tile [schema]="thumbnailSchema"
                (send)="this.showThumbnailModal = true;">
       </ab-tile>
-      jeje
+      <ab-tile-compact *ngIf="event && event.thumbnail"
+                       [image]="{url: '#', name: 'thumbnail.' + event.thumbnail.type.split('/')[1], showname: 'thumbnail'}"
+                       [link]="false"
+                       (clicked)="onDeleteThumbnail()">
+      </ab-tile-compact>
     </panel-body>
   </ab-panel>
   <ab-modal title="Miniatura do evento"

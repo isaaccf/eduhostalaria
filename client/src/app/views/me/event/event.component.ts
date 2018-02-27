@@ -113,12 +113,21 @@ export class EventComponent implements OnInit {
 
     reader.onload = (ev: any) => {
       this.me.uploadThumbnail(event._id, btoa(ev.target.result), thumbnail.type)
-        .subscribe(() => {
-          this.ngOnInit();
+        .subscribe((updatedEvent: any) => {
+          this.showThumbnailModal = false;
+          this.event = updatedEvent;
         });
     }
 
     reader.readAsBinaryString(thumbnail);
+  }
+
+  onDeleteThumbnail(file) {
+    this.me.deleteThumbnail(this.event._id).subscribe(
+      (event: any) => {
+        this.event = event;
+      }
+    )
   }
 
   uploadFiles(ev) {

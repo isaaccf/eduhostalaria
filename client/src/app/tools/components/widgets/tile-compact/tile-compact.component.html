@@ -1,9 +1,11 @@
 <div class="column col-12">
   <div class="tile tile-centered">
     <div class="tile-content">
-      <a [href]="image?.url"
+      <a *ngIf="link"
+         [href]="image?.url"
          target="_blank"
          class="tile-title">{{ image?.name }}</a>
+      <p *ngIf="!link">{{ image?.name }}</p>
     </div>
     <div class="tile-action">
       <button class="btn btn-link"

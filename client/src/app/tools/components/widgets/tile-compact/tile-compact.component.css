@@ -1,3 +1,7 @@
 .tile .tile-content {
   flex: 0 1 auto;
 }
+
+p {
+  margin-bottom: 0;
+}

@@ -260,4 +260,9 @@ export class MeService {
   uploadThumbnail(eventId, base64Thumbnail, type) {
     return this.http.post(`${this.eventsUrl}/${eventId}/thumbnail`, { thumbnail: base64Thumbnail, type })
   }
+
+  deleteThumbnail(eventId) {
+    return this.http.delete(`${this.eventsUrl}/${eventId}/thumbnail`);
+  }
+
 }
