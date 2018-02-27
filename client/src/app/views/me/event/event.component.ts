@@ -6,6 +6,7 @@ import { BusService } from 'app/tools/bus.service';
 import { IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Level } from 'app/tools/message.model';
+import ImageCompressor from 'image-compressor.js';
 
 @Component({
   selector: 'ab-event',
@@ -111,15 +112,23 @@ export class EventComponent implements OnInit {
       return this.showThumbnailModal = false;
     }
 
-    reader.onload = (ev: any) => {
-      this.me.uploadThumbnail(event._id, btoa(ev.target.result), thumbnail.type)
-        .subscribe((updatedEvent: any) => {
-          this.showThumbnailModal = false;
-          this.event = updatedEvent;
-        });
-    }
+    // tslint:disable-next-line:no-unused-expression
+    new ImageCompressor(thumbnail,
+      {
+        quality: 0.6,
+        success: (compressedFile: File) => {
+          reader.onload = (ev: any) => {
+            this.me.uploadThumbnail(event._id, btoa(ev.target.result), compressedFile.type)
+              .subscribe((updatedEvent: any) => {
+                this.thumbnailInput.nativeElement.value = '';
+                this.showThumbnailModal = false;
+                this.event = updatedEvent;
+              });
+          }
+          reader.readAsBinaryString(compressedFile);
+        }
+      });
 
-    reader.readAsBinaryString(thumbnail);
   }
 
   onDeleteThumbnail(file) {
@@ -134,6 +143,7 @@ export class EventComponent implements OnInit {
     const filesData: FormData = this.getFilesToUpload();
 
     this.me.postEventFiles(ev._id, filesData).subscribe(d => {
+      this.filesInput.nativeElement.value = '';
       if (this.formKey === 'edit') {
         this.me.getEventById(this.event._id).subscribe(event => {
           this.event = event;
