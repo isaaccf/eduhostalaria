@@ -4,7 +4,7 @@
     "subtitle": "",
     "icon": "icon-time"
   },
-  "tile": {
+  "tile-files": {
     "header": {
       "title": "Arquivos",
       "subtitle": "Lista de arquivos adxuntos ao evento",
@@ -13,6 +13,19 @@
     "actions": [
       {
         "label": "Subir arquivos",
+        "key": "upload"
+      }
+    ]
+  },
+  "tile-thumbnail": {
+    "header": {
+      "title": "Miniatura",
+      "subtitle": "Miniatura que se amosará na lista pública de eventos do centro",
+      "icon": "icon-link"
+    },
+    "actions": [
+      {
+        "label": "Subir miniatura",
         "key": "upload"
       }
     ]

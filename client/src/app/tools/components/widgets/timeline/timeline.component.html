@@ -19,7 +19,26 @@
               <span class="label label-default">{{ event.date.toUpperCase() | date:'EEEE dd' }}</span>
               <p class="text-bold">{{event.name}}</p>
             </div>
-            <div class="columns">
+            <div class="columns"
+                 *ngIf="event.thumbnail">
+              <div class="column col-2 col-sm-12">
+                <img [src]="event.thumbnail"
+                     alt="Miniatura del evento"
+                     class="img-responsive">
+              </div>
+              <div class="column col-10 col-sm-12">
+                <div class="column col-12">
+                  <i class="icon icon-people"></i> Prazas disponibles:
+                  <b>{{event?.freeSeats}}</b>.
+                </div>
+                <div class="column col-12">
+                  <i class="icon icon-time"></i> Horario de recepción:
+                  <b> De {{ event?.startTime }} a {{ event?.endTime }}.</b>
+                </div>
+              </div>
+            </div>
+            <div class="columns"
+                 *ngIf="!event.thumbnail">
               <div class="column col-12">
                 <i class="icon icon-people"></i> Prazas disponibles:
                 <b>{{event?.freeSeats}}</b>.

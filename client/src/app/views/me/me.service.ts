@@ -256,4 +256,8 @@ export class MeService {
   rateBooking(bookingId, payload) {
     return this.http.post(`${this.bookingsUrl}/${bookingId}/rating`, payload);
   }
+
+  uploadThumbnail(eventId, base64Thumbnail, type) {
+    return this.http.post(`${this.eventsUrl}/${eventId}/thumbnail`, { thumbnail: base64Thumbnail, type })
+  }
 }

@@ -9,15 +9,10 @@
      *ngIf="formKey === 'edit'">
   <ab-panel [schema]="{}">
     <panel-body>
-      <ab-tile [schema]="tileSchema"
-               (send)="this.showModal = true;">
+      <ab-tile [schema]="thumbnailSchema"
+               (send)="this.showThumbnailModal = true;">
       </ab-tile>
-      <ng-container *ngIf="formKey === 'edit' && event?.files">
-        <ab-tile-compact *ngFor="let file of event.files"
-                         [image]="file"
-                         (clicked)="onDeleteFile(file)">
-        </ab-tile-compact>
-      </ng-container>
+      jeje
     </panel-body>
   </ab-panel>
   <ab-modal title="Miniatura do evento"
@@ -35,6 +30,22 @@
       </ab-action>
     </modal-footer>
   </ab-modal>
+</div>
+<div class="second"
+     *ngIf="formKey === 'edit'">
+  <ab-panel [schema]="{}">
+    <panel-body>
+      <ab-tile [schema]="filesSchema"
+               (send)="this.showFilesModal = true;">
+      </ab-tile>
+      <ng-container *ngIf="formKey === 'edit' && event?.files">
+        <ab-tile-compact *ngFor="let file of event.files"
+                         [image]="file"
+                         (clicked)="onDeleteFile(file)">
+        </ab-tile-compact>
+      </ng-container>
+    </panel-body>
+  </ab-panel>
   <ab-modal title="Subir arquivos"
             [active]="showFilesModal"
             (close)="this.showFilesModal = false;">

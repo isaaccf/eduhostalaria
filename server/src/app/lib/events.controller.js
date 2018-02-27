@@ -91,6 +91,20 @@ module.exports = (app, url) => {
       await uploadService.uploadFiles(eventId, req.files, serverName, true);
       return rest.returnArray([], res);
     });
+
+  app.route(`${url}/:id/thumbnail`)
+    .post(async (req, res) => {
+      const eventId = req.params.id;
+      const thumbnail = req.body.thumbnail;
+      const type = req.body.type;
+      const data = await srv.saveThumbnail(eventId, thumbnail, type);
+      return rest.returnInserted(data, res);
+    })
+    .delete(async (req, res) => {
+      const eventId = req.params.id;
+      const data = await srv.deleteThumbnail(eventId);
+      return rest.returnInserted(data, res);
+    });
   app.route(`${url}/:id/files/:name`)
     .get(async (req, res) => {
       const eventId = req.params.id;

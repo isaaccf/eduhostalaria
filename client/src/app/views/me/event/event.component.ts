@@ -19,7 +19,8 @@ export class EventComponent implements OnInit {
 
   public formKey: 'create' | 'edit' = 'create';
   public panelSchema: IWidgetSchema;
-  public tileSchema: IWidgetSchema;
+  public filesSchema: IWidgetSchema;
+  public thumbnailSchema: IWidgetSchema;
   public formSchema: IFormSchema;
   public showFilesModal = false;
   public showThumbnailModal = false;
@@ -57,7 +58,8 @@ export class EventComponent implements OnInit {
       .getSchema$('me_event')
       .subscribe(schemas => {
         this.panelSchema = schemas;
-        this.tileSchema = schemas['tile'];
+        this.filesSchema = schemas['tile-files'];
+        this.thumbnailSchema = schemas['tile-thumbnail'];
         this.formSchema = schemas[this.formKey];
         if (this.event) {
           this.panelSchema.header.title = `Editar evento - ${this.event.name}`;
@@ -101,24 +103,27 @@ export class EventComponent implements OnInit {
     });
   }
 
-  uploadThumbnail(ev) {
+  uploadThumbnail(event) {
     const thumbnail: File = this.thumbnailInput.nativeElement.files[0];
-
-    console.log(this.convertFileToBase64(thumbnail));
-  }
-
-  convertFileToBase64(file: File) {
     const reader: FileReader = new FileReader();
 
-    reader.readAsBinaryString(file);
+    if (!thumbnail) {
+      return this.showThumbnailModal = false;
+    }
 
     reader.onload = (ev: any) => {
-      return btoa(ev.target.result);
+      this.me.uploadThumbnail(event._id, btoa(ev.target.result), thumbnail.type)
+        .subscribe(() => {
+          this.ngOnInit();
+        });
     }
+
+    reader.readAsBinaryString(thumbnail);
   }
 
   uploadFiles(ev) {
     const filesData: FormData = this.getFilesToUpload();
+
     this.me.postEventFiles(ev._id, filesData).subscribe(d => {
       if (this.formKey === 'edit') {
         this.me.getEventById(this.event._id).subscribe(event => {

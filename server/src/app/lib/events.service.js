@@ -94,9 +94,11 @@ exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
 
     event.freeSeats = Number(event.capacity);
 
-    event.files.forEach(async (file) => {
-      await uploadService.removeFile(eventId, file.name, true);
-    });
+    if (event.files) {
+      event.files.forEach(async (file) => {
+        await uploadService.removeFile(eventId, file.name, true);
+      });
+    }
   }
 
   return mongo.updateOne(col, eventId, event);
@@ -107,4 +109,23 @@ exports.addFiles = async (eventId, fileUrl) => {
   const updateCommand = { $push: { files: fileUrl } };
   const result = await mongo.updateQuery(col, eventId, updateCommand);
   return result;
+};
+
+exports.saveThumbnail = async (eventId, thumbnail, type) => {
+  const event = await this.getById(eventId);
+
+  event.thumbnail = {
+    content: thumbnail,
+    type,
+  };
+
+  return mongo.updateOne(col, eventId, event);
+};
+
+exports.deleteThumbnail = async (eventId) => {
+  const event = await this.getById(eventId);
+
+  delete event.thumbnail;
+
+  return mongo.updateOne(col, eventId, event);
 };

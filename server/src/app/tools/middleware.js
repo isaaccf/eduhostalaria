@@ -35,7 +35,9 @@ module.exports.useMiddleware = (app) => {
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({
+    limit: '50mb',
+  }));
 
   app.all('*', (req, res, next) => {
     if (!req.originalUrl.includes('/_/')) {
