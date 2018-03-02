@@ -20,7 +20,7 @@
   "tile-thumbnail": {
     "header": {
       "title": "Miniatura",
-      "subtitle": "Miniatura que se amosará na lista pública de eventos do centro",
+      "subtitle": "Miniatura que se amosará na lista pública de ofertas do centro",
       "icon": "icon-link"
     },
     "actions": [

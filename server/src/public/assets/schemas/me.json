@@ -191,7 +191,7 @@
     {
       "header": {
         "title": "Ofertas",
-        "subtitle": "Eventos e Comidas",
+        "subtitle": "Ofertas e Comidas",
         "icon": "icon-bookmark"
       },
       "actions": [
@@ -205,7 +205,7 @@
   "conserje": [
     {
       "header": {
-        "title": "Eventos",
+        "title": "Ofertas",
         "subtitle": "Menús e comidas",
         "icon": "icon-bookmark"
       },
