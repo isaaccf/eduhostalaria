@@ -2,7 +2,7 @@
   "actions": {
     "header": {
       "title": "Reservas",
-      "subtitle": "Lista de eventos con reserva feita",
+      "subtitle": "Lista de ofertas con reserva feita",
       "icon": "icon-bookmark"
     },
     "actions": [
@@ -15,7 +15,7 @@
   "report": {
     "header": {
       "title": "Lista de reservas",
-      "subtitle": "Lista de eventos con reserva feita",
+      "subtitle": "Lista de ofertas con reserva feita",
       "icon": "icon-bookmark"
     },
     "deleteMessage": "Cancelar reserva",

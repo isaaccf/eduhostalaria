@@ -26,7 +26,7 @@ const routes: Routes = [
   {
     path: 'events',
     component: EventsComponent,
-    data: { name: 'me_events', title: 'Eventos' }
+    data: { name: 'me_events', title: 'Ofertas' }
   },
   {
     path: 'bookings',

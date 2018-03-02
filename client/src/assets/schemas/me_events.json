@@ -2,7 +2,7 @@
   "actions": {
     "header": {
       "title": "Ofertas",
-      "subtitle": "Lista de eventos e comidas do centro",
+      "subtitle": "Lista de ofertas e comidas do centro",
       "icon": "icon-time"
     },
     "actions": [
@@ -17,7 +17,7 @@
       "title": "Lista de ofertas"
     },
     "deleteMessage": "Cancelar oferta",
-    "emptyMessage": "Non temos eventos para mostrar :(",
+    "emptyMessage": "Non temos ofertas para mostrar :(",
     "fields": [
       {
         "label": "Nome",
