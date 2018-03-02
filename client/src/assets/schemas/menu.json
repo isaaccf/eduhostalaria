@@ -38,7 +38,7 @@
   "mestre": [
     {
       "icon": "icon-time",
-      "label": "Ofertas",
+      "label": "Reservas",
       "link": "/me/events/"
     },
     {

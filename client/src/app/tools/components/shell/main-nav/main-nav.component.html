@@ -24,5 +24,10 @@
         </a>
       </li>
     </ng-container>
+    <a *ngIf="user && user.roles.includes('MESTRE')"
+       class="btn btn-primary btn-center"
+       routerLink="/me/events/new">
+      <span>Crear oferta</span>
+    </a>
   </main>
 </ul>

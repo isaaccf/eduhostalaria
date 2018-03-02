@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IUser } from 'app/tools/user.model';
 import { IAction } from 'app/tools/schema.model';
+import { SecurityService } from '../../../security.service';
 
 @Component({
   selector: 'ab-main-nav',
@@ -11,11 +12,12 @@ export class MainNavComponent implements OnInit {
 
   @Input() public user: IUser = null;
   @Input() public numMessages: number;
-  @Input() menuLinks: IAction[];
+  @Input() public menuLinks: IAction[];
 
-  title = 'Menú';
+  public title = 'Menú';
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
   }

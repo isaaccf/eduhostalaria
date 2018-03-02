@@ -145,13 +145,13 @@
       {
         "key": "reducedPrice",
         "type": "number",
-        "label": "Comunidad educativa",
+        "label": "Comunidade educativa",
         "defaultValue": "this.organization.defaultPrice",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "O Comunidad educativa é requerido"
+            "errorMessage": "A comunidade educativa é requerida"
           }
         ]
       },
@@ -282,13 +282,13 @@
       {
         "key": "reducedPrice",
         "type": "number",
-        "label": "Comunidad educativa",
+        "label": "Comunidade educativa",
         "defaultValue": "this.organization.reducedPrice",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "O Comunidad educativa é requerido"
+            "errorMessage": "A comunidade educativa é requerida"
           }
         ]
       },

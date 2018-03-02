@@ -1,5 +1,5 @@
 .sidebar-responsive {
-  left: 0;
+  left: 10px;
   height: 100%;
   width: 280px;
   background-color: #fff;
@@ -34,4 +34,11 @@ a:hover {
 
 .icon {
   margin-right: 8px;
+}
+
+.btn-center {
+  display: flex;
+  justify-content: center;
+  padding: 0.35rem 0.4rem !important;
+  margin-top: 0.4rem;
 }

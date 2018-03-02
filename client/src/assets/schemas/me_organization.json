@@ -137,7 +137,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Comunidad educativa é requerido"
+            "errorMessage": "A comunidade educativa é requerida"
           }
         ]
       },

@@ -21,12 +21,10 @@
     </ng-container>
     <li class="divider"></li>
     <li>
-      <a routerLink="messages">
-        <span class="badge"
-              [attr.data-badge]="numMessages">
-          <i class="icon icon-mail mr-5"></i>
-          Messages
-        </span>
+      <a *ngIf="user && user.roles.includes('MESTRE')"
+         class="btn btn-primary btn-center"
+         routerLink="/me/events/new">
+        <span>Crear oferta</span>
       </a>
     </li>
   </ul>

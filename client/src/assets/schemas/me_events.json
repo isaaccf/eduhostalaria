@@ -4,13 +4,7 @@
       "title": "Ofertas",
       "subtitle": "Lista de ofertas e comidas do centro",
       "icon": "icon-time"
-    },
-    "actions": [
-      {
-        "label": "Crear oferta",
-        "link": "new"
-      }
-    ]
+    }
   },
   "report": {
     "header": {
@@ -79,6 +73,11 @@
     ]
   },
   "editActions": [
+    {
+      "label": "Ver evento",
+      "key": "edit",
+      "icon": "icon-edit"
+    },
     {
       "label": "Editar evento",
       "key": "edit",

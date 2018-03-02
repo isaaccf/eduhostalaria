@@ -54,14 +54,25 @@ export class FormComponent implements OnInit, OnChanges {
     formSchema.controls.forEach(control => {
       if (control.type === 'date' && control.today) {
         const currDate = new Date();
+
         if ((currDate.getMonth() + 1).toString().length === 1) {
-          control.defaultValue = `${currDate.getFullYear()}-0${currDate.getMonth() + 1}-${currDate.getDate()}`;
+          control.defaultValue = `${currDate.getFullYear()}-0${currDate.getMonth() + 1}-${this.addZeroIfNot(currDate.getDate())}`;
         } else {
-          control.defaultValue = `${currDate.getFullYear()}-0${currDate.getMonth() + 1}-${currDate.getDate()}`;
+          control.defaultValue = `${currDate.getFullYear()}-0${currDate.getMonth() + 1}-${this.addZeroIfNot(currDate.getDate())}`;
         }
       }
     });
     return formSchema;
+  }
+
+  addZeroIfNot(day: number) {
+    const str = day.toString();
+
+    if (str.length === 1) {
+      return `0${str}`;
+    }
+
+    return str;
   }
 
   watchFilterChanges() {
