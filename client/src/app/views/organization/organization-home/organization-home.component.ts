@@ -48,7 +48,7 @@ export class OrganizationHomeComponent implements OnInit {
     this.me.filterEvents(payload).subscribe((events: any) => {
       if (events) {
         events.forEach((event: any) => {
-          if (event.freeSeats === 0 || new Date(event.date) < new Date()) {
+          if (event.freeSeats === 0 || new Date(`${event.date.split('T')[0]}T${event.startTime}`) < new Date()) {
             event.status = 'DISABLED';
           }
         });

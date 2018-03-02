@@ -61,7 +61,7 @@ export class OrganizationEventComponent implements OnInit {
   }
 
   checkButtonStatus() {
-    if (this.event.freeSeats === 0 || new Date(this.event.date) < new Date()) {
+    if (this.event.freeSeats === 0 || new Date(`${this.event.date.split('T')[0]}T${this.event.startTime}`) < new Date()) {
       this.event.status = 'DISABLED';
       this.panelSchema.actions[0].disabled = true;
     }

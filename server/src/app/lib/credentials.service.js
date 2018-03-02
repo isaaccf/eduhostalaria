@@ -5,6 +5,8 @@ const jwt = require('../tools/jwt.service');
 const mailer = require('../tools/mailer.service');
 const users = require('./users.service');
 const config = require('../tools/config');
+const bookingService = require('./bookings.service');
+const eventService = require('./events.service');
 
 const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';
@@ -65,23 +67,35 @@ module.exports.createUser = async (claim, mailTemplate) => {
 
 module.exports.activateUser = async (activation, currentStatus, mailTemplate) => {
   const user = await users.getById(activation._id);
+
   if (!user || user instanceof Error) {
     logger.warn(`not found user for: ${JSON.stringify(activation)}`);
     return invalidCredentials(activation);
   }
   user.status = 'ACTIVE';
+
   const result = await users.updateUser(user);
+
   if (result instanceof Error || result.n === 0) {
     return new Error(`Not activated: ${JSON.stringify(activation)}`);
   }
   if (activation.password) {
     const newCredential = await insertCredential(activation._id, activation.password);
+
     if (!newCredential._id) {
       user.status = currentStatus;
       await users.updateUser(user);
       return new Error(`Not activated: ${JSON.stringify(activation)}`);
     }
   }
+
+  let booking = await bookingService.getByUserId(user._id);
+  booking = booking[0];
+  if (booking) {
+    booking.status = 'ACTIVE';
+    await bookingService.updateBooking(booking._id, booking);
+  }
+
   mailer.sendWellcome(user, mailTemplate);
   const token = jwt.createToken(user);
   const userToken = {
@@ -101,6 +115,12 @@ module.exports.disableUser = async (disabilitation) => {
   const result = await users.updateUser(user);
   if (result instanceof Error || result.n === 0) {
     return new Error(`Not disabled: ${JSON.stringify(disabilitation)}`);
+  }
+  let booking = await bookingService.getByUserId(user._id);
+  booking = booking[0];
+  if (booking) {
+    booking.status = 'CANCELED';
+    await bookingService.updateBooking(booking._id, booking);
   }
   return user;
 };

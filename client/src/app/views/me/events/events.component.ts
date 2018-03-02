@@ -17,7 +17,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EventsComponent implements OnInit {
 
-  private organizationId;
+  private organization: IOrganization;
   public isEditModalActive = false;
   public isDeletingMode = false;
   public selectedEvent;
@@ -51,6 +51,11 @@ export class EventsComponent implements OnInit {
         this.editActionsSchema = schemas.editActions;
         this.cardSchema = { header: { title: '' }, fields: this.reportSchema.fields };
       });
+    this.getOrganization();
+  }
+
+  getOrganization() {
+    this.organization = this.security.getLocalOrganization();
   }
 
   createDeleteForm() {
@@ -106,8 +111,14 @@ export class EventsComponent implements OnInit {
     }
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   onEditAction(key) {
     switch (key) {
+      case 'view':
+        this.isEditModalActive = false;
+        this.router.navigateByUrl(`/org/${this.organization._id}/events/${this.selectedEvent._id}`);
+        this.isEditModalActive = false;
+        break;
       case 'edit':
         this.router.navigateByUrl(`me/events/${this.selectedEvent._id}`);
         this.isEditModalActive = false;

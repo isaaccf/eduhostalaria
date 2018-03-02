@@ -140,3 +140,4 @@ exports.rateBooking = async (bookingId, score, comments) => {
 };
 
 exports.getByEventId = async eventId => mongo.find(col, { eventId: String(eventId), status: { $ne: 'CANCELED' } });
+exports.getByUserId = async userId => mongo.find(col, { ownerId: String(userId) });

@@ -75,7 +75,7 @@
   "editActions": [
     {
       "label": "Ver evento",
-      "key": "edit",
+      "key": "view",
       "icon": "icon-edit"
     },
     {
