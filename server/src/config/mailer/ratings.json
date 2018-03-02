@@ -1,7 +1,7 @@
 {
   "rated": {
-    "subject": "Valoración recibida para o evento ${event.name}",
-    "text": "Ola ${owner.name}.\rO usuario ${user.email} acaba de valorar o evento ${event.name}.\rEsta é a súa puntuación e a súa opinión:\r- Puntuación: \"${rating.score}\"\r- Puntuación: \"${rating.comments}\"",
-    "html": "<p>Ola ${owner.name}.</p><p>O usuario ${user.name} acaba de valorar o evento ${event.name}.</p><p>Esta é a súa puntuación e a súa opinión:</p><ul><li>Puntuación: \"${rating.score}\"</li><li>Puntuación: \"${rating.comments}\"</li></ul>"
+    "subject": "Valoración recibida para a oferta ${event.name}",
+    "text": "Ola ${owner.name}.\rO usuario ${user.email} acaba de valorar a oferta ${event.name}.\rEsta é a súa puntuación e a súa opinión:\r- Puntuación: \"${rating.score}\"\r- Puntuación: \"${rating.comments}\"",
+    "html": "<p>Ola ${owner.name}.</p><p>O usuario ${user.name} acaba de valorar a oferta ${event.name}.</p><p>Esta é a súa puntuación e a súa opinión:</p><ul><li>Puntuación: \"${rating.score}\"</li><li>Puntuación: \"${rating.comments}\"</li></ul>"
   }
 }

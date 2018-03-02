@@ -1,13 +1,13 @@
 {
   "header": {
-    "title": "Novo evento",
+    "title": "Nova oferta",
     "subtitle": "",
     "icon": "icon-time"
   },
   "tile-files": {
     "header": {
       "title": "Arquivos",
-      "subtitle": "Lista de arquivos adxuntos ao evento",
+      "subtitle": "Lista de arquivos adxuntos á oferta",
       "icon": "icon-link"
     },
     "actions": [
@@ -42,7 +42,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
+            "errorMessage": "A data da oferta é requerida (dd/mm/aaaa)"
           },
           {
             "key": "validDate",
@@ -162,7 +162,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A oferta do evento é requerida"
+            "errorMessage": "A oferta da oferta é requerida"
           }
         ]
       }
@@ -181,7 +181,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A data do evento é requerida (dd/mm/aaaa)"
+            "errorMessage": "A data da oferta é requerida (dd/mm/aaaa)"
           },
           {
             "key": "validDate",
@@ -300,7 +300,7 @@
         "validators": [
           {
             "key": "required",
-            "errorMessage": "A oferta do evento é requerida"
+            "errorMessage": "A descripción da oferta é requerida"
           }
         ]
       }

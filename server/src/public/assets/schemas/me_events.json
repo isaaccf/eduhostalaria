@@ -74,29 +74,29 @@
   },
   "editActions": [
     {
-      "label": "Ver evento",
+      "label": "Ver oferta",
       "key": "view",
       "icon": "icon-edit"
     },
     {
-      "label": "Editar evento",
+      "label": "Editar oferta",
       "key": "edit",
       "icon": "icon-edit"
     },
     {
-      "label": "Activar evento",
+      "label": "Activar oferta",
       "key": "activate",
       "disabledStatus": "ACTIVE",
       "icon": "icon-check"
     },
     {
-      "label": "Deshabilitar evento",
+      "label": "Deshabilitar oferta",
       "key": "deactivate",
       "disabledStatus": "DISABLED",
       "icon": "icon-stop"
     },
     {
-      "label": "Eliminar evento",
+      "label": "Eliminar oferta",
       "key": "delete",
       "icon": "icon-delete"
     }

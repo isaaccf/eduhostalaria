@@ -1,8 +1,8 @@
 {
   "panel": {
     "header": {
-      "title": "Evento",
-      "subtitle": "Información acerca do evento",
+      "title": "Oferta",
+      "subtitle": "Información acerca da oferta",
       "icon": "icon-bookmark"
     },
     "actions": [

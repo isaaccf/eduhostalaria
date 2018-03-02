@@ -11,7 +11,7 @@
     </ab-editor>
   </panel-body>
 </ab-panel>
-<ab-modal [title]="'Modificar evento'"
+<ab-modal [title]="'Modificar oferta'"
           [active]="isEditModalActive"
           (close)="onCloseEditModal()">
   <modal-content>
@@ -56,7 +56,7 @@
                   (click)="onReturnFromDeletingMode()">Volver atrás</button>
           <button class="btn btn-primary delete-button"
                   type="submit"
-                  [disabled]="!deleteForm.valid">Eliminar evento</button>
+                  [disabled]="!deleteForm.valid">Eliminar oferta</button>
         </div>
       </form>
     </div>

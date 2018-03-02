@@ -63,8 +63,8 @@ export class EventComponent implements OnInit {
         this.thumbnailSchema = schemas['tile-thumbnail'];
         this.formSchema = schemas[this.formKey];
         if (this.event) {
-          this.panelSchema.header.title = `Editar evento - ${this.event.name}`;
-          this.panelSchema.header.subtitle = 'Editar a información do evento';
+          this.panelSchema.header.title = `Editar oferta - ${this.event.name}`;
+          this.panelSchema.header.subtitle = 'Editar a información da oferta';
           this.schema.populateDefaultValues(this.formSchema, this.event);
           this.formSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
         } else {

@@ -22,7 +22,7 @@ export class WysiwygComponent implements OnInit {
         [{ 'indent': '-1' }, { 'indent': '+1' }]
       ]
     },
-    placeholder: 'Escriba aquí todo o relativo ao evento'
+    placeholder: 'Escriba aquí todo o relativo á oferta'
   }
 
   constructor(public formTools: FormToolsService) { }

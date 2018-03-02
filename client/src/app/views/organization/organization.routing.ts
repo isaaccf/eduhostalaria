@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'events/:eventId',
     component: OrganizationEventComponent,
-    data: { title: 'Evento' }
+    data: { title: 'Oferta' }
   }
 ];
 

@@ -41,12 +41,12 @@ const routes: Routes = [
   {
     path: 'events/new',
     component: EventComponent,
-    data: { name: 'me_events_new', title: 'Novo evento' }
+    data: { name: 'me_events_new', title: 'Nova oferta' }
   },
   {
     path: 'events/:id',
     component: EventComponent,
-    data: { name: 'me_events_edit', title: 'Editar evento' }
+    data: { name: 'me_events_edit', title: 'Editar oferta' }
   },
   {
     path: 'events/:slug/bookings',
