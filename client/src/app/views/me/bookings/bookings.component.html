@@ -5,7 +5,9 @@
                  [tableData]="bookings"
                  [cardSchema]="cardSchema"
                  [reportSchema]="schema.report"
-                 [cardSchema]="schema.cardSchema">
+                 [filterSchema]="'bookings_filter'"
+                 [cardSchema]="schema.cardSchema"
+                 (filter)="onFilter($event)">
       </ab-editor>
     </panel-body>
   </ab-panel>

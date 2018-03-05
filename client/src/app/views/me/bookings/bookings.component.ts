@@ -36,8 +36,12 @@ export class BookingsComponent implements OnInit {
     });
   }
 
-  getBookings() {
-    this.me.getBookingsByUserId()
+  onFilter(payload) {
+    this.getBookings(payload);
+  }
+
+  getBookings(payload?) {
+    this.me.getBookingsByUserId(payload)
       .subscribe(bookings => {
         this.bookings = bookings;
       });

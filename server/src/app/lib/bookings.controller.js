@@ -5,7 +5,10 @@ module.exports = (app, url) => {
   app.route(`${url}`)
     .get(async (req, res) => {
       const ownerId = req.user._id;
-      const data = await srv.getAll(undefined, ownerId, undefined);
+      const status = req.query.status;
+      const startDate = req.query.startDate;
+      const endingDate = req.query.endingDate;
+      const data = await srv.getAll(undefined, ownerId, status, startDate, endingDate);
       return rest.returnArray(data, res);
     })
     .post(async (req, res, next) => {

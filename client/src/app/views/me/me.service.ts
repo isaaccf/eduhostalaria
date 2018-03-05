@@ -229,8 +229,16 @@ export class MeService {
     return this.http.get(`${this.eventsUrl}/${eventId}/bookings`);
   }
 
-  getBookingsByUserId() {
-    return this.http.get(`${this.bookingsUrl}`);
+  getBookingsByUserId(payload?) {
+    let params = new HttpParams();
+
+    if (payload) {
+      Object.keys(payload).forEach(key => {
+        params = params.set(key, payload[key]);
+      });
+    }
+
+    return this.http.get(`${this.bookingsUrl}`, { params });
   }
 
   getBookingsByEventIdAndNotStatus(eventId, status) {

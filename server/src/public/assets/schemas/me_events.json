@@ -1,14 +1,14 @@
 {
   "actions": {
     "header": {
-      "title": "Ofertas",
-      "subtitle": "Lista de ofertas e comidas do centro",
+      "title": "Reservas",
+      "subtitle": "Lista de ofertas e reservas do centro",
       "icon": "icon-time"
     }
   },
   "report": {
     "header": {
-      "title": "Lista de ofertas"
+      "title": "Lista de ofertas e reservas"
     },
     "deleteMessage": "Cancelar oferta",
     "emptyMessage": "Non temos ofertas para mostrar :(",

@@ -20,11 +20,23 @@ async function fillEventInformation(bookings) {
   return bookings;
 }
 
-exports.getAll = async (eventId, ownerId, status) => {
+exports.getAll = async (eventId, ownerId, status, startDate, endingDate) => {
   const options = {};
+
   if (eventId) { options.eventId = eventId; }
   if (ownerId) { options.ownerId = String(ownerId); }
-  if (status) { options.status = { $ne: status }; }
+  if (status) { options.status = status.toUpperCase(); }
+  if (startDate) {
+    options.date = { $gte: startDate };
+  }
+  if (endingDate) {
+    if (startDate) {
+      options.date.$lte = endingDate;
+    } else {
+      options.date = { $lte: endingDate };
+    }
+  }
+
   const bookings = await mongo.find(col, options);
   await fillEventInformation(bookings);
   await fillBookingsOwner(bookings);

@@ -2,15 +2,15 @@
      *ngIf="event">
   <div class="card">
     <div class="card-header">
-      <div class="column col-2 col-sm-12">
+      <div class="column col-2 col-sm-12"
+           *ngIf="event?.thumbnail && event?.thumbnail.url">
         <img [src]="event?.thumbnail.url"
-             class="img-responsive">
+             class="img-responsive"
+             (click)="this.showThumbnailModal = true;">
       </div>
       <div class="column col-10 col-sm-12">
         <div class="card-title h2 text-left">{{ event?.name }}</div>
         <div>
-          <button class="btn btn-primary"
-                  (click)="this.showThumbnailModal = true;">Subir miniatura</button>
           <button class="btn btn-primary"
                   (click)="this.showFilesModal = true;">Subir arquivos</button>
         </div>

@@ -131,8 +131,7 @@ module.exports = (app, url) => {
   app.route(`${url}/:id/bookings`)
     .get(async (req, res) => {
       const eventId = req.params.id;
-      const status = req.query.status;
-      const data = await bookingsSrv.getAll(eventId, undefined, status);
+      const data = await bookingsSrv.getAll(eventId, undefined);
       return rest.returnArray(data, res);
     });
   app.route(`${url}/slug/:slug`)
