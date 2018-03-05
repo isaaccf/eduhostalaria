@@ -1,3 +1,23 @@
+<div class="column col-12 card-column"
+     *ngIf="event">
+  <div class="card">
+    <div class="card-header">
+      <div class="column col-2 col-sm-12">
+        <img [src]="event?.thumbnail.url"
+             class="img-responsive">
+      </div>
+      <div class="column col-10 col-sm-12">
+        <div class="card-title h2 text-left">{{ event?.name }}</div>
+        <div>
+          <button class="btn btn-primary"
+                  (click)="this.showThumbnailModal = true;">Subir miniatura</button>
+          <button class="btn btn-primary"
+                  (click)="this.showFilesModal = true;">Subir arquivos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <ab-panel [schema]="panelSchema">
   <panel-body>
     <ab-form [formSchema]="formSchema"
@@ -12,7 +32,7 @@
       <ab-tile [schema]="thumbnailSchema"
                (send)="this.showThumbnailModal = true;">
       </ab-tile>
-      <ab-tile-compact *ngIf="event && event.thumbnail"
+      <ab-tile-compact *ngIf="event && event.thumbnail && event.thumbnail.type"
                        [image]="{url: '#', name: 'thumbnail.' + event.thumbnail.type.split('/')[1], showname: 'thumbnail'}"
                        [link]="false"
                        (clicked)="onDeleteThumbnail()">

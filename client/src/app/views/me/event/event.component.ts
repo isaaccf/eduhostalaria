@@ -7,6 +7,7 @@ import { IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Level } from 'app/tools/message.model';
 import ImageCompressor from 'image-compressor.js';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'ab-event',
@@ -32,12 +33,15 @@ export class EventComponent implements OnInit {
   public organization: any;
   public event: any;
 
-  constructor(private schema: SchemaService,
+  constructor(
+    private schema: SchemaService,
     private route: ActivatedRoute,
     private me: MeService,
     private security: SecurityService,
     private bus: BusService,
-    private router: Router) { }
+    private router: Router,
+    private sanitizer: DomSanitizer
+  ) { }
 
   ngOnInit() {
     this.organization = this.security.getLocalOrganization();
@@ -46,6 +50,11 @@ export class EventComponent implements OnInit {
         this.formKey = 'edit';
         this.me.getEventById(params['id']).subscribe((ev: any) => {
           this.event = ev;
+          if (ev.thumbnail) {
+            const url = `data:${ev.thumbnail.type};base64, ${ev.thumbnail.content}`;
+
+            ev.thumbnail.url = this.sanitizer.bypassSecurityTrustUrl(url);
+          }
           this.getSchemas();
         });
       } else {
@@ -63,8 +72,7 @@ export class EventComponent implements OnInit {
         this.thumbnailSchema = schemas['tile-thumbnail'];
         this.formSchema = schemas[this.formKey];
         if (this.event) {
-          this.panelSchema.header.title = `Editar oferta - ${this.event.name}`;
-          this.panelSchema.header.subtitle = 'Editar a información da oferta';
+          this.panelSchema.header.title = 'Información da oferta';
           this.schema.populateDefaultValues(this.formSchema, this.event);
           this.formSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
         } else {

@@ -5,13 +5,6 @@
     "submitIcon": "icon-cross",
     "controls": [
       {
-        "key": "name",
-        "type": "input",
-        "label": "Que conteña",
-        "defaultValue": "",
-        "validators": []
-      },
-      {
         "key": "startDate",
         "type": "date",
         "label": "Posterior a (dd/mm/aaaa)",
@@ -34,6 +27,13 @@
             "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
           }
         ]
+      },
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Que conteña",
+        "defaultValue": "",
+        "validators": []
       }
     ]
   }

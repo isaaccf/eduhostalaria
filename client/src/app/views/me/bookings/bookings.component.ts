@@ -38,9 +38,6 @@ export class BookingsComponent implements OnInit {
 
   getBookings() {
     this.me.getBookingsByUserId()
-      .map((bookings: any) => {
-        return bookings.filter(booking => booking.status !== 'CANCELED');
-      })
       .subscribe(bookings => {
         this.bookings = bookings;
       });
