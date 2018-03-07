@@ -14,7 +14,7 @@
   },
   "create": {
     "title": "Novo centro",
-    "submitLabel": "Guardar centro",
+    "submitLabel": "Gardar centro",
     "controls": [
       {
         "key": "name",

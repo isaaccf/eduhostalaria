@@ -43,7 +43,7 @@ export interface IKeyValue {
 }
 
 export interface IValidator {
-  key: 'required' | 'email' | 'validDate' | 'validOptionalDate' | 'time' | 'integer';
+  key: 'required' | 'requiredTrue' | 'email' | 'validDate' | 'validOptionalDate' | 'time' | 'integer';
   args?: any[];
   errorMessage?: string;
 }

@@ -174,11 +174,16 @@ export class MeService {
       event
     };
 
+    console.log(event);
+    console.log(payload);
+
     delete payload.event.pax;
     delete payload.event.bookingsNumber;
 
-    payload.event.ownerId = event.owner._id;
-    delete payload.event.owner;
+    if (event.owner && event.owner._id) {
+      payload.event.ownerId = event.owner._id;
+      delete payload.event.owner;
+    }
 
     payload.event.status = status;
 

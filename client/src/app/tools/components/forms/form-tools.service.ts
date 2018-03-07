@@ -53,6 +53,8 @@ export class FormToolsService {
     switch (validation.key) {
       case 'required':
         return Validators.required;
+      case 'requiredTrue':
+        return Validators.requiredTrue;
       case 'email':
         return Validators.email;
       case 'validDate':

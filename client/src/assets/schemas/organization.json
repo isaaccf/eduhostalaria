@@ -113,7 +113,7 @@
     {
       "key": "description",
       "type": "textarea",
-      "label": "Resume amplo do meu centro",
+      "label": "Resume amplo do centro",
       "defaultValue": "this.organization.description",
       "validators": []
     }

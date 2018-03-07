@@ -25,6 +25,18 @@
         "label": "Observaciones",
         "defaultValue": "",
         "validators": []
+      },
+      {
+        "key": "terms",
+        "type": "checkbox",
+        "label": "Acepto os términos e condicións do centro",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "requiredTrue",
+            "errorMessage": "É obrigatorio aceptar os términos e condicións do centro"
+          }
+        ]
       }
     ]
   },
@@ -115,6 +127,18 @@
         "label": "Observaciones",
         "defaultValue": "",
         "validators": []
+      },
+      {
+        "key": "terms",
+        "type": "checkbox",
+        "label": "Acepto os términos e condicións do centro",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "requiredTrue",
+            "errorMessage": "É obrigatorio aceptar os términos e condicións do centro"
+          }
+        ]
       }
     ]
   }

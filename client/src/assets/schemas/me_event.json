@@ -305,5 +305,24 @@
         ]
       }
     ]
-  }
+  },
+  "editActions": [
+    {
+      "label": "Activar oferta",
+      "key": "activate",
+      "disabledStatus": "ACTIVE",
+      "icon": "icon-check"
+    },
+    {
+      "label": "Deshabilitar oferta",
+      "key": "deactivate",
+      "disabledStatus": "DISABLED",
+      "icon": "icon-stop"
+    },
+    {
+      "label": "Eliminar oferta",
+      "key": "delete",
+      "icon": "icon-delete"
+    }
+  ]
 }

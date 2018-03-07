@@ -91,13 +91,15 @@ export class FormComponent implements OnInit, OnChanges {
   getClasses(control) {
     let classes = 'form-group column col-lg-12';
 
-    if (control.type !== 'wysiwyg' && control.type !== 'textarea' &&
-      control.type !== 'email' && control.type !== 'password') {
+    if (control.type !== 'wysiwyg' && control.type !== 'textarea'
+      && control.type !== 'checkbox' && control.type !== 'email'
+      && control.type !== 'password') {
       classes += ' col-6';
     }
 
     if (control.type === 'wysiwyg' || control.type === 'textarea'
-      || control.type === 'email' || control.type === 'password') {
+      || control.type === 'checkbox' || control.type === 'email'
+      || control.type === 'password') {
       classes += ' col-12';
     }
 

@@ -18,17 +18,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EventsComponent implements OnInit {
 
   private organization: IOrganization;
-  public isEditModalActive = false;
-  public isDeletingMode = false;
   public selectedEvent;
   public events: any[];
   public filters;
-  public deleteForm: FormGroup;
   public panelSchema: IWidgetSchema = {};
   public actionSchema: IWidgetSchema;
   public reportSchema: IReportSchema;
   public cardSchema: IWidgetSchema;
-  public editActionsSchema: IAction[];
 
   constructor(private schema: SchemaService,
     private me: MeService,
@@ -39,7 +35,6 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.getSchema();
-    this.createDeleteForm();
   }
 
   getSchema() {
@@ -48,7 +43,6 @@ export class EventsComponent implements OnInit {
       .subscribe(schemas => {
         this.actionSchema = schemas.actions;
         this.reportSchema = schemas.report;
-        this.editActionsSchema = schemas.editActions;
         this.cardSchema = { header: { title: '' }, fields: this.reportSchema.fields };
       });
     this.getOrganization();
@@ -56,14 +50,6 @@ export class EventsComponent implements OnInit {
 
   getOrganization() {
     this.organization = this.security.getLocalOrganization();
-  }
-
-  createDeleteForm() {
-    this.deleteForm = this.fb.group({
-      sendMessage: [false, Validators.required],
-      sendCustomMessage: [false, Validators.required],
-      customMessage: ['']
-    });
   }
 
   onFilter(payload?) {
@@ -99,74 +85,8 @@ export class EventsComponent implements OnInit {
 
     switch (action.key) {
       case 'edit':
-        this.editActionsSchema.map(button => {
-          if (event.status === button.disabledStatus) {
-            button.disabled = true;
-          } else {
-            button.disabled = false;
-          }
-        });
-        this.isEditModalActive = true;
-        break;
-    }
-  }
-
-  // tslint:disable-next-line:cyclomatic-complexity
-  onEditAction(key) {
-    switch (key) {
-      case 'view':
-        this.isEditModalActive = false;
-        this.router.navigateByUrl(`/org/${this.organization._id}/events/${this.selectedEvent._id}`);
-        this.isEditModalActive = false;
-        break;
-      case 'edit':
         this.router.navigateByUrl(`me/events/${this.selectedEvent._id}`);
-        this.isEditModalActive = false;
         break;
-      case 'activate':
-        this.me.changeEventStatus(this.selectedEvent, 'ACTIVE').subscribe(() => {
-          this.onFilter();
-        });
-        this.isEditModalActive = false;
-        break;
-      case 'delete':
-        this.isDeletingMode = true;
-        break;
-      case 'deactivate':
-        this.me.changeEventStatus(this.selectedEvent, 'DISABLED').subscribe(() => {
-          this.onFilter();
-        });
-        this.isEditModalActive = false;
-        break;
-    }
-  }
-
-  onCloseEditModal() {
-    this.isDeletingMode = false;
-    this.isEditModalActive = false;
-  }
-
-  onReturnFromDeletingMode() {
-    this.isDeletingMode = false;
-  }
-
-  onSubmitDeleteForm() {
-    this.onCloseEditModal();
-
-    const sendMessage = this.deleteForm.get('sendMessage').value;
-    const sendCustomMessage = this.deleteForm.get('sendCustomMessage').value;
-    const customMessage = this.deleteForm.get('customMessage').value;
-
-    if (!sendCustomMessage) {
-      this.me.deleteEvent(this.selectedEvent, sendMessage, undefined).subscribe(() => {
-        this.onFilter();
-      });
-    }
-
-    if (sendCustomMessage && customMessage) {
-      this.me.deleteEvent(this.selectedEvent, sendMessage, customMessage).subscribe(() => {
-        this.onFilter();
-      });
     }
   }
 

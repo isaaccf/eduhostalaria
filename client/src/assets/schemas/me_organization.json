@@ -20,7 +20,7 @@
   },
   "form": {
     "title": "Datos do meu centro",
-    "submitLabel": "Guardar os datos",
+    "submitLabel": "Gardar os datos",
     "controls": [
       {
         "key": "name",
@@ -146,12 +146,14 @@
         "type": "wysiwyg",
         "label": "Descrición",
         "defaultValue": "this.organization.description",
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "A descrición do centro é requerida"
-          }
-        ]
+        "validators": []
+      },
+      {
+        "key": "terms",
+        "type": "wysiwyg",
+        "label": "Términos e condicións do centro",
+        "defaultValue": "this.organization.terms",
+        "validators": []
       }
     ]
   }

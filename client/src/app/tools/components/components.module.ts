@@ -36,6 +36,7 @@ import { DateComponent } from './table/date/date.component';
 import { FilterComponent } from './widgets/filter/filter.component';
 import { StatusPipe } from 'app/tools/status.pipe';
 import { DatePaginatorComponent } from './date-paginator/date-paginator.component';
+import { CheckboxComponent } from './forms/checkbox/checkbox.component';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import { DatePaginatorComponent } from './date-paginator/date-paginator.componen
     DateComponent,
     FilterComponent,
     StatusPipe,
-    DatePaginatorComponent
+    DatePaginatorComponent,
+    CheckboxComponent
   ],
   exports: [
     ActionComponent,

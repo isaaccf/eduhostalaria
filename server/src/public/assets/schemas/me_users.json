@@ -14,7 +14,7 @@
   },
   "create": {
     "title": "Novo Usuario",
-    "submitLabel": "Guardar Usuario",
+    "submitLabel": "Gardar Usuario",
     "controls": [
       {
         "key": "name",

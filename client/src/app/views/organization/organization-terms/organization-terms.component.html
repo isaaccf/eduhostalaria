@@ -1,0 +1,11 @@
+<ab-panel [schema]="{}"
+          *ngIf="organization">
+  <panel-body>
+    <h2 class="text-center">Términos e condicións do centro {{ organization.name }}</h2>
+    <p *ngIf="organization.terms && organization.terms.length"
+       [innerHTML]="organization.terms"></p>
+    <p *ngIf="!organization.terms || !organization.terms.length">
+      O centro aínda non ten establecidos os seus términos e condicións.
+    </p>
+  </panel-body>
+</ab-panel>

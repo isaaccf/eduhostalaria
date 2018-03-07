@@ -3,11 +3,12 @@ import { SchemaService } from 'app/tools/components/schema.service';
 import { MeService } from 'app/views/me/me.service';
 import { SecurityService } from 'app/tools/security.service';
 import { BusService } from 'app/tools/bus.service';
-import { IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
+import { IFormSchema, IWidgetSchema, IAction } from 'app/tools/schema.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Level } from 'app/tools/message.model';
 import ImageCompressor from 'image-compressor.js';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ab-event',
@@ -18,10 +19,12 @@ export class EventComponent implements OnInit {
 
   @ViewChild('thumbnailInput') thumbnailInput: ElementRef;
   @ViewChild('filesInput') filesInput: ElementRef;
+  @ViewChild('filesSectionRef') filesSectionRef: ElementRef;
 
   public formKey: 'create' | 'edit' = 'create';
   public panelSchema: IWidgetSchema;
   public filesSchema: IWidgetSchema;
+  public editActionsSchema: IWidgetSchema;
   public thumbnailSchema: IWidgetSchema;
   public formSchema: IFormSchema;
   public showFilesModal = false;
@@ -29,9 +32,11 @@ export class EventComponent implements OnInit {
   public fileConfirmButton = {
     label: 'Subir',
     key: 'upload'
-  }
+  };
   public organization: any;
   public event: any;
+  public isDeletingMode;
+  public deleteForm: FormGroup;
 
   constructor(
     private schema: SchemaService,
@@ -40,10 +45,12 @@ export class EventComponent implements OnInit {
     private security: SecurityService,
     private bus: BusService,
     private router: Router,
+    private fb: FormBuilder,
     private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
+    this.createDeleteForm();
     this.organization = this.security.getLocalOrganization();
     this.route.params.subscribe(params => {
       if (params['id']) {
@@ -70,6 +77,9 @@ export class EventComponent implements OnInit {
         this.panelSchema = schemas;
         this.filesSchema = schemas['tile-files'];
         this.thumbnailSchema = schemas['tile-thumbnail'];
+        if (this.event) {
+          this.editActionsSchema = this.calcButtons(schemas.editActions);
+        }
         this.formSchema = schemas[this.formKey];
         if (this.event) {
           this.panelSchema.header.title = 'Información da oferta';
@@ -82,6 +92,28 @@ export class EventComponent implements OnInit {
           this.formSchema.controls[5].defaultValue = 'hh:mm';
         }
       });
+  }
+
+  calcButtons(editActions: IAction[]): any {
+    editActions.map(action => {
+      if (this.event.status === 'CANCELED') {
+        action.disabled = true;
+      } else {
+        if (this.event.status === action.disabledStatus) {
+          action.disabled = true;
+        } else {
+        }
+      }
+    });
+    return editActions;
+  }
+
+  createDeleteForm() {
+    this.deleteForm = this.fb.group({
+      sendMessage: [false, Validators.required],
+      sendCustomMessage: [false, Validators.required],
+      customMessage: ['']
+    });
   }
 
   onSend(ev) {
@@ -131,6 +163,7 @@ export class EventComponent implements OnInit {
                 this.thumbnailInput.nativeElement.value = '';
                 this.showThumbnailModal = false;
                 this.event = updatedEvent;
+                this.ngOnInit();
               });
           }
           reader.readAsBinaryString(compressedFile);
@@ -139,12 +172,10 @@ export class EventComponent implements OnInit {
 
   }
 
-  onDeleteThumbnail(file) {
-    this.me.deleteThumbnail(this.event._id).subscribe(
-      (event: any) => {
-        this.event = event;
-      }
-    )
+  onShowThumbnailModal() {
+    if (this.event.status !== 'CANCELED') {
+      this.showThumbnailModal = true;
+    }
   }
 
   uploadFiles(ev) {
@@ -195,4 +226,55 @@ export class EventComponent implements OnInit {
     }
     event['time'] = new Date(year, month, day, hour, 0, 0, 0);
   }
+
+  onCloseDeleteModal() {
+    this.isDeletingMode = false;
+  }
+
+  onEditAction(key) {
+    switch (key) {
+      case 'activate':
+        this.me.changeEventStatus(this.event, 'ACTIVE').subscribe(() => {
+          this.ngOnInit();
+        });
+        break;
+      case 'delete':
+        this.isDeletingMode = true;
+        break;
+      case 'deactivate':
+        this.me.changeEventStatus(this.event, 'DISABLED').subscribe(() => {
+          this.ngOnInit();
+        });
+        break;
+    }
+  }
+
+  onReturnFromDeletingMode() {
+    this.isDeletingMode = false;
+  }
+
+  onSubmitDeleteForm() {
+    const sendMessage = this.deleteForm.get('sendMessage').value;
+    const sendCustomMessage = this.deleteForm.get('sendCustomMessage').value;
+    const customMessage = this.deleteForm.get('customMessage').value;
+
+    if (!sendCustomMessage) {
+      this.me.deleteEvent(this.event, sendMessage, undefined).subscribe(() => {
+        this.ngOnInit();
+      });
+    }
+
+    if (sendCustomMessage && customMessage) {
+      this.me.deleteEvent(this.event, sendMessage, customMessage).subscribe(() => {
+        this.ngOnInit();
+      });
+    }
+
+    this.isDeletingMode = false;
+  }
+
+  onScrollToFiles(el: ElementRef) {
+    this.filesSectionRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
+
 }
