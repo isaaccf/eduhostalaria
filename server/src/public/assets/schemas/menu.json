@@ -33,6 +33,11 @@
       "icon": "icon-bookmark",
       "label": "As miñas Reservas",
       "link": "/me/bookings/"
+    },
+    {
+      "icon": "icon-emoji",
+      "label": "Asistencia",
+      "link": "/me/events-ushier/"
     }
   ],
   "mestre": [

@@ -2,7 +2,7 @@
   "actions": {
     "header": {
       "title": "Asistencia",
-      "subtitle": "Lista de ofertas e comidas do centro",
+      "subtitle": "Lista de ofertas e reservas do centro",
       "icon": "icon-emoji"
     }
   },
