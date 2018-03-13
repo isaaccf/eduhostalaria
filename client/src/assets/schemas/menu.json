@@ -45,9 +45,7 @@
       "icon": "icon-bookmark",
       "label": "As miñas Reservas",
       "link": "/me/bookings/"
-    }
-  ],
-  "conserxe": [
+    },
     {
       "icon": "icon-emoji",
       "label": "Asistencia",

@@ -36,7 +36,7 @@ export class EventBookingsComponent implements OnInit {
   getEvent() {
     this.me.getEventBySlug(this.eventSlug).subscribe(event => {
       this.event = event[0];
-      this.schema.actions.actions[0].link = '/me/events-ushier/' + this.event.slug + '/bookings';
+      // this.schema.actions.actions[0].link = '/me/events-ushier/' + this.event.slug + '/bookings';
       this.populateEventInfo();
       this.getBookings();
     });

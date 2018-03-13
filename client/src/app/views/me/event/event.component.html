@@ -18,14 +18,19 @@
           <ab-pill [text]="event?.status"></ab-pill>
         </div>
         <div class="buttons-container">
-          <button class="btn btn-link"
+          <button class="btn btn-link badge"
                   [ngClass]="{'disabled': event.status === 'CANCELED'}"
-                  (click)="onScrollToFiles()">Subir arquivos</button>
+                  [attr.data-badge]="event.files ? event.files.length : 0"
+                  (click)="onScrollToFiles()">
+            <i class="icon icon-link mr-1"></i>Arquivos</button>
           <div *ngFor="let action of editActionsSchema"
                class="ml-2">
-            <ab-action [schema]="action"
+            <ab-action *ngIf="!action.disabled"
+                       [schema]="action"
                        (action)="onEditAction(action.key)"></ab-action>
           </div>
+          <button class="btn ml-2">
+            <i class="icon icon-share mr-1"></i>Imprimir</button>
         </div>
       </div>
     </div>
