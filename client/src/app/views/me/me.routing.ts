@@ -9,7 +9,6 @@ import { EventBookingsComponent } from 'app/views/me/event-bookings/event-bookin
 import { BookingsComponent } from 'app/views/me/bookings/bookings.component';
 import { EventComponent } from 'app/views/me/event/event.component';
 import { EventsUshierComponent } from 'app/views/me/events-ushier/events-ushier.component';
-import { EventBookingsUshierComponent } from 'app/views/me/event-bookings-ushier/event-bookings-ushier.component';
 import { BookingComponent } from 'app/views/me/booking/booking.component';
 
 const routes: Routes = [
@@ -57,11 +56,6 @@ const routes: Routes = [
     path: 'events-ushier',
     component: EventsUshierComponent,
     data: { name: 'me_events_ushier', title: 'Asistencia' }
-  },
-  {
-    path: 'events-ushier/:slug/bookings',
-    component: EventBookingsUshierComponent,
-    data: { name: 'me_events_ushier_bookings', title: 'Confirmación de reservas' }
   },
   {
     path: 'organizations',

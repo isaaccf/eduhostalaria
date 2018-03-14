@@ -12,7 +12,6 @@ import { EventBookingsComponent } from './event-bookings/event-bookings.componen
 import { BookingsComponent } from './bookings/bookings.component';
 import { EventComponent } from './event/event.component';
 import { EventsUshierComponent } from './events-ushier/events-ushier.component';
-import { EventBookingsUshierComponent } from './event-bookings-ushier/event-bookings-ushier.component';
 import { OrganizationService } from 'app/views/organization/organization.service';
 import { BookingComponent } from './booking/booking.component';
 
@@ -22,7 +21,8 @@ import { BookingComponent } from './booking/booking.component';
     MeRoutingModule,
     ComponentsModule
   ],
-  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent, EventBookingsComponent, BookingsComponent, EventComponent, EventsUshierComponent, EventBookingsUshierComponent, BookingComponent],
+  // tslint:disable-next-line:max-line-length
+  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent, EventBookingsComponent, BookingsComponent, EventComponent, EventsUshierComponent, BookingComponent],
   providers: [MeService, OrganizationService],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -1,12 +1,33 @@
-<ab-panel [schema]="panelSchema">
+<ab-panel [schema]="{}">
   <panel-body>
-    <ab-editor [actionSchema]="actionSchema"
-               [tableData]="events"
-               [reportSchema]="reportSchema"
-               [createFormSchema]=""
-               [cardSchema]="cardSchema"
-               [filterSchema]="'events_ushier_filter'"
-               (filter)="onFilter($event)">
-    </ab-editor>
+    <ab-tile [schema]="actionSchema"></ab-tile>
+    <form [formGroup]="selectForm">
+      <div class="form-group">
+        <label class="form-label"
+               for="input-example-1">Selecciona un evento para ver sus reservas</label>
+        <select class="form-select"
+                formControlName="event">
+          <option value=""
+                  hidden>-- NINGUNO --</option>
+          <option *ngFor="let event of events"
+                  [value]="event._id">{{ event.name }}</option>
+        </select>
+      </div>
+    </form>
   </panel-body>
 </ab-panel>
+<div class="second-panel">
+  <ab-panel [schema]="{}"
+            *ngIf="bookings !== undefined">
+    <panel-body>
+      <ab-editor [actionSchema]="{header: {title: editorTitle, subtitle: 'Lista de reservas do evento'}}"
+                 [tableData]="bookings"
+                 [cardSchema]="{}"
+                 [reportSchema]="reportSchema"
+                 (rowAction)="onRowAction($event)"
+                 [cardSchema]="schema?.cardSchema">
+      </ab-editor>
+    </panel-body>
+  </ab-panel>
+
+</div>

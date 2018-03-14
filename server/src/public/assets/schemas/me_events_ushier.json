@@ -2,53 +2,31 @@
   "actions": {
     "header": {
       "title": "Asistencia",
-      "subtitle": "Lista de ofertas e reservas do centro",
       "icon": "icon-emoji"
     }
   },
   "report": {
     "header": {
-      "title": "Lista de ofertas"
+      "title": "Lista de reservas",
+      "subtitle": "Lista de ofertas con reserva feita",
+      "icon": "icon-bookmark"
     },
-    "emptyMessage": "Non temos ofertas para mostrar :(",
+    "emptyMessage": "Non temos reservas para mostrar :(",
     "fields": [
       {
-        "label": "Nome",
-        "key": "name",
+        "label": "Email",
+        "key": "owner.email",
         "type": "string"
       },
       {
-        "label": "Fecha",
-        "key": "date",
-        "type": "string",
-        "tableType": "date"
-      },
-      {
-        "label": "Turno",
-        "key": "shift",
+        "label": "Prazas",
+        "key": "seats",
         "type": "string"
       },
       {
-        "label": "Hora ini",
-        "key": "startTime",
+        "label": "Observacións",
+        "key": "comments",
         "type": "string"
-      },
-      {
-        "label": "Hora fin",
-        "key": "endTime",
-        "type": "string"
-      },
-      {
-        "label": "Nº R",
-        "key": "bookingsNumber",
-        "type": "number",
-        "tableType": "pill"
-      },
-      {
-        "label": "Pax",
-        "key": "pax",
-        "type": "number",
-        "tableType": "pill"
       },
       {
         "label": "Estado",
@@ -59,12 +37,16 @@
     ],
     "actions": [
       {
-        "label": "Reservas",
-        "key": "view-bookings",
-        "icon": "icon-search",
-        "dynamicLink": "slug",
-        "staticLink": "/bookings",
-        "title": ""
+        "label": "",
+        "key": "attended",
+        "icon": "icon-check",
+        "title": "Asistiu"
+      },
+      {
+        "label": "",
+        "key": "paid",
+        "icon": "icon-check",
+        "title": "Pagou"
       }
     ]
   }

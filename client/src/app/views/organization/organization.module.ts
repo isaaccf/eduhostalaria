@@ -8,13 +8,15 @@ import { SecurityService } from 'app/tools/security.service';
 import { MeService } from 'app/views/me/me.service';
 import { OrganizationEventComponent } from './organization-event/organization-event.component';
 import { OrganizationTermsComponent } from './organization-terms/organization-terms.component';
+import { FullCalendarModule } from 'ng-fullcalendar';
 
 
 @NgModule({
   imports: [
     CommonModule,
     OrganizationRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    FullCalendarModule
   ],
   declarations: [OrganizationHomeComponent, OrganizationEventComponent, OrganizationTermsComponent],
   providers: [OrganizationService, MeService],
