@@ -37,6 +37,7 @@ import { FilterComponent } from './widgets/filter/filter.component';
 import { StatusPipe } from 'app/tools/status.pipe';
 import { DatePaginatorComponent } from './date-paginator/date-paginator.component';
 import { CheckboxComponent } from './forms/checkbox/checkbox.component';
+import { TileEventComponent } from './widgets/tile-event/tile-event.component';
 
 @NgModule({
   imports: [
@@ -77,7 +78,8 @@ import { CheckboxComponent } from './forms/checkbox/checkbox.component';
     FilterComponent,
     StatusPipe,
     DatePaginatorComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    TileEventComponent
   ],
   exports: [
     ActionComponent,
@@ -99,6 +101,7 @@ import { CheckboxComponent } from './forms/checkbox/checkbox.component';
     TileCompactComponent,
     TimelineComponent,
     ToastComponent,
+    TileEventComponent
   ],
   providers: [FormToolsService, SchemaService],
   schemas: [NO_ERRORS_SCHEMA]

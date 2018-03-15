@@ -1,0 +1,18 @@
+.tile {
+  width: 100%;
+  margin-top: 1.25rem;
+}
+
+.tile-title {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.event-name {
+  margin-left: 0.5rem;
+  margin-bottom: 0;
+}
+
+.seats-row {
+  margin-bottom: 0.25rem;
+}

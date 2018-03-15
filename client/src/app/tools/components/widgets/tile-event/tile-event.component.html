@@ -1,0 +1,42 @@
+<div class="tile">
+  <div class="tile-content">
+    <div class="tile-title">
+      <span class="label label-default">{{ event.date.toUpperCase() | date:'EEEE dd' }}</span>
+      <p class="event-name text-bold">{{event.name}}</p>
+    </div>
+    <div class="columns"
+         *ngIf="event.thumbnail">
+      <div class="column col-2 col-sm-12">
+        <img [src]="event.thumbnail"
+             alt="Miniatura da oferta"
+             class="img-responsive">
+      </div>
+      <div class="column col-10 col-sm-12">
+        <div class="column col-12">
+          <i class="icon icon-people"></i> Prazas disponibles:
+          <b>{{event?.freeSeats}}</b>.
+        </div>
+        <div class="column col-12">
+          <i class="icon icon-time"></i> Horario de recepción:
+          <b> De {{ event?.startTime }} a {{ event?.endTime }}.</b>
+        </div>
+      </div>
+    </div>
+    <div class="columns"
+         *ngIf="!event.thumbnail">
+      <div class="column col-12 seats-row">
+        <i class="icon icon-people"></i> Prazas disponibles:
+        <b>{{event?.freeSeats}}</b>.
+      </div>
+      <div class="column col-12">
+        <i class="icon icon-time"></i> Horario de recepción:
+        <b> De {{ event?.startTime }} a {{ event?.endTime }}.</b>
+      </div>
+    </div>
+  </div>
+  <div class="tile-action">
+    <a [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': event.status !== 'ACTIVE'}"
+       [routerLink]="'events/' + event._id">
+      <i class="icon icon-bookmark mr-2"></i>Reservar</a>
+  </div>
+</div>

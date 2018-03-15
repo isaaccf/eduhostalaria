@@ -17,19 +17,17 @@
   <div class="column col-12">
     <ab-panel [schema]="eventsSchema">
       <panel-body>
-        <ab-date-paginator (dates)=onDatesChange($event)></ab-date-paginator>
-        <ab-timeline *ngIf="eventsSchema && eventsSchema.events"
-                     [schema]="eventsSchema">
-        </ab-timeline>
-        <ab-load-empty-state *ngIf="eventsSchema
-                     &&
-                     (!eventsSchema.events
-                     ||
-                     (eventsSchema.events
-                     &&
-                     !(eventsSchema.events.length> 0)))"
-                             [schema]="{loading: false, empty: true}">
-        </ab-load-empty-state>
+        <ng-fullcalendar #ucCalendar
+                         [options]="calendarOptions"
+                         [(eventsModel)]="shownEvents"
+                         (eventClick)="onEventClick($event.detail)"></ng-fullcalendar>
+        <div #selectedEventSection>
+          <div *ngIf="selectedEvents">
+            <ng-container *ngFor="let event of selectedEvents">
+              <ab-tile-event [event]="event"></ab-tile-event>
+            </ng-container>
+          </div>
+        </div>
       </panel-body>
     </ab-panel>
   </div>
