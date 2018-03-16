@@ -113,6 +113,7 @@ export class OrganizationHomeComponent implements OnInit {
     this.events
       .filter(event => event.status !== 'DISABLED')
       .map(event => {
+        console.log(event);
         const shownEvents = tempEvents.filter(tempEvent => {
           return tempEvent.start.split('T')[0] === event.date.split('T')[0];
         })
@@ -127,7 +128,6 @@ export class OrganizationHomeComponent implements OnInit {
         }
       });
     this.shownEvents = tempEvents;
-    console.log(this.events);
     console.log(this.shownEvents);
   }
 
