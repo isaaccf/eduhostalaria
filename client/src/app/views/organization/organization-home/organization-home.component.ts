@@ -108,15 +108,17 @@ export class OrganizationHomeComponent implements OnInit {
   }
 
   setCalendarEvents() {
+    const tempEvents = [];
+
     this.events
       .filter(event => event.status !== 'DISABLED')
       .map(event => {
-        const shownEvents = this.shownEvents.filter(shownEvent => {
-          return shownEvent.start.split('T')[0] === event.date.split('T')[0];
+        const shownEvents = tempEvents.filter(tempEvent => {
+          return tempEvent.start.split('T')[0] === event.date.split('T')[0];
         })
 
         if (!shownEvents.length) {
-          this.shownEvents.push({
+          tempEvents.push({
             title: 'Ver eventos',
             start: `${event.date.split('T')[0]}T${event.startTime}:00.000Z`,
             ending: `${event.date.split('T')[0]}T${event.endTime}:00.000Z`,
@@ -124,6 +126,9 @@ export class OrganizationHomeComponent implements OnInit {
           });
         }
       });
+    this.shownEvents = tempEvents;
+    console.log(this.events);
+    console.log(this.shownEvents);
   }
 
   valueByPath(target, path) {
