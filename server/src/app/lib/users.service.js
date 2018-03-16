@@ -51,7 +51,7 @@ module.exports.updateUser = async (user) => {
 
   return mongo.updateOne(col, user._id, user);
 };
-module.exports.removeUser = async userId => mongo.removeOne(col, userId);
+module.exports.removeUser = async userId => mongo.removeOne(col, _id(userId));
 module.exports.getByIdStatus = async (id, status) => mongo.findOne(col, { _id: _id(id), status });
 module.exports.getByEmail = async (email) => {
   const user = await mongo.findOne(col, { email });

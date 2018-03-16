@@ -74,14 +74,14 @@ module.exports = (app, url) => {
   app.route(`${url}/_/approvals`)
     .post(async (req, res) => {
       const approval = req.body;
-      rest.checkRole(req, res, ['ADMIN', 'GOD']);
+      rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const activatedUser = await srv.activateUser(approval, 'DISABLED', 'approved');
       return rest.returnInserted(activatedUser, res);
     });
   app.route(`${url}/_/dissableds`)
     .post(async (req, res) => {
       const dissable = req.body;
-      rest.checkRole(req, res, ['ADMIN', 'GOD']);
+      rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
       const activatedUser = await srv.disableUser(dissable);
       return rest.returnInserted(activatedUser, res);
     });

@@ -65,6 +65,10 @@ export class MeService {
     return this.http.post(`${this.credentialsUrl}/_/approvals`, user);
   }
 
+  removeUserDefinitively(userId: string): Observable<any> {
+    return this.http.delete(`${this.usersUrl}/${userId}`);
+  }
+
   deleteUser(user: any): Observable<any> {
     user.status = 'CANCELED';
     return this.http.patch(`${this.credentialsUrl}/_/${user._id}`, user);

@@ -113,6 +113,7 @@ module.exports.disableUser = async (disabilitation) => {
   }
   user.status = 'DISABLED';
   const result = await users.updateUser(user);
+  console.log(result);
   if (result instanceof Error || result.n === 0) {
     return new Error(`Not disabled: ${JSON.stringify(disabilitation)}`);
   }

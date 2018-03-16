@@ -26,6 +26,7 @@ export class ShellComponent implements OnInit {
   public showResponsive = false;
   public numMessages: number;
   private menuSchema;
+  public isPrintingMode: boolean;
 
   constructor(
     private bus: BusService,
@@ -41,10 +42,19 @@ export class ShellComponent implements OnInit {
     this.onUserChange();
     this.onOrganizationChange();
     this.listenRouterChanges();
+    this.listenOnPrintingMode();
   }
 
   onPageRouteChange() {
     this.getTitle();
+  }
+
+  listenOnPrintingMode() {
+    this.bus.getIsPrintingMode$().subscribe(
+      (value: boolean) => {
+        this.isPrintingMode = value;
+      }
+    )
   }
 
   getTitle() {

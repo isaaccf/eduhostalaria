@@ -55,6 +55,11 @@
       "icon": "icon-emoji",
       "label": "Asistencia",
       "link": "/me/events-ushier/"
+    },
+    {
+      "icon": "icon-people",
+      "label": "Usuarios",
+      "link": "/me/users/"
     }
   ],
   "interno": [

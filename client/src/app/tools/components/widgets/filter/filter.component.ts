@@ -38,7 +38,10 @@ export class FilterComponent implements OnInit {
       delete payload.endingDate;
     }
 
-    payload.organizationId = this.securityService.getLocalOrganization()._id;
+    const organization = this.securityService.getLocalOrganization();
+    if (organization) {
+      payload.organizationId = organization._id;
+    }
 
     Object.keys(payload).forEach(key => {
       if (payload[key]) {

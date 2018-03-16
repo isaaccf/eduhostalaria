@@ -48,7 +48,10 @@ export class UsersComponent implements OnInit {
   }
 
   onDelete(data) {
-    this.me.deleteUser(data).subscribe(r => this.filterUsers());
+    this.me.removeUserDefinitively(data._id).subscribe(r => {
+      this.bus.emit({ level: Level.SUCCESS, text: 'Usuario eliminado con éxito', code: '' });
+      this.filterUsers();
+    });
   }
 
   onRowAction(data) {

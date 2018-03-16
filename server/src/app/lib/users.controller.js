@@ -1,5 +1,6 @@
 const srv = require('./users.service');
 const rest = require('../tools/rest.service');
+const credService = require('./credentials.service');
 
 module.exports = (app, url) => {
   app.route(`${url}`)
@@ -7,7 +8,7 @@ module.exports = (app, url) => {
       let data = [req.user];
       if (rest.hasRole(req, 'GOD')) {
         data = await srv.getAll();
-      } else if (rest.hasRole(req, 'ADMIN')) {
+      } else if (rest.hasRole(req, 'ADMIN') || rest.hasRole(req, 'MESTRE')) {
         data = await srv.getByOrganizationId(req.user.organizationId.toString(), req.query.name, req.query.status);
       }
       return rest.returnArray(data, res);
@@ -38,5 +39,11 @@ module.exports = (app, url) => {
       }
       const result = await srv.updateUser(claim);
       return rest.returnResult(result, res);
+    });
+  app.route(`${url}/:id`)
+    .delete(async (req, res) => {
+      rest.checkRole(req, res, ['ADMIN', 'GOD']);
+      await credService.deleteUser(req.params.id);
+      return res.status(204).end();
     });
 };

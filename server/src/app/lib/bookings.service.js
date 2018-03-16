@@ -78,11 +78,6 @@ exports.updateBooking = async (bookingId, booking, sendMessage, customMessage) =
     booking.status = 'ACTIVE';
   }
 
-  if ((oldBooking.status === 'PAID' && !undo)
-    || (oldBooking.status === 'ATTENDED' && booking.status !== 'PAID' && !undo)) {
-    return oldBooking;
-  }
-
   let owner;
 
   if (booking.owner) {

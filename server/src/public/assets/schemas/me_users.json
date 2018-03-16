@@ -125,6 +125,12 @@
         "key": "disable",
         "icon": "icon-cross",
         "title": "Rexeitar"
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Eliminar"
       }
     ]
   }

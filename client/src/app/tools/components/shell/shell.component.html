@@ -1,4 +1,5 @@
-<nav class="columns header-bg">
+<nav *ngIf="!isPrintingMode"
+     class="columns header-bg">
   <div class="column col-10 col-lg-11 col-xl-10 centered">
     <ab-top-bar [user]="user"
                 [title]="title"
@@ -7,23 +8,29 @@
                 (toggleResponsive)="showResponsive = $event"></ab-top-bar>
   </div>
 </nav>
-<section class="container">
+<section [ngClass]="{'container': !isPrintingMode, 'container-printing': isPrintingMode}">
   <main class="columns">
     <div class="column col-10 col-lg-11 col-xl-11 centered">
       <div class="columns">
-        <div class="column col-2 col-xl-3 hide-xl">
+        <div class="column col-2 col-xl-3 hide-xl"
+             *ngIf="!isPrintingMode">
           <ab-main-nav [user]="user"
                        [numMessages]="numMessages"
                        [menuLinks]="menuLinks"></ab-main-nav>
         </div>
-        <div *ngIf="showResponsive"
+        <div *ngIf="showResponsive && !isPrintingMode"
              class="column col-2 col-xl-3 show-xl">
           <ab-main-nav-responsive [user]="user"
                                   [menuLinks]="menuLinks"
                                   [numMessages]="numMessages"
                                   [showResponsive]="showResponsive"></ab-main-nav-responsive>
         </div>
-        <div class="column col-10 col-xl-11 col-lg-12 centered">
+        <div class="column col-10 col-xl-11 col-lg-12 centered"
+             *ngIf="!isPrintingMode">
+          <ab-main-content loadedMetadata="true"></ab-main-content>
+        </div>
+        <div class="column col-10 col-xl-11 col-lg-12 centered"
+             *ngIf="isPrintingMode">
           <ab-main-content loadedMetadata="true"></ab-main-content>
         </div>
       </div>
@@ -40,6 +47,6 @@
     </div>
   </aside>
 </section>
-<footer>
+<footer *ngIf="!isPrintingMode">
   <p>Designed and built with ♥ by Ágora Binaria.</p>
 </footer>
