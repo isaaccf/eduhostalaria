@@ -24,6 +24,11 @@
         "type": "string"
       },
       {
+        "label": "Rol",
+        "key": "owner.roles",
+        "type": "string"
+      },
+      {
         "label": "Observacións",
         "key": "comments",
         "type": "string"
