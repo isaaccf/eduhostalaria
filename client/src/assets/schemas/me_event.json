@@ -314,7 +314,7 @@
       "icon": "icon-check"
     },
     {
-      "label": "Deshabilitar oferta",
+      "label": "Bloquear oferta",
       "key": "deactivate",
       "disabledStatus": "DISABLED",
       "icon": "icon-stop"

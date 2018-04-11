@@ -178,9 +178,6 @@ export class MeService {
       event
     };
 
-    console.log(event);
-    console.log(payload);
-
     delete payload.event.pax;
     delete payload.event.bookingsNumber;
 
@@ -201,8 +198,10 @@ export class MeService {
     delete event.pax;
     delete event.bookingsNumber;
 
-    event.ownerId = event.owner._id;
-    delete event.owner;
+    if (event.owne && event.owner._id) {
+      event.ownerId = event.owner._id;
+      delete event.owner;
+    }
 
     return this.http.patch(`${this.eventsUrl}/${event._id}`, { event, sendMessage, customMessage });
   }

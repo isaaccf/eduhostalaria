@@ -36,14 +36,14 @@
     },
     {
       "icon": "icon-emoji",
-      "label": "Asistencia",
+      "label": "Control de asistencia",
       "link": "/me/events-ushier/"
     }
   ],
   "mestre": [
     {
       "icon": "icon-time",
-      "label": "Reservas",
+      "label": "VER RESERVAS",
       "link": "/me/events/"
     },
     {
@@ -53,13 +53,8 @@
     },
     {
       "icon": "icon-emoji",
-      "label": "Asistencia",
+      "label": "Control de asistencia",
       "link": "/me/events-ushier/"
-    },
-    {
-      "icon": "icon-people",
-      "label": "Usuarios",
-      "link": "/me/users/"
     }
   ],
   "interno": [

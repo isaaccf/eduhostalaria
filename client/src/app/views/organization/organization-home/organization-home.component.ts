@@ -140,12 +140,14 @@ export class OrganizationHomeComponent implements OnInit {
       endingDate: `${data.event.ending.split('T')[0]}T23:59:59.999Z`,
     }
 
-    this.me.filterEvents(payload).subscribe(
-      (events: any) => {
+    this.me.filterEvents(payload)
+      .map((events: any) => {
+        return events.filter((event: any) => event.status !== 'CANCELED')
+      }).subscribe((events: any) => {
         this.selectedEvents = events;
         this.selectedEventSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
       }
-    )
+      );
   }
 
 }
