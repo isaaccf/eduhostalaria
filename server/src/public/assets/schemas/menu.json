@@ -42,11 +42,6 @@
   ],
   "mestre": [
     {
-      "icon": "icon-time",
-      "label": "VER RESERVAS",
-      "link": "/me/events/"
-    },
-    {
       "icon": "icon-bookmark",
       "label": "As miñas Reservas",
       "link": "/me/bookings/"
@@ -55,6 +50,11 @@
       "icon": "icon-emoji",
       "label": "Control de asistencia",
       "link": "/me/events-ushier/"
+    },
+    {
+      "icon": "icon-time",
+      "label": "VER RESERVAS",
+      "link": "/me/events/"
     }
   ],
   "interno": [

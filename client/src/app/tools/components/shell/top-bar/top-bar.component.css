@@ -53,3 +53,19 @@ a {
   background: white;
   color: #0371b3;
 }
+
+.btn-view-reservations, .btn-create-offer {
+  margin-right: 1rem;
+}
+
+.btn-view-reservations:active, .btn-create-offer:active {
+  background: #fff;
+  border: 0.05rem solid #0371b3;
+  color: #0371b3;
+}
+
+.btn-view-reservations:focus, .btn-create-offer:focus {
+  background: #fff;
+  border: 0.05rem solid #0371b3;
+  color: #0371b3;
+}

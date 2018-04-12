@@ -92,7 +92,7 @@ export class OrganizationHomeComponent implements OnInit {
   }
 
   getEvents() {
-    const payload = { status: 'ACTIVE', organizationId: this.organizationData._id }
+    const payload = { status: 'ACTIVE', organizationId: this.organizationData._id, private: false }
 
     this.me.filterEvents(payload).subscribe((events: any) => {
       if (events) {
@@ -138,6 +138,7 @@ export class OrganizationHomeComponent implements OnInit {
       organizationId: this.organizationData._id,
       startDate: `${data.event.ending.split('T')[0]}T0:00:00.000Z`,
       endingDate: `${data.event.ending.split('T')[0]}T23:59:59.999Z`,
+      private: false
     }
 
     this.me.filterEvents(payload)
@@ -146,8 +147,7 @@ export class OrganizationHomeComponent implements OnInit {
       }).subscribe((events: any) => {
         this.selectedEvents = events;
         this.selectedEventSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
-      }
-      );
+      });
   }
 
 }

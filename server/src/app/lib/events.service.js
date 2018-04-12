@@ -32,7 +32,7 @@ async function calculatePax(events) {
   return events;
 }
 
-module.exports.getAll = async (organizationId, ownerId, name, status, startDate, endingDate) => {
+module.exports.getAll = async (organizationId, ownerId, name, status, startDate, endingDate, priv) => {
   const options = {};
   if (organizationId) { options.organizationId = organizationId; }
   if (ownerId) { options.ownerId = ownerId; }
@@ -46,6 +46,14 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
       options.date.$lte = endingDate;
     } else {
       options.date = { $lte: endingDate };
+    }
+  }
+  if (priv === 'true' || priv === 'false') {
+    const bool = (priv === 'true');
+    if (bool) {
+      options.private = { $eq: true };
+    } else {
+      options.$or = [{ private: { $eq: false } }, { private: { $exists: false } }];
     }
   }
 

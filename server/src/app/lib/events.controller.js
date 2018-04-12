@@ -40,8 +40,9 @@ module.exports = (app, url) => {
       const status = req.query.status;
       const startDate = req.query.startDate;
       const endingDate = req.query.endingDate;
+      const priv = req.query.private;
       const data = await srv.getAll(
-        organizationId, ownerId, name, status, startDate, endingDate);
+        organizationId, ownerId, name, status, startDate, endingDate, priv);
       return rest.returnArray(data, res);
     })
     .post(async (req, res) => {

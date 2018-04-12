@@ -42,3 +42,7 @@ footer p {
 footer a {
   color: #229AD2;
 }
+
+main.columns {
+  width: 100%;
+}

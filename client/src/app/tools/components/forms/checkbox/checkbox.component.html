@@ -3,6 +3,7 @@
   <label [for]="control.key"
          [ngClass]="{'form-label': true, 'text-bold': true, 'required': control.validators[0] && control.validators[0].key === 'required'}">
     <input type="checkbox"
+           [checked]="control.defaultValue"
            [formControlName]="control.key"
            [ngClass]="{'is-error': formTools.hasErrorsToShow(form.group,control.key)}"
            [attr.disabled]="control.isDisabled"> {{ control.label }}

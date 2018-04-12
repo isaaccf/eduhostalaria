@@ -165,6 +165,13 @@
             "errorMessage": "A oferta da oferta é requerida"
           }
         ]
+      },
+      {
+        "key": "private",
+        "type": "checkbox",
+        "label": "Este evento é privado (so será visible polo equipo do centro)",
+        "defaultValue": "",
+        "validators": []
       }
     ]
   },
@@ -303,6 +310,13 @@
             "errorMessage": "A descripción da oferta é requerida"
           }
         ]
+      },
+      {
+        "key": "private",
+        "type": "checkbox",
+        "label": "Este evento é privado (so será visible polo equipo do centro)",
+        "defaultValue": "this.event.private",
+        "validators": []
       }
     ]
   },

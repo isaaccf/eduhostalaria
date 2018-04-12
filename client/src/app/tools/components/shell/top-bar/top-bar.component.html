@@ -38,6 +38,14 @@
   </section>
   <section *ngIf="user"
            class="navbar-section">
+    <a routerLink='/me/events'
+       class="btn btn-default btn-view-reservations"
+       *ngIf="user.roles.includes('MESTRE')">
+      <i class="icon icon-time"></i> VER RESERVAS</a>
+    <a routerLink='/me/events/new'
+       class="btn btn-default btn-create-offer"
+       *ngIf="user.roles.includes('MESTRE')">
+      <i class="icon icon-plus"></i> CREAR OFERTA</a>
     <a routerLink="me">
       <figure class="avatar"
               [attr.data-initial]="user.name?.substring(0,2)"></figure>

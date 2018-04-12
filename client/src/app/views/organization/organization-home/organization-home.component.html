@@ -17,15 +17,25 @@
   <div class="column col-12">
     <ab-panel [schema]="eventsSchema">
       <panel-body>
-        <ng-fullcalendar #ucCalendar
-                         [options]="calendarOptions"
-                         [(eventsModel)]="shownEvents"
-                         (eventClick)="onEventClick($event.detail)"></ng-fullcalendar>
-        <div #selectedEventSection>
-          <div *ngIf="selectedEvents">
-            <ng-container *ngFor="let event of selectedEvents">
-              <ab-tile-event [event]="event"></ab-tile-event>
-            </ng-container>
+        <div class="panel-wrapper">
+          <div class="calendar-wrapper">
+            <ng-fullcalendar #ucCalendar
+                             [options]="calendarOptions"
+                             [(eventsModel)]="shownEvents"
+                             (eventClick)="onEventClick($event.detail)"></ng-fullcalendar>
+          </div>
+          <div class="event-list-wrapper">
+            <h2>Lista de ofertas</h2>
+            <div #selectedEventSection
+                 *ngIf="selectedEvents"
+                 class="event-list">
+              <ng-container *ngFor="let event of selectedEvents">
+                <ab-tile-event [event]="event"></ab-tile-event>
+              </ng-container>
+            </div>
+            <div *ngIf="!selectedEvents">
+              <p>Por favor, selecciona un día con ofertas disponibles para visualizarlas</p>
+            </div>
           </div>
         </div>
       </panel-body>
