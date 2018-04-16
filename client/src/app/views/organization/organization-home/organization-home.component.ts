@@ -111,6 +111,7 @@ export class OrganizationHomeComponent implements OnInit {
     const tempEvents = [];
 
     this.events
+      .filter(event => event.status !== 'DISABLED')
       .map(event => {
         const shownEvents = tempEvents.filter(tempEvent => {
           return tempEvent.start.split('T')[0] === event.date.split('T')[0];
