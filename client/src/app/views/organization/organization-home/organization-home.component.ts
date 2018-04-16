@@ -95,6 +95,7 @@ export class OrganizationHomeComponent implements OnInit {
     const payload = { status: 'ACTIVE', organizationId: this.organizationData._id, private: false }
 
     this.me.filterEvents(payload).subscribe((events: any) => {
+      console.log(events);
       if (events) {
         events.forEach((event: any) => {
           if (event.freeSeats === 0 || new Date(`${event.date.split('T')[0]}T${event.startTime}`) < new Date()) {
@@ -112,6 +113,7 @@ export class OrganizationHomeComponent implements OnInit {
 
     this.events
       .filter(event => event.status !== 'DISABLED')
+      .filter(event => (!event.private))
       .map(event => {
         const shownEvents = tempEvents.filter(tempEvent => {
           return tempEvent.start.split('T')[0] === event.date.split('T')[0];

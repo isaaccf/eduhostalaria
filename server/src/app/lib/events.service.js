@@ -48,14 +48,6 @@ module.exports.getAll = async (organizationId, ownerId, name, status, startDate,
       options.date = { $lte: endingDate };
     }
   }
-  if (priv === 'true' || priv === 'false') {
-    const bool = (priv === 'true');
-    if (bool) {
-      options.private = { $eq: true };
-    } else {
-      options.$or = [{ private: { $eq: false } }, { private: { $exists: false } }];
-    }
-  }
 
   let events = await mongo.find(col, options, { date: 1 });
 
