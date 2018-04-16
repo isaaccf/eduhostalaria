@@ -45,11 +45,11 @@ export class OrganizationHomeComponent implements OnInit {
       right: 'today'
     },
     buttonText: {
-      today: 'Hoy',
+      today: 'Hoxe',
       month: 'Mes',
       week: 'Semana',
       day: 'Día',
-      list: 'list'
+      list: 'Lista'
     },
     selectable: true,
     events: [],
@@ -111,7 +111,6 @@ export class OrganizationHomeComponent implements OnInit {
     const tempEvents = [];
 
     this.events
-      .filter(event => event.status !== 'DISABLED')
       .map(event => {
         const shownEvents = tempEvents.filter(tempEvent => {
           return tempEvent.start.split('T')[0] === event.date.split('T')[0];
