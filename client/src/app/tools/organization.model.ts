@@ -14,4 +14,5 @@ export interface IOrganization {
   standardPrice: number;
   reducedPrice: number;
   freeSeats: number;
+  banner: any;
 }

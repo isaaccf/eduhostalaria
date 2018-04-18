@@ -10,6 +10,7 @@ import { BookingsComponent } from 'app/views/me/bookings/bookings.component';
 import { EventComponent } from 'app/views/me/event/event.component';
 import { EventsUshierComponent } from 'app/views/me/events-ushier/events-ushier.component';
 import { BookingComponent } from 'app/views/me/booking/booking.component';
+import { EventPrintComponent } from './event-print/event-print.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,11 @@ const routes: Routes = [
     path: 'events/:id',
     component: EventComponent,
     data: { name: 'me_events_edit', title: 'Editar oferta' }
+  },
+  {
+    path: 'events/:id/print',
+    component: EventPrintComponent,
+    data: { name: 'me_event_bookings', title: 'Reservas' }
   },
   {
     path: 'events/:slug/bookings',

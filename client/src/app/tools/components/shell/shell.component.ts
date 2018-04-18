@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { BusService } from 'app/tools/bus.service';
 import { Level, IMessage } from 'app/tools/message.model';
 import { IUser } from 'app/tools/user.model';
@@ -26,7 +26,7 @@ export class ShellComponent implements OnInit {
   public showResponsive = false;
   public numMessages: number;
   private menuSchema;
-  public isPrintingMode: boolean;
+  public isPrintingMode: any;
 
   constructor(
     private bus: BusService,
@@ -52,7 +52,9 @@ export class ShellComponent implements OnInit {
   listenOnPrintingMode() {
     this.bus.getIsPrintingMode$().subscribe(
       (value: boolean) => {
-        this.isPrintingMode = value;
+        setTimeout(() => {
+          this.isPrintingMode = value;
+        }, 10)
       }
     )
   }

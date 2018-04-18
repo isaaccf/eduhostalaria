@@ -29,8 +29,10 @@
                        [schema]="action"
                        (action)="onEditAction(action.key)"></ab-action>
           </div>
-          <button class="btn ml-2">
-            <i class="icon icon-share mr-1"></i>Imprimir</button>
+          <a class="btn ml-2"
+             [routerLink]="['print']"
+             target="_blank">
+            <i class="icon icon-share mr-1"></i>Imprimir</a>
         </div>
       </div>
     </div>

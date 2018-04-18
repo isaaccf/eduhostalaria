@@ -14,6 +14,7 @@ import { EventComponent } from './event/event.component';
 import { EventsUshierComponent } from './events-ushier/events-ushier.component';
 import { OrganizationService } from 'app/views/organization/organization.service';
 import { BookingComponent } from './booking/booking.component';
+import { EventPrintComponent } from './event-print/event-print.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { BookingComponent } from './booking/booking.component';
     ComponentsModule
   ],
   // tslint:disable-next-line:max-line-length
-  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent, EventBookingsComponent, BookingsComponent, EventComponent, EventsUshierComponent, BookingComponent],
+  declarations: [MeComponent, UsersComponent, OrganizationsComponent, OrganizationComponent, EventsComponent, EventBookingsComponent, BookingsComponent, EventComponent, EventsUshierComponent, BookingComponent, EventPrintComponent],
   providers: [MeService, OrganizationService],
   schemas: [NO_ERRORS_SCHEMA]
 })

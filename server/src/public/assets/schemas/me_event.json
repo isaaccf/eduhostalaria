@@ -125,20 +125,20 @@
           },
           {
             "key": "time",
-            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+            "errorMessage": "O formato da hora de fin non é válido (hh:mm)"
           }
         ]
       },
       {
         "key": "standardPrice",
         "type": "number",
-        "label": "Precio estándar",
+        "label": "Prezo estándar",
         "defaultValue": "this.organization.standardPrice",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "O precio estándar é requerido"
+            "errorMessage": "O prezo estándar é requerido"
           }
         ]
       },
@@ -276,13 +276,13 @@
       {
         "key": "standardPrice",
         "type": "number",
-        "label": "Precio estándar",
+        "label": "Prezo estándar",
         "defaultValue": "this.organization.standardPrice",
         "actions": [],
         "validators": [
           {
             "key": "required",
-            "errorMessage": "O precio estándar é requerido"
+            "errorMessage": "O prezo estándar é requerido"
           }
         ]
       },

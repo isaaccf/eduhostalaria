@@ -120,19 +120,19 @@
       {
         "key": "standardPrice",
         "type": "number",
-        "label": "Precio menú",
+        "label": "Prezo menú",
         "defaultValue": "this.organization.standardPrice",
         "validators": [
           {
             "key": "required",
-            "errorMessage": "Precio menú é requerido"
+            "errorMessage": "Prezo menú é requerido"
           }
         ]
       },
       {
         "key": "reducedPrice",
         "type": "number",
-        "label": "Precio menú reducido (alumnos)",
+        "label": "Prezo menú reducido (alumnos)",
         "defaultValue": "this.organization.reducedPrice",
         "validators": [
           {
