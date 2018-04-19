@@ -1,0 +1,18 @@
+.navbar {
+  height: 60px;
+  margin-bottom: 30px;
+}
+
+.bookings {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking {
+  display: flex;
+  flex-direction: row;
+}
+
+.booking p {
+  margin: 0;
+}

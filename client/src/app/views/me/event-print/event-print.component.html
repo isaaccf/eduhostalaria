@@ -1,6 +1,18 @@
+<header class="navbar">
+  <section class="navbar-section">
+    <a class="navbar-brand"
+       (click)="onNavigateToHome()">{{ organization?.name }}</a>
+  </section>
+  <section class="navbar-section">
+    <div class="input-group input-inline">
+      <button class="btn btn-primary input-group-btn"
+              (click)="onPrint()">Imprimir</button>
+    </div>
+  </section>
+</header>
 <ng-container *ngIf="event">
   <h3>{{ event.name }}</h3>
-  <p>{{ event.date | date }} de {{ event.startTime }} a {{ event.endTime }}</p>
+  <h5>{{ event.date | date }} de {{ event.startTime }} a {{ event.endTime }}</h5>
   <div [innerHTML]="event.description"></div>
   <ul>
     <li>Prazas ocupadas:
@@ -8,13 +20,15 @@
     </li>
   </ul>
 </ng-container>
-<ng-container *ngIf="bookings && bookings.length; else: noBookings">
-  <h3>Reservas</h3>
-  <div *ngFor="let booking of bookings; let i = index">
+<h3>Reservas</h3>
+<div *ngIf="bookings && bookings.length; else: noBookings"
+     class="bookings">
+  <div *ngFor="let booking of bookings; let i = index"
+       class="booking">
     <h5>{{ i + 1 }}. {{ booking.owner.name }} - {{ booking.seats }} prazas</h5>
-    <p>{{ booking.comments }}</p>
+    <p>&nbsp;- {{ booking.comments }}</p>
   </div>
-</ng-container>
+</div>
 <ng-template #noBookings>
   <h2>Aínda non hai reservas para este evento</h2>
 </ng-template>
