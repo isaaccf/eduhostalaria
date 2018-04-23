@@ -39,7 +39,7 @@
   <section *ngIf="user"
            class="navbar-section">
     <a routerLink='/me/events'
-       class="btn btn-default btn-view-reservations"
+       class="btn btn-default btn-view-reservations hide-sm"
        *ngIf="user.roles.includes('MESTRE')">
       <i class="icon icon-time"></i> VER RESERVAS</a>
     <a routerLink='/me/events/new'
