@@ -21,7 +21,7 @@
           <a class="btn btn-link"
              [ngClass]="{'disabled': event.status === 'CANCELED'}"
              [routerLink]="['/org', organization.slug, 'events', event._id]">
-            <i class="icon icon-link mr-1"></i>Ver oferta</a>
+            Ver oferta</a>
           <button class="btn btn-link badge"
                   [ngClass]="{'disabled': event.status === 'CANCELED'}"
                   [attr.data-badge]="event.files ? event.files.length : 0"

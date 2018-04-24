@@ -87,7 +87,7 @@
       {
         "key": "role",
         "type": "radio",
-        "label": "Eres membro do centro ou externo?",
+        "label": "Eres membro do centro ou unha visita?",
         "actions": [
           {
             "label": "Interno",

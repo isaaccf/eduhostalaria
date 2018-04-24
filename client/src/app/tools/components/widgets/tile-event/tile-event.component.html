@@ -12,9 +12,14 @@
              class="img-responsive">
       </div>
       <div class="column col-10 col-sm-12">
-        <div class="column col-12">
-          <i class="icon icon-people"></i> Prazas disponibles:
+        <div class="column col-12"
+             *ngIf="event.freeSeats">
+          <i class="icon icon-people"></i> Prazas dispoñibles:
           <b>{{event?.freeSeats}}</b>.
+        </div>
+        <div class="column col-12"
+             *ngIf="!event.freeSeats">
+          <b>As prazas están esgotadas</b>
         </div>
         <div class="column col-12">
           <i class="icon icon-time"></i> Hora recepción / Hora de peche:
@@ -24,9 +29,14 @@
     </div>
     <div class="columns"
          *ngIf="!event.thumbnail">
-      <div class="column col-12 seats-row">
-        <i class="icon icon-people"></i> Prazas disponibles:
+      <div class="column col-12 seats-row"
+           *ngIf="event.freeSeats">
+        <i class="icon icon-people"></i> Prazas dispoñibles:
         <b>{{event?.freeSeats}}</b>.
+      </div>
+      <div class="column col-12 seats-row"
+           *ngIf="!event.freeSeats">
+        <b>As prazas están esgotadas</b>
       </div>
       <div class="column col-12">
         <i class="icon icon-time"></i> Hora recepción / Hora de peche:
@@ -35,7 +45,7 @@
     </div>
   </div>
   <div class="tile-action">
-    <a [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': event.status !== 'ACTIVE'}"
+    <a [ngClass]="{'btn': true, 'btn-primary': true, 'disabled': event.status !== 'ACTIVE' || event.freeSeats === 0}"
        [routerLink]="'events/' + event._id">
       <i class="icon icon-bookmark mr-2"></i>Reservar</a>
   </div>

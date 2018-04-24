@@ -13,7 +13,7 @@ export class StatusPipe implements PipeTransform {
       case 'CANCELED':
         return 'CANCELADO';
       case 'DISABLED':
-        return 'DESHABILITADO';
+        return 'BLOQUEADO';
       case 'ATTENDED':
         return 'ASISTIU';
       case 'PAID':

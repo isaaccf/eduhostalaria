@@ -112,7 +112,6 @@ export class OrganizationHomeComponent implements OnInit {
     const tempEvents = [];
 
     this.events
-      .filter(event => event.status !== 'DISABLED')
       .filter(event => (!event.private))
       .map(event => {
         const shownEvents = tempEvents.filter(tempEvent => {
@@ -145,8 +144,16 @@ export class OrganizationHomeComponent implements OnInit {
 
     this.me.filterEvents(payload)
       .map((events: any) => {
-        return events.filter((event: any) => event.status !== 'CANCELED')
-      }).subscribe((events: any) => {
+        return events
+          .filter((event: any) => event.status !== 'CANCELED')
+          .map((event: any) => {
+            if (new Date(event.date.split('T')[0]) < new Date()) {
+              event.status = 'DISABLED';
+            }
+            return event;
+          });
+      })
+      .subscribe((events: any) => {
         this.selectedEvents = events;
         this.selectedEventSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
       });

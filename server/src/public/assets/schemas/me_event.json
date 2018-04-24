@@ -74,7 +74,7 @@
       {
         "key": "name",
         "type": "input",
-        "label": "Nome",
+        "label": "Nome da oferta",
         "actions": [],
         "validators": []
       },
@@ -144,7 +144,7 @@
       },
       {
         "key": "reducedPrice",
-        "type": "number",
+        "type": "text",
         "label": "Comunidade educativa",
         "defaultValue": "this.organization.defaultPrice",
         "actions": [],
@@ -288,7 +288,7 @@
       },
       {
         "key": "reducedPrice",
-        "type": "number",
+        "type": "text",
         "label": "Comunidade educativa",
         "defaultValue": "this.organization.reducedPrice",
         "actions": [],

@@ -10,7 +10,7 @@
           <option value=""
                   hidden>-- NINGUNO --</option>
           <option *ngFor="let event of events"
-                  [value]="event._id">{{ event.name }}</option>
+                  [value]="event._id">{{ event.name }} - {{ event.date | date }}</option>
         </select>
       </div>
     </form>

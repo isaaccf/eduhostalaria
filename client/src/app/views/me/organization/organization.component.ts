@@ -76,38 +76,5 @@ export class OrganizationComponent implements OnInit {
         this.loadedMetadata = true;
       });
   }
-
-  uploadFiles(org) {
-    const filesData: FormData = this.getFilesToUpload();
-    this.me.postOrganizationBanner(org._id, filesData).subscribe(d => {
-      this.me.getAdministratedOrganization(this.user.organizationId).subscribe((organization: any) => {
-        this.schemas.tile.actions[0].disabled = true;
-        this.organization = organization;
-        this.showModal = false;
-      });
-    });
-  }
-
-  onDeleteFile(file) {
-    this.me.removeOrganizationBanner(this.organization._id, file.name).subscribe(organization => {
-      const newFileConfirmButton = Object.assign({}, this.fileConfirmButton);
-      this.schemas.tile.actions[0].disabled = false;
-      this.fileConfirmButton = newFileConfirmButton;
-      this.organization = organization;
-    });
-  }
-
-  getFilesToUpload() {
-    let filesToUpload: Array<File> = [];
-    const domFiles = this.filesInput.nativeElement.files;
-    const formData: FormData = new FormData();
-
-    filesToUpload = <Array<File>>domFiles;
-
-    for (let i = 0; i < domFiles.length; i++) {
-      formData.set('files', filesToUpload[i], filesToUpload[i]['name']);
-    }
-
-    return formData;
-  }
+  
 }

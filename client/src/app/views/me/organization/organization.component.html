@@ -7,35 +7,6 @@
     </panel-body>
   </ab-panel>
 </section>
-<div class="second">
-  <ab-panel [schema]="{}">
-    <panel-body>
-      <ab-tile [schema]="tileSchema"
-               (send)="this.showModal = true;">
-      </ab-tile>
-      <ng-container>
-        <ab-tile-compact *ngIf="organization && organization.banner"
-                         [image]="organization.banner"
-                         (clicked)="onDeleteFile(organization.banner)">
-        </ab-tile-compact>
-      </ng-container>
-    </panel-body>
-  </ab-panel>
-  <ab-modal title="Subir arquivos"
-            [active]="showModal"
-            (close)="this.showModal = false;">
-    <modal-content>
-      <input #filesInput
-             type="file"
-             multiple="true">
-    </modal-content>
-    <modal-footer>
-      <ab-action [schema]="fileConfirmButton"
-                 (action)="uploadFiles(this.organization)">
-      </ab-action>
-    </modal-footer>
-  </ab-modal>
-</div>
 <ng-template #loading>
   <ab-load-empty-state [schema]="loadingPanelSchema">
   </ab-load-empty-state>

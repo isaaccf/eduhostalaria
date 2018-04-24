@@ -44,7 +44,7 @@
             "key": "canceled"
           },
           {
-            "label": "DESHABILITADO",
+            "label": "BLOQUEADO",
             "key": "disabled"
           }
         ]

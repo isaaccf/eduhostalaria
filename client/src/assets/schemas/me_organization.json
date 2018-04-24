@@ -120,7 +120,7 @@
       {
         "key": "standardPrice",
         "type": "number",
-        "label": "Prezo menú",
+        "label": "Prezo estándar",
         "defaultValue": "this.organization.standardPrice",
         "validators": [
           {
@@ -132,7 +132,7 @@
       {
         "key": "reducedPrice",
         "type": "number",
-        "label": "Prezo menú reducido (alumnos)",
+        "label": "Comunidade educativa",
         "defaultValue": "this.organization.reducedPrice",
         "validators": [
           {
