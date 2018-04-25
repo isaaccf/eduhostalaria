@@ -19,7 +19,7 @@
       "key": "seats"
     },
     {
-      "label": "Observacións",
+      "label": "Observacións (Non se aceptan cambios de horario)",
       "key": "comments"
     },
     {
@@ -49,7 +49,7 @@
       {
         "key": "comments",
         "type": "textarea",
-        "label": "Observacións",
+        "label": "Observacións (Non se aceptan cambios de horario)",
         "defaultValue": "this.booking.comments",
         "validators": []
       }

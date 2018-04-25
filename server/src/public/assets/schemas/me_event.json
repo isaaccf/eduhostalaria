@@ -98,7 +98,24 @@
       {
         "key": "startTime",
         "type": "time",
-        "label": "Hora de inicio (hh:mm)",
+        "label": "Hora de inicio da recepcicón (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "startTimeEnd",
+        "type": "time",
+        "label": "Hora límite da recepción (hh:mm)",
         "defaultValue": "this.organization.startTime",
         "actions": [],
         "validators": [
@@ -115,7 +132,7 @@
       {
         "key": "endTime",
         "type": "time",
-        "label": "Hora de fin (hh:mm)",
+        "label": "Hora de peche (hh:mm)",
         "defaultValue": "this.organization.endTime",
         "actions": [],
         "validators": [
@@ -125,7 +142,7 @@
           },
           {
             "key": "time",
-            "errorMessage": "O formato da hora de fin non é válido (hh:mm)"
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
           }
         ]
       },
@@ -242,7 +259,24 @@
       {
         "key": "startTime",
         "type": "time",
-        "label": "Hora de inicio (hh:mm)",
+        "label": "Hora de inicio da recepcicón (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "startTimeEnd",
+        "type": "time",
+        "label": "Hora límite da recepción (hh:mm)",
         "defaultValue": "this.organization.startTime",
         "actions": [],
         "validators": [
@@ -259,7 +293,7 @@
       {
         "key": "endTime",
         "type": "time",
-        "label": "Hora de fin (hh:mm)",
+        "label": "Hora de peche (hh:mm)",
         "defaultValue": "this.organization.endTime",
         "actions": [],
         "validators": [

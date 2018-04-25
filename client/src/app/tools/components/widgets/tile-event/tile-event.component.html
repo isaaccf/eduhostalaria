@@ -15,7 +15,7 @@
         <div class="column col-12"
              *ngIf="event.freeSeats">
           <i class="icon icon-people"></i> Prazas dispoñibles:
-          <b>{{event?.freeSeats}}</b>.
+          <b>{{ event?.freeSeats }}</b>.
         </div>
         <div class="column col-12"
              *ngIf="!event.freeSeats">
@@ -32,15 +32,26 @@
       <div class="column col-12 seats-row"
            *ngIf="event.freeSeats">
         <i class="icon icon-people"></i> Prazas dispoñibles:
-        <b>{{event?.freeSeats}}</b>.
+        <b>{{ event?.freeSeats }}</b>.
       </div>
       <div class="column col-12 seats-row"
            *ngIf="!event.freeSeats">
         <b>As prazas están esgotadas</b>
       </div>
-      <div class="column col-12">
-        <i class="icon icon-time"></i> Hora recepción / Hora de peche:
+      <div class="column col-12"
+           *ngIf="!event?.startTimeEnd">
+        <i class="icon icon-time"></i> Hora de recepción / Hora de peche:
         <b> De {{ event?.startTime }} a {{ event?.endTime }}.</b>
+      </div>
+      <div *ngIf="event.startTimeEnd">
+        <div class="column col-12 seats-row">
+          <i class="icon icon-time"></i> Horario de recepción:
+          <b> De {{ event?.startTime }} a {{ event?.startTimeEnd }}.</b>
+        </div>
+        <div class="column col-12">
+          <i class="icon icon-time"></i> Hora de peche:
+          <b>{{ event?.endTime }}.</b>
+        </div>
       </div>
     </div>
   </div>
