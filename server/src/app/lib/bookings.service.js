@@ -59,7 +59,7 @@ exports.getAll = async (eventId, ownerId, status, startDate, endingDate) => {
     booking.date = booking._id.getTimestamp();
     return booking;
   });
-  console.log(bookings);
+
   await fillEventInformation(bookings);
   await fillBookingsOwner(bookings);
   return bookings;

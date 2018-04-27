@@ -82,7 +82,7 @@ export class EventsComponent implements OnInit {
     const event = Object.assign({}, action.value);
 
     this.selectedEvent = event;
-    console.log('wtf');
+
     switch (action.key) {
       case 'edit':
         this.router.navigateByUrl(`me/events/${this.selectedEvent._id}`);
