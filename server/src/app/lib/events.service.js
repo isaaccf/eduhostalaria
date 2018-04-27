@@ -104,7 +104,15 @@ exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
   return mongo.updateOne(col, eventId, event);
 };
 exports.getById = async eventId => mongo.findOneById(col, eventId);
-exports.removeEvent = async eventId => mongo.removeOne(col, eventId);
+exports.removeEvent = async (eventId) => {
+  const bookings = await bookingsSrv.getByEventId(eventId);
+
+  Promise.all(bookings.map(async (booking) => {
+    await bookingsSrv.deleteBooking(booking._id);
+  }));
+
+  await mongo.removeOne(col, eventId);
+};
 exports.addFiles = async (eventId, fileUrl) => {
   const updateCommand = { $push: { files: fileUrl } };
   const result = await mongo.updateQuery(col, eventId, updateCommand);

@@ -368,9 +368,9 @@
       "icon": "icon-stop"
     },
     {
-      "label": "Eliminar oferta",
+      "label": "Cancelar oferta",
       "key": "delete",
-      "icon": "icon-delete"
+      "icon": "icon-cross"
     }
   ]
 }

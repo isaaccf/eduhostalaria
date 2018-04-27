@@ -69,9 +69,8 @@ export class MeService {
     return this.http.delete(`${this.usersUrl}/${userId}`);
   }
 
-  deleteUser(user: any): Observable<any> {
-    user.status = 'CANCELED';
-    return this.http.patch(`${this.credentialsUrl}/_/${user._id}`, user);
+  deleteUser(): Observable<any> {
+    return this.http.delete(`${this.usersUrl}/me`);
   }
 
   inviteUser(newUser: any): Observable<any> {
@@ -191,19 +190,23 @@ export class MeService {
     return this.http.patch(`${this.eventsUrl}/${event._id}`, payload);
   }
 
-  deleteEvent(event, sendMessage, customMessage) {
+  cancelEvent(event, sendMessage, customMessage) {
 
     event.status = 'CANCELED';
 
     delete event.pax;
     delete event.bookingsNumber;
 
-    if (event.owne && event.owner._id) {
+    if (event.owner && event.owner._id) {
       event.ownerId = event.owner._id;
       delete event.owner;
     }
 
     return this.http.patch(`${this.eventsUrl}/${event._id}`, { event, sendMessage, customMessage });
+  }
+
+  deleteEvent(eventId) {
+    return this.http.delete(`${this.eventsUrl}/${eventId}`);
   }
 
   bookEvent(payload) {

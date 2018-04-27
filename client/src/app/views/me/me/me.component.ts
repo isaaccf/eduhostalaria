@@ -102,18 +102,32 @@ export class MeComponent implements OnInit {
       this.changePasswordActive = true;
     } else if (event.key === 'edit_profile') {
       this.editProfileActive = true;
+    } else if (event.key === 'delete') {
+      this.deleteUser();
     }
   }
+
   onLogOutClick() {
     this.logOutActive = false;
     this.security.logOutUser();
   }
+
   onChangePasswordClick(changePasswordClaim) {
     this.me.changePassword(changePasswordClaim).subscribe();
     this.changePasswordActive = false;
   }
+
   onEditProfileClick(editProfileClaim) {
     this.me.editProfile(editProfileClaim).subscribe(r => this.security.getMe().subscribe(r => this.security.navigateTo(['/'])));
     this.editProfileActive = false;
   }
+
+  deleteUser() {
+    this.me.deleteUser().subscribe(
+      () => {
+        this.security.logOutUser();
+      }
+    )
+  }
+
 }

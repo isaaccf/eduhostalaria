@@ -3,11 +3,12 @@
     <ab-editor [actionSchema]="actionSchema"
                [tableData]="events"
                [reportSchema]="reportSchema"
-               (rowAction)="onRowAction($event)"
                [createFormSchema]=""
                [cardSchema]="cardSchema"
                [filterSchema]="'events_filter'"
-               (filter)="onFilter($event)">
+               (filter)="onFilter($event)"
+               (rowAction)="onRowAction($event)"
+               (delete)="onDelete($event)">
     </ab-editor>
   </panel-body>
 </ab-panel>

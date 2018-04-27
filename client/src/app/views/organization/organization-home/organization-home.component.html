@@ -27,11 +27,12 @@
           <div class="event-list-wrapper">
             <h2>Lista de ofertas</h2>
             <div #selectedEventSection
-                 *ngIf="selectedEvents"
                  class="event-list">
-              <ng-container *ngFor="let event of selectedEvents">
-                <ab-tile-event [event]="event"></ab-tile-event>
-              </ng-container>
+              <div *ngIf="selectedEvents">
+                <ng-container *ngFor="let event of selectedEvents">
+                  <ab-tile-event [event]="event"></ab-tile-event>
+                </ng-container>
+              </div>
             </div>
             <div *ngIf="!selectedEvents">
               <p>Por favor, selecciona un día con ofertas dispoñibles para visualizalas</p>
@@ -48,10 +49,6 @@
       <panel-body>
         <div *ngIf="organizationData"
              class="columns">
-          <img *ngIf="organizationData.banner"
-               class="banner"
-               [src]="organizationData.banner.url"
-               alt="">
           <ng-container *ngFor="let field of viewSchema.fields; let i = index">
             <div *ngIf="field.key !== 'name' && field.key !== 'email' && field.key !== 'url' && field.key !== 'slogan' && field.key !== 'image' && field.key !== 'description'"
 

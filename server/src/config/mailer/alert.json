@@ -1,0 +1,7 @@
+{
+  "alert": {
+    "subject": "Novo rexistro de usuario",
+    "text": "Ola.\rUn novo usuario solicitou unirse á plataforma.\rPor favor, entra nela para ver as peticións de rexistro pendentes.\"",
+    "html": "<p>Ola.</p><p>Un novo usuario solicitou unirse á plataforma.</p><p>Por favor, entra nela para ver as peticións de rexistro pendentes.</p>"
+  }
+}

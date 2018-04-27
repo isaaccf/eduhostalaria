@@ -19,6 +19,11 @@
         "label": "Perfíl",
         "key": "edit_profile",
         "icon": "icon-edit"
+      },
+      {
+        "label": "Borrar usuario",
+        "key": "delete",
+        "icon": "icon-delete"
       }
     ]
   },

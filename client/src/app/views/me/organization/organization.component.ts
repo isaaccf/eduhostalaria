@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { BusService } from 'app/tools/bus.service';
@@ -76,5 +76,5 @@ export class OrganizationComponent implements OnInit {
         this.loadedMetadata = true;
       });
   }
-  
+
 }

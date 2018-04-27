@@ -36,6 +36,11 @@
         "type": "string"
       },
       {
+        "label": "Curso / Especialidad",
+        "key": "course",
+        "type": "string"
+      },
+      {
         "label": "Prazas",
         "key": "seats",
         "type": "string"

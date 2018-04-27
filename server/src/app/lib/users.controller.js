@@ -39,6 +39,12 @@ module.exports = (app, url) => {
       }
       const result = await srv.updateUser(claim);
       return rest.returnResult(result, res);
+    })
+    .delete(async (req, res) => {
+      const claim = req.user;
+      await credService.deleteUser(claim._id);
+      await srv.removeUser(claim._id);
+      return res.status(204).end();
     });
   app.route(`${url}/:id`)
     .delete(async (req, res) => {

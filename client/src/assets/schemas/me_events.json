@@ -10,7 +10,7 @@
     "header": {
       "title": "Lista de ofertas e reservas"
     },
-    "deleteMessage": "Cancelar oferta",
+    "deleteMessage": "Eliminar oferta",
     "emptyMessage": "Non temos ofertas para mostrar :(",
     "fields": [
       {
@@ -69,6 +69,12 @@
         "key": "edit",
         "icon": "icon-edit",
         "title": "Edit."
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Elim."
       }
     ]
   }

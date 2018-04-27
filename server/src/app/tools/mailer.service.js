@@ -4,6 +4,7 @@ const config = require('../tools/config');
 const wellcome = require('../../config/mailer/wellcome.json');
 const bookings = require('../../config/mailer/bookings.json');
 const ratings = require('../../config/mailer/ratings.json');
+const alert = require('../../config/mailer/alert.json');
 
 const mailerCfg = config.mailer;
 
@@ -27,6 +28,18 @@ module.exports.sendWellcome = (user, templateName) => {
     subject: template.subject,
     text: parseTemplate(template.text, { user, url }),
     html: parseTemplate(template.html, { user, url }),
+  };
+  this.getTransporter().sendMail(message);
+};
+
+module.exports.sendAdminAlert = (email, templateName) => {
+  const template = alert[templateName];
+  const message = {
+    from: config.mailer.auth.user,
+    to: email,
+    subject: template.subject,
+    text: parseTemplate(template.text),
+    html: parseTemplate(template.html),
   };
   this.getTransporter().sendMail(message);
 };

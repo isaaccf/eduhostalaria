@@ -6,7 +6,6 @@ const mailer = require('../tools/mailer.service');
 const users = require('./users.service');
 const config = require('../tools/config');
 const bookingService = require('./bookings.service');
-const eventService = require('./events.service');
 
 const salt = bcrypt.genSaltSync(10);
 const col = 'credentials';
@@ -57,10 +56,18 @@ module.exports.createUser = async (claim, mailTemplate) => {
     const newCredential = await insertCredential(newUser._id.toString(), claim.password);
     if (!newCredential._id) {
       await users.removeUser(newUser._id);
-      return new Error(`Errir in db: ${JSON.stringify(claim)}`);
+      return new Error(`Error in db: ${JSON.stringify(claim)}`);
     }
   }
   mailer.sendWellcome(newUser, mailTemplate);
+
+  let admins = Array.from(await users.getByOrganizationId(newUser.organizationId));
+
+  admins = admins.filter(usr => usr.roles.includes('ADMIN'));
+
+  admins.forEach((admin) => {
+    mailer.sendAdminAlert(admin.email, 'alert');
+  });
   return newUser;
 };
 

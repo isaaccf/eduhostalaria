@@ -259,13 +259,13 @@ export class EventComponent implements OnInit {
     const customMessage = this.deleteForm.get('customMessage').value;
 
     if (!sendCustomMessage) {
-      this.me.deleteEvent(this.event, sendMessage, undefined).subscribe(() => {
+      this.me.cancelEvent(this.event, sendMessage, undefined).subscribe(() => {
         this.ngOnInit();
       });
     }
 
     if (sendCustomMessage && customMessage) {
-      this.me.deleteEvent(this.event, sendMessage, customMessage).subscribe(() => {
+      this.me.cancelEvent(this.event, sendMessage, customMessage).subscribe(() => {
         this.ngOnInit();
       });
     }

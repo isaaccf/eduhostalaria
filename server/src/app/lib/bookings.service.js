@@ -2,8 +2,24 @@ const mongo = require('../tools/mongo.service');
 const mailer = require('../tools/mailer.service');
 const userService = require('./users.service');
 const eventService = require('./events.service');
+const ObjectID = require('mongodb').ObjectID;
 
 const col = 'bookings';
+
+const dateToObjectID = (timestamp) => {
+  // Convert string date to Date object (otherwise assume timestamp is a date)
+  if (typeof (timestamp) === 'string') {
+    timestamp = new Date(timestamp);
+  }
+
+  // Convert date object to hex seconds since Unix epoch
+  const hexSeconds = Math.floor(timestamp / 1000).toString(16);
+
+  // Create an ObjectId with that hex timestamp
+  const constructedObjectId = ObjectID(`${hexSeconds}0000000000000000`);
+
+  return constructedObjectId;
+};
 
 async function fillBookingsOwner(bookings) {
   await Promise.all(await bookings.map(async (booking) => {
@@ -27,17 +43,23 @@ exports.getAll = async (eventId, ownerId, status, startDate, endingDate) => {
   if (ownerId) { options.ownerId = String(ownerId); }
   if (status) { options.status = status.toUpperCase(); }
   if (startDate) {
-    options.date = { $gte: startDate };
+    options._id = { $gte: dateToObjectID(startDate) };
   }
   if (endingDate) {
     if (startDate) {
-      options.date.$lte = endingDate;
+      options._id.$lte = dateToObjectID(endingDate);
     } else {
-      options.date = { $lte: endingDate };
+      options._id = { $lte: dateToObjectID(endingDate) };
     }
   }
 
-  const bookings = await mongo.find(col, options);
+  const bookings = await mongo.find(col, options, { date: 1 });
+
+  bookings.map((booking) => {
+    booking.date = booking._id.getTimestamp();
+    return booking;
+  });
+  console.log(bookings);
   await fillEventInformation(bookings);
   await fillBookingsOwner(bookings);
   return bookings;
@@ -49,6 +71,7 @@ exports.insertBooking = async (user, booking, userType) => {
   if (booking.seats > event.freeSeats) {
     return new Error('There are no free seats :(');
   }
+  booking.date = new Date();
   const result = await mongo.insertOne(col, booking);
   event.freeSeats -= booking.seats;
   await eventService.updateEvent(booking.eventId, event);
@@ -101,7 +124,9 @@ exports.updateBooking = async (bookingId, booking, sendMessage, customMessage) =
   }
 
   /* Si pasamos la reserva a cancelada, se envían los correos necesarios */
+  /* Si pasamos la reserva a cancelada, se añaden los sitios al evento */
   if (booking.status === 'CANCELED' && oldBooking.status !== booking.status) {
+    event.freeSeats += Number(booking.seats);
     if (sendMessage && !customMessage) {
       mailer.sendCanceledDefault(user, event, 'canceled');
     }

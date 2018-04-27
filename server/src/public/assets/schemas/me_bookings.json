@@ -1,15 +1,15 @@
 {
   "actions": {
     "header": {
-      "title": "Reservas",
-      "subtitle": "Lista de usuarios coa reserva feita",
+      "title": "As miñas reservas",
+      "subtitle": "Lista das miñas reservas",
       "icon": "icon-bookmark"
     }
   },
   "report": {
     "header": {
       "title": "Lista de reservas",
-      "subtitle": "Lista de usuarios coa reserva feita",
+      "subtitle": "Lista das miñas reservas",
       "icon": "icon-bookmark"
     },
     "deleteMessage": "Cancelar reserva",
@@ -21,7 +21,13 @@
         "type": "string"
       },
       {
-        "label": "Date",
+        "label": "Fecha da reserva",
+        "key": "date",
+        "type": "string",
+        "tableType": "date"
+      },
+      {
+        "label": "Fecha do evento",
         "key": "event.date",
         "type": "string",
         "tableType": "date"

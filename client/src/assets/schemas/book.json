@@ -4,6 +4,18 @@
     "submitLabel": "Reservar",
     "controls": [
       {
+        "key": "course",
+        "type": "text",
+        "label": "Curso / Especialidad",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Nombre requerido"
+          }
+        ]
+      },
+      {
         "key": "seats",
         "type": "number",
         "label": "Nº de comensales",
@@ -104,6 +116,13 @@
             "errorMessage": "O rol é requerido"
           }
         ]
+      },
+      {
+        "key": "course",
+        "type": "text",
+        "label": "Curso / Especialidad (Só para alumnos)",
+        "defaultValue": "",
+        "validators": []
       },
       {
         "key": "seats",
