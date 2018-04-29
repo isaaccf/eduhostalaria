@@ -30,13 +30,8 @@
       {
         "key": "phone",
         "type": "text",
-        "label": "Teléfono (opcional)",
-        "validators": [
-          {
-            "key": "required",
-            "errorMessage": "O rol é requerido"
-          }
-        ]
+        "label": "Teléfono",
+        "validators": []
       },
       {
         "key": "email",
