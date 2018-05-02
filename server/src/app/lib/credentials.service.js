@@ -66,11 +66,10 @@ module.exports.createUser = async (claim, mailTemplate) => {
   admins = admins.filter(usr => usr.roles.includes('ADMIN'));
 
   admins.forEach((admin) => {
-    mailer.sendAdminAlert(admin.email, 'alert');
+    mailer.sendAdminAlert(admin.email, newUser, 'alert');
   });
   return newUser;
 };
-
 
 module.exports.activateUser = async (activation, currentStatus, mailTemplate) => {
   const user = await users.getById(activation._id);
@@ -110,7 +109,6 @@ module.exports.activateUser = async (activation, currentStatus, mailTemplate) =>
   };
   return userToken;
 };
-
 
 module.exports.disableUser = async (disabilitation) => {
   const user = await users.getById(disabilitation._id);

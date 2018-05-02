@@ -32,14 +32,14 @@ module.exports.sendWellcome = (user, templateName) => {
   this.getTransporter().sendMail(message);
 };
 
-module.exports.sendAdminAlert = (email, templateName) => {
+module.exports.sendAdminAlert = (email, user, templateName) => {
   const template = alert[templateName];
   const message = {
     from: config.mailer.auth.user,
     to: email,
     subject: template.subject,
-    text: parseTemplate(template.text),
-    html: parseTemplate(template.html),
+    text: parseTemplate(template.text, { user }),
+    html: parseTemplate(template.html, { user }),
   };
   this.getTransporter().sendMail(message);
 };

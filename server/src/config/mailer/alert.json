@@ -1,7 +1,7 @@
 {
   "alert": {
     "subject": "Novo rexistro de usuario",
-    "text": "Ola.\rUn novo usuario solicitou unirse á plataforma.\rPor favor, entra nela para ver as peticións de rexistro pendentes.\"",
-    "html": "<p>Ola.</p><p>Un novo usuario solicitou unirse á plataforma.</p><p>Por favor, entra nela para ver as peticións de rexistro pendentes.</p>"
+    "text": "Ola.\rUn novo usuario (con nome: ${user.name} e email: ${user.email}) solicitou unirse á plataforma.\rPor favor, fai click en http://reservas.eduhostalaria.com/me/users para acceder á plataforma e aprobalo.\"",
+    "html": "<p>Ola.</p><p>Un novo usuario (con nome: ${user.name} e email: ${user.email}) solicitou unirse á plataforma.</p><p>Por favor, fai click <a href=\"http://reservas.eduhostalaria.com/me/users\">aquí</a> para acceder á plataforma e aprobalo.</p>"
   }
 }
