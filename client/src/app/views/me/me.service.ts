@@ -262,6 +262,10 @@ export class MeService {
     return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
   }
 
+  updateBooking(booking) {
+    return this.http.patch(`${this.bookingsUrl}/${booking._id}`, booking);
+  }
+
   filterEvents(payload) {
     let params = new HttpParams();
 

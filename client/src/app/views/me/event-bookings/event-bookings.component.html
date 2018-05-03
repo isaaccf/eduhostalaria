@@ -10,3 +10,11 @@
     </ab-editor>
   </panel-body>
 </ab-panel>
+<ab-modal [title]="'Observacións sobre ' + selectedBooking.owner.name"
+          [active]="showObservationsModal"
+          (close)="showObservationsModal = false"
+          *ngIf="selectedBooking">
+  <modal-content>
+    <p>{{ selectedBooking.observation }}</p>
+  </modal-content>
+</ab-modal>

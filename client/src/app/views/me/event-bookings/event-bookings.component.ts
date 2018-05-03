@@ -15,6 +15,8 @@ export class EventBookingsComponent implements OnInit {
   public bookings;
   public event;
   public eventSlug;
+  public showObservationsModal = false;
+  public selectedBooking;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +64,10 @@ export class EventBookingsComponent implements OnInit {
       this.me.changeBookingStatus(action.value, 'ACTIVE').subscribe(() => {
         this.getBookings();
       });
+    } else {
+      this.selectedBooking = action.value;
+      console.log(this.selectedBooking);
+      this.showObservationsModal = true;
     }
   }
 

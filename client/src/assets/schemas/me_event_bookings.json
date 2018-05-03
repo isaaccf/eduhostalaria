@@ -46,7 +46,7 @@
         "type": "string"
       },
       {
-        "label": "Observacións",
+        "label": "Comentarios",
         "key": "comments",
         "type": "string"
       },
@@ -69,6 +69,13 @@
         "key": "delete",
         "icon": "icon-delete",
         "title": "Cancelar"
+      },
+      {
+        "label": "",
+        "key": "obervation",
+        "showKey": "observation",
+        "icon": "icon-search",
+        "title": "Obs"
       }
     ]
   }

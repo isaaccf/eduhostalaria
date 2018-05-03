@@ -29,5 +29,26 @@
       </ab-editor>
     </panel-body>
   </ab-panel>
-
 </div>
+<form [formGroup]="observationForm"
+      (submit)="onAddComment()">
+  <ab-modal [title]="'Observacións sobre ' + selectedBooking.owner.name"
+            [active]="showCommentsModal"
+            (close)="showCommentsModal = false"
+            *ngIf="selectedBooking">
+    <modal-content>
+      <div class="form-group observation-input">
+        <label class="form-label">Observacións</label>
+        <textarea class="form-input"
+                  formControlName="observation"
+                  placeholder="Observacións"
+                  rows="3"></textarea>
+      </div>
+    </modal-content>
+    <modal-footer>
+      <button type="submit"
+              class="btn btn-primary"
+              [disabled]="observationForm.invalid">Gardar observacións</button>
+    </modal-footer>
+  </ab-modal>
+</form>

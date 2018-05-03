@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { BusService } from 'app/tools/bus.service';
 import { OrganizationService } from 'app/views/organization/organization.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Level } from '../../../tools/message.model';
 
 @Component({
   selector: 'ab-events-ushier',
@@ -16,6 +17,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class EventsUshierComponent implements OnInit {
 
   public selectedEventId: string;
+  public selectedBooking;
   public selectForm: FormGroup;
   public events: any[];
   public bookings: any[];
@@ -24,6 +26,8 @@ export class EventsUshierComponent implements OnInit {
   public reportSchema: any;
   public organization;
   public editorTitle = '';
+  public showCommentsModal = false;
+  public observationForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +57,9 @@ export class EventsUshierComponent implements OnInit {
   createForm() {
     this.selectForm = this.fb.group({
       event: ['']
+    });
+    this.observationForm = this.fb.group({
+      observation: ['', Validators.required]
     });
     this.onChanges();
   }
@@ -99,9 +106,30 @@ export class EventsUshierComponent implements OnInit {
   onRowAction(action) {
     const status = action.key.toUpperCase();
 
-    this.me.changeBookingStatus(action.value, status).subscribe((booking: any) => {
-      this.getBookings(this.selectedEventId);
-    });
+    if (action.key === 'comments') {
+      this.selectedBooking = action.value;
+      this.observation.setValue(this.selectedBooking.observation);
+      this.showCommentsModal = true;
+    } else {
+      this.me.changeBookingStatus(action.value, status).subscribe((booking: any) => {
+        this.getBookings(this.selectedEventId);
+      });
+    }
+  }
+
+  onAddComment() {
+    this.selectedBooking.observation = this.observation.value;
+    this.me.updateBooking(this.selectedBooking).subscribe(
+      (res: any) => {
+        this.bus.emit({ level: Level.SUCCESS, text: 'Observacións gardadas con éxito', code: '' });
+        this.selectedBooking = res;
+        this.showCommentsModal = false;
+      }
+    )
+  }
+
+  get observation() {
+    return this.observationForm.get('observation');
   }
 
 }

@@ -52,6 +52,12 @@
         "key": "paid",
         "icon": "icon-check",
         "title": "Pagou"
+      },
+      {
+        "label": "",
+        "key": "comments",
+        "icon": "icon-search",
+        "title": "Observ."
       }
     ]
   }

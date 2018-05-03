@@ -25,18 +25,22 @@
           </ng-container>
         </td>
         <td *ngFor="let action of schema.actions">
-          <ab-action *ngIf="action.showKey && action.showValue && valueByPath(row, action.showKey) === action.showValue"
-                     class="centered"
-                     btnClass='btn-action'
-                     noLabel="true"
-                     [schema]="action"
-                     (action)="onActionClick($event, row)"></ab-action>
-          <ab-action *ngIf="!(action.showKey && action.showValue)"
-                     class="centered"
-                     btnClass='btn-action'
-                     noLabel="true"
-                     [schema]="transform(row, action)"
-                     (action)="onActionClick($event, row)"></ab-action>
+        <ng-container *ngIf="action.key !== 'observation'">
+            <ab-action *ngIf="action.showKey && valueByPath(row, action.showKey) !== undefined"
+            class="centered"
+            btnClass='btn-action'
+            noLabel="true"
+            [schema]="action"
+            (action)="onActionClick($event, row)"></ab-action>
+ <ab-action *ngIf="!action.showKey"
+            class="centered"
+            btnClass='btn-action'
+            noLabel="true"
+            [schema]="transform(row, action)"
+            (action)="onActionClick($event, row)"></ab-action>
+        </ng-container>
+        <ng-container *ngIf="action.key === 'observation'">
+        </ng-container>
         </td>
       </tr>
     </tbody>
