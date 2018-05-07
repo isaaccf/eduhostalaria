@@ -1,11 +1,10 @@
 import { BusService } from './bus.service';
 import { environment } from './../../environments/environment';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpResponse, HttpEvent, HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
 import { HTTP_STATUS } from './http-status.enum';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
@@ -54,23 +53,31 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
-      .catch(this.onCatch.bind(this)) as Observable<HttpEvent<any>>;
+      .pipe(
+        tap<HttpEvent<any>>(((err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            this.onCatch(err);
+          }
+        }))
+      )
   }
 
-  private onCatch(res) {
-    if (this.isSecurityError(res)) {
-      this.bus.emitSecurityError(res);
+  private onCatch(err: HttpErrorResponse) {
+    if (this.isSecurityError(err)) {
+      this.bus.emitSecurityError(err);
     } else {
-      this.bus.emitHttpError(res);
+      this.bus.emitHttpError(err);
     }
-    return Observable.throw(res);
   }
-  private isSecurityError(res) {
+
+  private isSecurityError(err: HttpErrorResponse) {
     return (
-      res.status === HTTP_STATUS.UNAUTHORIZED ||
-      res.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT);
+      err.status === HTTP_STATUS.UNAUTHORIZED ||
+      err.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT);
   }
-  private isNotAllowed(res) {
-    return res.status === HTTP_STATUS.FORBIDDEN;
+
+  private isNotAllowed(err: HttpErrorResponse) {
+    return err.status === HTTP_STATUS.FORBIDDEN;
   }
+
 }

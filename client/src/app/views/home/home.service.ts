@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/forkJoin';
+import { Observable } from 'rxjs';
 import { IOrganization } from 'app/tools/organization.model';
 
 @Injectable()

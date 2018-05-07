@@ -9,6 +9,7 @@ import { IOrganization } from 'app/tools/organization.model';
 import { Level } from 'app/tools/message.model';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ab-events',
@@ -63,16 +64,18 @@ export class EventsComponent implements OnInit {
     }
 
     this.me.filterEvents(params)
-      .map((events: any) => {
-        if (events) {
-          events.map(event => {
-            event.free = event.capacity - event.pax;
-            event.time = `De ${event.startTime} a ${event.endTime}`;
-            return event;
-          })
-        }
-        return events
-      })
+      .pipe(
+        map((events: any) => {
+          if (events) {
+            events.map(event => {
+              event.free = event.capacity - event.pax;
+              event.time = `De ${event.startTime} a ${event.endTime}`;
+              return event;
+            })
+          }
+          return events
+        })
+      )
       .subscribe((events: any[]) => {
         this.events = events;
       });

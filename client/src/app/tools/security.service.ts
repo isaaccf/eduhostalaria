@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
@@ -7,8 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { IUser } from 'app/tools/user.model';
 import { Level } from 'app/tools/message.model';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators';
 import { LoggingService } from 'app/tools/analytics.service';
 
 @Injectable()
@@ -80,8 +79,10 @@ export class SecurityService {
   public getMe(): Observable<IUser> {
     return this.http
       .get<IUser>(`${this.userUrl}/me`)
-      .do(this.saveUser.bind(this))
-      .do(this.getOrganization.bind(this));
+      .pipe(
+        tap(this.saveUser.bind(this)),
+        tap(this.getOrganization.bind(this))
+      );
   }
 
   private onSecurityErrLogOut() {
@@ -143,15 +144,15 @@ export class SecurityService {
     this.http
       .post(`${this.url}/confirmations`, credentials)
       .subscribe(
-      r => {
-        this.log.sendEvent('users', 'confirm', JSON.stringify(credentials))
-        this.saveUserToken(r);
-        this.getMe()
-          .subscribe(this.emitLogin.bind(this));
-      },
-      error => {
-        this.navigateTo(['/login']);
-      });
+        r => {
+          this.log.sendEvent('users', 'confirm', JSON.stringify(credentials))
+          this.saveUserToken(r);
+          this.getMe()
+            .subscribe(this.emitLogin.bind(this));
+        },
+        error => {
+          this.navigateTo(['/login']);
+        });
   }
 }
 

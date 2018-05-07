@@ -3,6 +3,7 @@ import { BusService } from '../../../tools/bus.service';
 import { MeService } from '../me.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SecurityService } from '../../../tools/security.service';
+import { map } from 'rxjs/operators';
 
 declare var window: any;
 
@@ -48,12 +49,13 @@ export class EventPrintComponent implements OnInit {
 
   getBookings(eventId) {
     this.meService.getBookingsByEventId(eventId)
-      .map((bookings: any) => {
-        return bookings.sort((a, b) => {
-          return a.name > b.name;
-        });
-      })
-      .subscribe(
+      .pipe(
+        map((bookings: any) => {
+          return bookings.sort((a, b) => {
+            return a.name > b.name;
+          });
+        })
+      ).subscribe(
         (bookings) => {
           this.bookings = bookings;
         }

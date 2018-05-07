@@ -6,9 +6,7 @@ import { IAction } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { Event, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { environment } from 'environments/environment';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
+import { filter, map, mergeMap } from 'rxjs/operators';
 import { MessagesService } from 'app/tools/messages.service';
 
 @Component({
@@ -61,22 +59,22 @@ export class ShellComponent implements OnInit {
 
   getTitle() {
     this.title = environment.appTitle;
-    this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .map(() => this.activatedRoute)
-      .map(route => {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.activatedRoute),
+      map(route => {
         while (route.firstChild) {
           route = route.firstChild;
         }
         return route;
-      })
-      .filter(pageRoute => pageRoute.outlet === 'primary')
-      .mergeMap(primaryRoute => primaryRoute.data)
-      .subscribe(data => {
-        if (data.title) {
-          this.title = data.title;
-        }
-      });
+      }),
+      filter(pageRoute => pageRoute.outlet === 'primary'),
+      mergeMap(primaryRoute => primaryRoute.data)
+    ).subscribe(data => {
+      if (data.title) {
+        this.title = data.title;
+      }
+    });
   }
 
   loadMenu() {

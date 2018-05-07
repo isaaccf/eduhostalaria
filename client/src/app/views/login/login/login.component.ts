@@ -3,9 +3,8 @@ import { IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
 import { SecurityService, IUserCredential } from 'app/tools/security.service';
 import { environment } from './../../../../environments/environment';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/takeWhile';
 @Component({
   selector: 'ab-login',
   templateUrl: './login.component.html',

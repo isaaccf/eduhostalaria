@@ -1,18 +1,20 @@
+import { registerLocaleData } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import localeEs from '@angular/common/locales/es';
+import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injector, ErrorHandler, Injectable } from '@angular/core';
-import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { AppComponent } from './app.component';
-import { ComponentsModule } from 'app/tools/components/components.module';
-import { BusService } from 'app/tools/bus.service';
-import { SecurityService } from 'app/tools/security.service';
-import { Interceptor, JWTInterceptor, ErrorInterceptor } from 'app/tools/interceptor.service';
-import { MessagesService } from 'app/tools/messages.service';
-import { LoggingService } from 'app/tools/analytics.service';
-import { MyErrorHandler } from 'app/tools/custom-error';
 import { AppRoutingModule } from 'app/app.routing';
-import { LOCALE_ID } from '@angular/core';
+import { LoggingService } from 'app/tools/analytics.service';
+import { BusService } from 'app/tools/bus.service';
+import { ComponentsModule } from 'app/tools/components/components.module';
+import { MyErrorHandler } from 'app/tools/custom-error';
+import { ErrorInterceptor, Interceptor, JWTInterceptor } from 'app/tools/interceptor.service';
+import { MessagesService } from 'app/tools/messages.service';
+import { SecurityService } from 'app/tools/security.service';
+import { AppComponent } from './app.component';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [

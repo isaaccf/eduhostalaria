@@ -3,7 +3,6 @@ import { IUser } from 'app/tools/user.model';
 import { SecurityService } from 'app/tools/security.service';
 import { IWidgetSchema } from 'app/tools/schema.model';
 import { BusService } from 'app/tools/bus.service';
-import 'rxjs/add/operator/takeWhile';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { IOrganization } from 'app/tools/organization.model';
@@ -118,7 +117,7 @@ export class MeComponent implements OnInit {
   }
 
   onEditProfileClick(editProfileClaim) {
-    this.me.editProfile(editProfileClaim).subscribe(r => this.security.getMe().subscribe(r => this.security.navigateTo(['/'])));
+    this.me.editProfile(editProfileClaim).subscribe(r => this.security.getMe().subscribe(() => this.security.navigateTo(['/'])));
     this.editProfileActive = false;
   }
 

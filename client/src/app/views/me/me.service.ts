@@ -1,10 +1,10 @@
-import { observable } from 'rxjs/symbol/observable';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { IOrganization } from 'app/tools/organization.model';
 import { SecurityService } from 'app/tools/security.service';
 import { LoggingService } from 'app/tools/analytics.service';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class MeService {
@@ -19,13 +19,17 @@ export class MeService {
   getOrganizationsCount(): Observable<number> {
     return this.http
       .get<any>(`${this.organizationsUrl}/count`)
-      .map(res => res.data);
+      .pipe(
+        map(res => res.data)
+      );
   }
 
   getUsersCount(): Observable<number> {
     return this.http
       .get<any>(`${this.usersUrl}/count`)
-      .map(res => res.data);
+      .pipe(
+        map(res => res.data)
+      );
   }
 
   getAdministratedOrganization(id): Observable<IOrganization> {
@@ -80,7 +84,9 @@ export class MeService {
     delete newUser.role;
     return this.http
       .post(`${this.credentialsUrl}/_/invitations`, newUser)
-      .do(x => this.log.sendEvent('invitations', user.name, JSON.stringify(newUser)));
+      .pipe(
+        tap(x => this.log.sendEvent('invitations', user.name, JSON.stringify(newUser)))
+      );
   }
 
   reInviteUser(user: any): Observable<any> {
@@ -90,10 +96,12 @@ export class MeService {
   getOrganizations(): Observable<any[]> {
     return this.http
       .get<any>(this.organizationsUrl)
-      .map(data => data.map(d => {
-        const org = { _id: d._id, name: d.name, admin: { name: '', email: '', userId: '' } };
-        return org;
-      }))
+      .pipe(
+        map(data => data.map(d => {
+          const org = { _id: d._id, name: d.name, admin: { name: '', email: '', userId: '' } };
+          return org;
+        }))
+      );
   }
 
   getOrganizationAdmin(organizationId: number): Observable<any> {
@@ -122,7 +130,9 @@ export class MeService {
   updateOrganization(organization: IOrganization): Observable<IOrganization> {
     return this.http
       .patch<IOrganization>(`${this.organizationsUrl}`, organization)
-      .do(res => this.security.setLocalOrganization(organization));
+      .pipe(
+        tap(res => this.security.setLocalOrganization(organization))
+      );
   }
 
   getEventById(eventId) {
@@ -139,7 +149,9 @@ export class MeService {
     delete event.bookingsNumber;
     return this.http
       .post(this.eventsUrl, event)
-      .do(x => this.log.sendEvent('events', user.name, JSON.stringify(event)));
+      .pipe(
+        tap(x => this.log.sendEvent('events', user.name, JSON.stringify(event)))
+      );
   }
 
   editEvent(event) {
@@ -214,14 +226,18 @@ export class MeService {
     payload.seats = Number(payload.seats);
     return this.http
       .post(this.bookingsUrl, payload)
-      .do(x => this.log.sendEvent('bookings', user.name, JSON.stringify(payload)));
+      .pipe(
+        tap(x => this.log.sendEvent('bookings', user.name, JSON.stringify(payload)))
+      );
   }
 
   bookEventGuest(payload) {
     payload.seats = Number(payload.seats);
     return this.http
       .post(`${this.credentialsUrl}/bookingregistrations`, payload)
-      .do(x => this.log.sendEvent('bookings', 'bookingregistrations', JSON.stringify(payload)));
+      .pipe(
+        tap(x => this.log.sendEvent('bookings', 'bookingregistrations', JSON.stringify(payload)))
+      );
   }
 
   editBooking(booking) {

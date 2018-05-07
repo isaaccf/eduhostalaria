@@ -1,18 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { IFormSchema, IWidgetSchema, ITimelineSchema } from 'app/tools/schema.model';
-import { Http } from '@angular/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Location } from '@angular/common';
-import { IOrganization, OrganizationService, IEvent } from 'app/views/organization/organization.service';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { SecurityService } from 'app/tools/security.service';
+import { IWidgetSchema } from 'app/tools/schema.model';
 import { MeService } from 'app/views/me/me.service';
-import { IUser } from 'app/tools/user.model';
-import { BusService } from 'app/tools/bus.service';
-import { Level } from 'app/tools/message.model';
+import { IOrganization, OrganizationService } from 'app/views/organization/organization.service';
 import { Options } from 'fullcalendar';
 import { CalendarComponent } from 'ng-fullcalendar';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ab-organization-home',
@@ -142,17 +136,18 @@ export class OrganizationHomeComponent implements OnInit {
     }
 
     this.me.filterEvents(payload)
-      .map((events: any) => {
-        return events
-          .filter((event: any) => event.status !== 'CANCELED')
-          .map((event: any) => {
-            if (new Date(event.date.split('T')[0]) < new Date()) {
-              event.status = 'DISABLED';
-            }
-            return event;
-          });
-      })
-      .subscribe((events: any) => {
+      .pipe(
+        map((events: any) => {
+          return events
+            .filter((event: any) => event.status !== 'CANCELED')
+            .map((event: any) => {
+              if (new Date(event.date.split('T')[0]) < new Date()) {
+                event.status = 'DISABLED';
+              }
+              return event;
+            });
+        })
+      ).subscribe((events: any) => {
         this.selectedEvents = events;
         this.selectedEventSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
       });

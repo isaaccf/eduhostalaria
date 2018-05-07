@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { IOrganizationAdmin } from 'app/views/me/organization-admin.model';
-import 'rxjs/add/operator/do';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BusService } from 'app/tools/bus.service';
 import { Level } from 'app/tools/message.model';
 import { IFormSchema, IWidgetSchema, IReportSchema, ILoadEmptyStateSchema, IKeyValue } from 'app/tools/schema.model';
-import 'rxjs/add/operator/takeWhile';
 import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ab-organizations',
@@ -50,8 +49,9 @@ export class OrganizationsComponent implements OnInit {
   getOrganizations() {
     this.me
       .getOrganizations()
-      .do(data => this.organizations = data)
-      .subscribe(this.getOrganizationsAdmins.bind(this));
+      .pipe(
+        tap(data => this.organizations = data)
+      ).subscribe(this.getOrganizationsAdmins.bind(this));
   }
 
   getOrganizationsAdmins() {
