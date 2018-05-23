@@ -1,8 +1,8 @@
 {
   "booked": {
     "subject": "A súa reserva está confirmada",
-    "text": "Ola ${user.name}.\rA túa reserva para ${bookingtext} xa está confirmada.\rVisita ${url} para xestionála.",
-    "html": "<p>Ola ${user.name}.</p><p>A túa reserva para ${bookingtext} xa está activa.</p><p>Se queres cancelala, preme no seguinte enlace e accede á sección das túas reservas: <a href=\"${url}\">${url}</a></p>"
+    "text": "Ola ${user.name}.\rA SÚA RESERVA ESTÁ CONFIRMADA (Só para usuarios colaboradores dados de alta na plataforma de reservas dos centros da rede galega de formación profesional).\rPara ${bookingtext}.\rSe queres cancelala, preme no seguinte enlace e accede á sección das túas reservas: ${url}",
+    "html": "<p>Ola ${user.name}.</p><p>A SÚA RESERVA ESTÁ CONFIRMADA (Só para usuarios colaboradores dados de alta na plataforma de reservas dos centros da rede galega de formación profesional).</p><p>Para ${bookingtext}.</p><p>Se queres cancelala, preme no seguinte enlace e accede á sección das túas reservas: <a href=\"${url}\">${url}</a></p>"
   },
   "booked_guest": {
     "subject": "A súa reserva está pendente de aprobación",

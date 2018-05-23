@@ -1,18 +1,18 @@
 {
   "activated": {
-    "subject": "Benvido á plataforma de reservas das escolas de Hostalaria",
-    "text": "Ola ${user.name}.\rA túa conta xa está activa.\rVisita ${url} para usar a plataforma.",
-    "html": "<p>Ola ${user.name}.</p><p>A túa conta xa está activa.</p><p>Visita <a href=\"${url}\">${url}</a> para usar a plataforma.</p>"
+    "subject": "Benvido á plataforma de reservas dos centros da Rede Galeda de Formación Profesional de Hostelería",
+    "text": "Ola ${user.name}.\rA SÚA SOLICITUDE DE ALTA ESTÁ APROBADA.\rMoitas gracias pola súa colaboración nos eventos e actividades realizadas como parte da formación dos futuros profesionais do sector da restauración.",
+    "html": "<p>Ola ${user.name}.</p><p>A SÚA SOLICITUDE DE ALTA ESTÁ APROBADA.</p><p>Moitas gracias pola súa colaboración nos eventos e actividades realizadas como parte da formación dos futuros profesionais do sector da restauración.</p>"
   },
   "toBeConfirmed": {
     "subject": "Invitacion á plataforma de reservas das escolas de Hostalaria",
-    "text": "Ola ${user.name}.\rEstás a un paso de participar como membro da plataforma de reservas das escolas de Hostalaria.\rVisita ${url}/login/confirm/${user._id} para confirmar e activar a túa conta.",
-    "html": "<p>Ola ${user.name}.</p><p>Estás a un paso de participar como membro da plataforma de reservas das escolas de Hostalaria.</p><p>Visita <a href=\"${url}/login/confirm/${user._id}\">${url}/login/confirm/${user._id}</a> para confirmar e activar a túa conta.</p>"
+    "text": "Ola ${user.name}.\rEstás a un paso de participar como membro da plataforma de reservas dos centros da Rede Galeda de Formación Profesional de Hostelería.\rVisita ${url}/login/confirm/${user._id} para confirmar a súa solicitude de alta, e nos próximos días recibirá unha confirmación da súa alta como usuario colaborador.",
+    "html": "<p>Ola ${user.name}.</p><p>Estás a un paso de participar como membro da plataforma de reservas dos centros da Rede Galeda de Formación Profesional de Hostelería.</p><p>Visita <a href=\"${url}/login/confirm/${user._id}\">${url}/login/confirm/${user._id}</a> para confirmar a súa solicitude de alta, e nos próximos días recibirá unha confirmación da súa alta como usuario colaborador.</p>"
   },
   "confirmed": {
-    "subject": "Benvido á plataforma de reservas das escolas de Hostalaria",
-    "text": "Ola ${user.name}.\rGracias por confirmar. A túa conta xa está activa.\rVisita ${url} para usar a plataforma.",
-    "html": "<p>Ola ${user.name}.</p><p>Gracias por confirmar. A túa conta xa está activa.</p><p>Visita <a href=\"${url}\">${url}</a> para usar a plataforma.</p>"
+    "subject": "Benvido á plataforma de reservas dos centros da Rede Galeda de Formación Profesional de Hostelería",
+    "text": "Ola ${user.name}.\rA SÚA SOLICITUDE DE ALTA ESTÁ APROBADA.\rMoitas gracias pola súa colaboración nos eventos e actividades realizadas como parte da formación dos futuros profesionais do sector da restauración.",
+    "html": "<p>Ola ${user.name}.</p><p>A SÚA SOLICITUDE DE ALTA ESTÁ APROBADA.</p><p>Moitas gracias pola súa colaboración nos eventos e actividades realizadas como parte da formación dos futuros profesionais do sector da restauración.</p>"
   },
   "toBeApproved": {
     "subject": "Solicitude de acceso á plataforma de reservas das escolas de Hostalaria recibida",
@@ -20,9 +20,9 @@
     "html": "<p>Ola ${user.name}.</p><p>A túa conta está pendente de ser aprobada. Recibiras notificación por este mismo medio.</p>"
   },
   "approved": {
-    "subject": "Benvido á plataforma de reservas das escolas de Hostalaria",
-    "text": "Ola ${user.name}.\rA túa conta xa foi aprobada.\rVisita ${url} para usar a plataforma.",
-    "html": "<p>Ola ${user.name}.</p><p>A túa conta foi aprobada.</p><p>Visita <a href=\"${url}\">${url}</a> para usar a plataforma.</p>"
+    "subject": "Benvido á plataforma de reservas dos centros da Rede Galeda de Formación Profesional de Hostelería",
+    "text": "Ola ${user.name}.\rA SÚA SOLICITUDE DE ALTA ESTÁ APROBADA.\rMoitas gracias pola súa colaboración nos eventos e actividades realizadas como parte da formación dos futuros profesionais do sector da restauración.",
+    "html": "<p>Ola ${user.name}.</p><p>A SÚA SOLICITUDE DE ALTA ESTÁ APROBADA.</p><p>Moitas gracias pola súa colaboración nos eventos e actividades realizadas como parte da formación dos futuros profesionais do sector da restauración.</p>"
   },
   "toBeChanged": {
     "subject": "Cambia a password para reservas das escolas de Hostalaria",
