@@ -4,7 +4,7 @@
   "description": "Web API para reservar comida nas escolas de FP",
   "scripts": {
     "client": "cd client && npm install && npm run build",
-    "server": "cd ../server && npm install",
+    "server": "cd server && npm install",
     "postinstall": "npm run client && npm run server"
   },
   "engines": {
