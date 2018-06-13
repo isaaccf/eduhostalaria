@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const mongo = require('../tools/mongo.service');
 const mailer = require('../tools/mailer.service');
 const userService = require('./users.service');
@@ -14,7 +15,6 @@ const dateToObjectID = (timestamp) => {
 
   // Convert date object to hex seconds since Unix epoch
   const hexSeconds = Math.floor(timestamp / 1000).toString(16);
-
   // Create an ObjectId with that hex timestamp
   const constructedObjectId = ObjectID(`${hexSeconds}0000000000000000`);
 
@@ -23,16 +23,26 @@ const dateToObjectID = (timestamp) => {
 
 async function fillBookingsOwner(bookings) {
   await Promise.all(await bookings.map(async (booking) => {
-    booking.owner = await userService.getById(booking.ownerId);
-    delete booking.ownerId;
+    const bookingCopy = booking;
+
+    bookingCopy.owner = await userService.getById(booking.ownerId);
+    delete bookingCopy.ownerId;
+
+    return bookingCopy;
   }));
+
   return bookings;
 }
 
 async function fillEventInformation(bookings) {
   await Promise.all(await bookings.map(async (booking) => {
-    booking.event = await eventService.getById(booking.eventId);
+    const bookingCopy = booking;
+
+    bookingCopy.event = await eventService.getById(booking.eventId);
+
+    return bookingCopy;
   }));
+
   return bookings;
 }
 
@@ -40,11 +50,15 @@ exports.getAll = async (eventId, ownerId, status, startDate, endingDate) => {
   const options = {};
 
   if (eventId) { options.eventId = eventId; }
+
   if (ownerId) { options.ownerId = String(ownerId); }
+
   if (status) { options.status = status.toUpperCase(); }
+
   if (startDate) {
     options._id = { $gte: dateToObjectID(startDate) };
   }
+
   if (endingDate) {
     if (startDate) {
       options._id.$lte = dateToObjectID(endingDate);
@@ -56,12 +70,16 @@ exports.getAll = async (eventId, ownerId, status, startDate, endingDate) => {
   const bookings = await mongo.find(col, options, { date: 1 });
 
   bookings.map((booking) => {
-    booking.date = booking._id.getTimestamp();
-    return booking;
+    const bookingCopy = booking;
+
+    bookingCopy.date = booking._id.getTimestamp();
+
+    return bookingCopy;
   });
 
   await fillEventInformation(bookings);
   await fillBookingsOwner(bookings);
+
   return bookings;
 };
 
@@ -71,15 +89,21 @@ exports.insertBooking = async (user, booking, userType) => {
   if (booking.seats > event.freeSeats) {
     return new Error('There are no free seats :(');
   }
+
   booking.date = new Date();
+
   const result = await mongo.insertOne(col, booking);
+
   event.freeSeats -= booking.seats;
+
   await eventService.updateEvent(booking.eventId, event);
+
   if (userType === 'GUEST') {
     mailer.sendBooking(user, event, booking, 'booked_guest');
   } else {
     mailer.sendBooking(user, event, booking, 'booked');
   }
+
   return result;
 };
 
@@ -151,25 +175,35 @@ exports.updateBooking = async (bookingId, booking, sendMessage, customMessage) =
 
   return newBooking;
 };
+
 exports.deleteBooking = async bookingId => mongo.removeOne(col, bookingId);
+
 exports.getById = async (bookingId) => {
   const booking = await mongo.findOneById(col, bookingId);
   const bookings = await fillEventInformation([booking]);
+
   delete bookings[0].eventId;
+
   return bookings[0];
 };
 
 exports.rateBooking = async (bookingId, score, comments) => {
   const oldBooking = await mongo.findOneById(col, bookingId);
+
   oldBooking.rating = { score, comments };
+
   const booking = await mongo.updateOne(col, bookingId, oldBooking);
+
   /* Información para enviar el email */
   const user = await userService.getById(String(booking.ownerId));
   const event = await eventService.getById(booking.eventId);
   const owner = await userService.getById(event.ownerId);
+
   mailer.sendRating(user, owner, event, { score, comments }, 'rated');
+
   return booking;
 };
 
 exports.getByEventId = async eventId => mongo.find(col, { eventId: String(eventId), status: { $ne: 'CANCELED' } });
+
 exports.getByUserId = async userId => mongo.find(col, { ownerId: String(userId) });

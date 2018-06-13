@@ -7,103 +7,134 @@ const col = 'events';
 
 async function fillEventsOwner(events) {
   await Promise.all(await events.map(async (event) => {
-    event.owner = await userService.getById(event.ownerId);
-    delete event.ownerId;
+    const eventCopy = event;
+
+    eventCopy.owner = await userService.getById(event.ownerId);
+
+    delete eventCopy.ownerId;
+
+    return eventCopy;
   }));
   return events;
 }
 
 async function fillEventsBookingsNumber(events) {
   await Promise.all(events.map(async (event) => {
-    event.bookingsNumber = await mongo.count('bookings', { eventId: String(event._id) });
+    const eventCopy = event;
+
+    eventCopy.bookingsNumber = await mongo.count('bookings', { eventId: String(event._id) });
+
+    return eventCopy;
   }));
+
   return events;
 }
 
 async function calculatePax(events) {
   await Promise.all(events.map(async (event) => {
+    const eventCopy = event;
     const bookings = await bookingsSrv.getByEventId(event._id);
     let pax = 0;
+
     await Promise.all(bookings.map(async (booking) => {
       pax += Number(booking.seats);
     }));
-    event.pax = pax;
+
+    eventCopy.pax = pax;
+
+    return eventCopy;
   }));
+
   return events;
 }
 
-module.exports.getAll = async (organizationId, ownerId, name, status, startDate, endingDate, priv) => {
-  const options = {};
-  if (organizationId) { options.organizationId = organizationId; }
-  if (ownerId) { options.ownerId = ownerId; }
-  if (name) { options.$or = [{ name: { $regex: name, $options: 'i' } }, { description: { $regex: name, $options: 'i' } }]; }
-  if (status) { options.status = status.toUpperCase(); }
-  if (startDate) {
-    options.date = { $gte: startDate };
-  }
-  if (endingDate) {
+module.exports.getAll =
+  async (organizationId, ownerId, name, status, startDate, endingDate, priv) => {
+    const options = {};
+
+    if (organizationId) { options.organizationId = organizationId; }
+
+    if (ownerId) { options.ownerId = ownerId; }
+
+    if (name) { options.$or = [{ name: { $regex: name, $options: 'i' } }, { description: { $regex: name, $options: 'i' } }]; }
+
+    if (status) { options.status = status.toUpperCase(); }
+
     if (startDate) {
-      options.date.$lte = endingDate;
-    } else {
-      options.date = { $lte: endingDate };
+      options.date = { $gte: startDate };
     }
-  }
 
-  let events = await mongo.find(col, options, { date: 1 });
+    if (endingDate) {
+      if (startDate) {
+        options.date.$lte = endingDate;
+      } else {
+        options.date = { $lte: endingDate };
+      }
+    }
 
-  events = await calculatePax(events);
-  events = await fillEventsBookingsNumber(events);
+    let events = await mongo.find(col, options, { date: 1 });
 
-  return fillEventsOwner(events);
-};
+    events = await calculatePax(events);
+    events = await fillEventsBookingsNumber(events);
+
+    return fillEventsOwner(events);
+  };
 
 module.exports.getByStatus = async (organizationId, status) => {
   const data = mongo.find(col, { organizationId, status }, { date: -1 });
+
   return data;
 };
 
 module.exports.getBySlug = async slug => mongo.find(col, { slug });
 
 exports.insertEvent = async event => mongo.insertOne(col, event);
+
 exports.updateEvent = async (eventId, event, sendMessage, customMessage) => {
   const oldEvent = await this.getById(eventId);
+  const eventCopy = event;
 
-  if (event.capacity < (oldEvent.capacity - oldEvent.freeSeats)) {
+  if (eventCopy.capacity < (oldEvent.capacity - oldEvent.freeSeats)) {
     return new Error('Capacity is not valid :(');
   }
 
-  if (event.capacity > oldEvent.capacity) {
-    event.freeSeats += Number(event.capacity) - Number(oldEvent.capacity);
+  if (eventCopy.capacity > oldEvent.capacity) {
+    eventCopy.freeSeats += Number(eventCopy.capacity) - Number(oldEvent.capacity);
   }
 
-  if (event.capacity < oldEvent.capacity) {
-    event.freeSeats -= Number(oldEvent.capacity) - Number(event.capacity);
+  if (eventCopy.capacity < oldEvent.capacity) {
+    eventCopy.freeSeats -= Number(oldEvent.capacity) - Number(eventCopy.capacity);
   }
 
   /* Si pasamos el evento a cancelado, cancelamos todas las reservas y aumentamos freeSeats */
   /* También eliminamos sus fotos asociadas */
-  if (event.status === 'CANCELED' && oldEvent.status !== event.status) {
+  if (eventCopy.status === 'CANCELED' && oldEvent.status !== eventCopy.status) {
     const bookings = await bookingsSrv.getAll(eventId, undefined);
 
     await Promise.all(bookings.map(async (booking) => {
+      const bookingCopy = booking;
+
       if (booking.status !== 'CANCELED') {
-        booking.status = 'CANCELED';
-        await bookingsSrv.updateBooking(booking._id, booking, sendMessage, customMessage);
+        bookingCopy.status = 'CANCELED';
+
+        await bookingsSrv.updateBooking(booking._id, bookingCopy, sendMessage, customMessage);
       }
     }));
 
-    event.freeSeats = Number(event.capacity);
+    eventCopy.freeSeats = Number(eventCopy.capacity);
 
-    if (event.files) {
-      event.files.forEach(async (file) => {
+    if (eventCopy.files) {
+      eventCopy.files.forEach(async (file) => {
         await uploadService.removeFile(eventId, file.name, true);
       });
     }
   }
 
-  return mongo.updateOne(col, eventId, event);
+  return mongo.updateOne(col, eventId, eventCopy);
 };
+
 exports.getById = async eventId => mongo.findOneById(col, eventId);
+
 exports.removeEvent = async (eventId) => {
   const bookings = await bookingsSrv.getByEventId(eventId);
 
@@ -113,9 +144,11 @@ exports.removeEvent = async (eventId) => {
 
   await mongo.removeOne(col, eventId);
 };
+
 exports.addFiles = async (eventId, fileUrl) => {
   const updateCommand = { $push: { files: fileUrl } };
   const result = await mongo.updateQuery(col, eventId, updateCommand);
+
   return result;
 };
 

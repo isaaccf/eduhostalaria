@@ -7,14 +7,13 @@ const tracker = require('./app/tools/ga.service');
 logger.configure({
   transports: [
     new (logger.transports.Console)({
-      // timestamp: () => (new Date()).toLocaleTimeString(),
       level: 'debug',
       handleExceptions: true,
       json: false,
-      // colorize: true,
     }),
   ],
 });
+
 logger.level = 'debug';
 
 process.on('uncaughtException', (err) => {
@@ -27,7 +26,6 @@ process.on('unhandledRejection', (err) => {
   logger.warn(`unhandledRejection: ${err.message}`);
   logger.error(err);
 });
-
 
 logger.info(config);
 
