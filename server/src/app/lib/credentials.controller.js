@@ -6,6 +6,9 @@ const mailer = require('../tools/mailer.service');
 
 module.exports = (app, url) => {
   app.route(`${url}/bigbang`)
+    /**
+     * Crea un usuario Dios si no está existe ya.
+     */
     .get(async (req, res) => {
       const god = await srv.getGod();
 
@@ -19,6 +22,10 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/registrations`)
+    /**
+     * Crea un nuevo usuario en la base de datos y lo deja en estado DISABLED.
+     * Envía también un email al usuario para que active su cuenta.
+     */
     .post(async (req, res) => {
       const registration = req.body;
 
@@ -30,6 +37,11 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/bookingregistrations`)
+    /**
+     * Crea un nuevo usuario en la base de datos y una reserva asociada al usuario.
+     * La reserva quedará en estado PENDING hasta que el usuario la active a través
+     * de un email que le será enviado.
+     */
     .post(async (req, res) => {
       const bookingRegistration = req.body;
       const userRegistration = {
@@ -61,6 +73,10 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/_/invitations`)
+    /**
+     * Crea un nuevo usuario en la base de datos en estado PENDING
+     * y le envía un email para que confirme su cuenta.
+     */
     .post(async (req, res) => {
       const invitation = req.body;
 
@@ -78,6 +94,10 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/_/invitations/resend`)
+    /**
+     * Vuelve a enviar el email de confirmación a
+     * un usuario para que active su cuenta.
+     */
     .post(async (req, res) => {
       mailer.sendWellcome(req.body, 'toBeConfirmed');
 
@@ -85,6 +105,9 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/confirmations`)
+    /**
+     * Cambia el estado del usuario actual a CONFIRMED.
+     */
     .post(async (req, res) => {
       const activatedUser = await srv.activateUser(req.body, 'PENDING', 'confirmed');
 
@@ -92,6 +115,9 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/_/approvals`)
+    /**
+     * Cambia el estado del usuario actual a APPROVED.
+     */
     .post(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
 
@@ -101,6 +127,9 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/_/dissableds`)
+    /**
+     * Cambia el estado del usuario actual a DISABLED.
+     */
     .post(async (req, res) => {
       rest.checkRole(req, res, ['MESTRE', 'ADMIN', 'GOD']);
 
@@ -110,6 +139,9 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/forgot-password`)
+    /**
+     * Envía un correo al usuario para que pueda reestablecer su contraseña.
+     */
     .post(async (req, res) => {
       const result = await srv.forgotPassword(req.body);
 
@@ -117,11 +149,17 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/`)
+    /**
+     * Genera un token JWT para un usuario y se lo envía al cliente.
+     */
     .post(async (req, res) => {
       const token = await srv.loginUser(req.body);
 
       return rest.returnInserted(token, res);
     })
+    /**
+     * Actualiza la contraseña de un usuario.
+     */
     .patch(async (req, res) => {
       const result = await srv.changePassword(req.body);
 
@@ -129,11 +167,17 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/_/:id`)
+    /**
+     * Devuelve los datos de un usuario.
+     */
     .get(async (req, res) => {
       const user = await srvUsers.getById(req.params.id);
 
       return rest.returnOne(user, res);
     })
+    /**
+     * Actualiza los datos de un usuario.
+     */
     .patch(async (req, res) => {
       rest.checkRole(req, res, ['ADMIN', 'GOD']);
 
@@ -141,6 +185,9 @@ module.exports = (app, url) => {
 
       return rest.returnOne(updatedUser, res);
     })
+    /**
+     * Elimina a un usuario.
+     */
     .delete(async (req, res) => {
       rest.checkRole(req, res, ['ADMIN', 'GOD']);
 

@@ -3,6 +3,10 @@ const rest = require('../tools/rest.service');
 
 module.exports = (app, url) => {
   app.route(`${url}`)
+    /**
+     * Obtiene todas las reservas de un usuario. Se pueden filtrar a través de
+     * query params por: status, startDate y endingDate.
+     */
     .get(async (req, res) => {
       const ownerId = req.user._id;
       const status = req.query.status;
@@ -12,6 +16,9 @@ module.exports = (app, url) => {
 
       return rest.returnArray(data, res);
     })
+    /**
+     * Crea una nueva reserva.
+     */
     .post(async (req, res, next) => {
       try {
         const booking = req.body;
@@ -28,12 +35,18 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/:id`)
+    /**
+     * Obtiene la información de una reserva.
+     */
     .get(async (req, res) => {
       const bookingId = req.params.id;
       const data = await srv.getById(bookingId);
 
       return rest.returnOne(data, res);
     })
+    /**
+     * Actualiza la información de una reserva.
+     */
     .patch(async (req, res) => {
       rest.checkRole(req, res, ['INTERNO', 'CONSERXE', 'MESTRE', 'ADMIN', 'GOD']);
 
@@ -43,6 +56,9 @@ module.exports = (app, url) => {
 
       return rest.returnInserted(data, res);
     })
+    /**
+     * Elimina una reserva
+     */
     .delete(async (req, res) => {
       const bookingId = req.params.id;
       const booking = await srv.deleteBooking(bookingId);
@@ -51,6 +67,9 @@ module.exports = (app, url) => {
     });
 
   app.route(`${url}/:id/rating`)
+    /**
+     * Crea una valoración para una reserva.
+     */
     .post(async (req, res) => {
       const bookingId = req.params.id;
       const score = req.body.score;
