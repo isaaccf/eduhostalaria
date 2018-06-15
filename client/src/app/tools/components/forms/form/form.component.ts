@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { IFormSchema, IForm } from 'app/tools/schema.model';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormToolsService } from 'app/tools/components/forms/form-tools.service';
+import { IForm, IFormSchema } from 'app/tools/schema.model';
 
 @Component({
   selector: 'ab-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit, OnChanges {
+export class FormComponent implements OnChanges {
 
   @Input() formSchema: IFormSchema;
 
@@ -18,10 +18,6 @@ export class FormComponent implements OnInit, OnChanges {
   public form: IForm;
 
   constructor(private formBuilder: FormBuilder, private formTools: FormToolsService) { }
-
-  ngOnInit() {
-
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.formSchema) {
@@ -87,19 +83,18 @@ export class FormComponent implements OnInit, OnChanges {
     this.send.emit(this.form.group.value);
   }
 
-  // tslint:disable-next-line:cyclomatic-complexity
+  isTwoColumns(type: string) {
+    return type !== 'wysiwyg' && type !== 'textarea'
+      && type !== 'checkbox' && type !== 'email'
+      && type !== 'password'
+  }
+
   getClasses(control) {
     let classes = 'form-group column col-lg-12';
 
-    if (control.type !== 'wysiwyg' && control.type !== 'textarea'
-      && control.type !== 'checkbox' && control.type !== 'email'
-      && control.type !== 'password') {
+    if (this.isTwoColumns(control.type)) {
       classes += ' col-6';
-    }
-
-    if (control.type === 'wysiwyg' || control.type === 'textarea'
-      || control.type === 'checkbox' || control.type === 'email'
-      || control.type === 'password') {
+    } else {
       classes += ' col-12';
     }
 
