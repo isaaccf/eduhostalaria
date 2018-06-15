@@ -1,37 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ab-pill',
   templateUrl: './pill.component.html',
   styleUrls: ['./pill.component.css']
 })
-export class PillComponent implements OnInit {
+export class PillComponent {
+
+  private labels = {
+    ACTIVE: 'label-success',
+    ATTENDED: 'label-warning',
+    CANCELED: 'label-error',
+    DISABLED: 'label-grey',
+    PAID: 'label-secondary',
+    PENDING: 'label-pending'
+  };
 
   @Input() text: any;
   @Input() link?: string;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  getClass() {
+    const value = this.labels[this.text];
 
-  // tslint:disable-next-line:cyclomatic-complexity
-  getClass(value: string) {
-    switch (this.text) {
-      case 'ACTIVE':
-        return 'label-success';
-      case 'ATTENDED':
-        return 'label-warning'
-      case 'CANCELED':
-        return 'label-error';
-      case 'DISABLED':
-        return 'label-grey';
-      case 'PAID':
-        return 'label-secondary';
-      case 'PENDING':
-        return 'label-warning';
-      default:
-        return 'label-default';
+    if (value) {
+      return value;
+    } else {
+      return 'label-default';
     }
   }
 

@@ -5,21 +5,21 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class StatusPipe implements PipeTransform {
 
-  // tslint:disable-next-line:cyclomatic-complexity
+  private translations = {
+    ACTIVE: 'CONFIRMADO',
+    CANCELED: 'CANCELADO',
+    DISABLED: 'BLOQUEADO',
+    ATTENDED: 'ASISTIU',
+    PAID: 'PAGOU'
+  }
+
   transform(value: any, args?: any): any {
-    switch (value) {
-      case 'ACTIVE':
-        return 'CONFIRMADO';
-      case 'CANCELED':
-        return 'CANCELADO';
-      case 'DISABLED':
-        return 'BLOQUEADO';
-      case 'ATTENDED':
-        return 'ASISTIU';
-      case 'PAID':
-        return 'PAGOU';
-      default:
-        return value;
+    const translation = this.translations[value];
+
+    if (translation) {
+      return translation;
+    } else {
+      return value
     }
   }
 

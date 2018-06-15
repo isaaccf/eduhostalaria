@@ -1,6 +1,6 @@
+// tslint:disable:cyclomatic-complexity
 import { AbstractControl } from '@angular/forms';
 
-// tslint:disable-next-line:cyclomatic-complexity
 export function validateTime(control: AbstractControl) {
   if (!control.value || control.value === '' || control.value === 'hh:mm') {
     return { validateTime: true };

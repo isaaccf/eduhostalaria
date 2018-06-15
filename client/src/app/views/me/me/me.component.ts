@@ -1,12 +1,12 @@
+// tslint:disable:cyclomatic-complexity
 import { Component, OnInit } from '@angular/core';
-import { IUser } from 'app/tools/user.model';
-import { SecurityService } from 'app/tools/security.service';
-import { IWidgetSchema } from 'app/tools/schema.model';
 import { BusService } from 'app/tools/bus.service';
-import { MeService } from 'app/views/me/me.service';
 import { SchemaService } from 'app/tools/components/schema.service';
 import { IOrganization } from 'app/tools/organization.model';
-
+import { IWidgetSchema } from 'app/tools/schema.model';
+import { SecurityService } from 'app/tools/security.service';
+import { IUser } from 'app/tools/user.model';
+import { MeService } from 'app/views/me/me.service';
 
 @Component({
   selector: 'ab-me',
@@ -64,7 +64,6 @@ export class MeComponent implements OnInit {
       });
   }
 
-  // tslint:disable-next-line:cyclomatic-complexity
   configureRoleSchemas(userRole, roleSchema) {
     if (userRole === 'god') {
       this.me.getOrganizationsCount()
@@ -78,7 +77,6 @@ export class MeComponent implements OnInit {
           if (this.organization) {
             roleSchema[0].header.title = this.organization.name;
             roleSchema[0].header.subtitle = this.organization.slogan;
-            // roleSchema[0].actions[0].link = `me/organization/${this.organization.slug}`;
           }
         });
       this.me.getUsersCount()

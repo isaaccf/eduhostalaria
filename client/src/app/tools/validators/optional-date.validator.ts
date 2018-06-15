@@ -1,6 +1,6 @@
+// tslint:disable:cyclomatic-complexity
 import { AbstractControl } from '@angular/forms';
 
-// tslint:disable-next-line:cyclomatic-complexity
 function validateChrome(arr, control) {
   const now = new Date();
 
@@ -23,7 +23,6 @@ function validateChrome(arr, control) {
   return null;
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
 function validateOther(arr, control) {
   const now = new Date();
 
@@ -46,7 +45,6 @@ function validateOther(arr, control) {
   return null;
 };
 
-// tslint:disable-next-line:cyclomatic-complexity
 export function validateOptionalDate(control: AbstractControl) {
   if (!control.value || control.value === '' || control.value === 'dd/mm/aaaa') {
     return null;
