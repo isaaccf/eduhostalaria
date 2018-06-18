@@ -9,6 +9,14 @@ export interface IFormSchema {
   controls: IFormControl[];
 }
 
+export interface IField {
+  label: string;
+  key: string;
+  type: string;
+  tableType?: string;
+  pillLink?: string;
+}
+
 export interface IFormControl extends IField {
   key: string;
   type: 'email' | 'password' | 'radio' | 'select' | 'switch' | 'text' | 'textarea' | 'date';
@@ -19,6 +27,11 @@ export interface IFormControl extends IField {
   today?: any;
   validators?: IValidator[];
   isDisabled?: boolean;
+}
+
+export interface IKeyValue {
+  key?: string;
+  value?: string;
 }
 
 export interface IAction extends IKeyValue {
@@ -35,11 +48,6 @@ export interface IAction extends IKeyValue {
   showKey?: string;
   showValue?: string;
   disabledStatus?: string;
-}
-
-export interface IKeyValue {
-  key?: string;
-  value?: string;
 }
 
 export interface IValidator {
@@ -59,14 +67,6 @@ export interface IReportSchema {
   emptyMessage?: string;
   fields: IField[];
   actions: IAction[];
-}
-
-export interface IField {
-  label: string;
-  key: string;
-  type: string;
-  tableType?: string;
-  pillLink?: string;
 }
 
 export interface IHeader {

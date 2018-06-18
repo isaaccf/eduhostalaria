@@ -1,14 +1,21 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { SchemaService } from 'app/tools/components/schema.service';
-import { MeService } from 'app/views/me/me.service';
-import { SecurityService } from 'app/tools/security.service';
-import { BusService } from 'app/tools/bus.service';
-import { IFormSchema, IWidgetSchema, IAction } from 'app/tools/schema.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Level } from 'app/tools/message.model';
-import ImageCompressor from 'image-compressor.js';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BusService } from 'app/tools/bus.service';
+import { SchemaService } from 'app/tools/components/schema.service';
+import { Level } from 'app/tools/message.model';
+import { IAction, IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
+import { SecurityService } from 'app/tools/security.service';
+import { MeService } from 'app/views/me/me.service';
+import ImageCompressor from 'image-compressor.js';
+
+const YEAR_POSITION = 0;
+const MONTH_POSITION = 1;
+const DAY_POSITION = 2;
+const DATE_LENGTH = 10;
+const DAY_HOUR = 14;
+const NIGHT_HOUR = 21;
 
 @Component({
   selector: 'ab-event',
@@ -84,11 +91,13 @@ export class EventComponent implements OnInit {
         if (this.event) {
           this.panelSchema.header.title = 'Información da oferta';
           this.schema.populateDefaultValues(this.formSchema, this.event);
-          this.formSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, 10);
+          this.formSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, DATE_LENGTH);
         } else {
           this.schema.populateDefaultValues(this.formSchema, this.organization);
           this.formSchema.controls[0].defaultValue = 'dd/mm/aaaa';
+          // tslint:disable-next-line:no-magic-numbers
           this.formSchema.controls[4].defaultValue = 'hh:mm';
+          // tslint:disable-next-line:no-magic-numbers
           this.formSchema.controls[5].defaultValue = 'hh:mm';
         }
       });
@@ -214,15 +223,15 @@ export class EventComponent implements OnInit {
 
   transformDate(event) {
     const dateArr = event.date.split('-');
-    const year = dateArr[0];
-    const month = dateArr[1] - 1;
-    const day = dateArr[2];
+    const year = dateArr[YEAR_POSITION];
+    const month = dateArr[MONTH_POSITION] - 1;
+    const day = dateArr[DAY_POSITION];
     let hour = 12;
     event.date = new Date(year, month, day, hour, 0, 0, 0);
     if (event.shift === 'Diurno') {
-      hour = 14;
+      hour = DAY_HOUR;
     } else {
-      hour = 21;
+      hour = NIGHT_HOUR;
     }
     event['time'] = new Date(year, month, day, hour, 0, 0, 0);
   }

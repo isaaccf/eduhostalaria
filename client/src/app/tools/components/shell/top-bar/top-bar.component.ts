@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { IUser } from 'app/tools/user.model';
 import { environment } from 'environments/environment';
+
+const RESIZE_WIDTH = 1280;
 
 @Component({
   selector: 'ab-top-bar',
@@ -36,7 +38,7 @@ export class TopBarComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (event.target.innerWidth > 1280) {
+    if (event.target.innerWidth > RESIZE_WIDTH) {
       if (this.currentState) {
         this.currentState = false;
         this.toggleResponsive.emit(this.currentState);

@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Level } from 'app/tools/message.model';
 import { MessagesService } from 'app/tools/messages.service';
+
+const TIMEOUT = 3000;
+const TIMEOUT_ERR = 6000;
 
 @Component({
   selector: 'ab-toast',
@@ -34,7 +37,7 @@ export class ToastComponent implements OnInit, OnChanges {
 
   autoCloseIfNoButton() {
     if (!this.closeButton) {
-      const timeout = this.level === Level.ERROR ? 6000 : 3000;
+      const timeout = this.level === Level.ERROR ? TIMEOUT_ERR : TIMEOUT;
       setTimeout(() => {
         this.show = false;
         this.close.emit(false);

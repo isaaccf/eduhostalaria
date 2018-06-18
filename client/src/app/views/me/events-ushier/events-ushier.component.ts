@@ -1,13 +1,15 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { IWidgetSchema, IReportSchema } from 'app/tools/schema.model';
-import { SchemaService } from 'app/tools/components/schema.service';
-import { MeService } from 'app/views/me/me.service';
-import { SecurityService } from 'app/tools/security.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusService } from 'app/tools/bus.service';
+import { SchemaService } from 'app/tools/components/schema.service';
+import { IWidgetSchema } from 'app/tools/schema.model';
+import { SecurityService } from 'app/tools/security.service';
+import { MeService } from 'app/views/me/me.service';
 import { OrganizationService } from 'app/views/organization/organization.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Level } from '../../../tools/message.model';
+
+const TWO_DAYS = 2;
 
 @Component({
   selector: 'ab-events-ushier',
@@ -80,8 +82,8 @@ export class EventsUshierComponent implements OnInit {
     const startDate = new Date();
     const endingDate = new Date();
 
-    startDate.setDate(startDate.getDate() - 2);
-    endingDate.setDate(endingDate.getDate() + 2);
+    startDate.setDate(startDate.getDate() - TWO_DAYS);
+    endingDate.setDate(endingDate.getDate() + TWO_DAYS);
 
     const payload = {
       organizationId: this.organization._id,

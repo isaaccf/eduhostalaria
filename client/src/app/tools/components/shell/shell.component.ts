@@ -1,13 +1,15 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { BusService } from 'app/tools/bus.service';
-import { Level, IMessage } from 'app/tools/message.model';
-import { IUser } from 'app/tools/user.model';
-import { IAction } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
-import { Event, Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { IMessage } from 'app/tools/message.model';
+import { MessagesService } from 'app/tools/messages.service';
+import { IAction } from 'app/tools/schema.model';
+import { IUser } from 'app/tools/user.model';
 import { environment } from 'environments/environment';
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { MessagesService } from 'app/tools/messages.service';
+
+const TIMEOUT = 10;
 
 @Component({
   selector: 'ab-shell',
@@ -52,7 +54,7 @@ export class ShellComponent implements OnInit {
       (value: boolean) => {
         setTimeout(() => {
           this.isPrintingMode = value;
-        }, 10)
+        }, TIMEOUT)
       }
     )
   }

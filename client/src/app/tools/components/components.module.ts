@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FormToolsService } from 'app/tools/components/forms/form-tools.service';
@@ -11,7 +11,6 @@ import { ShellComponent } from 'app/tools/components/shell/shell.component';
 import { TopBarComponent } from 'app/tools/components/shell/top-bar/top-bar.component';
 import { StatusPipe } from 'app/tools/status.pipe';
 import { QuillModule } from 'ngx-quill';
-import { DatePaginatorComponent } from './date-paginator/date-paginator.component';
 import { CheckboxComponent } from './forms/checkbox/checkbox.component';
 import { ControlErrorComponent } from './forms/control-error/control-error.component';
 import { FormComponent } from './forms/form/form.component';
@@ -77,7 +76,6 @@ import { TimelineComponent } from './widgets/timeline/timeline.component';
     DateComponent,
     FilterComponent,
     StatusPipe,
-    DatePaginatorComponent,
     CheckboxComponent,
     TileEventComponent
   ],
@@ -86,7 +84,6 @@ import { TimelineComponent } from './widgets/timeline/timeline.component';
     CardComponent,
     ControlErrorComponent,
     DashboardComponent,
-    DatePaginatorComponent,
     EditorComponent,
     FormComponent,
     InputComponent,

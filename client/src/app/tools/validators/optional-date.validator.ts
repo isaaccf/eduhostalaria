@@ -1,22 +1,30 @@
 // tslint:disable:cyclomatic-complexity
 import { AbstractControl } from '@angular/forms';
 
+const YEAR_POSITION = 0;
+const MONTH_POSITION = 1;
+const DAY_POSITION = 2;
+const MIN_VALUE = 0;
+const MAX_MONTHS = 12;
+const MAX_DAYS = 31;
+const MAX_DAYS_MONTH_LENGTH = 2;
+const MAX_YEAR_LENGTH = 4;
+const MAX_ARR_LENGTH = 3;
+
 function validateChrome(arr, control) {
-  const now = new Date();
-
-  if (arr[1] <= 0 || arr[1] > 12) {
+  if (arr[MONTH_POSITION] <= MIN_VALUE || arr[MONTH_POSITION] > MAX_MONTHS) {
     return { validDate: true };
   }
 
-  if (arr[2] <= 0 || arr[2] > 31) {
+  if (arr[DAY_POSITION] <= MIN_VALUE || arr[DAY_POSITION] > MAX_DAYS) {
     return { validDate: true };
   }
 
-  if (arr[0].length !== 4) {
+  if (arr[YEAR_POSITION].length !== MAX_YEAR_LENGTH) {
     return { validDate: true };
   };
 
-  if (Number.isNaN(Date.parse(`${arr[0]}-${arr[1]}-${arr[2]}`))) {
+  if (Number.isNaN(Date.parse(`${arr[YEAR_POSITION]}-${arr[MONTH_POSITION]}-${arr[DAY_POSITION]}`))) {
     return { validDate: true };
   }
 
@@ -24,21 +32,19 @@ function validateChrome(arr, control) {
 };
 
 function validateOther(arr, control) {
-  const now = new Date();
-
-  if (arr[0] <= 0 || arr[0] > 31) {
+  if (arr[YEAR_POSITION] <= MIN_VALUE || arr[DAY_POSITION] > MAX_DAYS) {
     return { validDate: true };
   }
 
-  if (arr[1] <= 0 || arr[1] > 12) {
+  if (arr[MONTH_POSITION] <= MIN_VALUE || arr[MONTH_POSITION] > MAX_MONTHS) {
     return { validDate: true };
   }
 
-  if (arr[2].length !== 4) {
+  if (arr[DAY_POSITION].length !== MAX_YEAR_LENGTH) {
     return { validDate: true };
   };
 
-  if (Number.isNaN(Date.parse(`${arr[2]}-${arr[1]}-${arr[0]}`))) {
+  if (Number.isNaN(Date.parse(`${arr[DAY_POSITION]}-${arr[MONTH_POSITION]}-${arr[YEAR_POSITION]}`))) {
     return { validDate: true };
   }
 
@@ -58,11 +64,17 @@ export function validateOptionalDate(control: AbstractControl) {
 
   arr.map(value => Number(value));
 
-  if (arr.length === 3 && arr[0].length === 2 && arr[1].length === 2 && arr[2].length === 4) {
+  if (arr.length === MAX_ARR_LENGTH
+    && arr[YEAR_POSITION].length === MAX_DAYS_MONTH_LENGTH
+    && arr[MONTH_POSITION].length === MAX_DAYS_MONTH_LENGTH
+    && arr[DAY_POSITION].length === MAX_YEAR_LENGTH) {
     return validateOther(arr, control);
   }
 
-  if (arr.length === 3 && arr[0].length === 4 && arr[1].length === 2 && arr[2].length === 2) {
+  if (arr.length === MAX_ARR_LENGTH
+    && arr[YEAR_POSITION].length === MAX_YEAR_LENGTH
+    && arr[MONTH_POSITION].length === MAX_DAYS_MONTH_LENGTH
+    && arr[DAY_POSITION].length === MAX_DAYS_MONTH_LENGTH) {
     return validateChrome(arr, control);
   }
 
