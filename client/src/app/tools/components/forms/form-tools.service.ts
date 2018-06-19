@@ -9,16 +9,6 @@ import { validateTime } from 'app/tools/validators/time.validator';
 @Injectable()
 export class FormToolsService {
 
-  private validators = {
-    required: Validators.required,
-    requiredTrue: Validators.requiredTrue,
-    email: Validators.email,
-    validDate: validateDate,
-    validOptionalDate: validateOptionalDate,
-    time: validateTime,
-    integer: validateInteger,
-  };
-
   constructor() { }
 
   hasErrorsToShow(form: FormGroup, field: string) {
@@ -57,8 +47,27 @@ export class FormToolsService {
     return (control.touched || control.dirty);
   }
 
+  // tslint:disable-next-line:cyclomatic-complexity
   getValidator(validation: IValidator) {
-    return this.validators[validation.key];
+    switch (validation.key) {
+      case 'required':
+        return Validators.required;
+      case 'requiredTrue':
+        return Validators.requiredTrue;
+      case 'email':
+        return Validators.email;
+      case 'validDate':
+        return validateDate;
+      case 'validOptionalDate':
+        return validateOptionalDate;
+      case 'time':
+        return validateTime;
+      case 'integer':
+        return validateInteger;
+      default:
+        break;
+    }
+
   }
 
 }

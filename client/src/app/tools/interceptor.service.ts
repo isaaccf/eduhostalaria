@@ -1,10 +1,10 @@
-import { BusService } from './bus.service';
-import { environment } from './../../environments/environment';
-import { Observable } from 'rxjs';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpResponse, HttpEvent, HttpErrorResponse, HttpInterceptor } from '@angular/common/http';
-import { HTTP_STATUS } from './http-status.enum';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
+import { BusService } from './bus.service';
+import { HTTP_STATUS } from './http-status.enum';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
@@ -74,10 +74,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     return (
       err.status === HTTP_STATUS.UNAUTHORIZED ||
       err.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT);
-  }
-
-  private isNotAllowed(err: HttpErrorResponse) {
-    return err.status === HTTP_STATUS.FORBIDDEN;
   }
 
 }
