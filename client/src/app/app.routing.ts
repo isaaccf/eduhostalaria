@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 const routeBase = './views/';
 const routes: Routes = [
   {
@@ -13,10 +13,6 @@ const routes: Routes = [
   {
     path: 'me',
     loadChildren: routeBase + 'me/me.module#MeModule'
-  },
-  {
-    path: 'messages',
-    loadChildren: routeBase + 'messages/messages.module#MessagesModule'
   },
   {
     path: 'org/:slug',
