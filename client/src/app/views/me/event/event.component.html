@@ -1,42 +1,49 @@
-<div class="column col-12 card-column"
-     *ngIf="event">
+<div class="column col-12 card-column" *ngIf="event">
   <div class="card">
     <div class="card-header">
       <div class="column col-2 col-sm-12 img-col">
-        <img *ngIf="event?.thumbnail && event?.thumbnail.url"
-             [src]="event?.thumbnail.url"
-             class="img-responsive"
-             (click)="onShowThumbnailModal()">
-        <img *ngIf="!event?.thumbnail || !event?.thumbnail.url"
-             src="assets/images/events-placeholder.jpg"
-             class="img-responsive"
-             (click)="onShowThumbnailModal()">
+        <img
+          *ngIf="event?.thumbnail && event?.thumbnail.url"
+          [src]="event?.thumbnail.url"
+          class="img-responsive"
+          (click)="onShowThumbnailModal()"
+        />
+        <img
+          *ngIf="!event?.thumbnail || !event?.thumbnail.url"
+          src="assets/images/events-placeholder.jpg"
+          class="img-responsive"
+          (click)="onShowThumbnailModal()"
+        />
       </div>
       <div class="column col-10 col-sm-12">
         <div class="card-title h2 text-left">{{ event?.name }}</div>
-        <div class="status">
-          <ab-pill [text]="event?.status"></ab-pill>
-        </div>
+        <div class="status"><ab-pill [text]="event?.status"></ab-pill></div>
         <div class="buttons-container">
-          <a class="btn btn-link"
-             [ngClass]="{'disabled': event.status === 'CANCELED'}"
-             [routerLink]="['/org', organization.slug, 'events', event._id]">
-            Ver oferta</a>
-          <button class="btn btn-link badge"
-                  [ngClass]="{'disabled': event.status === 'CANCELED'}"
-                  [attr.data-badge]="event.files ? event.files.length : 0"
-                  (click)="onScrollToFiles()">
-            <i class="icon icon-link mr-1"></i>Arquivos</button>
-          <div *ngFor="let action of editActionsSchema"
-               class="ml-2">
-            <ab-action *ngIf="!action.disabled"
-                       [schema]="action"
-                       (action)="onEditAction(action.key)"></ab-action>
+          <a
+            class="btn btn-link"
+            [ngClass]="{ disabled: event.status === 'CANCELED' }"
+            [routerLink]="['/org', organization.slug, 'events', event._id]"
+          >
+            Ver oferta</a
+          >
+          <button
+            class="btn btn-link badge"
+            [ngClass]="{ disabled: event.status === 'CANCELED' }"
+            [attr.data-badge]="event.files ? event.files.length : 0"
+            (click)="onScrollToFiles()"
+          >
+            <i class="icon icon-link mr-1"></i>Arquivos
+          </button>
+          <div *ngFor="let action of editActionsSchema" class="ml-2">
+            <ab-action
+              *ngIf="!action.disabled"
+              [schema]="action"
+              (action)="onEditAction(action.key)"
+            ></ab-action>
           </div>
-          <a class="btn ml-2"
-             [routerLink]="['print']"
-             target="_blank">
-            <i class="icon icon-share mr-1"></i>Imprimir</a>
+          <a class="btn ml-2" [routerLink]="['print']" target="_blank">
+            <i class="icon icon-share mr-1"></i>Imprimir</a
+          >
         </div>
       </div>
     </div>
@@ -44,95 +51,113 @@
 </div>
 <ab-panel [schema]="panelSchema">
   <panel-body>
-    <ab-form [formSchema]="formSchema"
-             (send)="onSend($event)">
-    </ab-form>
+    <ab-form [formSchema]="formSchema" (send)="onSend($event)"> </ab-form>
   </panel-body>
 </ab-panel>
-<ab-modal title="Miniatura da oferta"
-          [active]="showThumbnailModal"
-          (close)="this.showThumbnailModal = false;">
+<ab-modal
+  title="Miniatura (menor de 1 mega) da oferta "
+  [active]="showThumbnailModal"
+  (close)="this.showThumbnailModal = false"
+>
   <modal-content>
-    <input #thumbnailInput
-           type="file"
-           accept=".jpg, .jpeg, .png"
-           multiple="false">
+    <input
+      #thumbnailInput
+      type="file"
+      accept=".jpg, .jpeg, .png"
+      multiple="false"
+    />
   </modal-content>
   <modal-footer>
-    <ab-action [schema]="fileConfirmButton"
-               (action)="uploadThumbnail(this.event)">
+    <ab-action
+      [schema]="fileConfirmButton"
+      (action)="uploadThumbnail(this.event)"
+    >
     </ab-action>
   </modal-footer>
 </ab-modal>
-<div class="second"
-     #filesSectionRef
-     *ngIf="formKey === 'edit'">
+<div class="second" #filesSectionRef *ngIf="formKey === 'edit'">
   <ab-panel [schema]="{}">
     <panel-body>
-      <ab-tile [schema]="filesSchema"
-               (send)="this.showFilesModal = true;">
+      <ab-tile [schema]="filesSchema" (send)="this.showFilesModal = true">
       </ab-tile>
       <ng-container *ngIf="formKey === 'edit' && event?.files">
-        <ab-tile-compact *ngFor="let file of event.files"
-                         [image]="file"
-                         (clicked)="onDeleteFile(file)">
+        <ab-tile-compact
+          *ngFor="let file of event.files"
+          [image]="file"
+          (clicked)="onDeleteFile(file)"
+        >
         </ab-tile-compact>
       </ng-container>
     </panel-body>
   </ab-panel>
-  <ab-modal title="Subir arquivos"
-            [active]="showFilesModal"
-            (close)="this.showFilesModal = false;">
+  <ab-modal
+    title="Subir arquivos"
+    [active]="showFilesModal"
+    (close)="this.showFilesModal = false"
+  >
     <modal-content>
-      <input #filesInput
-             type="file"
-             multiple="true">
+      <input #filesInput type="file" multiple="true" />
     </modal-content>
     <modal-footer>
-      <ab-action [schema]="fileConfirmButton"
-                 (action)="uploadFiles(this.event)">
+      <ab-action
+        [schema]="fileConfirmButton"
+        (action)="uploadFiles(this.event)"
+      >
       </ab-action>
     </modal-footer>
   </ab-modal>
 </div>
-<ab-modal [title]="'Modificar oferta'"
-          [active]="isDeletingMode"
-          (close)="onCloseDeleteModal()">
+<ab-modal
+  [title]="'Modificar oferta'"
+  [active]="isDeletingMode"
+  (close)="onCloseDeleteModal()"
+>
   <modal-content>
-    <div class="form-container"
-         *ngIf="isDeletingMode"
-         (submit)="onSubmitDeleteForm()">
+    <div
+      class="form-container"
+      *ngIf="isDeletingMode"
+      (submit)="onSubmitDeleteForm()"
+    >
       <form [formGroup]="deleteForm">
         <div class="form-group">
           <label class="form-switch">
-            <input type="checkbox"
-                   formControlName="sendMessage">
-            <i class="form-icon"></i> Enviar mensaxe de cancelación aos asistentes
+            <input type="checkbox" formControlName="sendMessage" />
+            <i class="form-icon"></i> Enviar mensaxe de cancelación aos
+            asistentes
           </label>
         </div>
-        <div class="form-group"
-             *ngIf="deleteForm.get('sendMessage').value">
+        <div class="form-group" *ngIf="deleteForm.get('sendMessage').value">
           <label class="form-switch">
-            <input type="checkbox"
-                   formControlName="sendCustomMessage">
+            <input type="checkbox" formControlName="sendCustomMessage" />
             <i class="form-icon"></i> Personalizar a mensaxe de cancelación
           </label>
         </div>
-        <div class="form-group"
-             *ngIf="deleteForm.get('sendMessage').value && deleteForm.get('sendCustomMessage').value">
-          <label class="form-label"
-                 for="input-example-3">Mensaxe</label>
-          <textarea class="form-input"
-                    formControlName="customMessage"
-                    placeholder="Mensaxe personalizada"
-                    rows="3"></textarea>
+        <div
+          class="form-group"
+          *ngIf="
+            deleteForm.get('sendMessage').value &&
+            deleteForm.get('sendCustomMessage').value
+          "
+        >
+          <label class="form-label" for="input-example-3">Mensaxe</label>
+          <textarea
+            class="form-input"
+            formControlName="customMessage"
+            placeholder="Mensaxe personalizada"
+            rows="3"
+          ></textarea>
         </div>
         <div class="form-group delete-buttons-container">
-          <button class="btn"
-                  (click)="onReturnFromDeletingMode()">Volver atrás</button>
-          <button class="btn btn-primary delete-button"
-                  type="submit"
-                  [disabled]="!deleteForm.valid">Eliminar oferta</button>
+          <button class="btn" (click)="onReturnFromDeletingMode()">
+            Volver atrás
+          </button>
+          <button
+            class="btn btn-primary delete-button"
+            type="submit"
+            [disabled]="!deleteForm.valid"
+          >
+            Eliminar oferta
+          </button>
         </div>
       </form>
     </div>

@@ -23,7 +23,6 @@ const NIGHT_HOUR = 21;
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
   @ViewChild('thumbnailInput') thumbnailInput: ElementRef;
   @ViewChild('filesInput') filesInput: ElementRef;
   @ViewChild('filesSectionRef') filesSectionRef: ElementRef;
@@ -54,7 +53,7 @@ export class EventComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.createDeleteForm();
@@ -65,7 +64,9 @@ export class EventComponent implements OnInit {
         this.me.getEventById(params['id']).subscribe((ev: any) => {
           this.event = ev;
           if (ev.thumbnail) {
-            const url = `data:${ev.thumbnail.type};base64, ${ev.thumbnail.content}`;
+            const url = `data:${ev.thumbnail.type};base64, ${
+              ev.thumbnail.content
+            }`;
 
             ev.thumbnail.url = this.sanitizer.bypassSecurityTrustUrl(url);
           }
@@ -78,29 +79,29 @@ export class EventComponent implements OnInit {
   }
 
   getSchemas() {
-    this.schema
-      .getSchema$('me_event')
-      .subscribe(schemas => {
-        this.panelSchema = schemas;
-        this.filesSchema = schemas['tile-files'];
-        this.thumbnailSchema = schemas['tile-thumbnail'];
-        if (this.event) {
-          this.editActionsSchema = this.calcButtons(schemas.editActions);
-        }
-        this.formSchema = schemas[this.formKey];
-        if (this.event) {
-          this.panelSchema.header.title = 'Información da oferta';
-          this.schema.populateDefaultValues(this.formSchema, this.event);
-          this.formSchema.controls[0].defaultValue = new Date(this.event.date).toISOString().slice(0, DATE_LENGTH);
-        } else {
-          this.schema.populateDefaultValues(this.formSchema, this.organization);
-          this.formSchema.controls[0].defaultValue = 'dd/mm/aaaa';
-          // tslint:disable-next-line:no-magic-numbers
-          this.formSchema.controls[4].defaultValue = 'hh:mm';
-          // tslint:disable-next-line:no-magic-numbers
-          this.formSchema.controls[5].defaultValue = 'hh:mm';
-        }
-      });
+    this.schema.getSchema$('me_event').subscribe(schemas => {
+      this.panelSchema = schemas;
+      this.filesSchema = schemas['tile-files'];
+      this.thumbnailSchema = schemas['tile-thumbnail'];
+      if (this.event) {
+        this.editActionsSchema = this.calcButtons(schemas.editActions);
+      }
+      this.formSchema = schemas[this.formKey];
+      if (this.event) {
+        this.panelSchema.header.title = 'Información da oferta';
+        this.schema.populateDefaultValues(this.formSchema, this.event);
+        this.formSchema.controls[0].defaultValue = new Date(this.event.date)
+          .toISOString()
+          .slice(0, DATE_LENGTH);
+      } else {
+        this.schema.populateDefaultValues(this.formSchema, this.organization);
+        this.formSchema.controls[0].defaultValue = 'dd/mm/aaaa';
+        // tslint:disable-next-line:no-magic-numbers
+        this.formSchema.controls[4].defaultValue = 'hh:mm';
+        // tslint:disable-next-line:no-magic-numbers
+        this.formSchema.controls[5].defaultValue = 'hh:mm';
+      }
+    });
   }
 
   calcButtons(editActions: IAction[]): any {
@@ -131,7 +132,11 @@ export class EventComponent implements OnInit {
     this.transformDate(data);
     if (this.formKey === 'create') {
       this.me.postEvent(data).subscribe((event: any) => {
-        this.bus.emit({ level: Level.SUCCESS, text: 'Oferta creada con éxito', code: '' });
+        this.bus.emit({
+          level: Level.SUCCESS,
+          text: 'Oferta creada con éxito',
+          code: ''
+        });
         this.event = event;
         this.formKey = 'edit';
         this.ngOnInit();
@@ -142,7 +147,11 @@ export class EventComponent implements OnInit {
       this.me.editEvent(this.event).subscribe(d => {
         data.ownerId = this.event.ownerId;
         this.ngOnInit();
-        this.bus.emit({ level: Level.SUCCESS, text: 'Oferta editada con éxito', code: '' });
+        this.bus.emit({
+          level: Level.SUCCESS,
+          text: 'Oferta editada con éxito',
+          code: ''
+        });
       });
     }
   }
@@ -155,30 +164,43 @@ export class EventComponent implements OnInit {
 
   uploadThumbnail(event) {
     const thumbnail: File = this.thumbnailInput.nativeElement.files[0];
+    const kilo = 1024;
+    const fileMegas = thumbnail.size / kilo / kilo;
+    if (fileMegas > 1) {
+      this.bus.emit({
+        level: Level.ERROR,
+        text: 'Máximo 1 Mega',
+        code: ''
+      });
+      return;
+    }
     const reader: FileReader = new FileReader();
 
     if (!thumbnail) {
-      return this.showThumbnailModal = false;
+      return (this.showThumbnailModal = false);
     }
 
     // tslint:disable-next-line:no-unused-expression
-    new ImageCompressor(thumbnail,
-      {
-        quality: 0.6,
-        success: (compressedFile: File) => {
-          reader.onload = (ev: any) => {
-            this.me.uploadThumbnail(event._id, btoa(ev.target.result), compressedFile.type)
-              .subscribe((updatedEvent: any) => {
-                this.thumbnailInput.nativeElement.value = '';
-                this.showThumbnailModal = false;
-                this.event = updatedEvent;
-                this.ngOnInit();
-              });
-          }
-          reader.readAsBinaryString(compressedFile);
-        }
-      });
-
+    new ImageCompressor(thumbnail, {
+      quality: 0.6,
+      success: (compressedFile: File) => {
+        reader.onload = (ev: any) => {
+          this.me
+            .uploadThumbnail(
+              event._id,
+              btoa(ev.target.result),
+              compressedFile.type
+            )
+            .subscribe((updatedEvent: any) => {
+              this.thumbnailInput.nativeElement.value = '';
+              this.showThumbnailModal = false;
+              this.event = updatedEvent;
+              this.ngOnInit();
+            });
+        };
+        reader.readAsBinaryString(compressedFile);
+      }
+    });
   }
 
   onShowThumbnailModal() {
@@ -274,9 +296,11 @@ export class EventComponent implements OnInit {
     }
 
     if (sendCustomMessage && customMessage) {
-      this.me.cancelEvent(this.event, sendMessage, customMessage).subscribe(() => {
-        this.ngOnInit();
-      });
+      this.me
+        .cancelEvent(this.event, sendMessage, customMessage)
+        .subscribe(() => {
+          this.ngOnInit();
+        });
     }
 
     this.isDeletingMode = false;
@@ -285,5 +309,4 @@ export class EventComponent implements OnInit {
   onScrollToFiles(el: ElementRef) {
     this.filesSectionRef.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
-
 }

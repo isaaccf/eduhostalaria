@@ -100,12 +100,11 @@ module.exports.getAll = async (
     }
   }
 
-  let events = await mongo.findProjection(
-    col,
-    options,
-    { thumbnail: -1 },
-    { date: 1 }
-  );
+  let events = await mongo.find(col, options, { date: 1 });
+
+  events = event.map(e => {
+    return { ...e, thumbnail: null };
+  });
 
   events = await calculatePax(events);
   events = await fillEventsBookingsNumber(events);
