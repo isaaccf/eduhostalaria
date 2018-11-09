@@ -47,7 +47,8 @@ module.exports.findProjection = async (
   const colDb = await this.getCollection(col);
   try {
     return await colDb
-      .find(query, { projection })
+      .find(query)
+      .project(projection)
       .sort(sort)
       .toArray();
   } catch (err) {
