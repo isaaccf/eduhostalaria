@@ -34,7 +34,7 @@ module.exports.find = async (col, query, sort = { _id: -1 }) => {
       .sort(sort)
       .toArray();
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, query);
   }
 };
 
@@ -52,7 +52,7 @@ module.exports.findProjection = async (
       .sort(sort)
       .toArray();
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, query);
   }
 };
 
@@ -61,7 +61,7 @@ module.exports.count = async (col, query) => {
   try {
     return await colDb.find(query).count();
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, query);
   }
 };
 
@@ -75,7 +75,7 @@ module.exports.findOne = async (col, query) => {
   try {
     return await colDb.findOne(query);
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, query);
   }
 };
 
@@ -85,7 +85,7 @@ module.exports.insertOne = async (col, doc) => {
     await colDb.insertOne(doc);
     return doc;
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, doc);
   }
 };
 
@@ -97,7 +97,7 @@ module.exports.updateOne = async (col, id, doc) => {
     const data = await colDb.update(query, newDoc);
     return utils.getResult(data, newDoc);
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, newDoc);
   }
 };
 
@@ -108,7 +108,7 @@ module.exports.updateQuery = async (col, id, query) => {
     const data = colDb.updateOne(filter, query);
     return utils.getResult(data);
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, query);
   }
 };
 
@@ -119,6 +119,6 @@ module.exports.removeOne = async (col, id) => {
     const data = await colDb.remove(query);
     return utils.getResult(data, data);
   } catch (err) {
-    return utils.getError(err);
+    return utils.getError(err, query);
   }
 };

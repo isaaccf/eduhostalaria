@@ -19,8 +19,8 @@ module.exports.getResult = (data, result) => {
   return result;
 };
 
-module.exports.getError = err => {
-  tracker("MongoDB", err.message);
+module.exports.getError = (err, query) => {
+  tracker("MongoDB", err.message, query || err.stack || "");
   logger.error(err);
   return err;
 };

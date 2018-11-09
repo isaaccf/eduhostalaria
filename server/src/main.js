@@ -20,14 +20,14 @@ process.on("uncaughtException", err => {
   const msg = `uncaughtException: ${err.message || ""}`;
   logger.warn(msg);
   logger.error(err);
-  tracker("uncaughtException", err.message || "");
+  tracker("uncaughtException", err.message || "", err.stack || "");
   process.exit(1);
 });
 
 process.on("unhandledRejection", err => {
   const msg = `unhandledRejection: ${err.message || ""}`;
   logger.warn(msg);
-  tracker("unhandledRejection", err.message || "");
+  tracker("unhandledRejection", err.message || "", err.stack || "");
   logger.error(err);
 });
 
