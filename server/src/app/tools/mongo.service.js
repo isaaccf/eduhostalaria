@@ -38,6 +38,23 @@ module.exports.find = async (col, query, sort = { _id: -1 }) => {
   }
 };
 
+module.exports.findProjection = async (
+  col,
+  query,
+  projection,
+  sort = { _id: -1 }
+) => {
+  const colDb = await this.getCollection(col);
+  try {
+    return await colDb
+      .find(query, { projection })
+      .sort(sort)
+      .toArray();
+  } catch (err) {
+    return utils.getError(err);
+  }
+};
+
 module.exports.count = async (col, query) => {
   const colDb = await this.getCollection(col);
   try {
