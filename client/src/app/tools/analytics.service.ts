@@ -7,17 +7,17 @@ export class LoggingService {
   public sendError(message, data) {
     ga('send', {
       hitType: 'event',
-      eventCategory: 'Error',
+      eventCategory: 'Client.Error',
       eventAction: message,
       eventLabel: data
-    })
+    });
   }
   public sendEvent(category, message, data) {
     ga('send', {
       hitType: 'event',
-      eventCategory: category,
+      eventCategory: 'Client.' + category,
       eventAction: message,
       eventLabel: data
-    })
+    });
   }
 }

@@ -1,36 +1,24 @@
 import { Injectable } from '@angular/core';
-import { IMessage } from 'app/tools/message.model';
-
-import { IEvent } from 'app/tools/schema.model';
 import { SchemaService } from 'app/tools/components/schema.service';
+import { IMessage } from 'app/tools/message.model';
+import { IEvent } from 'app/tools/schema.model';
 
 @Injectable()
 export class MessagesService {
-  private icons = [
-    'icon-minus',
-    'icon-check',
-    'icon-search',
-    'icon-stop'
-  ]
-  private classes = [
-    'primary',
-    'success',
-    'warning',
-    'error'
-  ]
+  private icons = ['icon-minus', 'icon-check', 'icon-search', 'icon-stop'];
+  private classes = ['primary', 'success', 'warning', 'error'];
   private texts: any[];
   constructor(private schema: SchemaService) {
-    this.schema
-      .getSchema$('messages')
-      .subscribe(s => {
-        this.texts = s.texts;
-      });
+    this.schema.getSchema$('messages').subscribe(s => {
+      this.texts = s.texts;
+    });
   }
 
   saveMessage(message: IMessage) {
     message.timestamp = new Date();
-    let messages = JSON.parse(localStorage.getItem('messages'));
-    if (!messages) {
+    let messages: any[] = JSON.parse(localStorage.getItem('messages'));
+    const maxMessages = 10;
+    if (!messages || messages.length > maxMessages) {
       messages = [];
     }
     messages.push(message);
@@ -53,7 +41,7 @@ export class MessagesService {
               }
             }
           ]
-        }
+        };
         events.push(event);
       });
     }
