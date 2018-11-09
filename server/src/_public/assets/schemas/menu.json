@@ -1,0 +1,74 @@
+{
+  "common": [
+    {
+      "icon": "icon-apps",
+      "label": "Hostalaría",
+      "link": ""
+    }
+  ],
+  "god": [
+    {
+      "icon": "icon-flag",
+      "label": "Centros",
+      "link": "/me/organizations/"
+    },
+    {
+      "icon": "icon-people",
+      "label": "Usuarios",
+      "link": "/me/users/"
+    }
+  ],
+  "admin": [
+    {
+      "icon": "icon-flag",
+      "label": "O meu Centro",
+      "link": "/me/organization/"
+    },
+    {
+      "icon": "icon-people",
+      "label": "Usuarios",
+      "link": "/me/users/"
+    },
+    {
+      "icon": "icon-bookmark",
+      "label": "As miñas Reservas",
+      "link": "/me/bookings/"
+    },
+    {
+      "icon": "icon-emoji",
+      "label": "Control de asistencia",
+      "link": "/me/events-ushier/"
+    }
+  ],
+  "mestre": [
+    {
+      "icon": "icon-bookmark",
+      "label": "As miñas Reservas",
+      "link": "/me/bookings/"
+    },
+    {
+      "icon": "icon-emoji",
+      "label": "Control de asistencia",
+      "link": "/me/events-ushier/"
+    },
+    {
+      "icon": "icon-time",
+      "label": "VER RESERVAS",
+      "link": "/me/events/"
+    }
+  ],
+  "interno": [
+    {
+      "icon": "icon-bookmark",
+      "label": "As miñas Reservas",
+      "link": "/me/bookings/"
+    }
+  ],
+  "externo": [
+    {
+      "icon": "icon-bookmark",
+      "label": "As miñas Reservas",
+      "link": "/me/bookings/"
+    }
+  ]
+}

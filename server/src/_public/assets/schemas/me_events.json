@@ -1,0 +1,81 @@
+{
+  "actions": {
+    "header": {
+      "title": "Reservas",
+      "subtitle": "Lista de ofertas e reservas do centro",
+      "icon": "icon-time"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de ofertas e reservas"
+    },
+    "deleteMessage": "Eliminar oferta",
+    "emptyMessage": "Non temos ofertas para mostrar :(",
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name",
+        "type": "string"
+      },
+      {
+        "label": "Fecha",
+        "key": "date",
+        "type": "string",
+        "tableType": "date"
+      },
+      {
+        "label": "Horario",
+        "key": "time",
+        "type": "string"
+      },
+      {
+        "label": "Nº R",
+        "key": "bookingsNumber",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Pax",
+        "key": "pax",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Libres",
+        "key": "free",
+        "type": "number",
+        "tableType": "pill"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string",
+        "tableType": "pill"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "view-bookings",
+        "icon": "icon-search",
+        "title": "Res.",
+        "btnType": "default",
+        "dynamicLink": "slug",
+        "staticLink": "/bookings"
+      },
+      {
+        "label": "",
+        "key": "edit",
+        "icon": "icon-edit",
+        "title": "Edit."
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Elim."
+      }
+    ]
+  }
+}

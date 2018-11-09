@@ -1,0 +1,67 @@
+{
+  "timeline": {
+    "header": {
+      "title": "Mensaxes para o usuario",
+      "subtitle": "Histórico do acontecido nesta máquina",
+      "icon": "icon-mail"
+    },
+    "events": []
+  },
+  "texts": [
+    {
+      "code": "0",
+      "text": "Fallo nas comunicacións",
+      "level": "ERROR"
+    },
+    {
+      "code": "401",
+      "text": "Non está identificado",
+      "level": "WARNING"
+    },
+    {
+      "code": "403",
+      "text": "Non está autorizado",
+      "level": "ERROR"
+    },
+    {
+      "code": "419",
+      "text": "Sesión caducada",
+      "level": "WARNING"
+    },
+    {
+      "code": "40X",
+      "text": "Fallo na chamada",
+      "level": "ERROR"
+    },
+    {
+      "code": "50X",
+      "text": "Fallo no servidor",
+      "level": "ERROR"
+    },
+    {
+      "code": "login",
+      "text": "benvido",
+      "level": "SUCCESS"
+    },
+    {
+      "code": "logout",
+      "text": "Ata logo",
+      "level": "SUCCESS"
+    },
+    {
+      "code": "feito",
+      "text": "Tarefa feita",
+      "level": "SUCCESS"
+    },
+    {
+      "code": "passwordbis",
+      "text": "A repetición de contrasinal non coincide",
+      "level": "WARNING"
+    },
+    {
+      "code": "error",
+      "text": "Fallo na plataforma",
+      "level": "ERROR"
+    }
+  ]
+}

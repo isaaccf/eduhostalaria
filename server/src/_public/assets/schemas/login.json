@@ -1,0 +1,41 @@
+{
+  "header": {
+    "title": "Entrada á plataforma de reservas",
+    "subtitle": "Por favor, escribe as túas credenciais para entrar na aplicación."
+  },
+  "form": {
+    "title": "Entrar",
+    "submitLabel": "Entrar",
+    "controls": [
+      {
+        "key": "email",
+        "type": "email",
+        "label": "Email",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Email requerido"
+          },
+          {
+            "key": "email",
+            "errorMessage": "Formato de email inválido"
+          }
+        ]
+      },
+      {
+        "key": "password",
+        "type": "password",
+        "label": "Contrasinal",
+        "defaultValue": "",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "Contrasinal requerido"
+          }
+        ]
+      }
+    ],
+    "forgotPassword": true
+  }
+}

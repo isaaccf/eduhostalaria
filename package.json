@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "description": "Web API para reservar comida nas escolas de FP",
   "scripts": {
+    "start": " node ./server/src/main.js",
     "client": "cd client && npm install && npm run build",
     "server": "cd server && npm install",
-    "postinstall": "npm run client && npm run server"
+    "postinstall": "npm run client && npm run server",
+    "serve": "cd client && npm run build && cd .. && node ./server/src/main.js"
   },
   "engines": {
     "node": "8.9.x"

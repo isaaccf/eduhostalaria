@@ -1,0 +1,376 @@
+{
+  "header": {
+    "title": "Nova oferta",
+    "subtitle": "",
+    "icon": "icon-time"
+  },
+  "tile-files": {
+    "header": {
+      "title": "Arquivos",
+      "subtitle": "Lista de arquivos adxuntos á oferta",
+      "icon": "icon-link"
+    },
+    "actions": [
+      {
+        "label": "Subir arquivos",
+        "key": "upload"
+      }
+    ]
+  },
+  "tile-thumbnail": {
+    "header": {
+      "title": "Miniatura",
+      "subtitle": "Miniatura que se amosará na lista pública de ofertas do centro",
+      "icon": "icon-link"
+    },
+    "actions": [
+      {
+        "label": "Subir miniatura",
+        "key": "upload"
+      }
+    ]
+  },
+  "create": {
+    "title": "Nova oferta",
+    "submitLabel": "Gardar oferta",
+    "controls": [
+      {
+        "key": "date",
+        "type": "date",
+        "label": "Fecha (dd/mm/aaaa)",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data da oferta é requerida (dd/mm/aaaa)"
+          },
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
+          }
+        ]
+      },
+      {
+        "key": "shift",
+        "type": "radio",
+        "label": "Turno",
+        "actions": [
+          {
+            "label": "Diurno",
+            "value": "Diurno"
+          },
+          {
+            "label": "Nocturno",
+            "value": "Nocturno"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O turno é requerido"
+          }
+        ]
+      },
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome da oferta",
+        "actions": [],
+        "validators": []
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O aforo é requerido"
+          },
+          {
+            "key": "integer",
+            "errorMessage": "O aforo ten que ser un número enteiro"
+          }
+        ]
+      },
+      {
+        "key": "startTime",
+        "type": "time",
+        "label": "Hora de inicio da recepcicón (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "startTimeEnd",
+        "type": "time",
+        "label": "Hora límite da recepción (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "endTime",
+        "type": "time",
+        "label": "Hora de peche (hh:mm)",
+        "defaultValue": "this.organization.endTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de fin é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Prezo estándar",
+        "defaultValue": "this.organization.standardPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O prezo estándar é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "text",
+        "label": "Comunidade educativa",
+        "defaultValue": "this.organization.defaultPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A comunidade educativa é requerida"
+          }
+        ]
+      },
+      {
+        "key": "description",
+        "type": "wysiwyg",
+        "label": "Descripción",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A oferta da oferta é requerida"
+          }
+        ]
+      },
+      {
+        "key": "private",
+        "type": "checkbox",
+        "label": "Este evento é privado (so será visible polo equipo do centro)",
+        "defaultValue": "",
+        "validators": []
+      }
+    ]
+  },
+  "edit": {
+    "title": "Editar oferta",
+    "submitLabel": "Gardar oferta",
+    "controls": [
+      {
+        "key": "date",
+        "type": "date",
+        "label": "Fecha (dd/mm/aaaa)",
+        "defaultValue": "this.event.date",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A data da oferta é requerida (dd/mm/aaaa)"
+          },
+          {
+            "key": "validDate",
+            "errorMessage": "O formato da data non é válido (dd/mm/aaaa)"
+          }
+        ]
+      },
+      {
+        "key": "shift",
+        "type": "radio",
+        "defaultValue": "this.event.shift",
+        "label": "Turno",
+        "actions": [
+          {
+            "label": "Diurno",
+            "value": "Diurno"
+          },
+          {
+            "label": "Nocturno",
+            "value": "Nocturno"
+          }
+        ],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O turno é requerido"
+          }
+        ]
+      },
+      {
+        "key": "name",
+        "type": "input",
+        "label": "Nome",
+        "defaultValue": "this.event.name",
+        "actions": [],
+        "validators": []
+      },
+      {
+        "key": "capacity",
+        "type": "number",
+        "label": "Aforo",
+        "defaultValue": "this.organization.capacity",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O aforo é requerido"
+          }
+        ]
+      },
+      {
+        "key": "startTime",
+        "type": "time",
+        "label": "Hora de inicio da recepcicón (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "startTimeEnd",
+        "type": "time",
+        "label": "Hora límite da recepción (hh:mm)",
+        "defaultValue": "this.organization.startTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de inicio é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "endTime",
+        "type": "time",
+        "label": "Hora de peche (hh:mm)",
+        "defaultValue": "this.organization.endTime",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A hora de fin é requerida (hh:mm)"
+          },
+          {
+            "key": "time",
+            "errorMessage": "O formato da hora de inicio non é válido (hh:mm)"
+          }
+        ]
+      },
+      {
+        "key": "standardPrice",
+        "type": "number",
+        "label": "Prezo estándar",
+        "defaultValue": "this.organization.standardPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O prezo estándar é requerido"
+          }
+        ]
+      },
+      {
+        "key": "reducedPrice",
+        "type": "text",
+        "label": "Comunidade educativa",
+        "defaultValue": "this.organization.reducedPrice",
+        "actions": [],
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A comunidade educativa é requerida"
+          }
+        ]
+      },
+      {
+        "key": "description",
+        "type": "wysiwyg",
+        "label": "Descripción",
+        "defaultValue": "this.event.description",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A descripción da oferta é requerida"
+          }
+        ]
+      },
+      {
+        "key": "private",
+        "type": "checkbox",
+        "label": "Este evento é privado (so será visible polo equipo do centro)",
+        "defaultValue": "this.event.private",
+        "validators": []
+      }
+    ]
+  },
+  "editActions": [
+    {
+      "label": "Activar oferta",
+      "key": "activate",
+      "disabledStatus": "ACTIVE",
+      "icon": "icon-check"
+    },
+    {
+      "label": "Bloquear oferta",
+      "key": "deactivate",
+      "disabledStatus": "DISABLED",
+      "icon": "icon-stop"
+    },
+    {
+      "label": "Cancelar oferta",
+      "key": "delete",
+      "icon": "icon-cross"
+    }
+  ]
+}

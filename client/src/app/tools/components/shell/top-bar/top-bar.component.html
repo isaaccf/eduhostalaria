@@ -1,21 +1,26 @@
 <header class="navbar">
   <section class="navbar-section">
-    <button *ngIf="showResponsive"
-            class="btn btn-lg btn-link btn-action show-xl"
-            (click)="onHideResponsive()">
+    <button
+      *ngIf="showResponsive"
+      class="btn btn-lg btn-link btn-action show-xl"
+      (click)="onHideResponsive()"
+    >
       <i class="icon icon-cross"></i>
     </button>
-    <button *ngIf="!showResponsive"
-            class="btn btn-lg btn-link btn-action show-xl"
-            (click)="onShowResponsive()">
+    <button
+      *ngIf="!showResponsive"
+      class="btn btn-lg btn-link btn-action show-xl"
+      (click)="onShowResponsive()"
+    >
       <i class="icon icon-menu"></i>
     </button>
-    <ul *ngIf="organization"
-        class="breadcrumb hide-xl">
+    <ul *ngIf="organization" class="breadcrumb hide-xl">
       <li class="breadcrumb-item">
         <span class="navbar-brand">
           <i class="icon icon-apps"></i>
-          <a [routerLink]="'org/' + organization?.slug">{{ organization?.name }}</a>
+          <a [routerLink]="'org/' + organization?.slug">{{
+            organization?.name
+          }}</a>
         </span>
       </li>
       <li class="breadcrumb-item">
@@ -24,37 +29,42 @@
         </span>
       </li>
     </ul>
-    <span *ngIf="organization"
-          class="navbar-brand show-xl">
+    <span *ngIf="organization" class="navbar-brand show-xl">
       <span class="navbar-brand mr-10">{{ title }}</span>
     </span>
-    <span *ngIf="!organization"
-          class="navbar-brand hide-xl">
+    <span *ngIf="!organization" class="navbar-brand hide-xl">
       <i class="icon icon-apps"></i>
       <span class="navbar-brand mr-10">{{ title }}</span>
     </span>
-    <span *ngIf="!organization"
-          class="navbar-brand mr-10 show-xl">{{ title }}</span>
+    <span *ngIf="!organization" class="navbar-brand mr-10 show-xl">{{
+      title
+    }}</span>
   </section>
-  <section *ngIf="user"
-           class="navbar-section">
-    <a routerLink='/me/events'
-       class="btn btn-default btn-view-reservations hide-sm"
-       *ngIf="user.roles.includes('MESTRE')">
-      <i class="icon icon-time"></i> VER RESERVAS</a>
-    <a routerLink='/me/events/new'
-       class="btn btn-default btn-create-offer hide-sm"
-       *ngIf="user.roles.includes('MESTRE')">
-      <i class="icon icon-plus"></i> CREAR OFERTA</a>
+  <section *ngIf="user" class="navbar-section">
+    <a
+      routerLink="/me/events"
+      class="btn btn-default btn-view-reservations hide-sm"
+      *ngIf="user.roles.includes('MESTRE')"
+    >
+      <i class="icon icon-time"></i> VER RESERVAS</a
+    >
+    <a
+      routerLink="/me/events/new"
+      class="btn btn-default btn-create-offer hide-sm"
+      *ngIf="user.roles.includes('MESTRE')"
+    >
+      <i class="icon icon-plus"></i> CREAR OFERTA</a
+    >
     <a routerLink="me">
-      <figure class="avatar"
-              [attr.data-initial]="user.name?.substring(0,2)"></figure>
+      <figure
+        class="avatar"
+        [attr.data-initial]="user.name?.substring(0, 2)"
+      ></figure>
     </a>
   </section>
-  <section *ngIf="!user"
-           class="navbar-section">
-    <a routerLink='login'
-       class="btn btn-default">
-      <i class="icon icon-people"></i> Entrar</a>
+  <section *ngIf="!user" class="navbar-section">
+    <a routerLink="login" class="btn btn-default">
+      <i class="icon icon-people"></i> Entrar</a
+    >
   </section>
 </header>

@@ -1,0 +1,10 @@
+{
+  "timeline": {
+    "header": {
+      "title": "Reservas",
+      "subtitle": "Menús ofertados neste centro",
+      "icon": "icon-time"
+    },
+    "events": []
+  }
+}

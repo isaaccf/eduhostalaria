@@ -1,0 +1,225 @@
+{
+  "userSchema": {
+    "header": {
+      "title": "this.user.name",
+      "subtitle": "this.user.email"
+    },
+    "actions": [
+      {
+        "label": "Saír",
+        "key": "logout",
+        "icon": "icon-shutdown"
+      },
+      {
+        "label": "Contrasinal",
+        "key": "change_password",
+        "icon": "icon-people"
+      },
+      {
+        "label": "Perfíl",
+        "key": "edit_profile",
+        "icon": "icon-edit"
+      },
+      {
+        "label": "Borrar usuario",
+        "key": "delete",
+        "icon": "icon-delete"
+      }
+    ]
+  },
+  "logoutSchema": {
+    "title": "logout"
+  },
+  "card": {
+    "header": {
+      "title": ""
+    },
+    "fields": [
+      {
+        "label": "Nome",
+        "key": "name"
+      },
+      {
+        "label": "E-mail",
+        "key": "email"
+      }
+    ]
+  },
+  "changePassword": {
+    "title": "Cambiar o meu contrasinal",
+    "submitLabel": "Cambiar",
+    "controls": [
+      {
+        "key": "email",
+        "type": "email",
+        "label": "O teu email",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O teu email é requerido"
+          }
+        ]
+      },
+      {
+        "key": "password",
+        "type": "password",
+        "label": "O teu contrasinal actual",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "A teu contrasinal é requerido"
+          }
+        ]
+      },
+      {
+        "key": "newPassword",
+        "type": "password",
+        "label": "O novo contrasinal",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O novo contrasinal é requerido"
+          }
+        ]
+      },
+      {
+        "key": "passwordBis",
+        "type": "password",
+        "label": "Repite o novo contrasinal",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O novo contrasinal repetido é requerido"
+          }
+        ]
+      }
+    ]
+  },
+  "editProfile": {
+    "title": "Cambiar os meus datos",
+    "submitLabel": "Cambiar",
+    "controls": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "O meu nome",
+        "defaultValue": "this.user.name",
+        "validators": [
+          {
+            "key": "required",
+            "errorMessage": "O teu nome é requerido"
+          }
+        ]
+      },
+      {
+        "key": "phone",
+        "type": "text",
+        "label": "Teléfono",
+        "defaultValue": "this.user.phone",
+        "validators": []
+      },
+      {
+        "key": "email",
+        "type": "text",
+        "label": "O meu E-mail",
+        "defaultValue": "this.user.email",
+        "validators": [],
+        "isDisabled": true
+      },
+      {
+        "key": "roles",
+        "type": "text",
+        "label": "Os meus roles",
+        "defaultValue": "this.user.roles",
+        "validators": [],
+        "isDisabled": true
+      }
+    ]
+  },
+  "admin": [
+    {
+      "header": {
+        "title": "O meu centro",
+        "subtitle": "",
+        "icon": "icon-flag"
+      },
+      "actions": [
+        {
+          "label": "Administrar",
+          "link": "/me/organization/"
+        }
+      ]
+    },
+    {
+      "header": {
+        "title": "Usuarios",
+        "subtitle": "Usuarios, estados e roles",
+        "icon": "icon-people"
+      },
+      "actions": [
+        {
+          "label": "Usuarios do meu centro",
+          "link": "/me/users"
+        }
+      ]
+    }
+  ],
+  "god": [
+    {
+      "header": {
+        "title": "Centros",
+        "subtitle": "Todos os centros",
+        "icon": "icon-flag"
+      },
+      "actions": [
+        {
+          "label": "Xestionar centros",
+          "link": "/me/organizations"
+        }
+      ]
+    },
+    {
+      "header": {
+        "title": "Usuarios",
+        "subtitle": "Todos os usuarios da plataforma",
+        "icon": "icon-people"
+      },
+      "actions": [
+        {
+          "label": "Xestionar usuarios",
+          "link": "/me/users"
+        }
+      ]
+    }
+  ],
+  "mestre": [
+    {
+      "header": {
+        "title": "Ofertas",
+        "subtitle": "Ofertas e Comidas",
+        "icon": "icon-bookmark"
+      },
+      "actions": [
+        {
+          "label": "Xestionar ofertas",
+          "link": "/me/events"
+        }
+      ]
+    }
+  ],
+  "conserje": [
+    {
+      "header": {
+        "title": "Ofertas",
+        "subtitle": "Menús e comidas",
+        "icon": "icon-bookmark"
+      },
+      "actions": [
+        {
+          "label": "Gestionar comidas",
+          "link": "/me/organizations"
+        }
+      ]
+    }
+  ]
+}

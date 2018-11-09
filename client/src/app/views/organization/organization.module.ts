@@ -1,15 +1,14 @@
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrganizationRoutingModule } from './organization.routing';
-import { OrganizationHomeComponent } from './organization-home/organization-home.component';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ComponentsModule } from 'app/tools/components/components.module';
-import { OrganizationService } from 'app/views/organization/organization.service';
-import { SecurityService } from 'app/tools/security.service';
 import { MeService } from 'app/views/me/me.service';
-import { OrganizationEventComponent } from './organization-event/organization-event.component';
-import { OrganizationTermsComponent } from './organization-terms/organization-terms.component';
+import { OrganizationService } from 'app/views/organization/organization.service';
+import * as $ from 'jquery';
 import { FullCalendarModule } from 'ng-fullcalendar';
-
+import { OrganizationEventComponent } from './organization-event/organization-event.component';
+import { OrganizationHomeComponent } from './organization-home/organization-home.component';
+import { OrganizationTermsComponent } from './organization-terms/organization-terms.component';
+import { OrganizationRoutingModule } from './organization.routing';
 
 @NgModule({
   imports: [
@@ -18,8 +17,14 @@ import { FullCalendarModule } from 'ng-fullcalendar';
     ComponentsModule,
     FullCalendarModule
   ],
-  declarations: [OrganizationHomeComponent, OrganizationEventComponent, OrganizationTermsComponent],
+  declarations: [
+    OrganizationHomeComponent,
+    OrganizationEventComponent,
+    OrganizationTermsComponent
+  ],
   providers: [OrganizationService, MeService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OrganizationModule { }
+export class OrganizationModule {
+  j = $;
+}

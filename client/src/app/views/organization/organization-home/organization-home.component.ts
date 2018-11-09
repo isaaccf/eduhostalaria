@@ -4,7 +4,7 @@ import { SchemaService } from 'app/tools/components/schema.service';
 import { IWidgetSchema } from 'app/tools/schema.model';
 import { MeService } from 'app/views/me/me.service';
 import { IOrganization, OrganizationService } from 'app/views/organization/organization.service';
-import { Options } from 'fullcalendar';
+// import { Options } from 'fullcalendar';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { map } from 'rxjs/operators';
 
@@ -29,7 +29,7 @@ export class OrganizationHomeComponent implements OnInit {
   public eventsSchema;
   public events;
   public shownEvents = [];
-  public calendarOptions: Options = {
+  public calendarOptions = {
     locale: 'es',
     editable: false,
     eventLimit: false,

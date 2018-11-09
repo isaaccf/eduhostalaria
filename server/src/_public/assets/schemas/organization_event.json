@@ -1,0 +1,16 @@
+{
+  "panel": {
+    "header": {
+      "title": "Oferta",
+      "subtitle": "Información acerca da oferta",
+      "icon": "icon-bookmark"
+    },
+    "actions": [
+      {
+        "label": "Reservar",
+        "icon": "icon-bookmark",
+        "key": "book"
+      }
+    ]
+  }
+}

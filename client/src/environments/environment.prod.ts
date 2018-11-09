@@ -3,8 +3,8 @@ export const environment = {
   appName: 'Reservas',
   appTitle: 'Reservas Hostalaría',
   apiUrl: 'http://reservas.eduhostalaria.com/api/',
-  assetsUrl: 'http://reservas.eduhostalaria.com/',
+  assetsUrl: 'http://localhost:2000/',
   secret: 'secret',
   godEmail: 'admin@agorabinaria.com'
 };
-
+//   assetsUrl: 'http://reservas.eduhostalaria.com/',

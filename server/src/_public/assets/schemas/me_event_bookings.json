@@ -1,0 +1,82 @@
+{
+  "actions": {
+    "header": {
+      "title": "Reservas",
+      "subtitle": "Lista de ofertas con reserva feita",
+      "icon": "icon-bookmark"
+    }
+  },
+  "report": {
+    "header": {
+      "title": "Lista de reservas",
+      "subtitle": "Lista de ofertas con reserva feita",
+      "icon": "icon-bookmark"
+    },
+    "deleteMessage": "Cancelar reserva",
+    "emptyMessage": "Non temos reservas para mostrar :(",
+    "fields": [
+      {
+        "label": "Email",
+        "key": "owner.email",
+        "type": "string"
+      },
+      {
+        "label": "Nome",
+        "key": "owner.name",
+        "type": "string"
+      },
+      {
+        "label": "Teléfono",
+        "key": "owner.phone",
+        "type": "string"
+      },
+      {
+        "label": "Rol",
+        "key": "owner.roles",
+        "type": "string"
+      },
+      {
+        "label": "Curso / Especialidad",
+        "key": "course",
+        "type": "string"
+      },
+      {
+        "label": "Prazas",
+        "key": "seats",
+        "type": "string"
+      },
+      {
+        "label": "Comentarios",
+        "key": "comments",
+        "type": "string"
+      },
+      {
+        "label": "Estado",
+        "key": "status",
+        "type": "string",
+        "tableType": "pill"
+      }
+    ],
+    "actions": [
+      {
+        "label": "",
+        "key": "activate",
+        "icon": "icon-check",
+        "title": "Activar"
+      },
+      {
+        "label": "",
+        "key": "delete",
+        "icon": "icon-delete",
+        "title": "Cancelar"
+      },
+      {
+        "label": "",
+        "key": "obervation",
+        "showKey": "observation",
+        "icon": "icon-search",
+        "title": "Obs"
+      }
+    ]
+  }
+}
