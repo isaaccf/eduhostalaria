@@ -1,6 +1,6 @@
 {
   "name": "server-reserva-escola",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Web API para reservar comida nas escolas de FP",
   "scripts": {
     "start": " node ./server/src/main.js",
@@ -10,6 +10,6 @@
     "serve": "cd client && npm run build && cd .. && node ./server/src/main.js"
   },
   "engines": {
-    "node": "8.9.x"
+    "node": "10.x"
   }
 }

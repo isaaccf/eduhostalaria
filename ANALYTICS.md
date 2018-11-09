@@ -1,5 +1,7 @@
 # Google Analytics
 
+> To Do: revisar...
+
 **Estructura:** Categoría, Acción, Etiqueta.
 
 ## Categorías
@@ -13,12 +15,12 @@
 ## Acciones
 
 - **Error:**
-    - **Http Error:** Logs relacionados con errores Http.
-    - **Security Error:** Logs relacionados con errores Http 401 y 419.
-    - **Unhandled Errors:** Logs relacionados con errores no capturados en el lado del cliente. La acción se corresponde con el nombre del error.
+  - **Http Error:** Logs relacionados con errores Http.
+  - **Security Error:** Logs relacionados con errores Http 401 y 419.
+  - **Unhandled Errors:** Logs relacionados con errores no capturados en el lado del cliente. La acción se corresponde con el nombre del error.
 - **Node:**
-    - **Server Error:** Logs relacionados con fallos en el servidor que se devolverán como errores HTTP al cliente.
-    - **Unhandled Errors:** Logs relacionados con errores no capturados del lado del servidor.
+  - **Server Error:** Logs relacionados con fallos en el servidor que se devolverán como errores HTTP al cliente.
+  - **Unhandled Errors:** Logs relacionados con errores no capturados del lado del servidor.
 
 ## Etiquetas
 
