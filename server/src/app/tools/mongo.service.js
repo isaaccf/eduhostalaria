@@ -5,7 +5,8 @@ const utils = require("./mongo.utils");
 
 let sharedMongoConnection;
 
-module.exports.getDb = async () => sharedMongoConnection || this.connect();
+module.exports.getDb = async () =>
+  sharedMongoConnection.db || this.connect().db;
 
 module.exports.connect = async () => {
   console.log("...MONGODB conecting to" + config.MONGODB_URI);
