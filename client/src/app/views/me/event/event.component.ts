@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BusService } from 'app/tools/bus.service';
-import { SchemaService } from 'app/tools/components/schema.service';
-import { Level } from 'app/tools/message.model';
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BusService } from "app/tools/bus.service";
+import { SchemaService } from "app/tools/components/schema.service";
+import { Level } from "app/tools/message.model";
 import { IAction, IFormSchema, IWidgetSchema } from 'app/tools/schema.model';
 import { SecurityService } from 'app/tools/security.service';
 import { MeService } from 'app/views/me/me.service';
@@ -172,6 +172,7 @@ export class EventComponent implements OnInit {
         text: 'Máximo 1 Mega',
         code: ''
       });
+      this.showThumbnailModal = false;
       return;
     }
     const reader: FileReader = new FileReader();
