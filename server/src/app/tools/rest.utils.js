@@ -1,5 +1,5 @@
-const logger = require('winston');
-const ga = require('./ga.service');
+const logger = require("winston");
+const tracker = require("./ga.service");
 
 module.exports.isError = data => data instanceof Error;
 
@@ -13,28 +13,28 @@ module.exports.returnInserted = (data, res) => {
   return res.status(201).json(data);
 };
 
-module.exports.returnEmpty = (res) => {
-  logger.debug('Nothing to send');
+module.exports.returnEmpty = res => {
+  logger.debug("Nothing to send");
   return res.status(204).send();
 };
 
-module.exports.returnNotFound = (res) => {
-  logger.debug('Something not found');
+module.exports.returnNotFound = res => {
+  logger.debug("Something not found");
   return res.status(404).send();
 };
 
 module.exports.returnError = (err, res) => {
-  ga('Server Error', err.message);
   logger.warn(err.message);
-  let code = 400;
+  let status = 400;
   if (err.code === 11000) {
-    code = 409;
+    status = 409;
   }
   if (err.code === 401) {
-    code = 401;
+    status = 401;
   }
   if (err.code === 403) {
-    code = 403;
+    status = 403;
   }
-  return res.status(code).json({ err: err.message });
+  tracker("rest status: " + status, err.message);
+  return res.status(status).json({ err: err.message });
 };

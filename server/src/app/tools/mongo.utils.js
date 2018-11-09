@@ -1,8 +1,8 @@
-const ObjectID = require('mongodb').ObjectID;
-const logger = require('winston');
-const tracker = require('./ga.service');
+const ObjectID = require("mongodb").ObjectID;
+const logger = require("winston");
+const tracker = require("./ga.service");
 
-module.exports.getQueryById = (id) => {
+module.exports.getQueryById = id => {
   let query = {};
   if (ObjectID.isValid(id)) {
     query = { _id: new ObjectID(id) };
@@ -19,8 +19,8 @@ module.exports.getResult = (data, result) => {
   return result;
 };
 
-module.exports.getError = (err) => {
-  tracker('Error', err.message);
+module.exports.getError = err => {
+  tracker("Mongo", err.message);
   logger.error(err);
   return err;
 };

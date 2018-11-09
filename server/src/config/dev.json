@@ -4,8 +4,7 @@
   "PORT": 2000,
   "URLBASE": "http://localhost:4200",
   "secret": "secret",
-  "MONGODB_URI_LOCAL": "mongodb://localhost:27017/bookings",
-  "MONGODB_URI":"mongodb://heroku_bhkpx8cz:akaktb6dq6ds9401th39pirlir@ds125914.mlab.com:25914/heroku_bhkpx8cz",
+  "MONGODB_URI": "mongodb://localhost:27017/bookings",
   "mailer": {
     "port": 25,
     "host": "debugmail.io",
