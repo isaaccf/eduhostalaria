@@ -45,13 +45,13 @@ export class BusService {
   }
 
   emitHttpError(error) {
-    this.log.sendError('Http Error', error);
+    this.log.sendEvent('HTTP.Error', error.status, error.message);
     this.emit({ level: Level.ERROR, code: error.status });
   }
 
   emitSecurityError(error) {
     this.securityErr$.next(error);
-    this.log.sendEvent('Security Error', error.status, error.message);
+    this.log.sendEvent('Security.Error', error.status, error.message);
     this.emit({ level: Level.WARNING, code: error.status });
   }
 

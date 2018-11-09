@@ -1,14 +1,17 @@
+import { ErrorHandler, Injectable } from '@angular/core';
 import { LoggingService } from './analytics.service';
-import { Injectable, ErrorHandler } from '@angular/core';
 
 @Injectable()
 export class MyErrorHandler implements ErrorHandler {
-  constructor(private loggingService: LoggingService) { }
+  constructor(private loggingService: LoggingService) {}
 
   handleError(error) {
     const message = this.getMessageFromError(error);
     /* ["stack", "message", "rejection", "promise", "zone", "task"] */
-    this.loggingService.sendError(message, error.stack || null);
+    this.loggingService.sendError(
+      message,
+      error.stack || window.location || ''
+    );
     // Show console error
     throw error;
   }
@@ -26,5 +29,4 @@ export class MyErrorHandler implements ErrorHandler {
     const errMsg = `${error.status} - ${error.statusText || ''} ${body}`;
     return errMsg;
   }
-
 }

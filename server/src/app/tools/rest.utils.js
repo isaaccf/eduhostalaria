@@ -35,6 +35,6 @@ module.exports.returnError = (err, res) => {
   if (err.code === 403) {
     status = 403;
   }
-  tracker("rest_status: " + status, err.message, e.stack || "");
+  tracker("rest_status: " + status, err.message, err.stack || "");
   return res.status(status).json({ err: err.message });
 };
