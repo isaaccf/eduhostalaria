@@ -18,7 +18,7 @@ module.exports.connect = async () => {
 };
 
 module.exports.getCollection = async col => {
-  const db = await this.getDb();
+  let db = await this.getDb();
   if (!db) {
     console.error("ERROR: NO MONGODB conected to" + config.MONGODB_URI);
   } else if (!db.collection) {
