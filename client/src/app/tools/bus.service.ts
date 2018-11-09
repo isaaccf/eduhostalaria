@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable()
 export class BusService {
   private message$ = new Subject<IMessage>();
-  private securityErr$ = new Subject<string>();
+  private securityErr$ = new BehaviorSubject<string>(null);
   private userToken$ = new BehaviorSubject<string>(null);
   private user$ = new BehaviorSubject<IUser>(null);
   private organization$ = new BehaviorSubject<any>(null);
@@ -50,8 +50,8 @@ export class BusService {
   }
 
   emitSecurityError(error) {
-    this.securityErr$.next(error);
     this.log.sendEvent('Security.Error', error.status, error.message);
+    this.securityErr$.next(error);
     this.emit({ level: Level.WARNING, code: error.status });
   }
 

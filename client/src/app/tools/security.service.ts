@@ -88,6 +88,9 @@ export class SecurityService {
 
   private onSecurityErrLogOut() {
     this.bus.getSecurityErr$().subscribe(err => {
+      if (!err) {
+        return;
+      }
       this.logOutUser('/login');
     });
   }

@@ -1,14 +1,24 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
+import { LoggingService } from './analytics.service';
 import { BusService } from './bus.service';
 import { HTTP_STATUS } from './http-status.enum';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     let url: string;
     if (req.url.includes('assets/')) {
       url = `${environment.assetsUrl}${req.url}`;
@@ -17,7 +27,7 @@ export class Interceptor implements HttpInterceptor {
     }
     req = req.clone({
       url: url
-    })
+    });
     return next.handle(req);
   }
 }
@@ -30,7 +40,10 @@ export class JWTInterceptor implements HttpInterceptor {
     this.subscribeToTokenChanges();
   }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     req = req.clone({
       setHeaders: {
         Authorization: this.authorization
@@ -42,28 +55,35 @@ export class JWTInterceptor implements HttpInterceptor {
   private subscribeToTokenChanges() {
     this.bus
       .getUserToken$()
-      .subscribe(token => this.authorization = 'Bearer ' + token);
+      .subscribe(token => (this.authorization = 'Bearer ' + token));
   }
 }
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  constructor(private bus: BusService, private log: LoggingService) {}
 
-  constructor(private bus: BusService) { }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req)
-      .pipe(
-        tap<HttpEvent<any>>(((err: any) => {
-          if (err instanceof HttpErrorResponse) {
-            this.onCatch(err);
-          }
-        }))
-      )
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      tap<HttpEvent<any>>((err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          this.onCatch(err);
+        }
+      })
+    );
   }
 
   private onCatch(err: HttpErrorResponse) {
     if (this.isSecurityError(err)) {
+      this.log.sendEvent(
+        'ErrorInterceptor',
+        'isSecurityError',
+        'localStorage.clear'
+      );
+      localStorage.clear();
       this.bus.emitSecurityError(err);
     } else {
       this.bus.emitHttpError(err);
@@ -73,7 +93,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   private isSecurityError(err: HttpErrorResponse) {
     return (
       err.status === HTTP_STATUS.UNAUTHORIZED ||
-      err.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT);
+      err.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT
+    );
   }
-
 }
