@@ -1,26 +1,39 @@
-const MongoClient = require('mongodb').MongoClient;
+const MongoClient = require("mongodb").MongoClient;
 
-const config = require('../tools/config');
-const utils = require('./mongo.utils');
+const config = require("../tools/config");
+const utils = require("./mongo.utils");
 
 let sharedMongoConnection;
 
 module.exports.getDb = async () => sharedMongoConnection || this.connect();
 
 module.exports.connect = async () => {
-  sharedMongoConnection = await MongoClient.connect(config.MONGODB_URI);
+  console.log("...MONGODB conecting to" + config.MONGODB_URI);
+  sharedMongoConnection = await MongoClient.connect(
+    config.MONGODB_URI,
+    { useNewUrlParser: true }
+  );
+  console.log("!!!MONGODB conected to" + config.MONGODB_URI);
   return sharedMongoConnection;
 };
 
-module.exports.getCollection = async (col) => {
+module.exports.getCollection = async col => {
   const db = await this.getDb();
+  if (!db) {
+    console.error("ERROR: NO MONGODB conected to" + config.MONGODB_URI);
+  } else if (!db.collection) {
+    console.error("ERROR: NO COLLECTION FUNCTION to" + config.MONGODB_URI);
+  }
   return db.collection(col);
 };
 
 module.exports.find = async (col, query, sort = { _id: -1 }) => {
   const colDb = await this.getCollection(col);
   try {
-    return await colDb.find(query).sort(sort).toArray();
+    return await colDb
+      .find(query)
+      .sort(sort)
+      .toArray();
   } catch (err) {
     return utils.getError(err);
   }
