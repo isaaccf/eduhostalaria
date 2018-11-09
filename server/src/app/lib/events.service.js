@@ -102,7 +102,7 @@ module.exports.getAll = async (
 
   let events = await mongo.find(col, options, { date: 1 });
 
-  events = event.map(e => {
+  events = events.map(e => {
     return { ...e, thumbnail: null };
   });
 
