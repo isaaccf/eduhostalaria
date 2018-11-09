@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { IUser } from 'app/tools/user.model';
-import { IMessage, Level } from 'app/tools/message.model';
 import { LoggingService } from 'app/tools/analytics.service';
-
+import { IMessage, Level } from 'app/tools/message.model';
+import { IUser } from 'app/tools/user.model';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class BusService {
-
   private message$ = new Subject<IMessage>();
   private securityErr$ = new Subject<string>();
   private userToken$ = new BehaviorSubject<string>(null);
@@ -15,7 +13,7 @@ export class BusService {
   private organization$ = new BehaviorSubject<any>(null);
   private isPrintingMode$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private log: LoggingService) { }
+  constructor(private log: LoggingService) {}
 
   getMessage$(): Observable<IMessage> {
     return this.message$.asObservable();
@@ -52,9 +50,9 @@ export class BusService {
   }
 
   emitSecurityError(error) {
-    this.log.sendError('Security Error', error);
-    this.emit({ level: Level.WARNING, code: error.status });
     this.securityErr$.next(error);
+    this.log.sendEvent('Security Error', error.status, error.message);
+    this.emit({ level: Level.WARNING, code: error.status });
   }
 
   emitUser(user: IUser) {
@@ -72,5 +70,4 @@ export class BusService {
   emitIsPrintingMode(isPrintingMode: boolean) {
     this.isPrintingMode$.next(isPrintingMode);
   }
-
 }

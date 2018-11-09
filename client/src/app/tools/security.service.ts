@@ -1,14 +1,12 @@
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { BusService } from './bus.service';
 import { Router } from '@angular/router';
-import { environment } from './../../environments/environment';
-import { IUser } from 'app/tools/user.model';
-import { Level } from 'app/tools/message.model';
-import { tap } from 'rxjs/operators';
 import { LoggingService } from 'app/tools/analytics.service';
+import { Level } from 'app/tools/message.model';
+import { IUser } from 'app/tools/user.model';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { BusService } from './bus.service';
 
 @Injectable()
 export class SecurityService {
@@ -19,40 +17,44 @@ export class SecurityService {
   private userUrl = '_/users';
   private organizationUrl = '_/organizations';
 
-  constructor(private bus: BusService, private http: HttpClient, private router: Router, private log: LoggingService) {
+  constructor(
+    private bus: BusService,
+    private http: HttpClient,
+    private router: Router,
+    private log: LoggingService
+  ) {
     this.onSecurityErrLogOut();
     this.emitUserStatus();
   }
 
   logInUser(credentials: IUserCredential) {
-    this.http
-      .post(this.url, credentials)
-      .subscribe(r => {
-        this.log.sendEvent('users', 'login', credentials ? credentials.email : '');
-        this.saveUserToken(r);
-        this.getMe()
-          .subscribe(this.emitLogin.bind(this));
-      });
+    this.http.post(this.url, credentials).subscribe(r => {
+      this.log.sendEvent(
+        'users',
+        'login',
+        credentials ? credentials.email : ''
+      );
+      this.saveUserToken(r);
+      this.getMe().subscribe(this.emitLogin.bind(this));
+    });
   }
 
   logOutUser(route: string = '/') {
+    this.bus.emitUser(null);
+    this.bus.emitUserToken(null);
+    this.bus.emitOrganization(null);
     const user = this.getLocalUser();
     this.log.sendEvent('users', 'logout', user ? user.email : '');
     localStorage.removeItem(this.userTokenKey);
-    this.bus.emitUserToken(null);
     localStorage.removeItem(this.userKey);
-    this.bus.emitUser(null);
     localStorage.removeItem(this.organizationKey);
-    this.bus.emitOrganization(null);
     this.bus.emit({ level: Level.SUCCESS, code: 'logout' });
     this.navigateTo([route]);
     // window.location.reload();
   }
 
   checkBigbang() {
-    this.http
-      .get(`${this.url}/bigbang`)
-      .subscribe(r => this.checkMe());
+    this.http.get(`${this.url}/bigbang`).subscribe(r => this.checkMe());
   }
 
   checkMe() {
@@ -77,20 +79,16 @@ export class SecurityService {
   }
 
   public getMe(): Observable<IUser> {
-    return this.http
-      .get<IUser>(`${this.userUrl}/me`)
-      .pipe(
-        tap(this.saveUser.bind(this)),
-        tap(this.getOrganization.bind(this))
-      );
+    return this.http.get<IUser>(`${this.userUrl}/me`).pipe(
+      tap(this.saveUser.bind(this)),
+      tap(this.getOrganization.bind(this))
+    );
   }
 
   private onSecurityErrLogOut() {
-    this.bus
-      .getSecurityErr$()
-      .subscribe(err => {
-        this.logOutUser('/login')
-      });
+    this.bus.getSecurityErr$().subscribe(err => {
+      this.logOutUser('/login');
+    });
   }
 
   private emitUserStatus() {
@@ -141,18 +139,16 @@ export class SecurityService {
   }
 
   confirmInvitation(credentials: IInvitationCredential) {
-    this.http
-      .post(`${this.url}/confirmations`, credentials)
-      .subscribe(
-        r => {
-          this.log.sendEvent('users', 'confirm', JSON.stringify(credentials))
-          this.saveUserToken(r);
-          this.getMe()
-            .subscribe(this.emitLogin.bind(this));
-        },
-        error => {
-          this.navigateTo(['/login']);
-        });
+    this.http.post(`${this.url}/confirmations`, credentials).subscribe(
+      r => {
+        this.log.sendEvent('users', 'confirm', JSON.stringify(credentials));
+        this.saveUserToken(r);
+        this.getMe().subscribe(this.emitLogin.bind(this));
+      },
+      error => {
+        this.navigateTo(['/login']);
+      }
+    );
   }
 }
 
