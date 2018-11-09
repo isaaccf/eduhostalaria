@@ -93,7 +93,9 @@ module.exports.useMiddleware = app => {
     if (!err) next();
     logger.error(err);
     const status = err.status || 500;
-    tracker("express status: " + status, err.message);
+    if (err.status != 401) {
+      tracker("express_status: " + status, err.message);
+    }
     res.status(status).send({
       message: err.message
     });

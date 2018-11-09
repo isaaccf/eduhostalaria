@@ -18,16 +18,16 @@ logger.level = "debug";
 
 process.on("uncaughtException", err => {
   const msg = `uncaughtException: ${err.message || ""}`;
-  logger.warn("uncaughtException");
+  logger.warn(msg);
   logger.error(err);
-  tracker("express", msg);
+  tracker("uncaughtException", err.message || "");
   process.exit(1);
 });
 
 process.on("unhandledRejection", err => {
   const msg = `unhandledRejection: ${err.message || ""}`;
   logger.warn(msg);
-  tracker("express", msg);
+  tracker("unhandledRejection", err.message || "");
   logger.error(err);
 });
 
@@ -47,7 +47,7 @@ mongoService
     });
   })
   .catch(err => {
-    tracker("No Mongo", err.message);
+    tracker("MongoDB", err.message);
     logger.warn("No MongoDB");
     logger.error(err);
   });

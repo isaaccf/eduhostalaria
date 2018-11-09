@@ -4,22 +4,22 @@ const tracker = require("./ga.service");
 module.exports.isError = data => data instanceof Error;
 
 module.exports.returnData = (data, res) => {
-  logger.debug(JSON.stringify(data));
+  // logger.debug(JSON.stringify(data));
   return res.status(200).json(data);
 };
 
 module.exports.returnInserted = (data, res) => {
-  logger.debug(JSON.stringify(data));
+  // logger.debug(JSON.stringify(data));
   return res.status(201).json(data);
 };
 
 module.exports.returnEmpty = res => {
-  logger.debug("Nothing to send");
+  // logger.debug("Nothing to send");
   return res.status(204).send();
 };
 
 module.exports.returnNotFound = res => {
-  logger.debug("Something not found");
+  // logger.debug("Something not found");
   return res.status(404).send();
 };
 
@@ -35,6 +35,6 @@ module.exports.returnError = (err, res) => {
   if (err.code === 403) {
     status = 403;
   }
-  tracker("rest status: " + status, err.message);
+  tracker("rest_status: " + status, err.message);
   return res.status(status).json({ err: err.message });
 };

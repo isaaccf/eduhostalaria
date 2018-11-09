@@ -22,10 +22,6 @@ module.exports.getCollection = async col => {
   let db = await this.getDb();
   if (!db) {
     console.error("ERROR: NO MONGODB conected to" + config.MONGODB_URI);
-  } else if (!db.collection) {
-    console.error("ERROR: NO COLLECTION FUNCTION to" + config.MONGODB_URI);
-    console.log("db", db);
-    db = await this.connect();
   }
   return db.collection(col);
 };
