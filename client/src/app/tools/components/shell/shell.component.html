@@ -1,52 +1,76 @@
-<nav *ngIf="!isPrintingMode"
-     class="columns header-bg">
+<nav *ngIf="!isPrintingMode" class="columns header-bg">
   <div class="column col-10 col-lg-11 col-xl-10 centered">
-    <ab-top-bar [user]="user"
-                [title]="title"
-                [organization]="organization"
-                [showResponsive]="showResponsive"
-                (toggleResponsive)="showResponsive = $event"></ab-top-bar>
+    <ab-top-bar
+      [user]="user"
+      [title]="title"
+      [organization]="organization"
+      [showResponsive]="showResponsive"
+      (toggleResponsive)="showResponsive = $event"
+    ></ab-top-bar>
   </div>
 </nav>
-<section [ngClass]="{'container': !isPrintingMode, 'container-printing': isPrintingMode}">
+<section
+  [ngClass]="{
+    container: !isPrintingMode,
+    'container-printing': isPrintingMode
+  }"
+>
   <main class="columns">
     <div class="column col-10 col-lg-11 col-xl-11 centered">
       <div class="columns">
-        <div class="column col-2 col-xl-3 hide-xl"
-             *ngIf="!isPrintingMode">
-          <ab-main-nav [user]="user"
-                       [numMessages]="numMessages"
-                       [menuLinks]="menuLinks"></ab-main-nav>
+        <div class="column col-2 col-xl-3 hide-xl" *ngIf="!isPrintingMode">
+          <ab-main-nav
+            [user]="user"
+            [numMessages]="numMessages"
+            [menuLinks]="menuLinks"
+          ></ab-main-nav>
         </div>
-        <div *ngIf="showResponsive && !isPrintingMode"
-             class="column col-2 col-xl-3 show-xl">
-          <ab-main-nav-responsive [user]="user"
-                                  [menuLinks]="menuLinks"
-                                  [numMessages]="numMessages"
-                                  [showResponsive]="showResponsive"></ab-main-nav-responsive>
+        <div
+          *ngIf="showResponsive && !isPrintingMode"
+          class="column col-2 col-xl-3 show-xl"
+        >
+          <ab-main-nav-responsive
+            [user]="user"
+            [menuLinks]="menuLinks"
+            [numMessages]="numMessages"
+            [showResponsive]="showResponsive"
+          ></ab-main-nav-responsive>
         </div>
-        <div class="column col-10 col-xl-11 col-lg-12 centered"
-             *ngIf="!isPrintingMode">
+        <div
+          class="column col-10 col-xl-11 col-lg-12 centered"
+          *ngIf="!isPrintingMode"
+        >
           <ab-main-content loadedMetadata="true"></ab-main-content>
         </div>
-        <div class="column col-10 col-xl-11 col-lg-12 centered"
-             *ngIf="isPrintingMode">
+        <div
+          class="column col-10 col-xl-11 col-lg-12 centered"
+          *ngIf="isPrintingMode"
+        >
           <ab-main-content loadedMetadata="true"></ab-main-content>
         </div>
       </div>
     </div>
   </main>
-  <aside *ngIf="message"
-         class="columns"
-         [style.display]="show ? 'block' : 'none'">
+  <aside
+    *ngIf="message"
+    class="columns"
+    [style.display]="show ? 'block' : 'none'"
+  >
     <div class="column col-10 col-lg-12 centered">
-      <ab-toast [show]="show"
-                [text]="message.text"
-                [level]="message.level"
-                (close)="show = false"></ab-toast>
+      <ab-toast
+        [show]="show"
+        [text]="message.text"
+        [level]="message.level"
+        (close)="show = false"
+      ></ab-toast>
     </div>
   </aside>
 </section>
 <footer *ngIf="!isPrintingMode">
-  <p>Designed and built with ♥ by Ágora Binaria.</p>
+  <p>
+    Designed and built with ♥ by Ágora Binaria.
+    <a routerLink="login" class="btn btn-default">
+      <i class="icon icon-people"></i> Entrar</a
+    >
+  </p>
 </footer>
