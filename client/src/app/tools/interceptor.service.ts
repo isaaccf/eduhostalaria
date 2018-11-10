@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
-import { LoggingService } from './analytics.service';
 import { BusService } from './bus.service';
 import { HTTP_STATUS } from './http-status.enum';
 
@@ -61,7 +60,7 @@ export class JWTInterceptor implements HttpInterceptor {
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private bus: BusService, private log: LoggingService) {}
+  constructor(private bus: BusService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -78,12 +77,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   private onCatch(err: HttpErrorResponse) {
     if (this.isSecurityError(err)) {
-      this.log.sendEvent(
-        'ErrorInterceptor',
-        'isSecurityError',
-        'localStorage.clear'
-      );
-      localStorage.clear();
       this.bus.emitSecurityError(err);
     } else {
       this.bus.emitHttpError(err);

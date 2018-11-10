@@ -7,7 +7,7 @@ export class LoggingService {
   public sendError(message, data) {
     ga('send', {
       hitType: 'event',
-      eventCategory: 'Client.Error',
+      eventCategory: 'Client.Error.Js',
       eventAction: message,
       eventLabel: data
     });

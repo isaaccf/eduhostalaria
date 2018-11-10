@@ -17,16 +17,12 @@ logger.configure({
 logger.level = "debug";
 
 process.on("uncaughtException", err => {
-  const msg = `uncaughtException: ${err.message || ""}`;
-  logger.warn(msg);
+  tracker("Error.UncaughtException", err.message || "", err.stack || "");
   logger.error(err);
-  tracker("uncaughtException", err.message || "", err.stack || "");
   process.exit(1);
 });
 
-process.on("unhandledRejection", err => {
-  const msg = `unhandledRejection: ${err.message || ""}`;
-  logger.warn(msg);
+process.on("Error.unhandledRejection", err => {
   tracker("unhandledRejection", err.message || "", err.stack || "");
   logger.error(err);
 });
@@ -42,12 +38,12 @@ mongoService
     middleware.useMiddleware(app);
     app.listen(config.port, () => {
       const msg = `Listening on port ${config.port}`;
-      tracker("Start", msg);
+      tracker("Start", msg, config);
       logger.info(msg);
     });
   })
   .catch(err => {
-    tracker("MongoDB", err.message);
-    logger.warn("No MongoDB");
+    tracker("Error.MongoDB", err.message, config);
+    logger.warn("NO MongoDB");
     logger.error(err);
   });

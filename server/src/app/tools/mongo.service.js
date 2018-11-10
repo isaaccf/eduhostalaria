@@ -9,19 +9,19 @@ module.exports.getDb = async () =>
   sharedMongoConnection.db() || this.connect().db();
 
 module.exports.connect = async () => {
-  console.log("...MONGODB conecting to" + config.MONGODB_URI);
   sharedMongoConnection = await MongoClient.connect(
     config.MONGODB_URI,
     { useNewUrlParser: true }
   );
-  console.log("!!!MONGODB conected to" + config.MONGODB_URI);
+  console.log("MONGODB conected to" + config.MONGODB_URI);
   return sharedMongoConnection;
 };
 
 module.exports.getCollection = async col => {
   let db = await this.getDb();
   if (!db) {
-    console.error("ERROR: NO MONGODB conected to" + config.MONGODB_URI);
+    console.error("ERROR: NO MongoDbClient conected to: " + config.MONGODB_URI);
+    tracker("Error.MongoDB", "No MongoDbClient Connection", config.MONGODB_URI);
   }
   return db.collection(col);
 };

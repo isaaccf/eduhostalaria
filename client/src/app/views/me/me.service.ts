@@ -1,9 +1,9 @@
-import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { LoggingService } from 'app/tools/analytics.service';
 import { IOrganization } from 'app/tools/organization.model';
 import { SecurityService } from 'app/tools/security.service';
-import { LoggingService } from 'app/tools/analytics.service';
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -14,27 +14,26 @@ export class MeService {
   private bookingsUrl = '_/bookings';
   private credentialsUrl = 'credentials';
 
-  constructor(private http: HttpClient, private security: SecurityService, private log: LoggingService) { }
+  constructor(
+    private http: HttpClient,
+    private security: SecurityService,
+    private log: LoggingService
+  ) {}
 
   getOrganizationsCount(): Observable<number> {
     return this.http
       .get<any>(`${this.organizationsUrl}/count`)
-      .pipe(
-        map(res => res.data)
-      );
+      .pipe(map(res => res.data));
   }
 
   getUsersCount(): Observable<number> {
     return this.http
       .get<any>(`${this.usersUrl}/count`)
-      .pipe(
-        map(res => res.data)
-      );
+      .pipe(map(res => res.data));
   }
 
   getAdministratedOrganization(id): Observable<IOrganization> {
-    return this.http
-      .get<IOrganization>(`${this.organizationsUrl}/${id}`);
+    return this.http.get<IOrganization>(`${this.organizationsUrl}/${id}`);
   }
 
   changePassword(password: any): Observable<any> {
@@ -85,7 +84,9 @@ export class MeService {
     return this.http
       .post(`${this.credentialsUrl}/_/invitations`, newUser)
       .pipe(
-        tap(x => this.log.sendEvent('invitations', user.name, JSON.stringify(newUser)))
+        tap(x =>
+          this.log.sendEvent('Invitations', user.name, JSON.stringify(newUser))
+        )
       );
   }
 
@@ -94,14 +95,18 @@ export class MeService {
   }
 
   getOrganizations(): Observable<any[]> {
-    return this.http
-      .get<any>(this.organizationsUrl)
-      .pipe(
-        map(data => data.map(d => {
-          const org = { _id: d._id, name: d.name, admin: { name: '', email: '', userId: '' } };
+    return this.http.get<any>(this.organizationsUrl).pipe(
+      map(data =>
+        data.map(d => {
+          const org = {
+            _id: d._id,
+            name: d.name,
+            admin: { name: '', email: '', userId: '' }
+          };
           return org;
-        }))
-      );
+        })
+      )
+    );
   }
 
   getOrganizationAdmin(organizationId: number): Observable<any> {
@@ -113,26 +118,21 @@ export class MeService {
   setOrganizationAdmin(newAdmin) {
     newAdmin.roles = [];
     newAdmin.roles.push('ADMIN', 'MESTRE');
-    return this.http
-      .post(`${this.credentialsUrl}/_/invitations`, newAdmin);
+    return this.http.post(`${this.credentialsUrl}/_/invitations`, newAdmin);
   }
 
   postOrganization(newOrganization) {
-    return this.http
-      .post(this.organizationsUrl, newOrganization);
+    return this.http.post(this.organizationsUrl, newOrganization);
   }
 
   deleteOrganization(oldOrganization) {
-    return this.http
-      .delete(`${this.organizationsUrl}/${oldOrganization._id}`);
+    return this.http.delete(`${this.organizationsUrl}/${oldOrganization._id}`);
   }
 
   updateOrganization(organization: IOrganization): Observable<IOrganization> {
     return this.http
       .patch<IOrganization>(`${this.organizationsUrl}`, organization)
-      .pipe(
-        tap(res => this.security.setLocalOrganization(organization))
-      );
+      .pipe(tap(res => this.security.setLocalOrganization(organization)));
   }
 
   getEventById(eventId) {
@@ -150,7 +150,7 @@ export class MeService {
     return this.http
       .post(this.eventsUrl, event)
       .pipe(
-        tap(x => this.log.sendEvent('events', user.name, JSON.stringify(event)))
+        tap(x => this.log.sendEvent('Events', user.name, JSON.stringify(event)))
       );
   }
 
@@ -165,8 +165,11 @@ export class MeService {
   }
 
   postOrganizationBanner(organizationId, files: FormData) {
-    return this.http.post(`${this.organizationsUrl}/${organizationId}/files`, files);
-  };
+    return this.http.post(
+      `${this.organizationsUrl}/${organizationId}/files`,
+      files
+    );
+  }
 
   removeEventFile(eventId, fileName) {
     // TODO: Change url for file url
@@ -177,8 +180,10 @@ export class MeService {
   }
 
   removeOrganizationBanner(organizationId, fileName) {
-    return this.http.delete(`${this.organizationsUrl}/${organizationId}/files/${fileName}`)
-  };
+    return this.http.delete(
+      `${this.organizationsUrl}/${organizationId}/files/${fileName}`
+    );
+  }
 
   removeEvent(eventId) {
     return this.http.delete(`${this.eventsUrl}/${eventId}`);
@@ -203,7 +208,6 @@ export class MeService {
   }
 
   cancelEvent(event, sendMessage, customMessage) {
-
     event.status = 'CANCELED';
 
     delete event.pax;
@@ -214,7 +218,11 @@ export class MeService {
       delete event.owner;
     }
 
-    return this.http.patch(`${this.eventsUrl}/${event._id}`, { event, sendMessage, customMessage });
+    return this.http.patch(`${this.eventsUrl}/${event._id}`, {
+      event,
+      sendMessage,
+      customMessage
+    });
   }
 
   deleteEvent(eventId) {
@@ -227,16 +235,25 @@ export class MeService {
     return this.http
       .post(this.bookingsUrl, payload)
       .pipe(
-        tap(x => this.log.sendEvent('bookings', user.name, JSON.stringify(payload)))
+        tap(x =>
+          this.log.sendEvent('Bookings', user.name, JSON.stringify(payload))
+        )
       );
   }
 
   bookEventGuest(payload) {
+    const user = this.security.getLocalUser();
     payload.seats = Number(payload.seats);
     return this.http
       .post(`${this.credentialsUrl}/bookingregistrations`, payload)
       .pipe(
-        tap(x => this.log.sendEvent('bookings', 'bookingregistrations', JSON.stringify(payload)))
+        tap(x =>
+          this.log.sendEvent(
+            'Booking.Registrations',
+            user ? user.name : 'anonymous',
+            JSON.stringify(payload)
+          )
+        )
       );
   }
 
@@ -297,11 +314,13 @@ export class MeService {
   }
 
   uploadThumbnail(eventId, base64Thumbnail, type) {
-    return this.http.post(`${this.eventsUrl}/${eventId}/thumbnail`, { thumbnail: base64Thumbnail, type })
+    return this.http.post(`${this.eventsUrl}/${eventId}/thumbnail`, {
+      thumbnail: base64Thumbnail,
+      type
+    });
   }
 
   deleteThumbnail(eventId) {
     return this.http.delete(`${this.eventsUrl}/${eventId}/thumbnail`);
   }
-
 }

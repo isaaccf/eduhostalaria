@@ -1,6 +1,6 @@
 {
   "name": "server-reserva-escola",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Web API para reservar comida nas escolas de FP",
   "main": "index.js",
   "scripts": {

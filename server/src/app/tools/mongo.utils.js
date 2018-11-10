@@ -20,7 +20,7 @@ module.exports.getResult = (data, result) => {
 };
 
 module.exports.getError = (err, query) => {
-  tracker("MongoDB", err.message, query || err.stack || "");
+  tracker("Error.MongoDB", err.message, query || err.stack || "");
   logger.error(err);
   return err;
 };

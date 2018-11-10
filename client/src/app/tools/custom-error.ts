@@ -7,12 +7,10 @@ export class MyErrorHandler implements ErrorHandler {
 
   handleError(error) {
     const message = this.getMessageFromError(error);
-    /* ["stack", "message", "rejection", "promise", "zone", "task"] */
     this.loggingService.sendError(
       message,
       error.stack || window.location || ''
     );
-    // Show console error
     throw error;
   }
   private getMessageFromError(error) {

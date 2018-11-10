@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   appName: 'Reservas',
   appTitle: 'Reservas Hostalaría',
   apiUrl: 'http://reservas.eduhostalaria.com/api/',

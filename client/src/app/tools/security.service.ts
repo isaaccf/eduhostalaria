@@ -40,7 +40,6 @@ export class SecurityService {
   }
 
   logOutUser(route: string = '/') {
-    console.log('log out user');
     this.bus.emitUser(null);
     this.bus.emitUserToken(null);
     this.bus.emitOrganization(null);
