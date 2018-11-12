@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoggingService } from 'app/tools/analytics.service';
 import { IMessage, Level } from 'app/tools/message.model';
@@ -44,15 +45,15 @@ export class BusService {
     this.message$.next(message);
   }
 
-  emitHttpError(error) {
+  emitHttpError(error: HttpErrorResponse) {
     this.log.sendEvent('Error.HTTP', error.status, error.message);
-    this.emit({ level: Level.ERROR, code: error.status });
+    this.emit({ level: Level.ERROR, code: error.status.toString() });
   }
 
-  emitSecurityError(error) {
+  emitSecurityError(error: HttpErrorResponse) {
     this.log.sendEvent('Error.HTTP.Security', error.status, error.message);
-    this.securityErr$.next(error);
-    this.emit({ level: Level.WARNING, code: error.status });
+    this.securityErr$.next(error.message);
+    this.emit({ level: Level.WARNING, code: error.status.toString() });
   }
 
   emitUser(user: IUser) {
