@@ -9,8 +9,9 @@ export class MyErrorHandler implements ErrorHandler {
 
   handleError(error) {
     if (error instanceof HttpErrorResponse) {
+      const category = 'Error.HTTP';
       this.loggingService.sendEvent(
-        'Error.HTTP' + this.isSecurityError(error) ? '.Security' : '',
+        category + (this.isSecurityError(error) ? '.Security' : ''),
         this.getMessageFromResponse(error),
         this.getMessage(error)
       );
@@ -28,7 +29,7 @@ export class MyErrorHandler implements ErrorHandler {
   }
 
   private getMessageFromResponse(error: HttpErrorResponse) {
-    return `${error.status} - ${error.statusText || ''} ${error.url}`;
+    return `${error.status} - ${error.statusText || ''} @ ${error.url}`;
   }
   private isSecurityError(err: HttpErrorResponse) {
     return (

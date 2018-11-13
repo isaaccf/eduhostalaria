@@ -44,14 +44,14 @@
     <a
       routerLink="/me/events"
       class="btn btn-default btn-view-reservations hide-sm"
-      *ngIf="user.roles.includes('MESTRE')"
+      *ngIf="user && user.roles && user.roles.includes('MESTRE')"
     >
       <i class="icon icon-time"></i> VER RESERVAS</a
     >
     <a
       routerLink="/me/events/new"
       class="btn btn-default btn-create-offer hide-sm"
-      *ngIf="user.roles.includes('MESTRE')"
+      *ngIf="user && user.roles && user.roles.includes('MESTRE')"
     >
       <i class="icon icon-plus"></i> CREAR OFERTA</a
     >

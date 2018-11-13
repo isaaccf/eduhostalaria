@@ -1,12 +1,15 @@
-<div [ngClass]="{'sidebar-responsive': true, 'sidebar-responsive-visible': showResponsive}">
+<div
+  [ngClass]="{
+    'sidebar-responsive': true,
+    'sidebar-responsive-visible': showResponsive
+  }"
+>
   <ul class="nav">
     <li>
-      <a *ngIf="user"
-         routerLink="me">
-        <i class="icon icon-people mr-5"></i> {{user.name}}
+      <a *ngIf="user" routerLink="me">
+        <i class="icon icon-people mr-5"></i> {{ user.name }}
       </a>
-      <a *ngIf="!user"
-         routerLink="login">
+      <a *ngIf="!user" routerLink="login">
         <i class="icon icon-people mr-5"></i> Entrar
       </a>
     </li>
@@ -14,16 +17,17 @@
     <ng-container *ngFor="let menuLink of menuLinks">
       <li>
         <a [routerLink]="menuLink.link">
-          <i [class]="'icon mr-5 ' + menuLink.icon "></i>
-          {{ menuLink.label }}
+          <i [class]="'icon mr-5 ' + menuLink.icon"></i> {{ menuLink.label }}
         </a>
       </li>
     </ng-container>
     <li class="divider"></li>
     <li>
-      <a *ngIf="user && user.roles.includes('MESTRE')"
-         class="btn btn-primary btn-center"
-         routerLink="/me/events/new">
+      <a
+        *ngIf="user && user.roles && user.roles.includes('MESTRE')"
+        class="btn btn-primary btn-center"
+        routerLink="/me/events/new"
+      >
         <i class="icon icon-plus mr-5"></i>CREAR OFERTA
       </a>
     </li>
