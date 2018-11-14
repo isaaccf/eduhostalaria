@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 @Injectable()
 export class BusService {
   private message$ = new Subject<IMessage>();
-  private securityErr$ = new BehaviorSubject<string>(null);
+  private tokenErr$ = new BehaviorSubject<string>(null);
   private userToken$ = new BehaviorSubject<string>(null);
   private user$ = new BehaviorSubject<IUser>(null);
   private organization$ = new BehaviorSubject<any>(null);
@@ -20,8 +20,8 @@ export class BusService {
     return this.message$.asObservable();
   }
 
-  getSecurityErr$(): Observable<string> {
-    return this.securityErr$.asObservable();
+  getTokenErr$(): Observable<string> {
+    return this.tokenErr$.asObservable();
   }
 
   getUser$(): Observable<IUser> {
@@ -46,22 +46,22 @@ export class BusService {
   }
 
   emitHttpError(error: HttpErrorResponse) {
-    this.log.sendEvent(
-      'I.Error.HTTP',
-      this.getMessageFromResponse(error),
-      error.message || error.toString()
-    );
-    this.emit({ level: Level.ERROR, code: error.status.toString() });
+    this.sendEvent('I.Error.HTTP', error);
+    this.emit({ level: Level.ERROR, code: error.statusText });
   }
 
-  emitSecurityError(error: HttpErrorResponse) {
+  emitTokenError(error: HttpErrorResponse) {
+    this.sendEvent('I.Error.HTTP.Token', error);
+    this.tokenErr$.next(error.message);
+    this.emit({ level: Level.WARNING, code: error.statusText });
+  }
+
+  private sendEvent(category: string, error: HttpErrorResponse) {
     this.log.sendEvent(
-      'I.Error.HTTP.Security',
+      category,
       this.getMessageFromResponse(error),
       error.message || error.toString()
     );
-    this.securityErr$.next(error.message);
-    this.emit({ level: Level.WARNING, code: error.status.toString() });
   }
 
   private getMessageFromResponse(error: HttpErrorResponse) {

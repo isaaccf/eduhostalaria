@@ -23,7 +23,7 @@ export class SecurityService {
     private router: Router,
     private log: LoggingService
   ) {
-    this.onSecurityErrLogOut();
+    this.onTokenErrLogOut();
     this.emitUserStatus();
   }
 
@@ -85,8 +85,8 @@ export class SecurityService {
     );
   }
 
-  private onSecurityErrLogOut() {
-    this.bus.getSecurityErr$().subscribe(err => {
+  private onTokenErrLogOut() {
+    this.bus.getTokenErr$().subscribe(err => {
       if (!err) {
         return;
       }

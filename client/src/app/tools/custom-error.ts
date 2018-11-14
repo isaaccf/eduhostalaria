@@ -18,7 +18,7 @@ export class MyErrorHandler implements ErrorHandler {
     } else {
       this.loggingService.sendError(
         this.getMessage(error),
-        error.stack || window.location || ''
+        window.location || error.stack || ''
       );
     }
 
@@ -34,6 +34,7 @@ export class MyErrorHandler implements ErrorHandler {
   private isSecurityError(err: HttpErrorResponse) {
     return (
       err.status === HTTP_STATUS.UNAUTHORIZED ||
+      err.status === HTTP_STATUS.FORBIDDEN ||
       err.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT
     );
   }

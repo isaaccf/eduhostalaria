@@ -249,7 +249,7 @@ export class MeService {
       .pipe(
         tap(x =>
           this.log.sendEvent(
-            'Booking.Registrations',
+            'Bookings.Registrations',
             user ? user.name : 'anonymous',
             JSON.stringify(payload)
           )

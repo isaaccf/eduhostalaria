@@ -76,14 +76,14 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   private onCatch(err: HttpErrorResponse) {
-    if (this.isSecurityError(err)) {
-      this.bus.emitSecurityError(err);
+    if (this.isTokenError(err)) {
+      this.bus.emitTokenError(err);
     } else {
       this.bus.emitHttpError(err);
     }
   }
 
-  private isSecurityError(err: HttpErrorResponse) {
+  private isTokenError(err: HttpErrorResponse) {
     return (
       err.status === HTTP_STATUS.UNAUTHORIZED ||
       err.status === HTTP_STATUS.AUTHENTICATION_TIMEOUT
