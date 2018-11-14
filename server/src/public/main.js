@@ -3439,7 +3439,7 @@ var MyErrorHandler = /** @class */ (function () {
             this.loggingService.sendEvent(category + (this.isSecurityError(error) ? '.Security' : ''), this.getMessageFromResponse(error), this.getMessage(error));
         }
         else {
-            this.loggingService.sendError(this.getMessage(error), error.stack || window.location || '');
+            this.loggingService.sendError(this.getMessage(error), window.location || error.stack || '');
         }
         throw error;
     };

@@ -24,7 +24,6 @@
  * Googlebot uses a renderer based on Chrome 41.
  * https://developers.google.com/search/docs/guides/rendering
  **/
-// import 'core-js/es6/array';
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 import 'classlist.js'; // Run `npm install --save classlist.js`.
 import 'core-js/es6/array';
@@ -43,6 +42,10 @@ import 'core-js/es6/set';
 import 'core-js/es6/string';
 import 'core-js/es6/symbol';
 import 'core-js/es6/weak-map';
+/***************************************************************************************************
+ * APPLICATION IMPORTS
+ */
+import 'core-js/es7/array';
 /**
  * Web Animations `@angular/platform-browser/animations`
  * Only required if AnimationBuilder is used within the application and using IE/Edge or Safari.
@@ -65,7 +68,3 @@ import 'core-js/es6/weak-map';
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js/dist/zone'; // Included with Angular CLI.
-
-/***************************************************************************************************
- * APPLICATION IMPORTS
- */
