@@ -46,26 +46,12 @@ export class BusService {
   }
 
   emitHttpError(error: HttpErrorResponse) {
-    this.sendEvent('I.Error.HTTP', error);
     this.emit({ level: Level.ERROR, code: error.statusText });
   }
 
   emitTokenError(error: HttpErrorResponse) {
-    this.sendEvent('I.Error.HTTP.Token', error);
     this.tokenErr$.next(error.message);
     this.emit({ level: Level.WARNING, code: error.statusText });
-  }
-
-  private sendEvent(category: string, error: HttpErrorResponse) {
-    this.log.sendEvent(
-      category,
-      this.getMessageFromResponse(error),
-      error.message || error.toString()
-    );
-  }
-
-  private getMessageFromResponse(error: HttpErrorResponse) {
-    return `${error.status} - ${error.statusText || ''} @ ${error.url}`;
   }
 
   emitUser(user: IUser) {

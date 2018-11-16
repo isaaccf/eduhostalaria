@@ -39,12 +39,7 @@ import { TileComponent } from './widgets/tile/tile.component';
 import { TimelineComponent } from './widgets/timeline/timeline.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    QuillModule
-  ],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, QuillModule],
   declarations: [
     ActionComponent,
     CardComponent,
@@ -103,4 +98,4 @@ import { TimelineComponent } from './widgets/timeline/timeline.component';
   providers: [FormToolsService, SchemaService],
   schemas: [NO_ERRORS_SCHEMA]
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
