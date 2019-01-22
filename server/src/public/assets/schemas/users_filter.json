@@ -28,6 +28,10 @@
           {
             "label": "BLOQUEADO",
             "key": "disabled"
+          },
+          {
+            "label": "PENDENTE",
+            "key": "pending"
           }
         ]
       }
