@@ -5,12 +5,14 @@ declare var ga: Function;
 @Injectable()
 export class LoggingService {
   public sendError(message, data) {
-    ga('send', {
-      hitType: 'event',
-      eventCategory: 'Client.Error.Js',
-      eventAction: message,
-      eventLabel: data
-    });
+    if (!message.includes('FC')) {
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'Client.Error.Js',
+        eventAction: message,
+        eventLabel: data
+      });
+    }
   }
   public sendEvent(category, message, data) {
     ga('send', {

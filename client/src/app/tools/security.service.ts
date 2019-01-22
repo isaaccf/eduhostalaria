@@ -44,7 +44,7 @@ export class SecurityService {
     this.bus.emitUserToken(null);
     this.bus.emitOrganization(null);
     const user = this.getLocalUser();
-    this.log.sendEvent('users', 'logout', user ? user.email : '');
+    // this.log.sendEvent('users', 'logout', user ? user.email : '');
     localStorage.removeItem(this.userTokenKey);
     localStorage.removeItem(this.userKey);
     localStorage.removeItem(this.organizationKey);

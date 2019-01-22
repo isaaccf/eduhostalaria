@@ -9,9 +9,9 @@ export class MyErrorHandler implements ErrorHandler {
 
   handleError(error) {
     if (error instanceof HttpErrorResponse) {
-      const category = 'Error.HTTP';
+      const category = 'HTTP';
       this.loggingService.sendEvent(
-        category + (this.isSecurityError(error) ? '.Security' : ''),
+        category + (this.isSecurityError(error) ? '.Security' : '.Error'),
         this.getMessageFromResponse(error),
         this.getMessage(error)
       );
