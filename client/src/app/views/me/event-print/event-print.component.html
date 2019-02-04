@@ -25,7 +25,7 @@
      class="bookings">
   <div *ngFor="let booking of bookings; let i = index"
        class="booking">
-    <h5>{{ i + 1 }}. {{ booking.owner.name }} ({{ booking.owner.roles | lowercase }}) - <i>{{ booking.seats }} prazas</i></h5>
+    <h5>{{ i + 1 }}. {{ booking.owner.name }} ({{ booking.owner.roles }}) - <i>{{ booking.seats }} prazas</i></h5>
     <strong *ngIf="booking.status=='CANCELED'">&nbsp;- CANCELADO</strong>
     <small *ngIf="booking.comments">&nbsp;- {{ booking.comments }}</small>
   </div>
