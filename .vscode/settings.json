@@ -1,12 +1,5 @@
 // Coloque su configuración en este archivo para sobrescribir la configuración predeterminada y de usuario.
 {
-  "tslint.autoFixOnSave": true,
-  "eslint.workingDirectories": [
-    "./server"
-  ],
-  "eslint.options": {
-    "configFile": "./.eslintrc.json"
-  },
   "workbench.colorCustomizations": {
     "editorError.foreground": "#ff9900",
     "editorWarning.foreground": "#BBCBC2",
