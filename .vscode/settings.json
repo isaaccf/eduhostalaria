@@ -4,9 +4,9 @@
     "editorError.foreground": "#ff9900",
     "editorWarning.foreground": "#BBCBC2",
     "editorInfo.foreground": "#9ea39e",
-    "titleBar.activeBackground": "#011299",
+    "titleBar.activeBackground": "#0000ff",
     "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#011299",
+    "titleBar.inactiveBackground": "#0000ff",
     "titleBar.inactiveForeground": "#e7e7e7"
   }
 }
