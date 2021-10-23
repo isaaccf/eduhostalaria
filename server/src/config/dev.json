@@ -4,15 +4,16 @@
   "PORT": 2000,
   "URLBASE": "http://localhost:4200",
   "secret": "secret",
-  "MONGODB_URI": "mongodb://localhost:27017/bookings",
+  "MONGODB_URI": "mongodb+srv://edudb:<password>@cluster0.kkllt.mongodb.net/eduhosteleria",
   "mailer": {
-    "port": 25,
-    "host": "debugmail.io",
-    "secure": false,
+    "port": 465,
+    "host": "in-v3.mailjet.com",
+    "secure": true,
     "ignoreTLS": true,
+    "from": "eduhostalaria@outlook.es",
     "auth": {
-      "user": "admin@agorabinaria.com",
-      "pass": "82fdc8b0-55ae-11e7-954e-d7f004b08dd1"
+      "user": "API KEY",
+      "pass": "API PASSWORD"
     },
     "debug": true,
     "logger": true

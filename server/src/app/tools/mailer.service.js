@@ -23,7 +23,7 @@ module.exports.sendWellcome = (user, templateName) => {
   const url = config.URLBASE;
   const template = wellcome[templateName];
   const message = {
-    from: config.mailer.auth.user,
+    from: config.mailer.from,
     to: user.email,
     subject: template.subject,
     text: parseTemplate(template.text, { user, url }),
@@ -35,7 +35,7 @@ module.exports.sendWellcome = (user, templateName) => {
 module.exports.sendAdminAlert = (email, user, templateName) => {
   const template = alert[templateName];
   const message = {
-    from: config.mailer.auth.user,
+    from: config.mailer.from,
     to: email,
     subject: template.subject,
     text: parseTemplate(template.text, { user }),
@@ -49,7 +49,7 @@ module.exports.sendBooking = (user, event, booking, templateName) => {
   const template = bookings[templateName];
   const bookingtext = event.name;
   const message = {
-    from: config.mailer.auth.user,
+    from: config.mailer.from,
     to: user.email,
     subject: template.subject,
     text: parseTemplate(template.text, { user, bookingtext, url }),
@@ -63,7 +63,7 @@ module.exports.sendCanceledDefault = (user, event, templateName) => {
   const template = bookings[templateName];
   const bookingtext = event.name;
   const message = {
-    from: config.mailer.auth.user,
+    from: config.mailer.from,
     to: user.email,
     subject: template.subject,
     text: parseTemplate(template.text, { user, bookingtext, url }),
@@ -76,7 +76,7 @@ module.exports.sendCanceledCustom = (user, event, customMessage) => {
   const url = config.URLBASE;
   const bookingtext = event.name;
   const message = {
-    from: config.mailer.auth.user,
+    from: config.mailer.from,
     to: user.email,
     subject: 'Cancelación de evento - reservas.eduhostalaria.com',
     text: parseTemplate(customMessage, { user, bookingtext, url }),
@@ -88,7 +88,7 @@ module.exports.sendCanceledCustom = (user, event, customMessage) => {
 module.exports.sendRating = (user, owner, event, rating, templateName) => {
   const template = ratings[templateName];
   const message = {
-    from: config.mailer.auth.user,
+    from: config.mailer.from,
     to: owner.email,
     subject: parseTemplate(template.subject, { event }),
     text: parseTemplate(template.text, { user, owner, event, rating }),
